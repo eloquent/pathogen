@@ -13,8 +13,6 @@ namespace Eloquent\Pathogen\Exception;
 
 /**
  * An invalid path atom was supplied.
- *
- * Invalid path atoms are atoms that contain the path separator (i.e. '/').
  */
 interface InvalidPathAtomExceptionInterface
 {

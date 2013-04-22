@@ -19,15 +19,15 @@ interface PathFactoryInterface
     /**
      * Creates a new path instance from its string representation.
      *
-     * An array of supported path separators can optionally be supplied. This
+     * An set of supported path separators can optionally be supplied. This
      * defaults to only forward slashes (i.e. '/').
      *
-     * @param string                     $path
-     * @param array<integer,string>|null $separators
+     * @param string             $path
+     * @param mixed<string>|null $separators
      *
      * @return PathInterface
      */
-    public function fromString($path, array $separators = null);
+    public function fromString($path, $separators = null);
 
     /**
      * Creates a new path instance from a set of path atoms.
@@ -35,12 +35,12 @@ interface PathFactoryInterface
      * Unless otherwise specified, created paths will be absolute, and have no
      * trailing separator.
      *
-     * @param array<integer,string> $atoms
-     * @param boolean|null          $isAbsolute
-     * @param boolean|null          $hasTrailingSeparator
+     * @param mixed<string> $atoms
+     * @param boolean|null  $isAbsolute
+     * @param boolean|null  $hasTrailingSeparator
      *
      * @return PathInterface
      * @throws InvalidPathAtomExceptionInterface If any supplied atom is invalid.
      */
-    public function fromAtoms(array $atoms, $isAbsolute = null, $hasTrailingSeparator = null);
+    public function fromAtoms($atoms, $isAbsolute = null, $hasTrailingSeparator = null);
 }

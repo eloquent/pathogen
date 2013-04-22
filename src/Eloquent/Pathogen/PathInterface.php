@@ -62,13 +62,14 @@ interface PathInterface
     public function joinAtoms($atom);
 
     /**
-     * Returns a new path with the supplied array of atoms suffixed to this path.
+     * Returns a new path with the supplied sequence of atoms suffixed to this
+     * path.
      *
-     * @param array<string> $atoms
+     * @param mixed<string> $atoms
      *
      * @return PathInterface
      */
-    public function joinAtomArray(array $atoms);
+    public function joinAtomSequence($atoms);
 
     /**
      * Returns a new path with the supplied path suffixed to this path.
