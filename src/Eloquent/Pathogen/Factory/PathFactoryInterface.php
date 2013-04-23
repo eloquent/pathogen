@@ -19,15 +19,11 @@ interface PathFactoryInterface
     /**
      * Creates a new path instance from its string representation.
      *
-     * An set of supported path separators can optionally be supplied. This
-     * defaults to only forward slashes (i.e. '/').
-     *
-     * @param string             $path
-     * @param mixed<string>|null $separators
+     * @param string $path
      *
      * @return PathInterface
      */
-    public function create($path, $separators = null);
+    public function create($path);
 
     /**
      * Creates a new path instance from a set of path atoms.
