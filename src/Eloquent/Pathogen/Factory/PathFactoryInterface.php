@@ -27,7 +27,7 @@ interface PathFactoryInterface
      *
      * @return PathInterface
      */
-    public function fromString($path, $separators = null);
+    public function create($path, $separators = null);
 
     /**
      * Creates a new path instance from a set of path atoms.
@@ -42,5 +42,5 @@ interface PathFactoryInterface
      * @return PathInterface
      * @throws InvalidPathAtomExceptionInterface If any supplied atom is invalid.
      */
-    public function fromAtoms($atoms, $isAbsolute = null, $hasTrailingSeparator = null);
+    public function createFromAtoms($atoms, $isAbsolute = null, $hasTrailingSeparator = null);
 }

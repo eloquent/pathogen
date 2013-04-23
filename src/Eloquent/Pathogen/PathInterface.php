@@ -52,6 +52,13 @@ interface PathInterface
     public function parent();
 
     /**
+     * Returns a new path instance with the trailing slash removed from this path.
+     *
+     * @return PathInterface
+     */
+    public function stripTrailingSlash();
+
+    /**
      * Returns a new path with the supplied atom(s) suffixed to this path.
      *
      * @param string     $atom
@@ -80,7 +87,15 @@ interface PathInterface
      */
     public function join(RelativePathInterface $path);
 
+    /**
+     * Returns a new path instance with a trailing slash suffixed to this path.
+     *
+     * @return PathInterface
+     */
+    public function joinTrailingSlash();
+
     const SEPARATOR = '/';
     const PARENT_ATOM = '..';
     const SELF_ATOM = '.';
+    const EMPTY_ATOM = '';
 }
