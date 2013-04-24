@@ -59,7 +59,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'foo/bar'. Path atoms must not contain separators."
+            'Invalid path atom "foo/bar". Path atoms must not contain separators.'
         );
         new AbsolutePath(array('foo/bar'));
     }
@@ -214,7 +214,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'baz/qux'. Path atoms must not contain separators."
+            'Invalid path atom "baz/qux". Path atoms must not contain separators.'
         );
         $path->joinAtoms('bar', 'baz/qux');
     }
@@ -246,7 +246,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'baz/qux'. Path atoms must not contain separators."
+            'Invalid path atom "baz/qux". Path atoms must not contain separators.'
         );
         $path->joinAtomSequence(array('bar', 'baz/qux'));
     }
@@ -345,7 +345,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'foo.bar/baz'. Path atoms must not contain separators."
+            'Invalid path atom "foo.bar/baz". Path atoms must not contain separators.'
         );
         $path->joinExtensions('bar/baz');
     }
@@ -367,7 +367,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'foo.bar/baz'. Path atoms must not contain separators."
+            'Invalid path atom "foo.bar/baz". Path atoms must not contain separators.'
         );
         $path->joinExtensionSequence(array('bar/baz'));
     }
@@ -400,7 +400,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'foo/bar'. Path atoms must not contain separators."
+            'Invalid path atom "foo/bar". Path atoms must not contain separators.'
         );
         $path->suffixName('/bar');
     }
@@ -433,7 +433,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'bar/foo'. Path atoms must not contain separators."
+            'Invalid path atom "bar/foo". Path atoms must not contain separators.'
         );
         $path->prefixName('bar/');
     }
