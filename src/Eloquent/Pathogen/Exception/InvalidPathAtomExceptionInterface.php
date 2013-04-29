@@ -16,10 +16,15 @@ namespace Eloquent\Pathogen\Exception;
  */
 interface InvalidPathAtomExceptionInterface
 {
-    /**
+	/**
      * Returns the invalid path atom.
      *
      * @return string
      */
     public function atom();
+
+    /**
+     * @return string
+     */
+    public function reason();
 }

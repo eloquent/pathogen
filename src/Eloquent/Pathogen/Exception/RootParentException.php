@@ -11,21 +11,17 @@
 
 namespace Eloquent\Pathogen\Exception;
 
-final class EmptyPathAtomException extends AbstractInvalidPathAtomException
+use Exception;
+use LogicException;
+
+final class RootParentException extends LogicException implements
+    RootParentExceptionInterface
 {
     /**
      * @param Exception|null $previous
      */
     public function __construct(Exception $previous = null)
     {
-        parent::__construct('', $previous);
-    }
-
-    /**
-     * @return string
-     */
-    public function reason()
-    {
-        return 'Path atoms must not be empty strings.';
+        parent::__construct('The root path has no parent.', 0, $previous);
     }
 }

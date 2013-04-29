@@ -25,6 +25,25 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         return sprintf('/%s', parent::string());
     }
 
+    /**
+     * Returns the parent of this path.
+     *
+     * @return PathInterface
+     * @throws Exception\RootParentExceptionInterface If this is method called on the root path.
+     */
+    public function parent()
+    {
+        $path = $this->normalizer()->normalize($this);
+        if (!$path->hasAtoms()) {
+            throw new Exception\RootParentException;
+        }
+
+        $atoms = $path->atoms();
+        array_pop($atoms);
+
+        return $this->factory()->createFromAtoms($atoms, true, false);
+    }
+
     // implementation of AbsolutePathInterface =================================
 
     /**
@@ -36,7 +55,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      */
     public function isRoot()
     {
-
+        return !$this->hasAtoms();
     }
 
     /**

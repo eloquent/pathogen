@@ -16,7 +16,7 @@ final class PathAtomContainsSeparatorException extends AbstractInvalidPathAtomEx
     /**
      * @return string
      */
-    protected function reason()
+    public function reason()
     {
         return 'Path atoms must not contain separators.';
     }

@@ -23,6 +23,13 @@ interface PathInterface
     public function atoms();
 
     /**
+     * Returns true is at least one atom is present
+     *
+     * @return boolean
+     */
+    public function hasAtoms();
+
+    /**
      * Returns true if this path ends with a path separator.
      *
      * @return boolean

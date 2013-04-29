@@ -14,6 +14,18 @@ namespace Eloquent\Pathogen;
 class RelativePath extends AbstractPath implements RelativePathInterface
 {
     /**
+     * Returns the parent of this path.
+     *
+     * @return PathInterface
+     */
+    public function parent()
+    {
+        $atoms = $this->atoms();
+
+        return $this->factory()->create($this->name() . '..', true, false);
+    }
+
+    /**
      * Returns true if this path is the empty path.
      *
      * The empty path is a relative path with no atoms.

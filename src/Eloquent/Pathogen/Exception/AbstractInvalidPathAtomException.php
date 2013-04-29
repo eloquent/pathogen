@@ -50,7 +50,7 @@ abstract class AbstractInvalidPathAtomException extends LogicException implement
     /**
      * @return string
      */
-    abstract protected function reason();
+    abstract public function reason();
 
     private $atom;
 }
