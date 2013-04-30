@@ -55,6 +55,13 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($pathString, strval($path->string()));
     }
 
+    public function testToString()
+    {
+        $path = $this->factory->createFromAtoms(array('foo', 'bar'), true, false);
+        $this->expectOutputString('/foo/bar');
+        print $path;
+    }
+
     public function testConstructorFailureAtomContainingSeparator()
     {
         $this->setExpectedException(
@@ -490,6 +497,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
             'Parent\'s sibling'          => array('/foo/bar/baz',  '/foo/qux',       '../../qux'),
             'Parent\'s sibling\'s child' => array('/foo/bar/baz',  '/foo/qux/doom',  '../../qux/doom'),
             'Completely unrelated'       => array('/foo/bar/baz',  '/qux/doom',      '../../../qux/doom'),
+            'Lengthly unrelated child'   => array('/foo/bar',      '/baz/qux/doom',  '../../baz/qux/doom'),
         );
     }
 
@@ -498,10 +506,9 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
      */
     public function testRelativeTo($parentString, $childString, $expectedResultString)
     {
-        $this->markTestSkipped('Todo');
         $parent = $this->factory->create($parentString);
         $child = $this->factory->create($childString);
-        $result = $child->relativeTo($parent);
+        $result = $parent->relativeTo($child);
 
         $this->assertSame($expectedResultString, $result->string());
     }

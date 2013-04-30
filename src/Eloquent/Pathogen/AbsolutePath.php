@@ -128,6 +128,27 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      */
     public function relativeTo(AbsolutePathInterface $path)
     {
+        $resultingAtoms = array();
+        $parentAtoms = $this->normalizer()->normalize($this)->atoms();
+        $parentCount = count($parentAtoms);
+        $childAtoms = $path->normalizer()->normalize($path)->atoms();
 
+        $commonAtoms = 0;
+        while (
+            array_key_exists($commonAtoms, $childAtoms) &&
+            array_key_exists($commonAtoms, $parentAtoms) &&
+            $parentAtoms[$commonAtoms] === $childAtoms[$commonAtoms]
+        ) {
+            $commonAtoms++;
+        }
+
+        for ($loop = $commonAtoms; $loop < $parentCount; $loop++) {
+            $resultingAtoms[] = '..';
+        }
+
+        array_splice($childAtoms, 0, $commonAtoms);
+        $resultingAtoms = array_merge($resultingAtoms, $childAtoms);
+
+        return $this->factory()->createFromAtoms($resultingAtoms, false, false);
     }
 }

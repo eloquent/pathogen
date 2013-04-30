@@ -114,7 +114,7 @@ abstract class AbstractPath implements PathInterface
      */
     public function __toString()
     {
-
+        return $this->string();
     }
 
     /**
