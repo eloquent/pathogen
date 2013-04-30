@@ -69,7 +69,23 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      */
     public function isParentOf(AbsolutePathInterface $path)
     {
+        $parentAtoms = $this->normalizer()->normalize($this)->atoms();
+        $parentCount = count($parentAtoms);
+        $childAtoms = $this->normalizer()->normalize($path)->atoms();
 
+        if ($parentCount != count($childAtoms) - 1) {
+            return false;
+        }
+
+        $loop = 0;
+        while (
+            array_key_exists($loop, $parentAtoms) &&
+            $parentAtoms[$loop] === $childAtoms[$loop]
+        ) {
+            $loop++;
+        }
+
+        return $loop === $parentCount;
     }
 
     /**
@@ -81,7 +97,23 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      */
     public function isAncestorOf(AbsolutePathInterface $path)
     {
+        $parentAtoms = $this->normalizer()->normalize($this)->atoms();
+        $parentCount = count($parentAtoms);
+        $childAtoms = $this->normalizer()->normalize($path)->atoms();
 
+        if ($parentCount >= count($childAtoms)) {
+            return false;
+        }
+
+        $loop = 0;
+        while (
+            array_key_exists($loop, $parentAtoms) &&
+            $parentAtoms[$loop] === $childAtoms[$loop]
+        ) {
+            $loop++;
+        }
+
+        return $loop === $parentCount;
     }
 
     /**

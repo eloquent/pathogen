@@ -64,6 +64,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         new AbsolutePath(array('foo/bar'));
     }
 
+
     public function testConstructorFailureEmptyAtom()
     {
         $this->setExpectedException(
@@ -443,6 +444,8 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
             'Not immediate parent'      => array('/foo',             '/foo/bar/baz',            false,      true),
             'Root not immediate parent' => array('/',                '/foo/bar',                false,      true),
             'Unrelated paths'           => array('/foo',             '/bar',                    false,      false),
+            'Same paths'                => array('/foo/bar',         '/foor/bar',               false,      false),
+            'Longer parent path'        => array('/foo/bar/baz',     '/foo',                    false,      false),
         );
     }
 
@@ -451,7 +454,6 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
      */
     public function testAncestry($parentString, $childString, $isParentOf, $isAncestorOf)
     {
-        $this->markTestSkipped('Todo');
         $parent = $this->factory->create($parentString);
         $child = $this->factory->create($childString);
 
@@ -461,32 +463,20 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function testIsParentOfFailureRelativeChild()
     {
-        $this->markTestSkipped('Todo');
         $parent = $this->factory->create('/foo');
         $child = $this->factory->create('foo/bar');
 
-        $this->setExpectedException(
-            'ErrorException',
-            'Argument 1 passed to Eloquent\Pathogen\AbsolutePath::isParentOf() ' .
-                'must be an instance of Eloquent\Pathogen\AbsolutePathInterface, ' .
-                'instance of Eloquent\Pathogen\RelativePath given'
-        );
-        $path->isParentOf($joinPath);
+        $this->setExpectedException('PHPUnit_Framework_Error');
+        $parent->isParentOf($child);
     }
 
     public function testIsAncestorOfFailureRelativeChild()
     {
-        $this->markTestSkipped('Todo');
         $parent = $this->factory->create('/foo');
         $child = $this->factory->create('foo/bar');
 
-        $this->setExpectedException(
-            'ErrorException',
-            'Argument 1 passed to Eloquent\Pathogen\AbsolutePath::isAncestorOf() ' .
-                'must be an instance of Eloquent\Pathogen\AbsolutePathInterface, ' .
-                'instance of Eloquent\Pathogen\RelativePath given'
-        );
-        $path->isAncestorOf($joinPath);
+        $this->setExpectedException('PHPUnit_Framework_Error');
+        $parent->isAncestorOf($child);
     }
 
     public function relativeToData()
