@@ -11,7 +11,10 @@
 
 namespace Eloquent\Pathogen\Normalizer;
 
+use Eloquent\Pathogen\AbsolutePathInterface;
+use Eloquent\Pathogen\Factory\PathFactory;
 use Eloquent\Pathogen\PathInterface;
+use Eloquent\Pathogen\RelativePathInterface;
 
 class PathNormalizer implements PathNormalizerInterface
 {
@@ -53,7 +56,56 @@ class PathNormalizer implements PathNormalizerInterface
      */
     public function normalize(PathInterface $path)
     {
-    	return $path;
+        return $path instanceof AbsolutePathInterface
+            ? $this->normalizeAbsolute($path)
+            : $this->normalizeRelative($path);
+    }
+
+    /**
+     * @param AbsolutePathInterface $path
+     *
+     * @return AbsolutePathInterface
+     */
+    protected function normalizeAbsolute(AbsolutePathInterface $path)
+    {
+        $resultingAtoms = array();
+        $atoms = $path->atoms();
+        foreach ($atoms as $atom) {
+            if ('..' === $atom) {
+                array_pop($resultingAtoms);
+            } else if ('.' !== $atom) {
+                $resultingAtoms[] = $atom;
+            }
+        }
+
+        return PathFactory::get()->createFromAtoms($resultingAtoms, true, false);
+    }
+
+    /**
+     * @param RelativePathInterface $path
+     *
+     * @return RelativePathInterface
+     */
+    protected function normalizeRelative(RelativePathInterface $path)
+    {
+        $resultingAtoms = array();
+        $resultingAtomsCount = 0;
+        $atoms = $path->atoms();
+        $numAtoms = count($atoms);
+
+        for ($loop = 0; $loop < $numAtoms; $loop++) {
+            if ('.' !== $atoms[$loop]) {
+                $resultingAtoms[] = $atoms[$loop];
+                $resultingAtomsCount++;
+            }
+
+            if ($resultingAtomsCount > 1 && '..' === $resultingAtoms[$resultingAtomsCount - 1] && '..' !== $resultingAtoms[$resultingAtomsCount - 2]) {
+                array_splice($resultingAtoms, $resultingAtomsCount - 2, 2);
+                $resultingAtomsCount -= 2;
+            }
+        }
+
+        return PathFactory::get()->createFromAtoms($resultingAtoms, false, false);
     }
 
     static private $instance;

@@ -325,6 +325,12 @@ abstract class AbstractPath implements PathInterface
         $resultingAtoms = $this->atoms();
 
         foreach ($atoms as $atom) {
+            if ('' === $atom) {
+                throw new Exception\EmptyPathAtomException;
+            } elseif (false !== strpos($atom, static::SEPARATOR)) {
+                throw new Exception\PathAtomContainsSeparatorException($atom);
+            }
+
             $resultingAtoms[] = $atom;
         }
 

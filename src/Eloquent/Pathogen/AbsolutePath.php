@@ -28,14 +28,16 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
     /**
      * Returns the parent of this path.
      *
+     * If this method is called on the root path, the root path will be
+     * returned.
+     *
      * @return PathInterface
-     * @throws Exception\RootParentExceptionInterface If this is method called on the root path.
      */
     public function parent()
     {
         $path = $this->normalizer()->normalize($this);
         if (!$path->hasAtoms()) {
-            throw new Exception\RootParentException;
+            return $path;
         }
 
         $atoms = $path->atoms();

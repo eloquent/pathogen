@@ -14,8 +14,8 @@ namespace Eloquent\Pathogen;
 use PHPUnit_Framework_TestCase;
 
 /**
- * @covers AbsolutePath
- * @covers AbstractPath
+ * @covers \Eloquent\Pathogen\AbsolutePath
+ * @covers \Eloquent\Pathogen\AbstractPath
  */
 class AbsolutePathTest extends PHPUnit_Framework_TestCase
 {
@@ -74,14 +74,16 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function namePartData()
     {
-        //                                   path             name            nameWithoutExtension  namePrefix  nameSuffix  extension
+        //                                             path             name            nameWithoutExtension  namePrefix  nameSuffix  extension
         return array(
-            'Root'                  => array('/',             '',             '',                   '',         null,       null),
-            'No extensions'         => array('/foo',          'foo',          'foo',                'foo',      null,       null),
-            'Empty extension'       => array('/foo.',         'foo.',         'foo',                'foo',      '',         ''),
-            'Whitespace extension'  => array('/foo. ',        'foo. ',        'foo',                'foo',      ' ',        ' '),
-            'Single extension'      => array('/foo.bar',      'foo.bar',      'foo',                'foo',      'bar',      'bar'),
-            'Multiple extensions'   => array('/foo.bar.baz',  'foo.bar.baz',  'foo.bar',            'foo',      'bar.baz',  'baz'),
+            'Root'                            => array('/',             '',             '',                   '',         null,       null),
+            'No extensions'                   => array('/foo',          'foo',          'foo',                'foo',      null,       null),
+            'Empty extension'                 => array('/foo.',         'foo.',         'foo',                'foo',      '',         ''),
+            'Whitespace extension'            => array('/foo. ',        'foo. ',        'foo',                'foo',      ' ',        ' '),
+            'Single extension'                => array('/foo.bar',      'foo.bar',      'foo',                'foo',      'bar',      'bar'),
+            'Multiple extensions'             => array('/foo.bar.baz',  'foo.bar.baz',  'foo.bar',            'foo',      'bar.baz',  'baz'),
+            'No name with single extension'   => array('/.foo',         '.foo',         '',                   '',         'foo',      'foo'),
+            'No name with multiple extension' => array('/.foo.bar',     '.foo.bar',     '.foo',               '',         'foo.bar',  'bar'),
         );
     }
 
@@ -104,10 +106,12 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
     {
         //                                   path                  parent
         return array(
-            'Single atom'           => array('/foo',               '/'),
-            'Multiple atoms'        => array('/foo/bar/baz',       '/foo/bar'),
-            'Whitespace atoms'      => array('/foo/ /bar',         '/foo/ '),
-            'Resolve special atoms' => array('/foo/./bar/../baz',  '/foo'),
+            'Root'                           => array('/',                     '/'),
+            'Single atom'                    => array('/foo',                  '/'),
+            'Multiple atoms'                 => array('/foo/bar/baz',          '/foo/bar'),
+            'Whitespace atoms'               => array('/foo/ /bar',            '/foo/ '),
+            'Resolve special atoms'          => array('/foo/./bar/../baz',     '/foo'),
+            'Resolve multiple special atoms' => array('/foo/./bar/../../baz',  '/'),
         );
     }
 
@@ -122,43 +126,26 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($parentPathString, $parentPath->string());
     }
 
-    public function testParentFailureRootPath()
-    {
-        $path = $this->factory->create('/');
-
-        $this->setExpectedException(
-            __NAMESPACE__ . '\Exception\RootParentException'
-        );
-        $path->parent();
-    }
-
-    public function testStripTrailingSlash()
-    {
-        $path = $this->factory->create('/foo/bar/');
-
-        $this->assertSame('/foo/bar', $path->stripTrailingSlash()->string());
-    }
-
-    public function stripTrailingSlashFailureData()
+    public function stripTrailingSlashData()
     {
         //                               path
         return array(
-            'No trailing slash' => array('/foo'),
-            'Root'              => array('/'),
+            'Single atom'       => array('/foo/',      '/foo'),
+            'Multiple atoms'    => array('/foo/bar/',  '/foo/bar'),
+            'Whitespace atoms'  => array('/foo/bar /', '/foo/bar '),
+            'No trailing slash' => array('/foo',       '/foo'),
+            'Root'              => array('/',          '/'),
         );
     }
 
     /**
-     * @dataProvider stripTrailingSlashFailureData
+     * @dataProvider stripTrailingSlashData
      */
-    public function testStripTrailingSlashFailure($pathString)
+    public function testStripTrailingSlash($pathString, $expectedResult)
     {
-        $path = $this->factory->create($path);
+        $path = $this->factory->create($pathString);
 
-        $this->setExpectedException(
-            __NAMESPACE__ . '\Exception\NoTrailingSlashException'
-        );
-        $path->stripTrailingSlash();
+        $this->assertSame($expectedResult, $path->stripTrailingSlash()->string());
     }
 
     public function extensionStrippingData()
@@ -188,7 +175,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
     public function joinAtomsData()
     {
         //                                              path         atoms                 expectedResult
-        array(
+        return array(
             'Single atom to root'              => array('/',         array('foo'),         '/foo'),
             'Multiple atoms to root'           => array('/',         array('foo', 'bar'),  '/foo/bar'),
             'Multiple atoms to multiple atoms' => array('/foo/bar',  array('baz', 'qux'),  '/foo/bar/baz/qux'),
@@ -264,7 +251,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
     public function joinData()
     {
         //                                              path         joinPath    expectedResult
-        array(
+        return array(
             'Single atom to root'              => array('/',         'foo',      '/foo'),
             'Multiple atoms to root'           => array('/',         'foo/bar',  '/foo/bar'),
             'Multiple atoms to multiple atoms' => array('/foo/bar',  'baz/qux',  '/foo/bar/baz/qux'),
@@ -290,36 +277,36 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $path = $this->factory->create('/foo');
         $joinPath = $this->factory->create('/bar');
 
-        $this->setExpectedException(
-            'ErrorException',
-            'Argument 1 passed to Eloquent\Pathogen\AbsolutePath::join() ' .
-                'must be an instance of Eloquent\Pathogen\RelativePathInterface, ' .
-                'instance of Eloquent\Pathogen\AbsolutePath given'
-        );
+        $this->setExpectedException('PHPUnit_Framework_Error');
         $path->join($joinPath);
     }
 
-    public function testJoinTrailingSlash()
+    public function joinTrailingSlashData()
     {
-        $path = $this->create('/foo');
-
-        $this->assertSame('/foo/', $path->joinTrailingSlash()->string());
+        //                                     path        expectedResult
+        return array(
+            'Root atom'               => array('/',        '/'),
+            'Single atom'             => array('/foo',     '/foo/'),
+            'Whitespace atom'         => array('/foo ',    '/foo /'),
+            'Multiple atoms'          => array('/foo/bar', '/foo/bar/'),
+            'Existing trailing slash' => array('/foo/',    '/foo/'),
+        );
     }
 
-    public function testJoinTrailingSlashFailureRoot()
+    /**
+     * @dataProvider joinTrailingSlashData
+     */
+    public function testJoinTrailingSlash($pathString, $expectedResult)
     {
-        $path = $this->create('/');
+        $path = $this->factory->create($pathString);
 
-        $this->setExpectedException(
-            __NAMESPACE__ . '\Exception\RootTrailingSlashException'
-        );
-        $path->joinTrailingSlash();
+        $this->assertSame($expectedResult, $path->joinTrailingSlash()->string());
     }
 
     public function joinExtensionsData()
     {
         //                                   path     extensions            expectedResult
-        array(
+        return array(
             'Add to root'           => array('/',     array('foo'),         '/.foo'),
             'Empty extension'       => array('/foo',  array(''),            '/foo.'),
             'Whitespace extension'  => array('/foo',  array(' '),           '/foo. '),
@@ -460,10 +447,11 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider ancestorData
+     * @dataProvider ancestryData
      */
     public function testAncestry($parentString, $childString, $isParentOf, $isAncestorOf)
     {
+        $this->markTestSkipped('Todo');
         $parent = $this->factory->create($parentString);
         $child = $this->factory->create($childString);
 
@@ -473,6 +461,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function testIsParentOfFailureRelativeChild()
     {
+        $this->markTestSkipped('Todo');
         $parent = $this->factory->create('/foo');
         $child = $this->factory->create('foo/bar');
 
@@ -487,6 +476,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function testIsAncestorOfFailureRelativeChild()
     {
+        $this->markTestSkipped('Todo');
         $parent = $this->factory->create('/foo');
         $child = $this->factory->create('foo/bar');
 
@@ -518,6 +508,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
      */
     public function testRelativeTo($parentString, $childString, $expectedResultString)
     {
+        $this->markTestSkipped('Todo');
         $parent = $this->factory->create($parentString);
         $child = $this->factory->create($childString);
         $result = $child->relativeTo($parent);

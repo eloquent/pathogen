@@ -14,6 +14,16 @@ namespace Eloquent\Pathogen;
 class RelativePath extends AbstractPath implements RelativePathInterface
 {
     /**
+     * Returns a string representation of this path.
+     *
+     * @return string
+     */
+    public function string()
+    {
+        return $this->hasAtoms() ? parent::string() : '.';
+    }
+
+    /**
      * Returns the parent of this path.
      *
      * @return PathInterface
@@ -21,8 +31,9 @@ class RelativePath extends AbstractPath implements RelativePathInterface
     public function parent()
     {
         $atoms = $this->atoms();
+        $atoms[] = '..';
 
-        return $this->factory()->create($this->name() . '..', true, false);
+        return $this->factory()->createFromAtoms($atoms, false, false);
     }
 
     /**
