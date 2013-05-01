@@ -71,7 +71,6 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         new AbsolutePath(array('foo/bar'));
     }
 
-
     public function testConstructorFailureEmptyAtom()
     {
         $this->setExpectedException(

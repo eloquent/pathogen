@@ -201,6 +201,7 @@ abstract class AbstractPath implements PathInterface
     {
         if (false !== strpos($this->name(), '.')) {
             $parts = explode('.', $this->name());
+
             return end($parts);
         }
 

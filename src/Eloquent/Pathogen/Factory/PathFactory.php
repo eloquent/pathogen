@@ -25,7 +25,7 @@ class PathFactory implements PathFactoryInterface
      *
      * @return PathFactoryInterface
      */
-    static public function get(PathFactoryInterface $instance = null)
+    public static function get(PathFactoryInterface $instance = null)
     {
         if (null === $instance) {
             if (null === static::$instance) {
@@ -41,12 +41,12 @@ class PathFactory implements PathFactoryInterface
     /**
      * @param PathFactoryInterface $instance
      */
-    static public function install(PathFactoryInterface $instance)
+    public static function install(PathFactoryInterface $instance)
     {
         static::$instance = $instance;
     }
 
-    static public function uninstall()
+    public static function uninstall()
     {
         static::$instance = null;
     }
@@ -132,6 +132,6 @@ class PathFactory implements PathFactoryInterface
         return new RelativePath($atoms, $hasTrailingSeparator, $this, $this->normalizer());
     }
 
-    static private $instance;
+    private static $instance;
     private $normalizer;
 }

@@ -52,6 +52,7 @@ class RelativePath extends AbstractPath implements RelativePathInterface
         $atoms[] = '..';
 
         $path = $this->factory()->createFromAtoms($atoms, false, false);
+
         return $this->normalizer()->normalize($path);
     }
 
@@ -116,8 +117,7 @@ class RelativePath extends AbstractPath implements RelativePathInterface
      */
     public function isEmpty()
     {
-        // TODO: Is this redundant since relative path will never have 0 atoms
-        return $this->isSelf();
+        return count($this->hasAtoms()) === 0;
     }
 
     /**
@@ -130,6 +130,7 @@ class RelativePath extends AbstractPath implements RelativePathInterface
     public function isSelf()
     {
         $atoms = $this->atoms();
+
         return 1 === count($atoms) && '.' === $atoms[0];
     }
 }

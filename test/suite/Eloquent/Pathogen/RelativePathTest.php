@@ -80,7 +80,6 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         new RelativePath(array('foo/bar'));
     }
 
-
     public function testConstructorFailureEmptyAtom()
     {
         $this->setExpectedException(
@@ -380,7 +379,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
     {
         //                                path        suffix       expectedResult
         return array(
-            'Self'               => array('.',        'foo',       '.foo'),
+            'Self'               => array('.',        'foo',       'foo'),
             'Empty suffix'       => array('foo/bar',  '',          'foo/bar'),
             'Whitespace suffix'  => array('foo/bar',  ' ',         'foo/bar '),
             'Normal suffix'      => array('foo/bar',  '-baz',      'foo/bar-baz'),
@@ -413,7 +412,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
     {
         //                                path        prefix       expectedResult
         return array(
-            'Self'               => array('.',        'foo',       'foo.'),
+            'Self'               => array('.',        'foo',       'foo'),
             'Empty prefix'       => array('foo/bar',  '',          'foo/bar'),
             'Whitespace prefix'  => array('foo/bar',  ' ',         'foo/ bar'),
             'Normal prefix'      => array('foo/bar',  'baz-',      'foo/baz-bar'),
@@ -444,24 +443,33 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
 
     // tests for RelativePathInterface implementation ==========================
 
-    public function testIsEmpty()
+    public function isEmptySelfData()
     {
-        $path = $this->factory->create('.');
-
-        $this->assertTrue($path->isEmpty());
-
-        $path = $this->factory->create('foo');
-
-        $this->assertFalse($path->isEmpty());
+        return array(
+            'Self'           => array('.',        false,  true),
+            'Empty path'     => array('',         true,   false),
+            'Single atom'    => array('foo',      false,  false),
+            'Multiple atoms' => array('foo/bar',  true,   false),
+        );
     }
 
-    public function testIsSelf()
+    /**
+     * @dataProvider isEmptySelfData
+     */
+    public function testIsEmpty($pathString, $isEmpty, $isSelf)
     {
-        $path = $this->factory->create('.');
+        $path = $this->factory->create($pathString);
 
-        $this->assertTrue($path->isSelf());
+        $this->assertTrue($isEmpty === $path->isEmpty());
+    }
 
-        $path = $this->factory->create('foo');
-        $this->assertFalse($path->isSelf());
+    /**
+     * @dataProvider isEmptySelfData
+     */
+    public function testIsEmpty($pathString, $isEmpty, $isSelf)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertTrue($isSelf === $path->isSelf());
     }
 }

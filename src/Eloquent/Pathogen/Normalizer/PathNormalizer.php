@@ -18,12 +18,12 @@ use Eloquent\Pathogen\RelativePathInterface;
 
 class PathNormalizer implements PathNormalizerInterface
 {
-	/**
+    /**
      * @param PathNormalizerInterface|null $instance
      *
      * @return PathNormalizerInterface
      */
-    static public function get(PathNormalizerInterface $instance = null)
+    public static function get(PathNormalizerInterface $instance = null)
     {
         if (null === $instance) {
             if (null === static::$instance) {
@@ -39,12 +39,12 @@ class PathNormalizer implements PathNormalizerInterface
     /**
      * @param PathNormalizerInterface $instance
      */
-    static public function install(PathNormalizerInterface $instance)
+    public static function install(PathNormalizerInterface $instance)
     {
         static::$instance = $instance;
     }
 
-    static public function uninstall()
+    public static function uninstall()
     {
         static::$instance = null;
     }
@@ -73,7 +73,7 @@ class PathNormalizer implements PathNormalizerInterface
         foreach ($atoms as $atom) {
             if ('..' === $atom) {
                 array_pop($resultingAtoms);
-            } else if ('.' !== $atom) {
+            } elseif ('.' !== $atom) {
                 $resultingAtoms[] = $atom;
             }
         }
@@ -108,5 +108,5 @@ class PathNormalizer implements PathNormalizerInterface
         return PathFactory::get()->createFromAtoms($resultingAtoms, false, false);
     }
 
-    static private $instance;
+    private static $instance;
 }
