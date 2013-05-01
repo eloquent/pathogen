@@ -14,8 +14,8 @@ namespace Eloquent\Pathogen;
 use PHPUnit_Framework_TestCase;
 
 /**
- * @covers AbsolutePath
- * @covers AbstractPath
+ * @covers \Eloquent\Pathogen\AbsolutePath
+ * @covers \Eloquent\Pathogen\AbstractPath
  */
 class AbsolutePathTest extends PHPUnit_Framework_TestCase
 {
@@ -55,11 +55,18 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($pathString, strval($path->string()));
     }
 
+    public function testToString()
+    {
+        $path = $this->factory->createFromAtoms(array('foo', 'bar'), true, false);
+        $this->expectOutputString('/foo/bar');
+        print $path;
+    }
+
     public function testConstructorFailureAtomContainingSeparator()
     {
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'foo/bar'. Path atoms must not contain separators."
+            'Invalid path atom "foo/bar". Path atoms must not contain separators.'
         );
         new AbsolutePath(array('foo/bar'));
     }
@@ -74,14 +81,16 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function namePartData()
     {
-        //                                   path             name            nameWithoutExtension  namePrefix  nameSuffix  extension
+        //                                             path             name            nameWithoutExtension  namePrefix  nameSuffix  extension
         return array(
-            'Root'                  => array('/',             '',             '',                   '',         null,       null),
-            'No extensions'         => array('/foo',          'foo',          'foo',                'foo',      null,       null),
-            'Empty extension'       => array('/foo.',         'foo.',         'foo',                'foo',      '',         ''),
-            'Whitespace extension'  => array('/foo. ',        'foo. ',        'foo',                'foo',      ' ',        ' '),
-            'Single extension'      => array('/foo.bar',      'foo.bar',      'foo',                'foo',      'bar',      'bar'),
-            'Multiple extensions'   => array('/foo.bar.baz',  'foo.bar.baz',  'foo.bar',            'foo',      'bar.baz',  'baz'),
+            'Root'                            => array('/',             '',             '',                   '',         null,       null),
+            'No extensions'                   => array('/foo',          'foo',          'foo',                'foo',      null,       null),
+            'Empty extension'                 => array('/foo.',         'foo.',         'foo',                'foo',      '',         ''),
+            'Whitespace extension'            => array('/foo. ',        'foo. ',        'foo',                'foo',      ' ',        ' '),
+            'Single extension'                => array('/foo.bar',      'foo.bar',      'foo',                'foo',      'bar',      'bar'),
+            'Multiple extensions'             => array('/foo.bar.baz',  'foo.bar.baz',  'foo.bar',            'foo',      'bar.baz',  'baz'),
+            'No name with single extension'   => array('/.foo',         '.foo',         '',                   '',         'foo',      'foo'),
+            'No name with multiple extension' => array('/.foo.bar',     '.foo.bar',     '.foo',               '',         'foo.bar',  'bar'),
         );
     }
 
@@ -102,12 +111,14 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function parentData()
     {
-        //                                   path                  parent
+        //                                   path                              parent
         return array(
-            'Single atom'           => array('/foo',               '/'),
-            'Multiple atoms'        => array('/foo/bar/baz',       '/foo/bar'),
-            'Whitespace atoms'      => array('/foo/ /bar',         '/foo/ '),
-            'Resolve special atoms' => array('/foo/./bar/../baz',  '/foo'),
+            'Root'                           => array('/',                     '/'),
+            'Single atom'                    => array('/foo',                  '/'),
+            'Multiple atoms'                 => array('/foo/bar/baz',          '/foo/bar'),
+            'Whitespace atoms'               => array('/foo/ /bar',            '/foo/ '),
+            'Resolve special atoms'          => array('/foo/./bar/../baz',     '/foo'),
+            'Resolve multiple special atoms' => array('/foo/./bar/../../baz',  '/'),
         );
     }
 
@@ -122,43 +133,26 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($parentPathString, $parentPath->string());
     }
 
-    public function testParentFailureRootPath()
-    {
-        $path = $this->factory->create('/');
-
-        $this->setExpectedException(
-            __NAMESPACE__ . '\Exception\RootParentException'
-        );
-        $path->parent();
-    }
-
-    public function testStripTrailingSlash()
-    {
-        $path = $this->factory->create('/foo/bar/');
-
-        $this->assertSame('/foo/bar', $path->stripTrailingSlash()->string());
-    }
-
-    public function stripTrailingSlashFailureData()
+    public function stripTrailingSlashData()
     {
         //                               path
         return array(
-            'No trailing slash' => array('/foo'),
-            'Root'              => array('/'),
+            'Single atom'       => array('/foo/',      '/foo'),
+            'Multiple atoms'    => array('/foo/bar/',  '/foo/bar'),
+            'Whitespace atoms'  => array('/foo/bar /', '/foo/bar '),
+            'No trailing slash' => array('/foo',       '/foo'),
+            'Root'              => array('/',          '/'),
         );
     }
 
     /**
-     * @dataProvider stripTrailingSlashFailureData
+     * @dataProvider stripTrailingSlashData
      */
-    public function testStripTrailingSlashFailure($pathString)
+    public function testStripTrailingSlash($pathString, $expectedResult)
     {
-        $path = $this->factory->create($path);
+        $path = $this->factory->create($pathString);
 
-        $this->setExpectedException(
-            __NAMESPACE__ . '\Exception\NoTrailingSlashException'
-        );
-        $path->stripTrailingSlash();
+        $this->assertSame($expectedResult, $path->stripTrailingSlash()->string());
     }
 
     public function extensionStrippingData()
@@ -188,7 +182,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
     public function joinAtomsData()
     {
         //                                              path         atoms                 expectedResult
-        array(
+        return array(
             'Single atom to root'              => array('/',         array('foo'),         '/foo'),
             'Multiple atoms to root'           => array('/',         array('foo', 'bar'),  '/foo/bar'),
             'Multiple atoms to multiple atoms' => array('/foo/bar',  array('baz', 'qux'),  '/foo/bar/baz/qux'),
@@ -214,7 +208,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'baz/qux'. Path atoms must not contain separators."
+            'Invalid path atom "baz/qux". Path atoms must not contain separators.'
         );
         $path->joinAtoms('bar', 'baz/qux');
     }
@@ -246,7 +240,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'baz/qux'. Path atoms must not contain separators."
+            'Invalid path atom "baz/qux". Path atoms must not contain separators.'
         );
         $path->joinAtomSequence(array('bar', 'baz/qux'));
     }
@@ -264,7 +258,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
     public function joinData()
     {
         //                                              path         joinPath    expectedResult
-        array(
+        return array(
             'Single atom to root'              => array('/',         'foo',      '/foo'),
             'Multiple atoms to root'           => array('/',         'foo/bar',  '/foo/bar'),
             'Multiple atoms to multiple atoms' => array('/foo/bar',  'baz/qux',  '/foo/bar/baz/qux'),
@@ -290,36 +284,36 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $path = $this->factory->create('/foo');
         $joinPath = $this->factory->create('/bar');
 
-        $this->setExpectedException(
-            'ErrorException',
-            'Argument 1 passed to Eloquent\Pathogen\AbsolutePath::join() ' .
-                'must be an instance of Eloquent\Pathogen\RelativePathInterface, ' .
-                'instance of Eloquent\Pathogen\AbsolutePath given'
-        );
+        $this->setExpectedException('PHPUnit_Framework_Error');
         $path->join($joinPath);
     }
 
-    public function testJoinTrailingSlash()
+    public function joinTrailingSlashData()
     {
-        $path = $this->create('/foo');
-
-        $this->assertSame('/foo/', $path->joinTrailingSlash()->string());
+        //                                     path        expectedResult
+        return array(
+            'Root atom'               => array('/',        '/'),
+            'Single atom'             => array('/foo',     '/foo/'),
+            'Whitespace atom'         => array('/foo ',    '/foo /'),
+            'Multiple atoms'          => array('/foo/bar', '/foo/bar/'),
+            'Existing trailing slash' => array('/foo/',    '/foo/'),
+        );
     }
 
-    public function testJoinTrailingSlashFailureRoot()
+    /**
+     * @dataProvider joinTrailingSlashData
+     */
+    public function testJoinTrailingSlash($pathString, $expectedResult)
     {
-        $path = $this->create('/');
+        $path = $this->factory->create($pathString);
 
-        $this->setExpectedException(
-            __NAMESPACE__ . '\Exception\RootTrailingSlashException'
-        );
-        $path->joinTrailingSlash();
+        $this->assertSame($expectedResult, $path->joinTrailingSlash()->string());
     }
 
     public function joinExtensionsData()
     {
         //                                   path     extensions            expectedResult
-        array(
+        return array(
             'Add to root'           => array('/',     array('foo'),         '/.foo'),
             'Empty extension'       => array('/foo',  array(''),            '/foo.'),
             'Whitespace extension'  => array('/foo',  array(' '),           '/foo. '),
@@ -345,7 +339,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'foo.bar/baz'. Path atoms must not contain separators."
+            'Invalid path atom "foo.bar/baz". Path atoms must not contain separators.'
         );
         $path->joinExtensions('bar/baz');
     }
@@ -367,7 +361,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'foo.bar/baz'. Path atoms must not contain separators."
+            'Invalid path atom "foo.bar/baz". Path atoms must not contain separators.'
         );
         $path->joinExtensionSequence(array('bar/baz'));
     }
@@ -400,7 +394,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'foo/bar'. Path atoms must not contain separators."
+            'Invalid path atom "foo/bar". Path atoms must not contain separators.'
         );
         $path->suffixName('/bar');
     }
@@ -433,7 +427,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'bar/foo'. Path atoms must not contain separators."
+            'Invalid path atom "bar/foo". Path atoms must not contain separators.'
         );
         $path->prefixName('bar/');
     }
@@ -456,11 +450,13 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
             'Not immediate parent'      => array('/foo',             '/foo/bar/baz',            false,      true),
             'Root not immediate parent' => array('/',                '/foo/bar',                false,      true),
             'Unrelated paths'           => array('/foo',             '/bar',                    false,      false),
+            'Same paths'                => array('/foo/bar',         '/foor/bar',               false,      false),
+            'Longer parent path'        => array('/foo/bar/baz',     '/foo',                    false,      false),
         );
     }
 
     /**
-     * @dataProvider ancestorData
+     * @dataProvider ancestryData
      */
     public function testAncestry($parentString, $childString, $isParentOf, $isAncestorOf)
     {
@@ -476,13 +472,8 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $parent = $this->factory->create('/foo');
         $child = $this->factory->create('foo/bar');
 
-        $this->setExpectedException(
-            'ErrorException',
-            'Argument 1 passed to Eloquent\Pathogen\AbsolutePath::isParentOf() ' .
-                'must be an instance of Eloquent\Pathogen\AbsolutePathInterface, ' .
-                'instance of Eloquent\Pathogen\RelativePath given'
-        );
-        $path->isParentOf($joinPath);
+        $this->setExpectedException('PHPUnit_Framework_Error');
+        $parent->isParentOf($child);
     }
 
     public function testIsAncestorOfFailureRelativeChild()
@@ -490,13 +481,8 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $parent = $this->factory->create('/foo');
         $child = $this->factory->create('foo/bar');
 
-        $this->setExpectedException(
-            'ErrorException',
-            'Argument 1 passed to Eloquent\Pathogen\AbsolutePath::isAncestorOf() ' .
-                'must be an instance of Eloquent\Pathogen\AbsolutePathInterface, ' .
-                'instance of Eloquent\Pathogen\RelativePath given'
-        );
-        $path->isAncestorOf($joinPath);
+        $this->setExpectedException('PHPUnit_Framework_Error');
+        $parent->isAncestorOf($child);
     }
 
     public function relativeToData()
@@ -510,6 +496,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
             'Parent\'s sibling'          => array('/foo/bar/baz',  '/foo/qux',       '../../qux'),
             'Parent\'s sibling\'s child' => array('/foo/bar/baz',  '/foo/qux/doom',  '../../qux/doom'),
             'Completely unrelated'       => array('/foo/bar/baz',  '/qux/doom',      '../../../qux/doom'),
+            'Lengthly unrelated child'   => array('/foo/bar',      '/baz/qux/doom',  '../../baz/qux/doom'),
         );
     }
 
@@ -520,7 +507,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
     {
         $parent = $this->factory->create($parentString);
         $child = $this->factory->create($childString);
-        $result = $child->relativeTo($parent);
+        $result = $parent->relativeTo($child);
 
         $this->assertSame($expectedResultString, $result->string());
     }

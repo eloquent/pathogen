@@ -23,6 +23,13 @@ interface PathInterface
     public function atoms();
 
     /**
+     * Returns true is at least one atom is present
+     *
+     * @return boolean
+     */
+    public function hasAtoms();
+
+    /**
      * Returns true if this path ends with a path separator.
      *
      * @return boolean
@@ -100,8 +107,10 @@ interface PathInterface
     /**
      * Returns the parent of this path.
      *
+     * If this method is called on the root path, the root path will be
+     * returned.
+     *
      * @return PathInterface
-     * @throws Exception\RootParentExceptionInterface If this is method called on the root path.
      */
     public function parent();
 
@@ -217,7 +226,8 @@ interface PathInterface
      */
     public function prefixName($prefix);
 
-    const SEPARATOR = '/';
+    const ATOM_SEPARATOR = '/';
+    const EXTENSION_SEPARATOR = '.';
     const PARENT_ATOM = '..';
     const SELF_ATOM = '.';
     const EMPTY_ATOM = '';
