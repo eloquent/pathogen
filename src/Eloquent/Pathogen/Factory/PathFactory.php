@@ -103,10 +103,6 @@ class PathFactory implements PathFactoryInterface
             }
         }
 
-        if (!$isAbsolute && $numAtoms < 1) {
-            $atoms = array('.');
-        }
-
         return $this->createFromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
     }
 

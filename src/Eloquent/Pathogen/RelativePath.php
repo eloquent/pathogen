@@ -20,7 +20,15 @@ class RelativePath extends AbstractPath implements RelativePathInterface
      */
     public function string()
     {
-        return $this->hasAtoms() ? parent::string() : '.';
+        if ($this->hasAtoms()) {
+            return parent::string();
+        }
+
+        if ($this->hasTrailingSeparator()) {
+            return './';
+        }
+
+        return '.';
     }
 
     /**
@@ -57,55 +65,29 @@ class RelativePath extends AbstractPath implements RelativePathInterface
     }
 
     /**
-     * Returns a new path instance with the supplied string suffixed to the last
-     * path atom.
-     *
-     * @param string $suffix
+     * Returns a new path instance with a trailing slash suffixed to this path.
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffix causes the atom to be invalid.
      */
-    public function suffixName($suffix)
+    public function joinTrailingSlash()
     {
-        // TODO: Throw exception
-        $atoms = $this->atoms();
-        if (1 === count($atoms) && '.' === $atoms[0]) {
-            $atoms[0] = '.' . $suffix;
+        if ($this->hasTrailingSeparator()) {
+            return $this;
+        }
 
+        if (!$this->hasAtoms()) {
             return $this->factory()->createFromAtoms(
-                $atoms,
+                array('.'),
                 false,
-                false
+                true
             );
         }
 
-        return parent::suffixName($suffix);
-    }
-
-    /**
-     * Returns a new path instance with the supplied string prefixed to the last
-     * path atom.
-     *
-     * @param string $prefix
-     *
-     * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the prefix causes the atom to be invalid.
-     */
-    public function prefixName($prefix)
-    {
-        // TODO: Throw exception
-        $atoms = $this->atoms();
-        if (1 === count($atoms) && '.' === $atoms[0]) {
-            $atoms[0] = $prefix . '.';
-
-            return $this->factory()->createFromAtoms(
-                $atoms,
-                false,
-                false
-            );
-        }
-
-        return parent::prefixName($prefix);
+        return $this->factory()->createFromAtoms(
+            $this->atoms(),
+            false,
+            true
+        );
     }
 
     /**
@@ -117,7 +99,7 @@ class RelativePath extends AbstractPath implements RelativePathInterface
      */
     public function isEmpty()
     {
-        return count($this->hasAtoms()) === 0;
+        return !$this->hasAtoms();
     }
 
     /**

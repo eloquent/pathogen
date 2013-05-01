@@ -28,9 +28,19 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
 
     // tests for PathInterface implementation ==================================
 
-    public function testRootPathConstructor()
+    public function testEmptyPathConstructor()
     {
         $path = $this->factory->create('');
+
+        $this->assertSame(array(), $path->atoms());
+        $this->assertSame(false, $path->hasTrailingSeparator());
+        $this->assertSame('.', $path->string());
+        $this->assertSame('.', strval($path->string()));
+    }
+
+    public function testSelfPathConstructor()
+    {
+        $path = $this->factory->create('.');
 
         $this->assertSame(array('.'), $path->atoms());
         $this->assertSame(false, $path->hasTrailingSeparator());
@@ -40,28 +50,37 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
 
     public function pathData()
     {
-        //                             path                     atoms                              hasTrailingSeparator
+        //                             path                     atoms                             expectedPathString      hasTrailingSeparator
         return array(
-            'Single atom'     => array('foo',                  array('foo'),                      false),
-            'Trailing slash'  => array('foo/',                 array('foo'),                      true),
-            'Multiple atoms'  => array('foo/bar',              array('foo', 'bar'),               false),
-            'Parent atom'     => array('foo/../bar',           array('foo', '..', 'bar'),         false),
-            'Self atom'       => array('foo/./bar',            array('foo', '.', 'bar'),          false),
-            'Whitespace'      => array(' foo bar / baz qux ',  array(' foo bar ', ' baz qux '),   false),
+            'Empty'           => array('',                     array(),                           '.',                    false),
+            'Self'            => array('.',                    array('.'),                        '.',                    false),
+            'Single atom'     => array('foo',                  array('foo'),                      'foo',                  false),
+            'Trailing slash'  => array('foo/',                 array('foo'),                      'foo/',                 true),
+            'Multiple atoms'  => array('foo/bar',              array('foo', 'bar'),               'foo/bar',              false),
+            'Parent atom'     => array('foo/../bar',           array('foo', '..', 'bar'),         'foo/../bar',           false),
+            'Self atom'       => array('foo/./bar',            array('foo', '.', 'bar'),          'foo/./bar',            false),
+            'Whitespace'      => array(' foo bar / baz qux ',  array(' foo bar ', ' baz qux '),   ' foo bar / baz qux ',  false),
         );
     }
 
     /**
      * @dataProvider pathData
      */
-    public function testConstructor($pathString, array $atoms, $hasTrailingSeparator)
+    public function testConstructor($pathString, array $atoms, $expectedPathString, $hasTrailingSeparator)
     {
         $path = $this->factory->create($pathString);
 
         $this->assertSame($atoms, $path->atoms());
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
-        $this->assertSame($pathString, $path->string());
-        $this->assertSame($pathString, strval($path->string()));
+        $this->assertSame($expectedPathString, $path->string());
+        $this->assertSame($expectedPathString, strval($path->string()));
+    }
+
+    public function testString()
+    {
+        $path = $this->factory->createFromAtoms(array(), false, true);
+        $this->expectOutputString('./');
+        print $path;
     }
 
     public function testToString()
@@ -93,6 +112,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         //                                             path            name            nameWithoutExtension  namePrefix  nameSuffix  extension
         return array(
             'Self'                            => array('.',            '',             '',                   '',         null,       null),
+            'Empty'                           => array('',             '',             '',                   '',         null,       null),
             'No extensions'                   => array('foo',          'foo',          'foo',                'foo',      null,       null),
             'Empty extension'                 => array('foo.',         'foo.',         'foo',                'foo',      '',         ''),
             'Whitespace extension'            => array('foo. ',        'foo. ',        'foo',                'foo',      ' ',        ' '),
@@ -123,6 +143,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         //                                   path                            parent
         return array(
             'Self'                           => array('.',                   '..'),
+            'Empty'                          => array('',                    '..'),
             'Single atom'                    => array('foo',                 '.'),
             'Multiple atoms'                 => array('foo/bar/baz',         'foo/bar'),
             'Whitespace atoms'               => array('foo/ /bar',           'foo/ '),
@@ -151,6 +172,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
             'Whitespace atoms'  => array('foo/bar /', 'foo/bar '),
             'No trailing slash' => array('foo',       'foo'),
             'Self'              => array('.',         '.'),
+            'Empty'             => array('',          '.'),
         );
     }
 
@@ -169,6 +191,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         //                                   path            strippedExtension  strippedSuffix
         return array(
             'Self'                  => array('.',            '.',              '.'),
+            'Empty'                 => array('',             '.',              '.'),
             'No extensions'         => array('foo',          'foo',            'foo'),
             'Empty extension'       => array('foo.',         'foo',            'foo'),
             'Whitespace extension'  => array('foo . ',       'foo ',           'foo '),
@@ -193,7 +216,9 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         //                                              path         atoms                 expectedResult
         return array(
             'Single atom to self'              => array('.',         array('foo'),         './foo'),
+            'Single atom to empty'             => array('',          array('foo'),         'foo'),
             'Multiple atoms to self'           => array('.',         array('foo', 'bar'),  './foo/bar'),
+            'Multiple atoms to empty'          => array('',          array('foo', 'bar'),  'foo/bar'),
             'Multiple atoms to multiple atoms' => array('foo/bar',   array('baz', 'qux'),  'foo/bar/baz/qux'),
             'Whitespace atoms'                 => array('foo',       array(' '),           'foo/ '),
             'Special atoms'                    => array('foo',       array('.', '..'),     'foo/./..'),
@@ -268,8 +293,12 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
     {
         //                                              path         joinPath    expectedResult
         return array(
-            'Single atom to self'              => array('.',        './foo',     '././foo'),
+            'Relative atom to self'            => array('.',        './foo',     '././foo'),
+            'Relative atom to empty'           => array('',         './foo',     './foo'),
+            'Single atom to empty'             => array('',         'foo',       'foo'),
+            'Single atom to self'              => array('.',        'foo',       './foo'),
             'Multiple atoms to self'           => array('.',        './foo/bar', '././foo/bar'),
+            'Multiple atoms to empty'          => array('',         './foo/bar', './foo/bar'),
             'Multiple atoms to multiple atoms' => array('foo/bar',  'baz/qux',   'foo/bar/baz/qux'),
             'Whitespace atoms'                 => array('foo',      ' ',         'foo/ '),
             'Special atoms'                    => array('foo',      './..',      'foo/./..'),
@@ -301,6 +330,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
     {
         //                                     path       expectedResult
         return array(
+            'Empty atom'              => array('',        './'),
             'Self atom'               => array('.',       './'),
             'Single atom'             => array('foo',     'foo/'),
             'Whitespace atom'         => array('foo ',    'foo /'),
@@ -323,6 +353,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
     {
         //                                   path     extensions            expectedResult
         return array(
+            'Add to empty'          => array('',      array('foo'),         '.foo'),
             'Add to self'           => array('.',     array('foo'),         './.foo'),
             'Empty extension'       => array('foo',   array(''),            'foo.'),
             'Whitespace extension'  => array('foo',   array(' '),           'foo. '),
@@ -380,6 +411,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         //                                path        suffix       expectedResult
         return array(
             'Self'               => array('.',        'foo',       'foo'),
+            'Empty atom'         => array('',         'foo',       'foo'),
             'Empty suffix'       => array('foo/bar',  '',          'foo/bar'),
             'Whitespace suffix'  => array('foo/bar',  ' ',         'foo/bar '),
             'Normal suffix'      => array('foo/bar',  '-baz',      'foo/bar-baz'),
@@ -413,6 +445,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         //                                path        prefix       expectedResult
         return array(
             'Self'               => array('.',        'foo',       'foo'),
+            'Empty atom'         => array('',         'foo',       'foo'),
             'Empty prefix'       => array('foo/bar',  '',          'foo/bar'),
             'Whitespace prefix'  => array('foo/bar',  ' ',         'foo/ bar'),
             'Normal prefix'      => array('foo/bar',  'baz-',      'foo/baz-bar'),
@@ -443,30 +476,40 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
 
     // tests for RelativePathInterface implementation ==========================
 
-    public function isEmptySelfData()
+    public function isEmptyData()
     {
         return array(
-            'Self'           => array('.',        false,  true),
-            'Empty path'     => array('',         true,   false),
-            'Single atom'    => array('foo',      false,  false),
-            'Multiple atoms' => array('foo/bar',  true,   false),
+            'Empty path'     => array('',         true),
+            'Multiple atoms' => array('foo/bar',  false),
+            'Self'           => array('.',        false),
+            'Single atom'    => array('foo',      false),
         );
     }
 
     /**
-     * @dataProvider isEmptySelfData
+     * @dataProvider isEmptyData
      */
-    public function testIsEmpty($pathString, $isEmpty, $isSelf)
+    public function testIsEmpty($pathString, $isEmpty)
     {
         $path = $this->factory->create($pathString);
 
         $this->assertTrue($isEmpty === $path->isEmpty());
     }
 
+    public function isSelfData()
+    {
+        return array(
+            'Self'           => array('.',        true),
+            'Empty path'     => array('',         false),
+            'Single atom'    => array('foo',      false),
+            'Multiple atoms' => array('foo/bar',  false),
+        );
+    }
+
     /**
-     * @dataProvider isEmptySelfData
+     * @dataProvider isSelfData
      */
-    public function testIsEmpty($pathString, $isEmpty, $isSelf)
+    public function testIsSelf($pathString, $isSelf)
     {
         $path = $this->factory->create($pathString);
 

@@ -46,6 +46,24 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         return $this->factory()->createFromAtoms($atoms, true, false);
     }
 
+    /**
+     * Returns a new path instance with a trailing slash suffixed to this path.
+     *
+     * @return PathInterface
+     */
+    public function joinTrailingSlash()
+    {
+        if ($this->hasTrailingSeparator() || !$this->hasAtoms()) {
+            return $this;
+        }
+
+        return $this->factory()->createFromAtoms(
+            $this->atoms(),
+            $this instanceof AbsolutePathInterface,
+            true
+        );
+    }
+
     // implementation of AbsolutePathInterface =================================
 
     /**

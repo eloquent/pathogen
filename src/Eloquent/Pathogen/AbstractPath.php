@@ -40,7 +40,7 @@ abstract class AbstractPath implements PathInterface
             $this->atoms[] = $atom;
         }
 
-        $this->hasTrailingSeparator = $hasTrailingSeparator;
+        $this->hasTrailingSeparator = $hasTrailingSeparator === true;
         $this->factory = Factory\PathFactory::get($factory);
         $this->normalizer = Normalizer\PathNormalizer::get($normalizer);
     }
@@ -363,18 +363,7 @@ abstract class AbstractPath implements PathInterface
      *
      * @return PathInterface
      */
-    public function joinTrailingSlash()
-    {
-        if ($this->hasTrailingSeparator() || !$this->hasAtoms()) {
-            return $this;
-        }
-
-        return $this->factory()->createFromAtoms(
-            $this->atoms(),
-            $this instanceof AbsolutePathInterface,
-            true
-        );
-    }
+    abstract public function joinTrailingSlash();
 
     /**
      * Returns a new path instance with the supplied extensions suffixed to this

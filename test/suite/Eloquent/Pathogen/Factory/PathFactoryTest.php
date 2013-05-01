@@ -57,7 +57,7 @@ class PathFactoryTest extends PHPUnit_Framework_TestCase
             'Absolute with empty atoms at end'    => array('/foo//',                array('foo'),                     true,       true),
             'Absolute with whitespace atoms'      => array('/ foo bar / baz qux ',  array(' foo bar ', ' baz qux '),  true,       false),
 
-            'Empty'                               => array('',                      array('.'),                       false,      false),
+            'Empty'                               => array('',                      array(),                          false,      false),
             'Self'                                => array('.',                     array('.'),                       false,      false),
             'Relative'                            => array('foo/bar',               array('foo', 'bar'),              false,      false),
             'Relative with trailing separator'    => array('foo/bar/',              array('foo', 'bar'),              false,      true),
