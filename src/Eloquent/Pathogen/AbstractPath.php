@@ -387,6 +387,7 @@ abstract class AbstractPath implements PathInterface
      */
     public function joinExtensions($extension)
     {
+        // TODO: Throw exception
         $extensions = func_get_args();
 
         return $this->joinExtensionSequence($extensions);
@@ -410,7 +411,12 @@ abstract class AbstractPath implements PathInterface
         }
 
         $resultingAtoms = $this->atoms();
-        $resultingAtoms[count($resultingAtoms) - 1] = $this->name() . '.' . implode('.' , $resultingExtensions);
+        $name = $this->name();
+        if ('' === $name) {
+            $resultingAtoms[] = '.' . implode('.' , $resultingExtensions);
+        } else {
+            $resultingAtoms[count($resultingAtoms) - 1] =  $name . '.' . implode('.' , $resultingExtensions);
+        }
 
         return $this->factory()->createFromAtoms(
             $resultingAtoms,
