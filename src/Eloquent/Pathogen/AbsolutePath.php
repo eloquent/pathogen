@@ -87,23 +87,9 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      */
     public function isParentOf(AbsolutePathInterface $path)
     {
-        $parentAtoms = $this->normalizer()->normalize($this)->atoms();
-        $parentCount = count($parentAtoms);
-        $childAtoms = $this->normalizer()->normalize($path)->atoms();
-
-        if ($parentCount != count($childAtoms) - 1) {
-            return false;
-        }
-
-        $loop = 0;
-        while (
-            array_key_exists($loop, $parentAtoms) &&
-            $parentAtoms[$loop] === $childAtoms[$loop]
-        ) {
-            $loop++;
-        }
-
-        return $loop === $parentCount;
+        return
+            $path->hasAtoms() &&
+            $this->normalizer()->normalize($this)->atoms() === $path->parent()->atoms();
     }
 
     /**
@@ -116,22 +102,8 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
     public function isAncestorOf(AbsolutePathInterface $path)
     {
         $parentAtoms = $this->normalizer()->normalize($this)->atoms();
-        $parentCount = count($parentAtoms);
-        $childAtoms = $this->normalizer()->normalize($path)->atoms();
 
-        if ($parentCount >= count($childAtoms)) {
-            return false;
-        }
-
-        $loop = 0;
-        while (
-            array_key_exists($loop, $parentAtoms) &&
-            $parentAtoms[$loop] === $childAtoms[$loop]
-        ) {
-            $loop++;
-        }
-
-        return $loop === $parentCount;
+        return $parentAtoms === array_slice($this->normalizer()->normalize($path)->atoms(), 0, count($parentAtoms));
     }
 
     /**
@@ -146,27 +118,16 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      */
     public function relativeTo(AbsolutePathInterface $path)
     {
-        $resultingAtoms = array();
-        $parentAtoms = $this->normalizer()->normalize($this)->atoms();
-        $parentCount = count($parentAtoms);
-        $childAtoms = $path->normalizer()->normalize($path)->atoms();
+        $parentAtoms = $this->normalizer()->normalize($path)->atoms();
+        $childAtoms = $this->normalizer()->normalize($this)->atoms();
+        $diff = array_diff_assoc($parentAtoms, $childAtoms);
+        $fillCount = (count($childAtoms) - count($parentAtoms)) + count($diff);
 
-        $commonAtoms = 0;
-        while (
-            array_key_exists($commonAtoms, $childAtoms) &&
-            array_key_exists($commonAtoms, $parentAtoms) &&
-            $parentAtoms[$commonAtoms] === $childAtoms[$commonAtoms]
-        ) {
-            $commonAtoms++;
-        }
-
-        for ($loop = $commonAtoms; $loop < $parentCount; $loop++) {
-            $resultingAtoms[] = '..';
-        }
-
-        array_splice($childAtoms, 0, $commonAtoms);
-        $resultingAtoms = array_merge($resultingAtoms, $childAtoms);
-
-        return $this->factory()->createFromAtoms($resultingAtoms, false, false);
+        return $this->factory()->createFromAtoms(
+            $fillCount > 0
+                ? array_merge(array_fill(0, $fillCount, static::PARENT_ATOM), $diff)
+                : $diff,
+            false
+        );
     }
 }
