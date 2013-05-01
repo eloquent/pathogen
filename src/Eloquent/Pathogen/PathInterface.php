@@ -226,7 +226,8 @@ interface PathInterface
      */
     public function prefixName($prefix);
 
-    const SEPARATOR = '/';
+    const ATOM_SEPARATOR = '/';
+    const EXTENSION_SEPARATOR = '.';
     const PARENT_ATOM = '..';
     const SELF_ATOM = '.';
     const EMPTY_ATOM = '';

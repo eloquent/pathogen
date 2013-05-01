@@ -12,6 +12,7 @@
 namespace Eloquent\Pathogen\Normalizer;
 
 use Eloquent\Pathogen\AbsolutePathInterface;
+use Eloquent\Pathogen\AbstractPath;
 use Eloquent\Pathogen\Factory\PathFactory;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\RelativePathInterface;
@@ -71,9 +72,9 @@ class PathNormalizer implements PathNormalizerInterface
         $resultingAtoms = array();
         $atoms = $path->atoms();
         foreach ($atoms as $atom) {
-            if ('..' === $atom) {
+            if (AbstractPath::PARENT_ATOM === $atom) {
                 array_pop($resultingAtoms);
-            } elseif ('.' !== $atom) {
+            } elseif (AbstractPath::SELF_ATOM !== $atom) {
                 $resultingAtoms[] = $atom;
             }
         }
@@ -94,12 +95,16 @@ class PathNormalizer implements PathNormalizerInterface
         $numAtoms = count($atoms);
 
         for ($loop = 0; $loop < $numAtoms; $loop++) {
-            if ('.' !== $atoms[$loop]) {
+            if (AbstractPath::SELF_ATOM !== $atoms[$loop]) {
                 $resultingAtoms[] = $atoms[$loop];
                 $resultingAtomsCount++;
             }
 
-            if ($resultingAtomsCount > 1 && '..' === $resultingAtoms[$resultingAtomsCount - 1] && '..' !== $resultingAtoms[$resultingAtomsCount - 2]) {
+            if (
+                $resultingAtomsCount > 1 &&
+                AbstractPath::PARENT_ATOM === $resultingAtoms[$resultingAtomsCount - 1] &&
+                AbstractPath::PARENT_ATOM !== $resultingAtoms[$resultingAtomsCount - 2]
+            ) {
                 array_splice($resultingAtoms, $resultingAtomsCount - 2, 2);
                 $resultingAtomsCount -= 2;
             }

@@ -25,10 +25,10 @@ class RelativePath extends AbstractPath implements RelativePathInterface
         }
 
         if ($this->hasTrailingSeparator()) {
-            return './';
+            return static::SELF_ATOM . static::ATOM_SEPARATOR;
         }
 
-        return '.';
+        return static::SELF_ATOM;
     }
 
     /**
@@ -44,7 +44,7 @@ class RelativePath extends AbstractPath implements RelativePathInterface
         $atoms = $this->atoms();
         $numAtoms = count($atoms);
 
-        return 1 === $numAtoms && '.' === $atoms[0]
+        return 1 === $numAtoms && static::SELF_ATOM === $atoms[0]
             ? ''
             : parent::name();
     }
@@ -57,7 +57,7 @@ class RelativePath extends AbstractPath implements RelativePathInterface
     public function parent()
     {
         $atoms = $this->atoms();
-        $atoms[] = '..';
+        $atoms[] = static::PARENT_ATOM;
 
         $path = $this->factory()->createFromAtoms($atoms, false, false);
 
@@ -77,7 +77,7 @@ class RelativePath extends AbstractPath implements RelativePathInterface
 
         if (!$this->hasAtoms()) {
             return $this->factory()->createFromAtoms(
-                array('.'),
+                array(static::SELF_ATOM),
                 false,
                 true
             );
@@ -113,6 +113,6 @@ class RelativePath extends AbstractPath implements RelativePathInterface
     {
         $atoms = $this->atoms();
 
-        return 1 === count($atoms) && '.' === $atoms[0];
+        return 1 === count($atoms) && static::SELF_ATOM === $atoms[0];
     }
 }

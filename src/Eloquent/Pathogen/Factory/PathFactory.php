@@ -12,6 +12,7 @@
 namespace Eloquent\Pathogen\Factory;
 
 use Eloquent\Pathogen\AbsolutePath;
+use Eloquent\Pathogen\AbstractPath;
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\Normalizer\PathNormalizer;
 use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
@@ -79,7 +80,7 @@ class PathFactory implements PathFactoryInterface
         $isAbsolute = false;
         $hasTrailingSeparator = false;
 
-        $atoms = explode('/', $path);
+        $atoms = explode(AbstractPath::ATOM_SEPARATOR, $path);
         $numAtoms = count($atoms);
 
         if ($numAtoms > 1) {
