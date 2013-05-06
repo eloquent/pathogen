@@ -22,4 +22,9 @@ interface InvalidPathAtomExceptionInterface
      * @return string
      */
     public function atom();
+
+    /**
+     * @return string
+     */
+    public function reason();
 }
