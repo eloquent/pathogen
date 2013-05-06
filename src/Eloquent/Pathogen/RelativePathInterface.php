@@ -25,7 +25,8 @@ interface RelativePathInterface extends PathInterface
     /**
      * Returns true if this path is the self path.
      *
-     * The self path is a relative path with a single self atom (i.e. a dot '.').
+     * The self path is a relative path with a single self atom (i.e. a dot
+     * '.').
      *
      * @return boolean
      */

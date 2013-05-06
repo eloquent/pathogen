@@ -15,8 +15,8 @@ use Exception;
 use Icecave\Repr\Repr;
 use LogicException;
 
-abstract class AbstractInvalidPathAtomException extends LogicException implements
-    InvalidPathAtomExceptionInterface
+abstract class AbstractInvalidPathAtomException extends LogicException
+    implements InvalidPathAtomExceptionInterface
 {
     /**
      * @param string         $atom

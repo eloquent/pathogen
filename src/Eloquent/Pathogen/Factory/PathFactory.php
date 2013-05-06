@@ -104,7 +104,11 @@ class PathFactory implements PathFactoryInterface
             }
         }
 
-        return $this->createFromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
+        return $this->createFromAtoms(
+            $atoms,
+            $isAbsolute,
+            $hasTrailingSeparator
+        );
     }
 
     /**
@@ -118,7 +122,8 @@ class PathFactory implements PathFactoryInterface
      * @param boolean|null  $hasTrailingSeparator
      *
      * @return PathInterface
-     * @throws InvalidPathAtomExceptionInterface If any supplied atom is invalid.
+     * @throws InvalidPathAtomExceptionInterface If any supplied atom is
+     * invalid.
      */
     public function createFromAtoms($atoms, $isAbsolute = null, $hasTrailingSeparator = null)
     {

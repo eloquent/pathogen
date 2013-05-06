@@ -150,7 +150,8 @@ interface PathInterface
      * @param string,... $additionalAtoms
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms are invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms
+     * are invalid.
      */
     public function joinAtoms($atom);
 
@@ -161,7 +162,8 @@ interface PathInterface
      * @param mixed<string> $atoms
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms are invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms
+     * are invalid.
      */
     public function joinAtomSequence($atoms);
 
@@ -189,7 +191,8 @@ interface PathInterface
      * @param string,... $additionalExtensions
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed
+     * extensions cause the atom to be invalid.
      */
     public function joinExtensions($extension);
 
@@ -200,7 +203,8 @@ interface PathInterface
      * @param mixed<string> $extensions
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed
+     * extensions cause the atom to be invalid.
      */
     public function joinExtensionSequence($extensions);
 
@@ -211,7 +215,8 @@ interface PathInterface
      * @param string $suffix
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffix causes the atom to be invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the suffix causes
+     * the atom to be invalid.
      */
     public function suffixName($suffix);
 
@@ -222,7 +227,8 @@ interface PathInterface
      * @param string $prefix
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the prefix causes the atom to be invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the prefix causes
+     * the atom to be invalid.
      */
     public function prefixName($prefix);
 

@@ -252,7 +252,10 @@ abstract class AbstractPath implements PathInterface
         $atoms = $this->atoms();
         $numAtoms = count($atoms);
 
-        if ($numAtoms === 0 || false === strpos($this->name(), static::EXTENSION_SEPARATOR)) {
+        if (
+            $numAtoms === 0 ||
+            false === strpos($this->name(), static::EXTENSION_SEPARATOR)
+        ) {
             return $this;
         }
 
@@ -280,7 +283,10 @@ abstract class AbstractPath implements PathInterface
         $atoms = $this->atoms();
         $numAtoms = count($atoms);
 
-        if (count($atoms) === 0 || false === strpos($this->name(), static::EXTENSION_SEPARATOR)) {
+        if (
+            count($atoms) === 0 ||
+            false === strpos($this->name(), static::EXTENSION_SEPARATOR)
+        ) {
             return $this;
         }
 
@@ -303,7 +309,8 @@ abstract class AbstractPath implements PathInterface
      * @param string,... $additionalAtoms
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms are invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms
+     * are invalid.
      */
     public function joinAtoms($atom)
     {
@@ -319,7 +326,8 @@ abstract class AbstractPath implements PathInterface
      * @param mixed<string> $atoms
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms are invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms
+     * are invalid.
      */
     public function joinAtomSequence($atoms)
     {
@@ -373,7 +381,8 @@ abstract class AbstractPath implements PathInterface
      * @param string,... $additionalExtensions
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed
+     * extensions cause the atom to be invalid.
      */
     public function joinExtensions($extension)
     {
@@ -390,7 +399,8 @@ abstract class AbstractPath implements PathInterface
      * @param mixed<string> $extensions
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed
+     * extensions cause the atom to be invalid.
      */
     public function joinExtensionSequence($extensions)
     {
@@ -406,8 +416,10 @@ abstract class AbstractPath implements PathInterface
             $resultingAtoms[] = static::EXTENSION_SEPARATOR
                 . implode(static::EXTENSION_SEPARATOR , $resultingExtensions);
         } else {
-            $resultingAtoms[count($resultingAtoms) - 1] =  $name . static::EXTENSION_SEPARATOR
-                . implode(static::EXTENSION_SEPARATOR , $resultingExtensions);
+            $resultingAtoms[count($resultingAtoms) - 1] =
+                $name .
+                static::EXTENSION_SEPARATOR .
+                implode(static::EXTENSION_SEPARATOR , $resultingExtensions);
         }
 
         return $this->factory()->createFromAtoms(
@@ -424,7 +436,8 @@ abstract class AbstractPath implements PathInterface
      * @param string $suffix
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffix causes the atom to be invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the suffix causes
+     * the atom to be invalid.
      */
     public function suffixName($suffix)
     {
@@ -446,7 +459,8 @@ abstract class AbstractPath implements PathInterface
      * @param string $prefix
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the prefix causes the atom to be invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the prefix causes
+     * the atom to be invalid.
      */
     public function prefixName($prefix)
     {
