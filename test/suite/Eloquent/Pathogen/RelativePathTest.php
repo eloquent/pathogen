@@ -351,14 +351,16 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
 
     public function joinExtensionsData()
     {
-        //                                   path     extensions            expectedResult
+        //                                                       path      extensions            expectedResult
         return array(
-            'Add to empty'          => array('',      array('foo'),         '.foo'),
-            'Add to self'           => array('.',     array('foo'),         './.foo'),
-            'Empty extension'       => array('foo',   array(''),            'foo.'),
-            'Whitespace extension'  => array('foo',   array(' '),           'foo. '),
-            'Single extension'      => array('foo',   array('bar'),         'foo.bar'),
-            'Multiple extensions'   => array('foo',   array('bar', 'baz'),  'foo.bar.baz'),
+            'Add to empty'                              => array('',       array('foo'),         '.foo'),
+            'Add to self'                               => array('.',      array('foo'),         './.foo'),
+            'Empty extension'                           => array('foo',    array(''),            'foo.'),
+            'Whitespace extension'                      => array('foo',    array(' '),           'foo. '),
+            'Single extension'                          => array('foo',    array('bar'),         'foo.bar'),
+            'Multiple extensions'                       => array('foo',    array('bar', 'baz'),  'foo.bar.baz'),
+            'Empty extension'                           => array('/foo/',  array(''),            '/foo./'),
+            'Multiple extensions with trailing slash'   => array('/foo/',  array('bar', 'baz'),  '/foo.bar.baz/'),
         );
     }
 
@@ -408,14 +410,16 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
 
     public function suffixNameData()
     {
-        //                                path        suffix       expectedResult
+        //                                                 path         suffix       expectedResult
         return array(
-            'Self'               => array('.',        'foo',       'foo'),
-            'Empty atom'         => array('',         'foo',       'foo'),
-            'Empty suffix'       => array('foo/bar',  '',          'foo/bar'),
-            'Whitespace suffix'  => array('foo/bar',  ' ',         'foo/bar '),
-            'Normal suffix'      => array('foo/bar',  '-baz',      'foo/bar-baz'),
-            'Suffix with dots'   => array('foo/bar',  '.baz.qux',  'foo/bar.baz.qux'),
+            'Self'                                => array('.',         'foo',       'foo'),
+            'Empty atom'                          => array('',          'foo',       'foo'),
+            'Empty suffix'                        => array('foo/bar',   '',          'foo/bar'),
+            'Empty suffix and trailing slash'     => array('foo/bar/',  '',          'foo/bar/'),
+            'Whitespace suffix'                   => array('foo/bar',   ' ',         'foo/bar '),
+            'Normal suffix'                       => array('foo/bar',   '-baz',      'foo/bar-baz'),
+            'Suffix with dots'                    => array('foo/bar',   '.baz.qux',  'foo/bar.baz.qux'),
+            'Suffix with dots and trailing slash' => array('foo/bar',   '.baz.qux',  'foo/bar.baz.qux'),
         );
     }
 
@@ -442,14 +446,16 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
 
     public function prefixNameData()
     {
-        //                                path        prefix       expectedResult
+        //                                                    path         prefix       expectedResult
         return array(
-            'Self'               => array('.',        'foo',       'foo'),
-            'Empty atom'         => array('',         'foo',       'foo'),
-            'Empty prefix'       => array('foo/bar',  '',          'foo/bar'),
-            'Whitespace prefix'  => array('foo/bar',  ' ',         'foo/ bar'),
-            'Normal prefix'      => array('foo/bar',  'baz-',      'foo/baz-bar'),
-            'Prefix with dots'   => array('foo/bar',  'baz.qux.',  'foo/baz.qux.bar'),
+            'Self'                                   => array('.',         'foo',       'foo'),
+            'Empty atom'                             => array('',          'foo',       'foo'),
+            'Empty atom and trailing slash'          => array('./',        'foo',       'foo/'),
+            'Empty prefix'                           => array('foo/bar',   '',          'foo/bar'),
+            'Whitespace prefix'                      => array('foo/bar',   ' ',         'foo/ bar'),
+            'Normal prefix'                          => array('foo/bar',   'baz-',      'foo/baz-bar'),
+            'Prefix with dots'                       => array('foo/bar',   'baz.qux.',  'foo/baz.qux.bar'),
+            'Prefix with dots with trailing slash'   => array('foo/bar/',  'baz.qux.',  'foo/baz.qux.bar/'),
         );
     }
 

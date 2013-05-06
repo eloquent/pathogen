@@ -103,7 +103,11 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
     {
         $parentAtoms = $this->normalizer()->normalize($this)->atoms();
 
-        return $parentAtoms === array_slice($this->normalizer()->normalize($path)->atoms(), 0, count($parentAtoms));
+        return $parentAtoms === array_slice(
+            $this->normalizer()->normalize($path)->atoms(),
+            0,
+            count($parentAtoms)
+        );
     }
 
     /**
@@ -124,9 +128,12 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         $fillCount = (count($childAtoms) - count($parentAtoms)) + count($diff);
 
         return $this->factory()->createFromAtoms(
-            $fillCount > 0
-                ? array_merge(array_fill(0, $fillCount, static::PARENT_ATOM), $diff)
-                : $diff,
+            $fillCount > 0 ?
+                array_merge(
+                    array_fill(0, $fillCount, static::PARENT_ATOM),
+                    $diff
+                ) :
+                $diff,
             false
         );
     }

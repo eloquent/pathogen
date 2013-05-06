@@ -103,7 +103,7 @@ abstract class AbstractPath implements PathInterface
         return sprintf(
             '%s%s',
             implode(static::ATOM_SEPARATOR, $this->atoms()),
-            $this->hasTrailingSeparator() ? static::ATOM_SEPARATOR : static::EMPTY_ATOM
+            $this->hasTrailingSeparator() ? static::ATOM_SEPARATOR : ''
         );
     }
 
@@ -129,7 +129,7 @@ abstract class AbstractPath implements PathInterface
         $atoms = $this->atoms();
         $numAtoms = count($atoms);
 
-        return $numAtoms > 0 ? $atoms[$numAtoms - 1] : static::EMPTY_ATOM;
+        return $numAtoms > 0 ? $atoms[$numAtoms - 1] : '';
     }
 
     /**
@@ -141,14 +141,14 @@ abstract class AbstractPath implements PathInterface
      */
     public function nameWithoutExtension()
     {
-        if (false !== strpos($this->name(), static::EXTENSION_SEPARATOR)) {
-            $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
+        $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
+        if (count($parts) > 1) {
             array_pop($parts);
 
             return implode(static::EXTENSION_SEPARATOR, $parts);
         }
 
-        return $this->name();
+        return $parts[0];
     }
 
     /**
@@ -160,13 +160,9 @@ abstract class AbstractPath implements PathInterface
      */
     public function namePrefix()
     {
-        if (false !== strpos($this->name(), static::EXTENSION_SEPARATOR)) {
-            $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
+        $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
 
-            return array_shift($parts);
-        }
-
-        return $this->name();
+        return $parts[0];
     }
 
     /**
@@ -179,8 +175,8 @@ abstract class AbstractPath implements PathInterface
      */
     public function nameSuffix()
     {
-        if (false !== strpos($this->name(), static::EXTENSION_SEPARATOR)) {
-            $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
+        $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
+        if (count($parts) > 1) {
             array_shift($parts);
 
             return implode(static::EXTENSION_SEPARATOR, $parts);
@@ -199,13 +195,10 @@ abstract class AbstractPath implements PathInterface
      */
     public function extension()
     {
-        if (false !== strpos($this->name(), static::EXTENSION_SEPARATOR)) {
-            $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
+        $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
+        $numParts = count($parts);
 
-            return end($parts);
-        }
-
-        return null;
+        return $numParts > 1 ? $parts[$numParts - 1] : null;
     }
 
     /**
@@ -215,7 +208,7 @@ abstract class AbstractPath implements PathInterface
      */
     public function hasExtension()
     {
-        return false !== strpos($this->name(), static::EXTENSION_SEPARATOR);
+        return count(explode(static::EXTENSION_SEPARATOR, $this->name())) > 1;
     }
 
     /**
@@ -251,15 +244,12 @@ abstract class AbstractPath implements PathInterface
     {
         $atoms = $this->atoms();
         $numAtoms = count($atoms);
+        $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
 
-        if (
-            $numAtoms === 0 ||
-            false === strpos($this->name(), static::EXTENSION_SEPARATOR)
-        ) {
+        if ($numAtoms === 0 || count($parts) < 2) {
             return $this;
         }
 
-        $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
         array_pop($parts);
 
         $atoms[$numAtoms - 1] = implode(static::EXTENSION_SEPARATOR, $parts);
@@ -282,18 +272,13 @@ abstract class AbstractPath implements PathInterface
     {
         $atoms = $this->atoms();
         $numAtoms = count($atoms);
+        $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
 
-        if (
-            count($atoms) === 0 ||
-            false === strpos($this->name(), static::EXTENSION_SEPARATOR)
-        ) {
+        if ($numAtoms === 0 || count($parts) < 2) {
             return $this;
         }
 
-        $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
-        $name = array_shift($parts);
-
-        $atoms[$numAtoms - 1] = $name;
+        $atoms[$numAtoms - 1] = $parts[0];
 
         return $this->factory()->createFromAtoms(
             $atoms,
@@ -314,9 +299,7 @@ abstract class AbstractPath implements PathInterface
      */
     public function joinAtoms($atom)
     {
-        $atoms = func_get_args();
-
-        return $this->joinAtomSequence($atoms);
+        return $this->joinAtomSequence(func_get_args());
     }
 
     /**
@@ -331,20 +314,12 @@ abstract class AbstractPath implements PathInterface
      */
     public function joinAtomSequence($atoms)
     {
-        $resultingAtoms = $this->atoms();
-
-        foreach ($atoms as $atom) {
-            if ('' === $atom) {
-                throw new Exception\EmptyPathAtomException;
-            } elseif (false !== strpos($atom, static::ATOM_SEPARATOR)) {
-                throw new Exception\PathAtomContainsSeparatorException($atom);
-            }
-
-            $resultingAtoms[] = $atom;
+        if (!is_array($atoms)) {
+            $atoms = iterator_to_array($atoms);
         }
 
         return $this->factory()->createFromAtoms(
-            $resultingAtoms,
+            array_merge($this->atoms(), $atoms),
             $this instanceof AbsolutePathInterface,
             false
         );
@@ -359,19 +334,8 @@ abstract class AbstractPath implements PathInterface
      */
     public function join(RelativePathInterface $path)
     {
-        return $this->factory()->createFromAtoms(
-            array_merge($this->atoms(), $path->atoms()),
-            $this instanceof AbsolutePathInterface,
-            false
-        );
+        return $this->joinAtomSequence($path->atoms());
     }
-
-    /**
-     * Returns a new path instance with a trailing slash suffixed to this path.
-     *
-     * @return PathInterface
-     */
-    abstract public function joinTrailingSlash();
 
     /**
      * Returns a new path instance with the supplied extensions suffixed to this
@@ -386,10 +350,7 @@ abstract class AbstractPath implements PathInterface
      */
     public function joinExtensions($extension)
     {
-        // TODO: Throw exception
-        $extensions = func_get_args();
-
-        return $this->joinExtensionSequence($extensions);
+        return $this->joinExtensionSequence(func_get_args());
     }
 
     /**
@@ -404,28 +365,31 @@ abstract class AbstractPath implements PathInterface
      */
     public function joinExtensionSequence($extensions)
     {
-        // TODO: Throw exception
-        $resultingExtensions = array();
-        foreach ($extensions as $extension) {
-            $resultingExtensions[] = $extension;
+        if (!is_array($extensions)) {
+            $extensions = iterator_to_array($extensions);
         }
 
         $resultingAtoms = $this->atoms();
         $name = $this->name();
         if (static::EMPTY_ATOM === $name) {
-            $resultingAtoms[] = static::EXTENSION_SEPARATOR
-                . implode(static::EXTENSION_SEPARATOR , $resultingExtensions);
+            $resultingAtoms[] = sprintf(
+                '%s%s',
+                static::EXTENSION_SEPARATOR,
+                implode(static::EXTENSION_SEPARATOR , $extensions)
+            );
         } else {
-            $resultingAtoms[count($resultingAtoms) - 1] =
-                $name .
-                static::EXTENSION_SEPARATOR .
-                implode(static::EXTENSION_SEPARATOR , $resultingExtensions);
+            $resultingAtoms[count($resultingAtoms) - 1] = sprintf(
+                '%s%s%s',
+                $name,
+                static::EXTENSION_SEPARATOR,
+                implode(static::EXTENSION_SEPARATOR , $extensions)
+            );
         }
 
         return $this->factory()->createFromAtoms(
             $resultingAtoms,
             $this instanceof AbsolutePathInterface,
-            false
+            $this->hasTrailingSeparator()
         );
     }
 
@@ -441,14 +405,13 @@ abstract class AbstractPath implements PathInterface
      */
     public function suffixName($suffix)
     {
-        // TODO: Throw exception
         $atoms = $this->atoms();
         $atoms[count($atoms) - 1] = $this->name() . $suffix;
 
         return $this->factory()->createFromAtoms(
             $atoms,
             $this instanceof AbsolutePathInterface,
-            false
+            $this->hasTrailingSeparator()
         );
     }
 
@@ -464,14 +427,13 @@ abstract class AbstractPath implements PathInterface
      */
     public function prefixName($prefix)
     {
-        // TODO: Throw exception
         $atoms = $this->atoms();
-        $atoms[count($atoms) - 1] = $prefix . $this->name();
+        $atoms[count($atoms) - 1] = sprintf('%s%s', $prefix, $this->name());
 
         return $this->factory()->createFromAtoms(
             $atoms,
             $this instanceof AbsolutePathInterface,
-            false
+            $this->hasTrailingSeparator()
         );
     }
 
