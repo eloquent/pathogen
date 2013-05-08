@@ -11,12 +11,14 @@
 
 namespace Eloquent\Pathogen\Exception;
 
-/**
- * The root path cannot have a trailing slash.
- *
- * This type of exception is thrown when PathInterface::joinTrailingSlash() is
- * called on the root path (i.e. '/').
- */
-interface RootTrailingSlashExceptionInterface
+final class PathAtomContainsSeparatorException
+    extends AbstractInvalidPathAtomException
 {
+    /**
+     * @return string
+     */
+    public function reason()
+    {
+        return 'Path atoms must not contain separators.';
+    }
 }

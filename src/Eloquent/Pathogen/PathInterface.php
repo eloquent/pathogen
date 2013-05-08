@@ -23,6 +23,13 @@ interface PathInterface
     public function atoms();
 
     /**
+     * Returns true is at least one atom is present
+     *
+     * @return boolean
+     */
+    public function hasAtoms();
+
+    /**
      * Returns true if this path ends with a path separator.
      *
      * @return boolean
@@ -100,8 +107,10 @@ interface PathInterface
     /**
      * Returns the parent of this path.
      *
+     * If this method is called on the root path, the root path will be
+     * returned.
+     *
      * @return PathInterface
-     * @throws Exception\RootParentExceptionInterface If this is method called on the root path.
      */
     public function parent();
 
@@ -141,7 +150,8 @@ interface PathInterface
      * @param string,... $additionalAtoms
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms are invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms
+     * are invalid.
      */
     public function joinAtoms($atom);
 
@@ -152,7 +162,8 @@ interface PathInterface
      * @param mixed<string> $atoms
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms are invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms
+     * are invalid.
      */
     public function joinAtomSequence($atoms);
 
@@ -180,7 +191,8 @@ interface PathInterface
      * @param string,... $additionalExtensions
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed
+     * extensions cause the atom to be invalid.
      */
     public function joinExtensions($extension);
 
@@ -191,7 +203,8 @@ interface PathInterface
      * @param mixed<string> $extensions
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed
+     * extensions cause the atom to be invalid.
      */
     public function joinExtensionSequence($extensions);
 
@@ -202,7 +215,8 @@ interface PathInterface
      * @param string $suffix
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffix causes the atom to be invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the suffix causes
+     * the atom to be invalid.
      */
     public function suffixName($suffix);
 
@@ -213,11 +227,13 @@ interface PathInterface
      * @param string $prefix
      *
      * @return PathInterface
-     * @throws Exception\InvalidPathAtomExceptionInterface If the prefix causes the atom to be invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the prefix causes
+     * the atom to be invalid.
      */
     public function prefixName($prefix);
 
-    const SEPARATOR = '/';
+    const ATOM_SEPARATOR = '/';
+    const EXTENSION_SEPARATOR = '.';
     const PARENT_ATOM = '..';
     const SELF_ATOM = '.';
     const EMPTY_ATOM = '';
