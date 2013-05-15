@@ -24,95 +24,58 @@ class PathResolverTest extends PHPUnit_Framework_TestCase
         $this->factory = PathFactory::get();
     }
 
-    public function testGet()
-    {
-        $resolver = PathResolver::get();
-        $this->assertInstanceOf(__NAMESPACE__ . "\PathResolver", $resolver);
-    }
-
-    public function testInstall()
-    {
-        PathResolver::install($this->resolver);
-        $this->assertInstanceOf(__NAMESPACE__ . "\PathResolver", PathResolver::get());
-        $this->assertSame($this->resolver, PathResolver::get());
-    }
-
-    public function testUninstall()
-    {
-        PathResolver::install($this->resolver);
-        PathResolver::uninstall();
-        $this->assertInstanceOf(__NAMESPACE__ . "\PathResolver", PathResolver::get());
-        $this->assertNotSame($this->resolver, PathResolver::get());
-    }
-
     public function resolveAbsolutePathData()
     {
-        //                                                    basePath            path            expectedResult
+        //                                                    basePath             path             expectedResult
         return array(
-            'Atom, atom, slash'                      => array('/',                '/foo',         '/foo'),
-            'Atom'                                   => array('/foo',             '/bar',         '/bar'),
-            'Atom, atom'                             => array('/foo/bar',         '/baz',         '/baz'),
-            'Atom, atom, atom, parent, parent, atom' => array('/foo/../../bar',   '/baz/../qux',  '/baz/../qux'),
+            'Root against single atom'                => array('/',                '/foo',          '/foo'),
+            'Single atom against single atom'         => array('/foo',             '/bar',          '/bar'),
+            'Multiple atoms against single atom'      => array('/foo/bar',         '/baz',          '/baz'),
+            'Multiple atoms against multiple atoms'   => array('/foo/../../bar',   '/baz/../qux',   '/baz/../qux'),
         );
     }
 
     /**
      * @dataProvider resolveAbsolutePathData
      */
-    public function testResolveAbsolutePaths($pathString, $path, $expectedResult)
+    public function testResolveAbsolutePaths($basePathString, $pathString, $expectedResult)
     {
-        $basePath = $this->factory->create($pathString);
-        $resolved = $basePath->resolver()->resolve($basePath, $this->factory->create($path));
+        $basePath = $this->factory->create($basePathString);
+        $path = $this->factory->create($pathString);
+        $resolved = $this->resolver->resolve($basePath, $path);
 
         $this->assertSame($expectedResult, $resolved->string());
     }
 
     public function resolveRelativePathData()
     {
-        //                                                    pathString                expectedResult
+        //                                                                                        basePath      path         expectedResult
         return array(
-            'Atom'                                        => array('foo',                   'foo'),
-            'Atom, atom'                                  => array('foo/bar',               'foo/bar'),
-            'Atom, atom, atom, parent, parent, atom'      => array('foo/bar/baz/../../qux', 'foo/qux'),
-            'Atom, atom, parent'                          => array('foo/bar/..',            'foo'),
-            'Atom, atom, slash'                           => array('foo/bar/',              'foo/bar'),
-            'Atom, parent'                                => array('foo/..',                '.'),
-            'Atom, parent, atom'                          => array('foo/../bar',            'bar'),
-            'Atom, parent, atom, slash'                   => array('foo/../bar/',           'bar'),
-            'Atom, self, atom'                            => array('foo/./bar',             'foo/bar'),
-            'Atom, self, atom, parent, atom'              => array('foo/./bar/../baz',      'foo/baz'),
-            'Parent'                                      => array('..',                    '..'),
-            'Parent, atom'                                => array('../foo',                '../foo'),
-            'Parent, atom, parent'                        => array('../foo/..',             '..'),
-            'Parent, atom, parent, atom, self'            => array('../foo/../bar/.',       '../bar'),
-            'Parent, atom, parent, parent'                => array('../foo/../..',          '../..'),
-            'Parent, atom, parent, parent, parent'        => array('../foo/../../..',       '../../..'),
-            'Parent, atom, parent, self, atom'            => array('../foo/.././bar',       '../bar'),
-            'Parent, atom, self'                          => array('../foo/.',              '../foo'),
-            'Parent, atom, self, parent, atom'            => array('../foo/./../bar',       '../bar'),
-            'Parent, parent'                              => array('../..',                 '../..'),
-            'Parent, parent, atom, atom'                  => array('../../foo/bar',         '../../foo/bar'),
-            'Parent, parent, atom, parent, atom'          => array('../../foo/../bar',      '../../bar'),
-            'Parent, parent, self, parent, self'          => array('../.././../.',          '../../..'),
-            'Parent, self, atom, parent, atom'            => array('.././foo/../bar',       '../bar'),
-            'Parent, self, parent'                        => array('.././..',               '../..'),
-            'Root'                                        => array('',                      '.'),
-            'Self'                                        => array('.',                     '.'),
-            'Self, atom, parent'                          => array('./foo/..',              '.'),
-            'Self, parent'                                => array('./..',                  '..'),
-            'Self, parent, atom'                          => array('./../foo',              '../foo'),
-            'Self, self'                                  => array('./.',                   '.'),
-            'Self, self, atom'                            => array('././foo',               'foo'),
+            'Root against single atom'                                                   => array('/',          'foo',       '/foo'),
+            'Single atom against single atom'                                            => array('/foo',       'bar',       '/bar'),
+            'Multiple atoms against single atom'                                         => array('/foo/bar',   'baz',       '/foo/baz'),
+            'Multiple atoms with slash against single atoms'                             => array('/foo/bar/',  'baz',       '/foo/bar/baz'),
+            'Multiple atoms against multiple atoms'                                      => array('/foo/bar',   'baz/qux',   '/foo/baz/qux'),
+            'Multiple atoms with slash against multiple atoms'                           => array('/foo/bar/',  'baz/qux',   '/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms with slash'                => array('/foo/bar/',  'baz/qux/',  '/foo/bar/baz/qux/'),
+            'Root against parent atom'                                                   => array('/',          '..',        '/..'),
+            'Single atom against parent atom'                                            => array('/foo',       '..',        '/..'),
+            'Single atom with slash against parent atom'                                 => array('/foo/',      '..',        '/foo/..'),
+            'Single atom with slash against parent atom with slash'                      => array('/foo/',      '../',       '/foo/../'),
+            'Multiple atoms against parent and single atom'                              => array('/foo/bar',   '../baz',    '/foo/../baz'),
+            'Multiple atoms with slash against parent atom and single atom'              => array('/foo/bar/',  '../baz',    '/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom with slash'   => array('/foo/bar/',  '../baz/',   '/foo/bar/../baz/'),
         );
     }
 
     /**
      * @dataProvider resolveRelativePathData
      */
-    public function testResolveRelativePaths($pathString, $expectedResult)
+    public function testResolveRelativePaths($basePathString, $pathString, $expectedResult)
     {
+        $basePath = $this->factory->create($basePathString);
         $path = $this->factory->create($pathString);
-        $resolved = $this->resolver->resolve($path);
+        $resolved = $this->resolver->resolve($basePath, $path);
 
         $this->assertSame($expectedResult, $resolved->string());
     }
