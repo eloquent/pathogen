@@ -13,7 +13,6 @@ namespace Eloquent\Pathogen\Resolver;
 
 use Eloquent\Pathogen\AbsolutePathInterface;
 use Eloquent\Pathogen\PathInterface;
-use Eloquent\Pathogen\Factory\PathFactory;
 
 class PathResolver implements PathResolverInterface
 {
@@ -56,16 +55,11 @@ class PathResolver implements PathResolverInterface
      */
     public function resolve(AbsolutePathInterface $basePath, PathInterface $path)
     {
-        $resultingPath = null;
-
         if ($path instanceof AbsolutePathInterface) {
             return $path;
         }
 
-        $resultingPath = $basePath->parent()->join($path);
-
-
-        return $resultingPath;
+        return $basePath->parent()->join($path);
     }
 
     private static $instance;
