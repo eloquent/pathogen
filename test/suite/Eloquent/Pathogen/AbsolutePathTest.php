@@ -11,6 +11,7 @@
 
 namespace Eloquent\Pathogen;
 
+use ArrayIterator;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -234,6 +235,14 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($expectedResultString, $result->string());
     }
 
+    public function testJoinAtomSequenWithNonArray()
+    {
+        $path = $this->factory->create('/foo');
+        $result = $path->joinAtomSequence(new ArrayIterator(array('bar', 'baz')));
+
+        $this->assertSame('/foo/bar/baz', $result->string());
+    }
+
     public function testJoinAtomSequenceFailureAtomContainingSeparator()
     {
         $path = $this->factory->create('/foo');
@@ -356,6 +365,14 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $result = $path->joinExtensionSequence($extensions);
 
         $this->assertSame($expectedResultString, $result->string());
+    }
+
+    public function testJoinExtensionSequenWithNonArray()
+    {
+        $path = $this->factory->create('/foo');
+        $result = $path->joinExtensionSequence(new ArrayIterator(array('bar', 'baz')));
+
+        $this->assertSame('/foo.bar.baz', $result->string());
     }
 
     public function testJoinExtensionSequenceFailureAtomContainingSeparator()
