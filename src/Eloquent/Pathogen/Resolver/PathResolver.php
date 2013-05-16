@@ -62,15 +62,8 @@ class PathResolver implements PathResolverInterface
             return $path;
         }
 
-        if ($basePath->hasTrailingSeparator()) {
-            $resultingPath = $basePath->join($path);
-        } else {
-            $resultingPath = $basePath->parent()->join($path);
-        }
+        $resultingPath = $basePath->parent()->join($path);
 
-        if ($path->hasTrailingSeparator()) {
-            return PathFactory::get()->createFromAtoms($resultingPath->atoms(), true, true);
-        }
 
         return $resultingPath;
     }
