@@ -12,7 +12,6 @@
 namespace Eloquent\Pathogen\Exception;
 
 use Exception;
-use Icecave\Repr\Repr;
 use LogicException;
 
 abstract class AbstractInvalidPathAtomException extends LogicException
@@ -29,7 +28,7 @@ abstract class AbstractInvalidPathAtomException extends LogicException
         parent::__construct(
             sprintf(
                 "Invalid path atom %s. %s",
-                Repr::repr($atom),
+                var_export($atom, true),
                 $this->reason()
             ),
             0,

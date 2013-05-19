@@ -3,67 +3,23 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2b6c083f0192f97b77d36649d7dfe876",
+    "hash": "d0b270a5a39b928558f99db4d3be3241",
     "packages": [
-        {
-            "name": "icecave/repr",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/IcecaveStudios/repr.git",
-                "reference": "1.0.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/IcecaveStudios/repr/archive/1.0.0.zip",
-                "reference": "1.0.0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phake/phake": "1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Icecave\\Repr": "lib"
-                }
-            },
-            "notification-url": "http://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "James Harris",
-                    "email": "james.harris@icecave.com.au"
-                }
-            ],
-            "description": "Human readable string representations of everything.",
-            "homepage": "https://github.com/IcecaveStudios/repr",
-            "keywords": [
-                "repr",
-                "representation",
-                "string"
-            ],
-            "time": "2013-01-11 00:04:43"
-        }
+
     ],
     "packages-dev": [
         {
             "name": "icecave/archer",
-            "version": "0.3.0",
+            "version": "0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/archer.git",
-                "reference": "0.3.0"
+                "reference": "0.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/archer/zipball/0.3.0",
-                "reference": "0.3.0",
+                "url": "https://api.github.com/repos/IcecaveStudios/archer/zipball/0.3.1",
+                "reference": "0.3.1",
                 "shasum": ""
             },
             "require": {
@@ -111,7 +67,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2013-03-28 06:17:00"
+            "time": "2013-04-30 07:52:53"
         },
         {
             "name": "phake/phake",

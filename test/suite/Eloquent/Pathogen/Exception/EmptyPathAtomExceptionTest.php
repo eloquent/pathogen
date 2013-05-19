@@ -26,7 +26,7 @@ class EmptyPathAtomExceptionTest extends PHPUnit_Framework_TestCase
         $exception = new EmptyPathAtomException($previous);
 
         $this->assertSame(
-            'Invalid path atom "". Path atoms must not be empty strings.',
+            "Invalid path atom ''. Path atoms must not be empty strings.",
             $exception->getMessage()
         );
         $this->assertSame(

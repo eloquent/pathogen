@@ -29,7 +29,7 @@ class PathAtomContainsSeparatorExceptionTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertSame(
-            'Invalid path atom "foo/bar".'
+            "Invalid path atom 'foo/bar'."
             . ' Path atoms must not contain separators.',
             $exception->getMessage()
         );
