@@ -39,5 +39,9 @@ interface PathFactoryInterface
      * @throws InvalidPathAtomExceptionInterface If any supplied atom is
      * invalid.
      */
-    public function createFromAtoms($atoms, $isAbsolute = null, $hasTrailingSeparator = null);
+    public function createFromAtoms(
+        $atoms,
+        $isAbsolute = null,
+        $hasTrailingSeparator = null
+    );
 }

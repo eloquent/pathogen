@@ -22,5 +22,8 @@ interface PathResolverInterface
      *
      * @return AbsolutePathInterface
      */
-    public function resolve(AbsolutePathInterface $basePath, PathInterface $path);
+    public function resolve(
+        AbsolutePathInterface $basePath,
+        PathInterface $path
+    );
 }

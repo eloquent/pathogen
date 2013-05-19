@@ -28,6 +28,12 @@ abstract class AbstractPath implements PathInterface
         if (null === $hasTrailingSeparator) {
             $hasTrailingSeparator = false;
         }
+        if (null === $factory) {
+            $factory = new Factory\PathFactory;
+        }
+        if (null === $normalizer) {
+            $normalizer = $factory->normalizer();
+        }
 
         $this->atoms = array();
         foreach ($atoms as $atom) {
@@ -41,8 +47,8 @@ abstract class AbstractPath implements PathInterface
         }
 
         $this->hasTrailingSeparator = $hasTrailingSeparator === true;
-        $this->factory = Factory\PathFactory::get($factory);
-        $this->normalizer = Normalizer\PathNormalizer::get($normalizer);
+        $this->factory = $factory;
+        $this->normalizer = $normalizer;
     }
 
     /**

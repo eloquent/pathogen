@@ -22,42 +22,15 @@ use Eloquent\Pathogen\RelativePath;
 class PathFactory implements PathFactoryInterface
 {
     /**
-     * @param PathFactoryInterface|null $instance
-     *
-     * @return PathFactoryInterface
-     */
-    public static function get(PathFactoryInterface $instance = null)
-    {
-        if (null === $instance) {
-            if (null === static::$instance) {
-                static::install(new static);
-            }
-
-            $instance = static::$instance;
-        }
-
-        return $instance;
-    }
-
-    /**
-     * @param PathFactoryInterface $instance
-     */
-    public static function install(PathFactoryInterface $instance)
-    {
-        static::$instance = $instance;
-    }
-
-    public static function uninstall()
-    {
-        static::$instance = null;
-    }
-
-    /**
      * @param PathNormalizerInterface|null $normalizer
      */
     public function __construct(PathNormalizerInterface $normalizer = null)
     {
-        $this->normalizer = PathNormalizer::get($normalizer);
+        if (null === $normalizer) {
+            $normalizer = new PathNormalizer($this);
+        }
+
+        $this->normalizer = $normalizer;
     }
 
     /**
@@ -125,15 +98,27 @@ class PathFactory implements PathFactoryInterface
      * @throws InvalidPathAtomExceptionInterface If any supplied atom is
      * invalid.
      */
-    public function createFromAtoms($atoms, $isAbsolute = null, $hasTrailingSeparator = null)
-    {
+    public function createFromAtoms(
+        $atoms,
+        $isAbsolute = null,
+        $hasTrailingSeparator = null
+    ) {
         if ($isAbsolute) {
-            return new AbsolutePath($atoms, $hasTrailingSeparator, $this, $this->normalizer());
+            return new AbsolutePath(
+                $atoms,
+                $hasTrailingSeparator,
+                $this,
+                $this->normalizer()
+            );
         }
 
-        return new RelativePath($atoms, $hasTrailingSeparator, $this, $this->normalizer());
+        return new RelativePath(
+            $atoms,
+            $hasTrailingSeparator,
+            $this,
+            $this->normalizer()
+        );
     }
 
-    private static $instance;
     private $normalizer;
 }

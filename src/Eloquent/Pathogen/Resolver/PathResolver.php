@@ -17,50 +17,19 @@ use Eloquent\Pathogen\PathInterface;
 class PathResolver implements PathResolverInterface
 {
     /**
-     * @param PathResolverInterface|null $instance
-     *
-     * @return PathResolverInterface
-     */
-    public static function get(PathResolverInterface $instance = null)
-    {
-        if (null === $instance) {
-            if (null === static::$instance) {
-                static::install(new static);
-            }
-
-            $instance = static::$instance;
-        }
-
-        return $instance;
-    }
-
-    /**
-     * @param PathResolverInterface $instance
-     */
-    public static function install(PathResolverInterface $instance)
-    {
-        static::$instance = $instance;
-    }
-
-    public static function uninstall()
-    {
-        static::$instance = null;
-    }
-
-    /**
      * @param AbsolutePathInterface $basePath
      * @param PathInterface         $path
      *
      * @return AbsolutePathInterface
      */
-    public function resolve(AbsolutePathInterface $basePath, PathInterface $path)
-    {
+    public function resolve(
+        AbsolutePathInterface $basePath,
+        PathInterface $path
+    ) {
         if ($path instanceof AbsolutePathInterface) {
             return $path;
         }
 
         return $basePath->parent()->join($path);
     }
-
-    private static $instance;
 }

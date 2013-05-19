@@ -11,8 +11,8 @@
 
 namespace Eloquent\Pathogen\Normalizer;
 
-use PHPUnit_Framework_TestCase;
 use Eloquent\Pathogen\Factory\PathFactory;
+use PHPUnit_Framework_TestCase;
 
 class PathNormalizerTest extends PHPUnit_Framework_TestCase
 {
@@ -20,29 +20,8 @@ class PathNormalizerTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->factory = PathFactory::get();
-        $this->normalizer = PathNormalizer::get();
-    }
-
-    public function testGet()
-    {
-        $normalizer = PathNormalizer::get();
-        $this->assertInstanceOf(__NAMESPACE__ . "\PathNormalizer", $normalizer);
-    }
-
-    public function testInstall()
-    {
-        PathNormalizer::install($this->normalizer);
-        $this->assertInstanceOf(__NAMESPACE__ . "\PathNormalizer", PathNormalizer::get());
-        $this->assertSame($this->normalizer, PathNormalizer::get());
-    }
-
-    public function testUninstall()
-    {
-        PathNormalizer::install($this->normalizer);
-        PathNormalizer::uninstall();
-        $this->assertInstanceOf(__NAMESPACE__ . "\PathNormalizer", PathNormalizer::get());
-        $this->assertNotSame($this->normalizer, PathNormalizer::get());
+        $this->factory = new PathFactory;
+        $this->normalizer = new PathNormalizer;
     }
 
     public function normalizeAbsolutePathData()

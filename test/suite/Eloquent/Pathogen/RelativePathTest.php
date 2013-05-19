@@ -74,6 +74,26 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
         $this->assertSame($expectedPathString, $path->string());
         $this->assertSame($expectedPathString, strval($path->string()));
+        $this->assertSame($this->factory, $path->factory());
+        $this->assertSame(
+            $this->factory->normalizer(),
+            $path->factory()->normalizer()
+        );
+    }
+
+    public function testConstructorDefaults()
+    {
+        $this->path = new RelativePath(array());
+
+        $this->assertFalse($this->path->hasTrailingSeparator());
+        $this->assertSame(
+            $this->path->factory(),
+            $this->path->normalizer()->factory()
+        );
+        $this->assertSame(
+            $this->path->normalizer(),
+            $this->path->factory()->normalizer()
+        );
     }
 
     public function testString()

@@ -11,8 +11,8 @@
 
 namespace Eloquent\Pathogen\Resolver;
 
-use PHPUnit_Framework_TestCase;
 use Eloquent\Pathogen\Factory\PathFactory;
+use PHPUnit_Framework_TestCase;
 
 class PathResolverTest extends PHPUnit_Framework_TestCase
 {
@@ -20,29 +20,8 @@ class PathResolverTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->resolver = PathResolver::get();
-        $this->factory = PathFactory::get();
-    }
-
-    public function testGet()
-    {
-        $resolver = PathResolver::get();
-        $this->assertInstanceOf(__NAMESPACE__ . "\PathResolver", $resolver);
-    }
-
-    public function testInstall()
-    {
-        PathResolver::install($this->resolver);
-        $this->assertInstanceOf(__NAMESPACE__ . "\PathResolver", PathResolver::get());
-        $this->assertSame($this->resolver, PathResolver::get());
-    }
-
-    public function testUninstall()
-    {
-        PathResolver::install($this->resolver);
-        PathResolver::uninstall();
-        $this->assertInstanceOf(__NAMESPACE__ . "\PathResolver", PathResolver::get());
-        $this->assertNotSame($this->resolver, PathResolver::get());
+        $this->resolver = new PathResolver;
+        $this->factory = new PathFactory;
     }
 
     public function resolveAbsolutePathData()

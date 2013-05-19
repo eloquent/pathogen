@@ -24,27 +24,6 @@ class PathFactoryTest extends PHPUnit_Framework_TestCase
         $this->factory = new PathFactory;
     }
 
-    public function testGet()
-    {
-        $factory = PathFactory::get();
-        $this->assertInstanceOf(__NAMESPACE__ . "\PathFactory", $factory);
-    }
-
-    public function testInstall()
-    {
-        PathFactory::install($this->factory);
-        $this->assertInstanceOf(__NAMESPACE__ . "\PathFactory", PathFactory::get());
-        $this->assertSame($this->factory, PathFactory::get());
-    }
-
-    public function testUninstall()
-    {
-        PathFactory::install($this->factory);
-        PathFactory::uninstall();
-        $this->assertInstanceOf(__NAMESPACE__ . "\PathFactory", PathFactory::get());
-        $this->assertNotSame($this->factory, PathFactory::get());
-    }
-
     public function createData()
     {
         //                                                 path                     atoms                             isAbsolute  hasTrailingSeparator

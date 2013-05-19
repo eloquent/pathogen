@@ -14,40 +14,30 @@ namespace Eloquent\Pathogen\Normalizer;
 use Eloquent\Pathogen\AbsolutePathInterface;
 use Eloquent\Pathogen\AbstractPath;
 use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\Factory\PathFactoryInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\RelativePathInterface;
 
 class PathNormalizer implements PathNormalizerInterface
 {
     /**
-     * @param PathNormalizerInterface|null $instance
-     *
-     * @return PathNormalizerInterface
+     * @param PathFactoryInterface|null $factory
      */
-    public static function get(PathNormalizerInterface $instance = null)
+    public function __construct(PathFactoryInterface $factory = null)
     {
-        if (null === $instance) {
-            if (null === static::$instance) {
-                static::install(new static);
-            }
-
-            $instance = static::$instance;
+        if (null === $factory) {
+            $factory = new PathFactory($this);
         }
 
-        return $instance;
+        $this->factory = $factory;
     }
 
     /**
-     * @param PathNormalizerInterface $instance
+     * @return PathFactoryInterface
      */
-    public static function install(PathNormalizerInterface $instance)
+    public function factory()
     {
-        static::$instance = $instance;
-    }
-
-    public static function uninstall()
-    {
-        static::$instance = null;
+        return $this->factory;
     }
 
     /**
@@ -79,7 +69,11 @@ class PathNormalizer implements PathNormalizerInterface
             }
         }
 
-        return PathFactory::get()->createFromAtoms($resultingAtoms, true, false);
+        return $this->factory()->createFromAtoms(
+            $resultingAtoms,
+            true,
+            false
+        );
     }
 
     /**
@@ -94,9 +88,9 @@ class PathNormalizer implements PathNormalizerInterface
         $atoms = $path->atoms();
         $numAtoms = count($atoms);
 
-        for ($loop = 0; $loop < $numAtoms; $loop++) {
-            if (AbstractPath::SELF_ATOM !== $atoms[$loop]) {
-                $resultingAtoms[] = $atoms[$loop];
+        for ($i = 0; $i < $numAtoms; $i++) {
+            if (AbstractPath::SELF_ATOM !== $atoms[$i]) {
+                $resultingAtoms[] = $atoms[$i];
                 $resultingAtomsCount++;
             }
 
@@ -110,8 +104,12 @@ class PathNormalizer implements PathNormalizerInterface
             }
         }
 
-        return PathFactory::get()->createFromAtoms($resultingAtoms, false, false);
+        return $this->factory()->createFromAtoms(
+            $resultingAtoms,
+            false,
+            false
+        );
     }
 
-    private static $instance;
+    private $factory;
 }
