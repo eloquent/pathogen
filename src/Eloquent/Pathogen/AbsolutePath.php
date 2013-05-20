@@ -13,7 +13,7 @@ namespace Eloquent\Pathogen;
 
 class AbsolutePath extends AbstractPath implements AbsolutePathInterface
 {
-    // implementation of PathInterface =========================================
+    // Implementation of PathInterface =========================================
 
     /**
      * Returns a string representation of this path.
@@ -22,7 +22,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      */
     public function string()
     {
-        return sprintf('/%s', parent::string());
+        return sprintf('%s%s', static::ATOM_SEPARATOR, parent::string());
     }
 
     /**
@@ -64,7 +64,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         );
     }
 
-    // implementation of AbsolutePathInterface =================================
+    // Implementation of AbsolutePathInterface =================================
 
     /**
      * Returns true if this path is the root path.

@@ -12,9 +12,8 @@
 namespace Eloquent\Pathogen\Exception;
 
 use Exception;
-use LogicException;
 
-abstract class AbstractInvalidPathAtomException extends LogicException
+abstract class AbstractInvalidPathAtomException extends Exception
     implements InvalidPathAtomExceptionInterface
 {
     /**

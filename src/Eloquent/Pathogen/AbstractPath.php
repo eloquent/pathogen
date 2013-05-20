@@ -18,6 +18,8 @@ abstract class AbstractPath implements PathInterface
      * @param boolean|null                            $hasTrailingSeparator
      * @param Factory\PathFactoryInterface|null       $factory
      * @param Normalizer\PathNormalizerInterface|null $normalizer
+     *
+     * @throws Exception\InvalidPathAtomExceptionInterface
      */
     public function __construct(
         $atoms,
@@ -50,6 +52,8 @@ abstract class AbstractPath implements PathInterface
         $this->factory = $factory;
         $this->normalizer = $normalizer;
     }
+
+    // Implementation of PathInterface =========================================
 
     /**
      * Returns the atoms of this path as an array of strings.
