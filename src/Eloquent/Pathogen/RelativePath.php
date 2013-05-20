@@ -59,7 +59,7 @@ class RelativePath extends AbstractPath implements RelativePathInterface
         $atoms = $this->atoms();
         $atoms[] = static::PARENT_ATOM;
 
-        $path = $this->factory()->createFromAtoms($atoms, false, false);
+        $path = $this->createPath($atoms, false);
 
         return $this->normalizer()->normalize($path);
     }
@@ -76,18 +76,10 @@ class RelativePath extends AbstractPath implements RelativePathInterface
         }
 
         if (!$this->hasAtoms()) {
-            return $this->factory()->createFromAtoms(
-                array(static::SELF_ATOM),
-                false,
-                true
-            );
+            return $this->createPath(array(static::SELF_ATOM), false, true);
         }
 
-        return $this->factory()->createFromAtoms(
-            $this->atoms(),
-            false,
-            true
-        );
+        return $this->createPath($this->atoms(), false, true);
     }
 
     /**

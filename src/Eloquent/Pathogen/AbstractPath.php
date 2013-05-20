@@ -16,7 +16,6 @@ abstract class AbstractPath implements PathInterface
     /**
      * @param mixed<string>                           $atoms
      * @param boolean|null                            $hasTrailingSeparator
-     * @param Factory\PathFactoryInterface|null       $factory
      * @param Normalizer\PathNormalizerInterface|null $normalizer
      *
      * @throws Exception\InvalidPathAtomExceptionInterface
@@ -24,17 +23,13 @@ abstract class AbstractPath implements PathInterface
     public function __construct(
         $atoms,
         $hasTrailingSeparator = null,
-        Factory\PathFactoryInterface $factory = null,
         Normalizer\PathNormalizerInterface $normalizer = null
     ) {
         if (null === $hasTrailingSeparator) {
             $hasTrailingSeparator = false;
         }
-        if (null === $factory) {
-            $factory = new Factory\PathFactory;
-        }
         if (null === $normalizer) {
-            $normalizer = $factory->normalizer();
+            $normalizer = new Normalizer\PathNormalizer;
         }
 
         $this->atoms = array();
@@ -49,7 +44,6 @@ abstract class AbstractPath implements PathInterface
         }
 
         $this->hasTrailingSeparator = $hasTrailingSeparator === true;
-        $this->factory = $factory;
         $this->normalizer = $normalizer;
     }
 
@@ -85,14 +79,6 @@ abstract class AbstractPath implements PathInterface
     public function hasTrailingSeparator()
     {
         return $this->hasTrailingSeparator;
-    }
-
-    /**
-     * @return Factory\PathFactoryInterface
-     */
-    public function factory()
-    {
-        return $this->factory;
     }
 
     /**
@@ -235,10 +221,9 @@ abstract class AbstractPath implements PathInterface
             return $this;
         }
 
-        return $this->factory()->createFromAtoms(
+        return $this->createPath(
             $this->atoms(),
-            $this instanceof AbsolutePathInterface,
-            false
+            $this instanceof AbsolutePathInterface
         );
     }
 
@@ -264,10 +249,9 @@ abstract class AbstractPath implements PathInterface
 
         $atoms[$numAtoms - 1] = implode(static::EXTENSION_SEPARATOR, $parts);
 
-        return $this->factory()->createFromAtoms(
+        return $this->createPath(
             $atoms,
-            $this instanceof AbsolutePathInterface,
-            $this->hasTrailingSeparator()
+            $this instanceof AbsolutePathInterface
         );
     }
 
@@ -290,10 +274,9 @@ abstract class AbstractPath implements PathInterface
 
         $atoms[$numAtoms - 1] = $parts[0];
 
-        return $this->factory()->createFromAtoms(
+        return $this->createPath(
             $atoms,
-            $this instanceof AbsolutePathInterface,
-            $this->hasTrailingSeparator()
+            $this instanceof AbsolutePathInterface
         );
     }
 
@@ -328,10 +311,9 @@ abstract class AbstractPath implements PathInterface
             $atoms = iterator_to_array($atoms);
         }
 
-        return $this->factory()->createFromAtoms(
+        return $this->createPath(
             array_merge($this->atoms(), $atoms),
-            $this instanceof AbsolutePathInterface,
-            false
+            $this instanceof AbsolutePathInterface
         );
     }
 
@@ -396,10 +378,9 @@ abstract class AbstractPath implements PathInterface
             );
         }
 
-        return $this->factory()->createFromAtoms(
+        return $this->createPath(
             $resultingAtoms,
-            $this instanceof AbsolutePathInterface,
-            $this->hasTrailingSeparator()
+            $this instanceof AbsolutePathInterface
         );
     }
 
@@ -418,10 +399,9 @@ abstract class AbstractPath implements PathInterface
         $atoms = $this->atoms();
         $atoms[count($atoms) - 1] = $this->name() . $suffix;
 
-        return $this->factory()->createFromAtoms(
+        return $this->createPath(
             $atoms,
-            $this instanceof AbsolutePathInterface,
-            $this->hasTrailingSeparator()
+            $this instanceof AbsolutePathInterface
         );
     }
 
@@ -440,15 +420,42 @@ abstract class AbstractPath implements PathInterface
         $atoms = $this->atoms();
         $atoms[count($atoms) - 1] = sprintf('%s%s', $prefix, $this->name());
 
-        return $this->factory()->createFromAtoms(
+        return $this->createPath(
             $atoms,
-            $this instanceof AbsolutePathInterface,
-            $this->hasTrailingSeparator()
+            $this instanceof AbsolutePathInterface
+        );
+    }
+
+    // Implementation details ==================================================
+
+    /**
+     * @param mixed<string> $atoms
+     * @param boolean       $isAbsolute
+     * @param boolean|null  $hasTrailingSeparator
+     *
+     * @return PathInterface
+     */
+    protected function createPath(
+        $atoms,
+        $isAbsolute,
+        $hasTrailingSeparator = null
+    ) {
+        if ($isAbsolute) {
+            return new AbsolutePath(
+                $atoms,
+                $hasTrailingSeparator,
+                $this->normalizer()
+            );
+        }
+
+        return new RelativePath(
+            $atoms,
+            $hasTrailingSeparator,
+            $this->normalizer()
         );
     }
 
     private $atoms;
     private $hasTrailingSeparator;
-    private $factory;
     private $normalizer;
 }

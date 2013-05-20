@@ -74,10 +74,9 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
         $this->assertSame($expectedPathString, $path->string());
         $this->assertSame($expectedPathString, strval($path->string()));
-        $this->assertSame($this->factory, $path->factory());
         $this->assertSame(
             $this->factory->normalizer(),
-            $path->factory()->normalizer()
+            $path->normalizer()
         );
     }
 
@@ -86,13 +85,9 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $this->path = new RelativePath(array());
 
         $this->assertFalse($this->path->hasTrailingSeparator());
-        $this->assertSame(
-            $this->path->factory(),
-            $this->path->normalizer()->factory()
-        );
-        $this->assertSame(
-            $this->path->normalizer(),
-            $this->path->factory()->normalizer()
+        $this->assertInstanceOf(
+            __NAMESPACE__ . '\Normalizer\PathNormalizer',
+            $this->path->normalizer()
         );
     }
 
@@ -379,8 +374,8 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
             'Whitespace extension'                      => array('foo',    array(' '),           'foo. '),
             'Single extension'                          => array('foo',    array('bar'),         'foo.bar'),
             'Multiple extensions'                       => array('foo',    array('bar', 'baz'),  'foo.bar.baz'),
-            'Empty extension'                           => array('/foo/',  array(''),            '/foo./'),
-            'Multiple extensions with trailing slash'   => array('/foo/',  array('bar', 'baz'),  '/foo.bar.baz/'),
+            'Empty extension with trailing slash'       => array('/foo/',  array(''),            '/foo.'),
+            'Multiple extensions with trailing slash'   => array('/foo/',  array('bar', 'baz'),  '/foo.bar.baz'),
         );
     }
 
@@ -435,7 +430,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
             'Self'                                => array('.',         'foo',       'foo'),
             'Empty atom'                          => array('',          'foo',       'foo'),
             'Empty suffix'                        => array('foo/bar',   '',          'foo/bar'),
-            'Empty suffix and trailing slash'     => array('foo/bar/',  '',          'foo/bar/'),
+            'Empty suffix and trailing slash'     => array('foo/bar/',  '',          'foo/bar'),
             'Whitespace suffix'                   => array('foo/bar',   ' ',         'foo/bar '),
             'Normal suffix'                       => array('foo/bar',   '-baz',      'foo/bar-baz'),
             'Suffix with dots'                    => array('foo/bar',   '.baz.qux',  'foo/bar.baz.qux'),
@@ -470,12 +465,12 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         return array(
             'Self'                                   => array('.',         'foo',       'foo'),
             'Empty atom'                             => array('',          'foo',       'foo'),
-            'Empty atom and trailing slash'          => array('./',        'foo',       'foo/'),
+            'Empty atom and trailing slash'          => array('./',        'foo',       'foo'),
             'Empty prefix'                           => array('foo/bar',   '',          'foo/bar'),
             'Whitespace prefix'                      => array('foo/bar',   ' ',         'foo/ bar'),
             'Normal prefix'                          => array('foo/bar',   'baz-',      'foo/baz-bar'),
             'Prefix with dots'                       => array('foo/bar',   'baz.qux.',  'foo/baz.qux.bar'),
-            'Prefix with dots with trailing slash'   => array('foo/bar/',  'baz.qux.',  'foo/baz.qux.bar/'),
+            'Prefix with dots with trailing slash'   => array('foo/bar/',  'baz.qux.',  'foo/baz.qux.bar'),
         );
     }
 

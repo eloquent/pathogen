@@ -43,7 +43,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         $atoms = $path->atoms();
         array_pop($atoms);
 
-        return $this->factory()->createFromAtoms($atoms, true, false);
+        return $this->createPath($atoms, true);
     }
 
     /**
@@ -57,11 +57,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
             return $this;
         }
 
-        return $this->factory()->createFromAtoms(
-            $this->atoms(),
-            $this instanceof AbsolutePathInterface,
-            true
-        );
+        return $this->createPath($this->atoms(), true, true);
     }
 
     // Implementation of AbsolutePathInterface =================================
@@ -127,7 +123,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         $diff = array_diff_assoc($parentAtoms, $childAtoms);
         $fillCount = (count($childAtoms) - count($parentAtoms)) + count($diff);
 
-        return $this->factory()->createFromAtoms(
+        return $this->createPath(
             $fillCount > 0 ?
                 array_merge(
                     array_fill(0, $fillCount, static::PARENT_ATOM),

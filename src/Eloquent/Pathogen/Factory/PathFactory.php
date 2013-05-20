@@ -107,7 +107,6 @@ class PathFactory implements PathFactoryInterface
             return new AbsolutePath(
                 $atoms,
                 $hasTrailingSeparator,
-                $this,
                 $this->normalizer()
             );
         }
@@ -115,7 +114,6 @@ class PathFactory implements PathFactoryInterface
         return new RelativePath(
             $atoms,
             $hasTrailingSeparator,
-            $this,
             $this->normalizer()
         );
     }

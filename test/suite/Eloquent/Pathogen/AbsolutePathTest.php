@@ -54,10 +54,9 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
         $this->assertSame($pathString, $path->string());
         $this->assertSame($pathString, strval($path->string()));
-        $this->assertSame($this->factory, $path->factory());
         $this->assertSame(
             $this->factory->normalizer(),
-            $path->factory()->normalizer()
+            $path->normalizer()
         );
     }
 
@@ -66,13 +65,9 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->path = new AbsolutePath(array());
 
         $this->assertFalse($this->path->hasTrailingSeparator());
-        $this->assertSame(
-            $this->path->factory(),
-            $this->path->normalizer()->factory()
-        );
-        $this->assertSame(
-            $this->path->normalizer(),
-            $this->path->factory()->normalizer()
+        $this->assertInstanceOf(
+            __NAMESPACE__ . '\Normalizer\PathNormalizer',
+            $this->path->normalizer()
         );
     }
 
@@ -349,8 +344,8 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
             'Single extension'                        => array('/foo',   array('bar'),         '/foo.bar'),
             'Multiple extensions'                     => array('/foo',   array('bar', 'baz'),  '/foo.bar.baz'),
             'Multiple extensions'                     => array('/foo',   array('bar', 'baz'),  '/foo.bar.baz'),
-            'Empty extension'                         => array('/foo/',  array(''),            '/foo./'),
-            'Multiple extensions with trailing slash' => array('/foo/',  array('bar', 'baz'),  '/foo.bar.baz/'),
+            'Empty extension with trailing slash'     => array('/foo/',  array(''),            '/foo.'),
+            'Multiple extensions with trailing slash' => array('/foo/',  array('bar', 'baz'),  '/foo.bar.baz'),
         );
     }
 
@@ -412,11 +407,11 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         return array(
             'Root'                                => array('/',          'foo',       '/foo'),
             'Empty suffix'                        => array('/foo/bar',   '',          '/foo/bar'),
-            'Empty suffix and trailing slash'     => array('/foo/bar/',  '',          '/foo/bar/'),
+            'Empty suffix and trailing slash'     => array('/foo/bar/',  '',          '/foo/bar'),
             'Whitespace suffix'                   => array('/foo/bar',   ' ',         '/foo/bar '),
             'Normal suffix'                       => array('/foo/bar',   '-baz',      '/foo/bar-baz'),
             'Suffix with dots'                    => array('/foo/bar',   '.baz.qux',  '/foo/bar.baz.qux'),
-            'Suffix with dots and trailing slash' => array('/foo/bar/',  '.baz.qux',  '/foo/bar.baz.qux/'),
+            'Suffix with dots and trailing slash' => array('/foo/bar/',  '.baz.qux',  '/foo/bar.baz.qux'),
         );
     }
 
@@ -447,11 +442,11 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         return array(
             'Root'                                 => array('/',          'foo',       '/foo'),
             'Empty prefix'                         => array('/foo/bar',   '',          '/foo/bar'),
-            'Empty prefix and trailing slash'      => array('/foo/bar/',   '',          '/foo/bar/'),
+            'Empty prefix and trailing slash'      => array('/foo/bar/',  '',          '/foo/bar'),
             'Whitespace prefix'                    => array('/foo/bar',   ' ',         '/foo/ bar'),
             'Normal prefix'                        => array('/foo/bar',   'baz-',      '/foo/baz-bar'),
             'Prefix with dots'                     => array('/foo/bar',   'baz.qux.',  '/foo/baz.qux.bar'),
-            'Prefix with dots and trailing slash'  => array('/foo/bar/',  'baz.qux.',  '/foo/baz.qux.bar/'),
+            'Prefix with dots and trailing slash'  => array('/foo/bar/',  'baz.qux.',  '/foo/baz.qux.bar'),
         );
     }
 
