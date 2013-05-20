@@ -14,22 +14,15 @@ namespace Eloquent\Pathogen;
 abstract class AbstractPath implements PathInterface
 {
     /**
-     * @param mixed<string>                           $atoms
-     * @param boolean|null                            $hasTrailingSeparator
-     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     * @param mixed<string> $atoms
+     * @param boolean|null  $hasTrailingSeparator
      *
      * @throws Exception\InvalidPathAtomExceptionInterface
      */
-    public function __construct(
-        $atoms,
-        $hasTrailingSeparator = null,
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
+    public function __construct($atoms, $hasTrailingSeparator = null)
+    {
         if (null === $hasTrailingSeparator) {
             $hasTrailingSeparator = false;
-        }
-        if (null === $normalizer) {
-            $normalizer = new Normalizer\PathNormalizer;
         }
 
         $this->atoms = array();
@@ -44,7 +37,6 @@ abstract class AbstractPath implements PathInterface
         }
 
         $this->hasTrailingSeparator = $hasTrailingSeparator === true;
-        $this->normalizer = $normalizer;
     }
 
     // Implementation of PathInterface =========================================
@@ -79,14 +71,6 @@ abstract class AbstractPath implements PathInterface
     public function hasTrailingSeparator()
     {
         return $this->hasTrailingSeparator;
-    }
-
-    /**
-     * @return Normalizer\PathNormalizerInterface
-     */
-    public function normalizer()
-    {
-        return $this->normalizer;
     }
 
     /**
@@ -443,19 +427,16 @@ abstract class AbstractPath implements PathInterface
         if ($isAbsolute) {
             return new AbsolutePath(
                 $atoms,
-                $hasTrailingSeparator,
-                $this->normalizer()
+                $hasTrailingSeparator
             );
         }
 
         return new RelativePath(
             $atoms,
-            $hasTrailingSeparator,
-            $this->normalizer()
+            $hasTrailingSeparator
         );
     }
 
     private $atoms;
     private $hasTrailingSeparator;
-    private $normalizer;
 }

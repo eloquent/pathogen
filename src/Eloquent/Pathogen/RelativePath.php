@@ -44,24 +44,31 @@ class RelativePath extends AbstractPath implements RelativePathInterface
         $atoms = $this->atoms();
         $numAtoms = count($atoms);
 
-        return 1 === $numAtoms && static::SELF_ATOM === $atoms[0]
-            ? ''
-            : parent::name();
+        return 1 === $numAtoms && static::SELF_ATOM === $atoms[0] ?
+            '' :
+            parent::name();
     }
 
     /**
      * Returns the parent of this path.
      *
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     *
      * @return PathInterface
      */
-    public function parent()
-    {
+    public function parent(
+        Normalizer\PathNormalizerInterface $normalizer = null
+    ) {
+        if (null == $normalizer) {
+            $normalizer = new Normalizer\PathNormalizer;
+        }
+
         $atoms = $this->atoms();
         $atoms[] = static::PARENT_ATOM;
 
         $path = $this->createPath($atoms, false);
 
-        return $this->normalizer()->normalize($path);
+        return $normalizer->normalize($path);
     }
 
     /**

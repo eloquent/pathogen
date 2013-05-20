@@ -31,11 +31,18 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      * If this method is called on the root path, the root path will be
      * returned.
      *
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     *
      * @return PathInterface
      */
-    public function parent()
-    {
-        $path = $this->normalizer()->normalize($this);
+    public function parent(
+        Normalizer\PathNormalizerInterface $normalizer = null
+    ) {
+        if (null == $normalizer) {
+            $normalizer = new Normalizer\PathNormalizer;
+        }
+
+        $path = $normalizer->normalize($this);
         if (!$path->hasAtoms()) {
             return $path;
         }
@@ -67,40 +74,61 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      *
      * The root path is an absolute path with no atoms.
      *
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     *
      * @return boolean
      */
-    public function isRoot()
-    {
-        return !$this->hasAtoms();
+    public function isRoot(
+        Normalizer\PathNormalizerInterface $normalizer = null
+    ) {
+        if (null == $normalizer) {
+            $normalizer = new Normalizer\PathNormalizer;
+        }
+
+        return !$normalizer->normalize($this)->hasAtoms();
     }
 
     /**
      * Returns true if this path is the direct parent of the supplied path.
      *
-     * @param AbsolutePathInterface $path
+     * @param AbsolutePathInterface                   $path
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
      *
      * @return boolean
      */
-    public function isParentOf(AbsolutePathInterface $path)
-    {
+    public function isParentOf(
+        AbsolutePathInterface $path,
+        Normalizer\PathNormalizerInterface $normalizer = null
+    ) {
+        if (null == $normalizer) {
+            $normalizer = new Normalizer\PathNormalizer;
+        }
+
         return
             $path->hasAtoms() &&
-            $this->normalizer()->normalize($this)->atoms() === $path->parent()->atoms();
+            $normalizer->normalize($this)->atoms() === $path->parent()->atoms();
     }
 
     /**
      * Returns true if this path is an ancestor of the supplied path.
      *
-     * @param AbsolutePathInterface $path
+     * @param AbsolutePathInterface                   $path
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
      *
      * @return boolean
      */
-    public function isAncestorOf(AbsolutePathInterface $path)
-    {
-        $parentAtoms = $this->normalizer()->normalize($this)->atoms();
+    public function isAncestorOf(
+        AbsolutePathInterface $path,
+        Normalizer\PathNormalizerInterface $normalizer = null
+    ) {
+        if (null == $normalizer) {
+            $normalizer = new Normalizer\PathNormalizer;
+        }
+
+        $parentAtoms = $normalizer->normalize($this)->atoms();
 
         return $parentAtoms === array_slice(
-            $this->normalizer()->normalize($path)->atoms(),
+            $normalizer->normalize($path)->atoms(),
             0,
             count($parentAtoms)
         );
@@ -112,14 +140,21 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      * For example, given path A equal to '/foo/bar', and path B equal to
      * '/foo/baz', A relative to B would be '../bar'.
      *
-     * @param AbsolutePathInterface $path
+     * @param AbsolutePathInterface                   $path
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
      *
      * @return RelativePathInterface
      */
-    public function relativeTo(AbsolutePathInterface $path)
-    {
-        $parentAtoms = $this->normalizer()->normalize($path)->atoms();
-        $childAtoms = $this->normalizer()->normalize($this)->atoms();
+    public function relativeTo(
+        AbsolutePathInterface $path,
+        Normalizer\PathNormalizerInterface $normalizer = null
+    ) {
+        if (null == $normalizer) {
+            $normalizer = new Normalizer\PathNormalizer;
+        }
+
+        $parentAtoms = $normalizer->normalize($path)->atoms();
+        $childAtoms = $normalizer->normalize($this)->atoms();
         $diff = array_diff_assoc($parentAtoms, $childAtoms);
         $fillCount = (count($childAtoms) - count($parentAtoms)) + count($diff);
 

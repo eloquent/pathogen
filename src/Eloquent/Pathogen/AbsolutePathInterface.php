@@ -18,27 +18,39 @@ interface AbsolutePathInterface extends PathInterface
      *
      * The root path is an absolute path with no atoms.
      *
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     *
      * @return boolean
      */
-    public function isRoot();
+    public function isRoot(
+        Normalizer\PathNormalizerInterface $normalizer = null
+    );
 
     /**
      * Returns true if this path is the direct parent of the supplied path.
      *
-     * @param AbsolutePathInterface $path
+     * @param AbsolutePathInterface                   $path
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
      *
      * @return boolean
      */
-    public function isParentOf(AbsolutePathInterface $path);
+    public function isParentOf(
+        AbsolutePathInterface $path,
+        Normalizer\PathNormalizerInterface $normalizer = null
+    );
 
     /**
      * Returns true if this path is an ancestor of the supplied path.
      *
-     * @param AbsolutePathInterface $path
+     * @param AbsolutePathInterface                   $path
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
      *
      * @return boolean
      */
-    public function isAncestorOf(AbsolutePathInterface $path);
+    public function isAncestorOf(
+        AbsolutePathInterface $path,
+        Normalizer\PathNormalizerInterface $normalizer = null
+    );
 
     /**
      * Returns a relative path from the supplied path to this path.
@@ -46,9 +58,13 @@ interface AbsolutePathInterface extends PathInterface
      * For example, given path A equal to '/foo/bar', and path B equal to
      * '/foo/baz', A relative to B would be '../bar'.
      *
-     * @param AbsolutePathInterface $path
+     * @param AbsolutePathInterface                   $path
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
      *
      * @return RelativePathInterface
      */
-    public function relativeTo(AbsolutePathInterface $path);
+    public function relativeTo(
+        AbsolutePathInterface $path,
+        Normalizer\PathNormalizerInterface $normalizer = null
+    );
 }

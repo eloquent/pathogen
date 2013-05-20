@@ -14,33 +14,11 @@ namespace Eloquent\Pathogen\Factory;
 use Eloquent\Pathogen\AbsolutePath;
 use Eloquent\Pathogen\AbstractPath;
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
-use Eloquent\Pathogen\Normalizer\PathNormalizer;
-use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\RelativePath;
 
 class PathFactory implements PathFactoryInterface
 {
-    /**
-     * @param PathNormalizerInterface|null $normalizer
-     */
-    public function __construct(PathNormalizerInterface $normalizer = null)
-    {
-        if (null === $normalizer) {
-            $normalizer = new PathNormalizer($this);
-        }
-
-        $this->normalizer = $normalizer;
-    }
-
-    /**
-     * @return PathNormalizerInterface
-     */
-    public function normalizer()
-    {
-        return $this->normalizer;
-    }
-
     /**
      * Creates a new path instance from its string representation.
      *
@@ -106,17 +84,13 @@ class PathFactory implements PathFactoryInterface
         if ($isAbsolute) {
             return new AbsolutePath(
                 $atoms,
-                $hasTrailingSeparator,
-                $this->normalizer()
+                $hasTrailingSeparator
             );
         }
 
         return new RelativePath(
             $atoms,
-            $hasTrailingSeparator,
-            $this->normalizer()
+            $hasTrailingSeparator
         );
     }
-
-    private $normalizer;
 }

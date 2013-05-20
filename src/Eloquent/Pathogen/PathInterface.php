@@ -110,9 +110,13 @@ interface PathInterface
      * If this method is called on the root path, the root path will be
      * returned.
      *
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     *
      * @return PathInterface
      */
-    public function parent();
+    public function parent(
+        Normalizer\PathNormalizerInterface $normalizer = null
+    );
 
     /**
      * Returns a new path instance with the trailing slash removed from this
