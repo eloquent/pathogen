@@ -47,9 +47,11 @@ class PathNormalizer implements PathNormalizerInterface
      */
     public function normalize(PathInterface $path)
     {
-        return $path instanceof AbsolutePathInterface
-            ? $this->normalizeAbsolute($path)
-            : $this->normalizeRelative($path);
+        if ($path instanceof AbsolutePathInterface) {
+            return $this->normalizeAbsolutePath($path);
+        }
+
+        return $this->normalizeRelativePath($path);
     }
 
     /**
@@ -57,7 +59,7 @@ class PathNormalizer implements PathNormalizerInterface
      *
      * @return AbsolutePathInterface
      */
-    protected function normalizeAbsolute(AbsolutePathInterface $path)
+    protected function normalizeAbsolutePath(AbsolutePathInterface $path)
     {
         $resultingAtoms = array();
         $atoms = $path->atoms();
@@ -81,7 +83,7 @@ class PathNormalizer implements PathNormalizerInterface
      *
      * @return RelativePathInterface
      */
-    protected function normalizeRelative(RelativePathInterface $path)
+    protected function normalizeRelativePath(RelativePathInterface $path)
     {
         $resultingAtoms = array();
         $resultingAtomsCount = 0;

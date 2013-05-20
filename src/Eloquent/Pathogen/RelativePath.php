@@ -44,9 +44,11 @@ class RelativePath extends AbstractPath implements RelativePathInterface
         $atoms = $this->atoms();
         $numAtoms = count($atoms);
 
-        return 1 === $numAtoms && static::SELF_ATOM === $atoms[0] ?
-            '' :
-            parent::name();
+        if (1 === $numAtoms && static::SELF_ATOM === $atoms[0]) {
+            return '';
+        }
+
+        return parent::name();
     }
 
     /**

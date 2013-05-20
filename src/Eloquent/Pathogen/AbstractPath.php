@@ -109,7 +109,11 @@ abstract class AbstractPath implements PathInterface
         $atoms = $this->atoms();
         $numAtoms = count($atoms);
 
-        return $numAtoms > 0 ? $atoms[$numAtoms - 1] : '';
+        if ($numAtoms > 0) {
+            return $atoms[$numAtoms - 1];
+        }
+
+        return '';
     }
 
     /**
@@ -178,7 +182,11 @@ abstract class AbstractPath implements PathInterface
         $parts = explode(static::EXTENSION_SEPARATOR, $this->name());
         $numParts = count($parts);
 
-        return $numParts > 1 ? $parts[$numParts - 1] : null;
+        if ($numParts > 1) {
+            return $parts[$numParts - 1];
+        }
+
+        return null;
     }
 
     /**
