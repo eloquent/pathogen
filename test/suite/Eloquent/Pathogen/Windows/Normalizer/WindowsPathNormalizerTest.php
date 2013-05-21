@@ -9,42 +9,61 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\Normalizer;
+namespace Eloquent\Pathogen\Windows\Normalizer;
 
-use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\Windows\Factory\WindowsPathFactory;
 use PHPUnit_Framework_TestCase;
 
-class PathNormalizerTest extends PHPUnit_Framework_TestCase
+class WindowsPathNormalizerTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
         parent::setUp();
 
-        $this->factory = new PathFactory;
-        $this->normalizer = new PathNormalizer;
+        $this->factory = new WindowsPathFactory;
+        $this->normalizer = new WindowsPathNormalizer;
     }
 
     public function normalizeAbsolutePathData()
     {
-        //                                                    pathString                 expectedResult
+        //                                                               pathString                   expectedResult
         return array(
-            'Atom'                                   => array('/foo',                    '/foo'),
-            'Atom, atom'                             => array('/foo/bar',                '/foo/bar'),
-            'Atom, atom, atom, parent, parent, atom' => array('/foo/bar/baz/../../qux',  '/foo/qux'),
-            'Atom, atom, parent'                     => array('/foo/bar/..',             '/foo'),
-            'Atom, atom, slash'                      => array('/foo/bar/',               '/foo/bar'),
-            'Atom, parent'                           => array('/foo/..',                 '/'),
-            'Atom, parent, atom'                     => array('/foo/../bar',             '/bar'),
-            'Atom, parent, atom, slash'              => array('/foo/../bar/',            '/bar'),
-            'Atom, self, atom'                       => array('/foo/./bar',              '/foo/bar'),
-            'Atom, self, atom, parent, atom'         => array('/foo/./bar/../baz',       '/foo/baz'),
-            'Atom, self, atom, parent, parent, atom' => array('/foo/./bar/../../baz',    '/baz'),
-            'Parent'                                 => array('/..',                     '/'),
-            'Parent, atom'                           => array('/../foo',                 '/foo'),
-            'Parent, atom, parent'                   => array('/../..',                  '/'),
-            'Parent, parent'                         => array('/../..',                  '/'),
-            'Parent, parent, atom'                   => array('/../../foo',              '/foo'),
-            'Self'                                   => array('/.',                      '/'),
+            'Atom'                                              => array('/foo',                      '/foo'),
+            'Atom, atom'                                        => array('/foo/bar',                  '/foo/bar'),
+            'Atom, atom, atom, parent, parent, atom'            => array('/foo/bar/baz/../../qux',    '/foo/qux'),
+            'Atom, atom, parent'                                => array('/foo/bar/..',               '/foo'),
+            'Atom, atom, slash'                                 => array('/foo/bar/',                 '/foo/bar'),
+            'Atom, parent'                                      => array('/foo/..',                   '/'),
+            'Atom, parent, atom'                                => array('/foo/../bar',               '/bar'),
+            'Atom, parent, atom, slash'                         => array('/foo/../bar/',              '/bar'),
+            'Atom, self, atom'                                  => array('/foo/./bar',                '/foo/bar'),
+            'Atom, self, atom, parent, atom'                    => array('/foo/./bar/../baz',         '/foo/baz'),
+            'Atom, self, atom, parent, parent, atom'            => array('/foo/./bar/../../baz',      '/baz'),
+            'Parent'                                            => array('/..',                       '/'),
+            'Parent, atom'                                      => array('/../foo',                   '/foo'),
+            'Parent, atom, parent'                              => array('/../..',                    '/'),
+            'Parent, parent'                                    => array('/../..',                    '/'),
+            'Parent, parent, atom'                              => array('/../../foo',                '/foo'),
+            'Self'                                              => array('/.',                        '/'),
+
+            'Atom with drive'                                   => array('C:/foo',                    'C:/foo'),
+            'Atom, atom with drive'                             => array('C:/foo/bar',                'C:/foo/bar'),
+            'Atom, atom, atom, parent, parent, atom with drive' => array('C:/foo/bar/baz/../../qux',  'C:/foo/qux'),
+            'Atom, atom, parent with drive'                     => array('C:/foo/bar/..',             'C:/foo'),
+            'Atom, atom, slash with drive'                      => array('C:/foo/bar/',               'C:/foo/bar'),
+            'Atom, parent with drive'                           => array('C:/foo/..',                 'C:/'),
+            'Atom, parent, atom with drive'                     => array('C:/foo/../bar',             'C:/bar'),
+            'Atom, parent, atom, slash with drive'              => array('C:/foo/../bar/',            'C:/bar'),
+            'Atom, self, atom with drive'                       => array('C:/foo/./bar',              'C:/foo/bar'),
+            'Atom, self, atom, parent, atom with drive'         => array('C:/foo/./bar/../baz',       'C:/foo/baz'),
+            'Atom, self, atom, parent, parent, atom with drive' => array('C:/foo/./bar/../../baz',    'C:/baz'),
+            'Parent with drive'                                 => array('C:/..',                     'C:/'),
+            'Parent, atom with drive'                           => array('C:/../foo',                 'C:/foo'),
+            'Parent, atom, parent with drive'                   => array('C:/../..',                  'C:/'),
+            'Parent, parent with drive'                         => array('C:/../..',                  'C:/'),
+            'Parent, parent, atom with drive'                   => array('C:/../../foo',              'C:/foo'),
+            'Self with drive'                                   => array('C:/.',                      'C:/'),
+            'Drive uppercase'                                   => array('c:/foo/bar/',               'C:/foo/bar'),
         );
     }
 

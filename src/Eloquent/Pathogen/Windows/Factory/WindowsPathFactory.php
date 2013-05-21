@@ -12,11 +12,11 @@
 namespace Eloquent\Pathogen\Windows\Factory;
 
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
+use Eloquent\Pathogen\Exception\InvalidPathStateException;
 use Eloquent\Pathogen\Factory\PathFactory;
 use Eloquent\Pathogen\Factory\PathFactoryInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\Windows\AbsoluteWindowsPath;
-use InvalidArgumentException;
 
 class WindowsPathFactory extends PathFactory implements
     WindowsPathFactoryInterface
@@ -112,7 +112,7 @@ class WindowsPathFactory extends PathFactory implements
     ) {
         return $this->createFromDriveAndAtoms(
             $atoms,
-            $this->defaultDrive(),
+            $isAbsolute ? $this->defaultDrive() : null,
             $isAbsolute,
             $hasTrailingSeparator
         );
@@ -145,7 +145,7 @@ class WindowsPathFactory extends PathFactory implements
         $hasTrailingSeparator = null
     ) {
         if (!$isAbsolute && null !== $drive) {
-            throw new InvalidArgumentException(
+            throw new InvalidPathStateException(
                 "Path cannot be relative and have a drive specifier."
             );
         }
