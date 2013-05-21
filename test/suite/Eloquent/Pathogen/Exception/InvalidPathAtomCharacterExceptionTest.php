@@ -15,25 +15,26 @@ use Exception;
 use PHPUnit_Framework_TestCase;
 
 /**
- * @covers Eloquent\Pathogen\Exception\EmptyPathAtomException
+ * @covers Eloquent\Pathogen\Exception\InvalidPathAtomCharacterException
  * @covers Eloquent\Pathogen\Exception\AbstractInvalidPathAtomException
  */
-class EmptyPathAtomExceptionTest extends PHPUnit_Framework_TestCase
+class InvalidPathAtomCharacterExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testException()
     {
         $previous = new Exception;
-        $exception = new EmptyPathAtomException($previous);
+        $exception = new InvalidPathAtomCharacterException('foobar', 'b', $previous);
 
         $this->assertSame(
-            "Invalid path atom ''. Path atoms must not be empty strings.",
+            "Invalid path atom 'foobar'. Path atom contains invalid character 'b'.",
             $exception->getMessage()
         );
         $this->assertSame(
-            'Path atoms must not be empty strings.',
+            "Path atom contains invalid character 'b'.",
             $exception->reason()
         );
-        $this->assertSame('', $exception->atom());
+        $this->assertSame('foobar', $exception->atom());
+        $this->assertSame('b', $exception->character());
         $this->assertSame(0, $exception->getCode());
         $this->assertSame($previous, $exception->getPrevious());
     }

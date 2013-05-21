@@ -15,8 +15,8 @@ use Exception;
 use PHPUnit_Framework_TestCase;
 
 /**
- * @covers Eloquent\Pathogen\Exception\AbstractInvalidPathAtomException
  * @covers Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException
+ * @covers Eloquent\Pathogen\Exception\AbstractInvalidPathAtomException
  */
 class PathAtomContainsSeparatorExceptionTest extends PHPUnit_Framework_TestCase
 {
@@ -37,6 +37,7 @@ class PathAtomContainsSeparatorExceptionTest extends PHPUnit_Framework_TestCase
             'Path atoms must not contain separators.',
             $exception->reason()
         );
+        $this->assertSame('foo/bar', $exception->atom());
         $this->assertSame(0, $exception->getCode());
         $this->assertSame($previous, $exception->getPrevious());
         $this->assertSame('foo/bar', $exception->atom());

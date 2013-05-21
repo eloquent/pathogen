@@ -11,6 +11,8 @@
 
 namespace Eloquent\Pathogen\Exception;
 
+use Exception;
+
 final class InvalidPathAtomCharacterException extends AbstractInvalidPathAtomException
 {
     /**

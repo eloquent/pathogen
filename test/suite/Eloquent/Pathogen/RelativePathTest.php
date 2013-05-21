@@ -45,7 +45,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame(array('.'), $path->atoms());
         $this->assertSame(false, $path->hasTrailingSeparator());
         $this->assertSame('.', $path->string());
-        $this->assertSame('.', strval($path->string()));
+        $this->assertSame('.', strval($path));
     }
 
     public function pathData()
@@ -98,6 +98,14 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
             __NAMESPACE__ . '\Exception\EmptyPathAtomException'
         );
         new RelativePath(array(''));
+    }
+
+    public function testEmptyWithTrailingSlashString()
+    {
+        $this->assertSame(
+            './',
+            $this->factory->createFromAtoms(array(), false, true)->string()
+        );
     }
 
     public function namePartData()

@@ -53,7 +53,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($atoms, $path->atoms());
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
         $this->assertSame($pathString, $path->string());
-        $this->assertSame($pathString, strval($path->string()));
+        $this->assertSame($pathString, strval($path));
     }
 
     public function testConstructorDefaults()
