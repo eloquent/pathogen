@@ -34,28 +34,6 @@ class RelativePath extends AbstractPath implements RelativePathInterface
     }
 
     /**
-     * Returns the parent of this path.
-     *
-     * @param Normalizer\PathNormalizerInterface|null $normalizer
-     *
-     * @return PathInterface
-     */
-    public function parent(
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        if (null == $normalizer) {
-            $normalizer = new Normalizer\PathNormalizer;
-        }
-
-        $atoms = $this->atoms();
-        $atoms[] = static::PARENT_ATOM;
-
-        $path = $this->createPath($atoms, false);
-
-        return $normalizer->normalize($path);
-    }
-
-    /**
      * Returns a new path instance with a trailing slash suffixed to this path.
      *
      * @return PathInterface

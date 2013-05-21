@@ -102,26 +102,6 @@ class AbsoluteWindowsPath extends AbsolutePath implements
         );
     }
 
-    /**
-     * Returns the parent of this path.
-     *
-     * If this method is called on the root path, the root path will be
-     * returned.
-     *
-     * @param PathNormalizerInterface|null $normalizer
-     *
-     * @return PathInterface
-     */
-    public function parent(
-        PathNormalizerInterface $normalizer = null
-    ) {
-        if (null == $normalizer) {
-            $normalizer = new Normalizer\WindowsPathNormalizer;
-        }
-
-        return parent::parent($normalizer);
-    }
-
     // Implementation of AbsolutePathInterface =================================
 
     /**

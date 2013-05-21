@@ -26,34 +26,6 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
     }
 
     /**
-     * Returns the parent of this path.
-     *
-     * If this method is called on the root path, the root path will be
-     * returned.
-     *
-     * @param Normalizer\PathNormalizerInterface|null $normalizer
-     *
-     * @return PathInterface
-     */
-    public function parent(
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        if (null == $normalizer) {
-            $normalizer = new Normalizer\PathNormalizer;
-        }
-
-        $path = $normalizer->normalize($this);
-        if (!$path->hasAtoms()) {
-            return $path;
-        }
-
-        $atoms = $path->atoms();
-        array_pop($atoms);
-
-        return $this->createPath($atoms, true);
-    }
-
-    /**
      * Returns a new path instance with a trailing slash suffixed to this path.
      *
      * @return PathInterface
@@ -106,7 +78,8 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
 
         return
             $path->hasAtoms() &&
-            $normalizer->normalize($this)->atoms() === $path->parent()->atoms();
+            $normalizer->normalize($this)->atoms() ===
+                $normalizer->normalize($path->parent())->atoms();
     }
 
     /**

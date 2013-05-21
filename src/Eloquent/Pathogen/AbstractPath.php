@@ -190,6 +190,22 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
+     * Returns the parent of this path.
+     *
+     * @return PathInterface
+     */
+    public function parent()
+    {
+        $atoms = $this->atoms();
+        $atoms[] = static::PARENT_ATOM;
+
+        return $this->createPath(
+            $atoms,
+            $this instanceof AbsolutePathInterface
+        );
+    }
+
+    /**
      * Returns a new path instance with the trailing slash removed from this
      * path.
      *

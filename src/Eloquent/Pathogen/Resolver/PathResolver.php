@@ -30,6 +30,6 @@ class PathResolver implements PathResolverInterface
             return $path;
         }
 
-        return $basePath->parent()->join($path);
+        return $basePath->join($path);
     }
 }

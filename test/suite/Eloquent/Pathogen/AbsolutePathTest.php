@@ -112,14 +112,11 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function parentData()
     {
-        //                                   path                              parent
+        //                             path          parent
         return array(
-            'Root'                           => array('/',                     '/'),
-            'Single atom'                    => array('/foo',                  '/'),
-            'Multiple atoms'                 => array('/foo/bar/baz',          '/foo/bar'),
-            'Whitespace atoms'               => array('/foo/ /bar',            '/foo/ '),
-            'Resolve special atoms'          => array('/foo/./bar/../baz',     '/foo'),
-            'Resolve multiple special atoms' => array('/foo/./bar/../../baz',  '/'),
+            'Root'            => array('/',         '/..'),
+            'Single atom'     => array('/foo',      '/foo/..'),
+            'Multiple atoms'  => array('/foo/bar',  '/foo/bar/..'),
         );
     }
 

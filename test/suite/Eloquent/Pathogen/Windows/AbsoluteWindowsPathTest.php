@@ -217,21 +217,15 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function parentData()
     {
-        //                                              path                              parent
+        //                                        path           parent
         return array(
-            'Root'                                      => array('/',                     '/'),
-            'Single atom'                               => array('/foo',                  '/'),
-            'Multiple atoms'                            => array('/foo/bar/baz',          '/foo/bar'),
-            'Whitespace atoms'                          => array('/foo/ /bar',            '/foo/ '),
-            'Resolve special atoms'                     => array('/foo/./bar/../baz',     '/foo'),
-            'Resolve multiple special atoms'            => array('/foo/./bar/../../baz',  '/'),
+            'Root'                       => array('/',           '/..'),
+            'Single atom'                => array('/foo',        '/foo/..'),
+            'Multiple atoms'             => array('/foo/bar',    '/foo/bar/..'),
 
-            'Root with drive'                           => array('C:/',                     'C:/'),
-            'Single atom with drive'                    => array('C:/foo',                  'C:/'),
-            'Multiple atoms with drive'                 => array('C:/foo/bar/baz',          'C:/foo/bar'),
-            'Whitespace atoms with drive'               => array('C:/foo/ /bar',            'C:/foo/ '),
-            'Resolve special atoms with drive'          => array('C:/foo/./bar/../baz',     'C:/foo'),
-            'Resolve multiple special atoms with drive' => array('C:/foo/./bar/../../baz',  'C:/'),
+            'Root with drive'            => array('C:/',         'C:/..'),
+            'Single atom with drive'     => array('C:/foo',      'C:/foo/..'),
+            'Multiple atoms with drive'  => array('C:/foo/bar',  'C:/foo/bar/..'),
         );
     }
 

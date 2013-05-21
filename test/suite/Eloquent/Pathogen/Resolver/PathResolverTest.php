@@ -52,19 +52,19 @@ class PathResolverTest extends PHPUnit_Framework_TestCase
         //                                                                                        basePath      path         expectedResult
         return array(
             'Root against single atom'                                                   => array('/',          'foo',       '/foo'),
-            'Single atom against single atom'                                            => array('/foo',       'bar',       '/bar'),
-            'Multiple atoms against single atom'                                         => array('/foo/bar',   'baz',       '/foo/baz'),
-            'Multiple atoms with slash against single atoms'                             => array('/foo/bar/',  'baz',       '/foo/baz'),
-            'Multiple atoms against multiple atoms'                                      => array('/foo/bar',   'baz/qux',   '/foo/baz/qux'),
-            'Multiple atoms with slash against multiple atoms'                           => array('/foo/bar/',  'baz/qux',   '/foo/baz/qux'),
-            'Multiple atoms with slash against multiple atoms with slash'                => array('/foo/bar/',  'baz/qux/',  '/foo/baz/qux'),
+            'Single atom against single atom'                                            => array('/foo',       'bar',       '/foo/bar'),
+            'Multiple atoms against single atom'                                         => array('/foo/bar',   'baz',       '/foo/bar/baz'),
+            'Multiple atoms with slash against single atoms'                             => array('/foo/bar/',  'baz',       '/foo/bar/baz'),
+            'Multiple atoms against multiple atoms'                                      => array('/foo/bar',   'baz/qux',   '/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms'                           => array('/foo/bar/',  'baz/qux',   '/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms with slash'                => array('/foo/bar/',  'baz/qux/',  '/foo/bar/baz/qux'),
             'Root against parent atom'                                                   => array('/',          '..',        '/..'),
-            'Single atom against parent atom'                                            => array('/foo',       '..',        '/..'),
-            'Single atom with slash against parent atom'                                 => array('/foo/',      '..',        '/..'),
-            'Single atom with slash against parent atom with slash'                      => array('/foo/',      '../',       '/..'),
-            'Multiple atoms against parent and single atom'                              => array('/foo/bar',   '../baz',    '/foo/../baz'),
-            'Multiple atoms with slash against parent atom and single atom'              => array('/foo/bar/',  '../baz',    '/foo/../baz'),
-            'Multiple atoms with slash against parent atom and single atom with slash'   => array('/foo/bar/',  '../baz/',   '/foo/../baz'),
+            'Single atom against parent atom'                                            => array('/foo',       '..',        '/foo/..'),
+            'Single atom with slash against parent atom'                                 => array('/foo/',      '..',        '/foo/..'),
+            'Single atom with slash against parent atom with slash'                      => array('/foo/',      '../',       '/foo/..'),
+            'Multiple atoms against parent and single atom'                              => array('/foo/bar',   '../baz',    '/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom'              => array('/foo/bar/',  '../baz',    '/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom with slash'   => array('/foo/bar/',  '../baz/',   '/foo/bar/../baz'),
         );
     }
 
