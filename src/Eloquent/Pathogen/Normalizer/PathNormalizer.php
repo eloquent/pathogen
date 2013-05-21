@@ -61,18 +61,8 @@ class PathNormalizer implements PathNormalizerInterface
      */
     protected function normalizeAbsolutePath(AbsolutePathInterface $path)
     {
-        $resultingAtoms = array();
-        $atoms = $path->atoms();
-        foreach ($atoms as $atom) {
-            if (AbstractPath::PARENT_ATOM === $atom) {
-                array_pop($resultingAtoms);
-            } elseif (AbstractPath::SELF_ATOM !== $atom) {
-                $resultingAtoms[] = $atom;
-            }
-        }
-
         return $this->factory()->createFromAtoms(
-            $resultingAtoms,
+            $this->normalizeAbsolutePathAtoms($path->atoms()),
             true,
             false
         );
@@ -85,9 +75,41 @@ class PathNormalizer implements PathNormalizerInterface
      */
     protected function normalizeRelativePath(RelativePathInterface $path)
     {
+        return $this->factory()->createFromAtoms(
+            $this->normalizeRelativePathAtoms($path->atoms()),
+            false,
+            false
+        );
+    }
+
+    /**
+     * @param array<string> $atoms
+     *
+     * @return array<string>
+     */
+    protected function normalizeAbsolutePathAtoms(array $atoms)
+    {
+        $resultingAtoms = array();
+        foreach ($atoms as $atom) {
+            if (AbstractPath::PARENT_ATOM === $atom) {
+                array_pop($resultingAtoms);
+            } elseif (AbstractPath::SELF_ATOM !== $atom) {
+                $resultingAtoms[] = $atom;
+            }
+        }
+
+        return $resultingAtoms;
+    }
+
+    /**
+     * @param array<string> $atoms
+     *
+     * @return array<string>
+     */
+    protected function normalizeRelativePathAtoms(array $atoms)
+    {
         $resultingAtoms = array();
         $resultingAtomsCount = 0;
-        $atoms = $path->atoms();
         $numAtoms = count($atoms);
 
         for ($i = 0; $i < $numAtoms; $i++) {
@@ -106,11 +128,7 @@ class PathNormalizer implements PathNormalizerInterface
             }
         }
 
-        return $this->factory()->createFromAtoms(
-            $resultingAtoms,
-            false,
-            false
-        );
+        return $resultingAtoms;
     }
 
     private $factory;

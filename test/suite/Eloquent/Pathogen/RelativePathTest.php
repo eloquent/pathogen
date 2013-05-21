@@ -83,20 +83,6 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->path->hasTrailingSeparator());
     }
 
-    public function testString()
-    {
-        $path = $this->factory->createFromAtoms(array(), false, true);
-        $this->expectOutputString('./');
-        print $path;
-    }
-
-    public function testToString()
-    {
-        $path = $this->factory->createFromAtoms(array('foo', 'bar'), false, false);
-        $this->expectOutputString('foo/bar');
-        print $path;
-    }
-
     public function testConstructorFailureAtomContainingSeparator()
     {
         $this->setExpectedException(
@@ -172,14 +158,14 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
 
     public function stripTrailingSlashData()
     {
-        //                               path         expectedResult
+        //                               path          expectedResult
         return array(
-            'Single atom'       => array('foo/',      'foo'),
-            'Multiple atoms'    => array('foo/bar/',  'foo/bar'),
-            'Whitespace atoms'  => array('foo/bar /', 'foo/bar '),
-            'No trailing slash' => array('foo',       'foo'),
-            'Self'              => array('.',         '.'),
-            'Empty'             => array('',          '.'),
+            'Single atom'       => array('foo/',       'foo'),
+            'Multiple atoms'    => array('foo/bar/',   'foo/bar'),
+            'Whitespace atoms'  => array('foo/bar /',  'foo/bar '),
+            'No trailing slash' => array('foo',        'foo'),
+            'Self'              => array('.',          '.'),
+            'Empty'             => array('',           '.'),
         );
     }
 

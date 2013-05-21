@@ -63,13 +63,6 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->path->hasTrailingSeparator());
     }
 
-    public function testToString()
-    {
-        $path = $this->factory->createFromAtoms(array('foo', 'bar'), true, false);
-        $this->expectOutputString('/foo/bar');
-        print $path;
-    }
-
     public function testConstructorFailureAtomContainingSeparator()
     {
         $this->setExpectedException(
@@ -143,13 +136,13 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function stripTrailingSlashData()
     {
-        //                               path
+        //                               path           expectedResult
         return array(
-            'Single atom'       => array('/foo/',      '/foo'),
-            'Multiple atoms'    => array('/foo/bar/',  '/foo/bar'),
-            'Whitespace atoms'  => array('/foo/bar /', '/foo/bar '),
-            'No trailing slash' => array('/foo',       '/foo'),
-            'Root'              => array('/',          '/'),
+            'Single atom'       => array('/foo/',       '/foo'),
+            'Multiple atoms'    => array('/foo/bar/',   '/foo/bar'),
+            'Whitespace atoms'  => array('/foo/bar /',  '/foo/bar '),
+            'No trailing slash' => array('/foo',        '/foo'),
+            'Root'              => array('/',           '/'),
         );
     }
 
@@ -334,7 +327,6 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
             'Empty extension'                         => array('/foo',   array(''),            '/foo.'),
             'Whitespace extension'                    => array('/foo',   array(' '),           '/foo. '),
             'Single extension'                        => array('/foo',   array('bar'),         '/foo.bar'),
-            'Multiple extensions'                     => array('/foo',   array('bar', 'baz'),  '/foo.bar.baz'),
             'Multiple extensions'                     => array('/foo',   array('bar', 'baz'),  '/foo.bar.baz'),
             'Empty extension with trailing slash'     => array('/foo/',  array(''),            '/foo.'),
             'Multiple extensions with trailing slash' => array('/foo/',  array('bar', 'baz'),  '/foo.bar.baz'),

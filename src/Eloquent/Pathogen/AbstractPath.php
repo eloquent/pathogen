@@ -27,12 +27,7 @@ abstract class AbstractPath implements PathInterface
 
         $this->atoms = array();
         foreach ($atoms as $atom) {
-            if ('' === $atom) {
-                throw new Exception\EmptyPathAtomException;
-            } elseif (false !== strpos($atom, static::ATOM_SEPARATOR)) {
-                throw new Exception\PathAtomContainsSeparatorException($atom);
-            }
-
+            $this->validateAtom($atom);
             $this->atoms[] = $atom;
         }
 
@@ -419,6 +414,18 @@ abstract class AbstractPath implements PathInterface
     }
 
     // Implementation details ==================================================
+
+    /**
+     * @param string $atom
+     */
+    protected function validateAtom($atom)
+    {
+        if ('' === $atom) {
+            throw new Exception\EmptyPathAtomException;
+        } elseif (false !== strpos($atom, static::ATOM_SEPARATOR)) {
+            throw new Exception\PathAtomContainsSeparatorException($atom);
+        }
+    }
 
     /**
      * @param mixed<string> $atoms
