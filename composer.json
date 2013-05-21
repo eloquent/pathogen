@@ -1,6 +1,21 @@
 {
     "name": "eloquent/pathogen",
     "description": "Generic path library for PHP.",
+    "keywords": ["path", "filesystem", "file", "manipulation"],
+    "homepage": "https://github.com/eloquent/pathogen",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Erin Millard",
+            "email": "ezzatron@gmail.com",
+            "homepage": "http://ezzatron.com/"
+        },
+        {
+            "name": "Darian Brown",
+            "email": "darianbr@gmail.com",
+            "homepage": "http://www.darian-brown.com/"
+        }
+    ],
     "require": {
         "php": ">=5.3.3",
         "icecave/isolator": "~2"
