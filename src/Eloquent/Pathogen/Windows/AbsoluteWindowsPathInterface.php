@@ -13,7 +13,9 @@ namespace Eloquent\Pathogen\Windows;
 
 use Eloquent\Pathogen\AbsolutePathInterface;
 
-interface AbsoluteWindowsPathInterface extends AbsolutePathInterface
+interface AbsoluteWindowsPathInterface extends
+    AbsolutePathInterface,
+    WindowsPathInterface
 {
     /**
      * @return string|null

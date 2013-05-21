@@ -17,6 +17,7 @@ use Eloquent\Pathogen\Factory\PathFactory;
 use Eloquent\Pathogen\Factory\PathFactoryInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\Windows\AbsoluteWindowsPath;
+use Eloquent\Pathogen\Windows\RelativeWindowsPath;
 
 class WindowsPathFactory extends PathFactory implements
     WindowsPathFactoryInterface
@@ -158,11 +159,7 @@ class WindowsPathFactory extends PathFactory implements
             );
         }
 
-        return parent::createFromAtoms(
-            $atoms,
-            $isAbsolute,
-            $hasTrailingSeparator
-        );
+        return new RelativeWindowsPath($atoms, $hasTrailingSeparator);
     }
 
     private $defaultDrive;

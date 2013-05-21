@@ -252,7 +252,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
             );
         }
 
-        return parent::createPath($atoms, $isAbsolute, $hasTrailingSeparator);
+        return new RelativeWindowsPath($atoms, $hasTrailingSeparator);
     }
 
     /**
