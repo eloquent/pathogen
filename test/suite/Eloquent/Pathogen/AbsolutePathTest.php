@@ -454,10 +454,22 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     // tests for AbsolutePathInterface implementation ==========================
 
-    public function testIsRoot()
+    public function rootData()
     {
-        $this->assertTrue($this->factory->create('/')->isRoot());
-        $this->assertFalse($this->factory->create('/foo')->isRoot());
+        //                                  path        isRoot
+        return array(
+            'Root'                 => array('/',        true),
+            'Root non-normalized'  => array('/foo/..',  true),
+            'Not root'             => array('/foo',     false),
+        );
+    }
+
+    /**
+     * @dataProvider rootData
+     */
+    public function testIsRoot($pathString, $isRoot)
+    {
+        $this->assertSame($isRoot, $this->factory->create($pathString)->isRoot());
     }
 
     public function ancestryData()

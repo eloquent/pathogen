@@ -448,10 +448,12 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
 
     public function isSelfData()
     {
+        //                                  path         isSelf
         return array(
-            'Self'           => array('.',        true),
-            'Single atom'    => array('foo',      false),
-            'Multiple atoms' => array('foo/bar',  false),
+            'Self'                 => array('.',         true),
+            'Self non-normalized'  => array('./foo/..',  true),
+            'Single atom'          => array('foo',       false),
+            'Multiple atoms'       => array('foo/bar',   false),
         );
     }
 

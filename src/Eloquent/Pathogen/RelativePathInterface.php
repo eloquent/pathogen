@@ -19,7 +19,11 @@ interface RelativePathInterface extends PathInterface
      * The self path is a relative path with a single self atom (i.e. a dot
      * '.').
      *
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     *
      * @return boolean
      */
-    public function isSelf();
+    public function isSelf(
+        Normalizer\PathNormalizerInterface $normalizer = null
+    );
 }
