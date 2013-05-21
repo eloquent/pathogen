@@ -38,31 +38,34 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
 
     public function createData()
     {
-        //                                                           path                       drive  atoms                             isAbsolute  hasTrailingSeparator
+        //                                                                            path                       drive  atoms                             isAbsolute  hasTrailingSeparator
         return array(
-            'Root'                                          => array('/',                       null,  array(),                          true,       false),
-            'Absolute'                                      => array('/foo/bar',                null,  array('foo', 'bar'),              true,       false),
-            'Absolute with trailing separator'              => array('/foo/bar/',               null,  array('foo', 'bar'),              true,       true),
-            'Absolute with empty atoms'                     => array('/foo//bar',               null,  array('foo', 'bar'),              true,       false),
-            'Absolute with empty atoms at start'            => array('//foo',                   null,  array('foo'),                     true,       false),
-            'Absolute with empty atoms at end'              => array('/foo//',                  null,  array('foo'),                     true,       true),
-            'Absolute with whitespace atoms'                => array('/ foo bar / baz qux ',    null,  array(' foo bar ', ' baz qux '),  true,       false),
+            'Root'                                                           => array('/',                       null,  array(),                          true,       false),
+            'Absolute'                                                       => array('/foo/bar',                null,  array('foo', 'bar'),              true,       false),
+            'Absolute with trailing separator'                               => array('/foo/bar/',               null,  array('foo', 'bar'),              true,       true),
+            'Absolute with empty atoms'                                      => array('/foo//bar',               null,  array('foo', 'bar'),              true,       false),
+            'Absolute with empty atoms at start'                             => array('//foo',                   null,  array('foo'),                     true,       false),
+            'Absolute with empty atoms at end'                               => array('/foo//',                  null,  array('foo'),                     true,       true),
+            'Absolute with whitespace atoms'                                 => array('/ foo bar / baz qux ',    null,  array(' foo bar ', ' baz qux '),  true,       false),
+            'Absolute with trailing separator using backslashes'             => array('\\foo\\bar\\',            null,  array('foo', 'bar'),              true,       true),
 
-            'Root with drive'                               => array('C:/',                     'C',   array(),                          true,       false),
-            'Root with drive and no trailing slash'         => array('C:',                      'C',   array(),                          true,       false),
-            'Absolute with drive'                           => array('C:/foo/bar',              'C',   array('foo', 'bar'),              true,       false),
-            'Absolute with trailing separator with drive'   => array('C:/foo/bar/',             'C',   array('foo', 'bar'),              true,       true),
-            'Absolute with empty atoms with drive'          => array('C:/foo//bar',             'C',   array('foo', 'bar'),              true,       false),
-            'Absolute with empty atoms at start with drive' => array('C://foo',                 'C',   array('foo'),                     true,       false),
-            'Absolute with empty atoms at end with drive'   => array('C:/foo//',                'C',   array('foo'),                     true,       true),
-            'Absolute with whitespace atoms with drive'     => array('C:/ foo bar / baz qux ',  'C',   array(' foo bar ', ' baz qux '),  true,       false),
+            'Root with drive'                                                => array('C:/',                     'C',   array(),                          true,       false),
+            'Root with drive and no trailing slash'                          => array('C:',                      'C',   array(),                          true,       false),
+            'Absolute with drive'                                            => array('C:/foo/bar',              'C',   array('foo', 'bar'),              true,       false),
+            'Absolute with trailing separator with drive'                    => array('C:/foo/bar/',             'C',   array('foo', 'bar'),              true,       true),
+            'Absolute with empty atoms with drive'                           => array('C:/foo//bar',             'C',   array('foo', 'bar'),              true,       false),
+            'Absolute with empty atoms at start with drive'                  => array('C://foo',                 'C',   array('foo'),                     true,       false),
+            'Absolute with empty atoms at end with drive'                    => array('C:/foo//',                'C',   array('foo'),                     true,       true),
+            'Absolute with whitespace atoms with drive'                      => array('C:/ foo bar / baz qux ',  'C',   array(' foo bar ', ' baz qux '),  true,       false),
+            'Absolute with trailing separator with drive using backslashes'  => array('C:\\foo\\bar\\',          'C',   array('foo', 'bar'),              true,       true),
 
-            'Self'                                          => array('.',                       null,  array('.'),                       false,      false),
-            'Relative'                                      => array('foo/bar',                 null,  array('foo', 'bar'),              false,      false),
-            'Relative with trailing separator'              => array('foo/bar/',                null,  array('foo', 'bar'),              false,      true),
-            'Relative with empty atoms'                     => array('foo//bar',                null,  array('foo', 'bar'),              false,      false),
-            'Relative with empty atoms at end'              => array('foo/bar//',               null,  array('foo', 'bar'),              false,      true),
-            'Relative with whitespace atoms'                => array(' foo bar / baz qux ',     null,  array(' foo bar ', ' baz qux '),  false,      false),
+            'Self'                                                           => array('.',                       null,  array('.'),                       false,      false),
+            'Relative'                                                       => array('foo/bar',                 null,  array('foo', 'bar'),              false,      false),
+            'Relative with trailing separator'                               => array('foo/bar/',                null,  array('foo', 'bar'),              false,      true),
+            'Relative with empty atoms'                                      => array('foo//bar',                null,  array('foo', 'bar'),              false,      false),
+            'Relative with empty atoms at end'                               => array('foo/bar//',               null,  array('foo', 'bar'),              false,      true),
+            'Relative with whitespace atoms'                                 => array(' foo bar / baz qux ',     null,  array(' foo bar ', ' baz qux '),  false,      false),
+            // 'Relative with trailing separator using backslashes'             => array('foo\\bar\\',              null,  array('foo', 'bar'),              false,      true),
         );
     }
 

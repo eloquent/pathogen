@@ -54,7 +54,7 @@ class WindowsPathFactory extends PathFactory implements
         $drive = null;
         $hasTrailingSeparator = false;
 
-        $atoms = preg_split('~\\/~', $path);
+        $atoms = preg_split('~[/\\\\]~', $path);
         if (preg_match('/^([a-zA-Z]):$/', $atoms[0], $matches)) {
             $isAbsolute = true;
             $drive = $matches[1];
