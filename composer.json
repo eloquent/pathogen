@@ -1,6 +1,6 @@
 {
     "name": "eloquent/pathogen",
-    "description": "Generic path library for PHP.",
+    "description": "General-purpose path library for PHP.",
     "keywords": ["path", "filesystem", "file", "manipulation"],
     "homepage": "https://github.com/eloquent/pathogen",
     "license": "MIT",
