@@ -2,7 +2,8 @@
     "name": "eloquent/pathogen",
     "description": "Generic path library for PHP.",
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+        "icecave/isolator": "~2"
     },
     "require-dev": {
         "icecave/archer": "~0.3"
