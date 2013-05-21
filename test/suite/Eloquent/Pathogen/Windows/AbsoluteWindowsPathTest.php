@@ -729,6 +729,7 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
             'Same paths with drive'                => array('C:/foo/bar',         'C:/foor/bar',               false,      false),
             'Longer parent path with drive'        => array('C:/foo/bar/baz',     'C:/foo',                    false,      false),
             'Parent with mismatched drive'         => array('C:/foo',             'D:/foo/bar',                false,      false),
+            'Parent with drive ignore case'        => array('C:/foo',             'c:/foo/bar',                true,       true),
         );
     }
 
@@ -801,6 +802,7 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
             'Parent\'s sibling\'s child with drive' => array('C:/foo/bar/baz',  'C:/foo/qux/doom',  '../../qux/doom'),
             'Completely unrelated with drive'       => array('C:/foo/bar/baz',  'C:/qux/doom',      '../../../qux/doom'),
             'Lengthly unrelated child with drive'   => array('C:/foo/bar',      'C:/baz/qux/doom',  '../../baz/qux/doom'),
+            'Child with drive ignore case'          => array('C:/foo',          'c:/foo/bar',       'bar'),
         );
     }
 

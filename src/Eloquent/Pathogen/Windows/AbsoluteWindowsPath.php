@@ -120,8 +120,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
             $normalizer = new Normalizer\WindowsPathNormalizer;
         }
 
-        $pathDrive = $this->pathDrive($path);
-        if ($this->drive() !== $pathDrive) {
+        if (!$this->driveLettersMatch($this, $path)) {
             return false;
         }
 
@@ -144,8 +143,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
             $normalizer = new Normalizer\WindowsPathNormalizer;
         }
 
-        $pathDrive = $this->pathDrive($path);
-        if ($this->drive() !== $pathDrive) {
+        if (!$this->driveLettersMatch($this, $path)) {
             return false;
         }
 
@@ -171,10 +169,11 @@ class AbsoluteWindowsPath extends AbsolutePath implements
             $normalizer = new Normalizer\WindowsPathNormalizer;
         }
 
-        $pathDrive = $this->pathDrive($path);
-        if ($this->drive() !== $pathDrive) {
+        $thisDrive = $this->normalizePathDriveSpecifier($this);
+        $pathDrive = $this->normalizePathDriveSpecifier($path);
+        if ($thisDrive !== $pathDrive) {
             throw new Exception\DriveMismatchException(
-                $this->drive(),
+                $thisDrive,
                 $pathDrive
             );
         }
@@ -203,13 +202,34 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      *
      * @return string|null
      */
-    protected function pathDrive(AbsolutePathInterface $path)
+    protected function normalizePathDriveSpecifier(AbsolutePathInterface $path)
     {
         if ($path instanceof AbsoluteWindowsPathInterface) {
-            return $path->drive();
+            $drive = $path->drive();
+            if (null !== $drive) {
+                $drive = strtoupper($drive);
+            }
+
+            return $drive;
         }
 
         return null;
+    }
+
+    /**
+     * @param AbsolutePathInterface $left
+     * @param AbsolutePathInterface $right
+     *
+     * @return boolean
+     */
+    protected function driveLettersMatch(
+        AbsolutePathInterface $left,
+        AbsolutePathInterface $right
+    ) {
+        $leftDrive = $this->normalizePathDriveSpecifier($left);
+        $rightDrive = $this->normalizePathDriveSpecifier($right);
+
+        return $leftDrive === $rightDrive;
     }
 
     /**
