@@ -12,7 +12,6 @@
 namespace Eloquent\Pathogen\Factory;
 
 use Eloquent\Pathogen\AbsolutePath;
-use Eloquent\Pathogen\AbstractPath;
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\RelativePath;
@@ -28,10 +27,14 @@ class PathFactory implements PathFactoryInterface
      */
     public function create($path)
     {
+        if ('' === $path) {
+            $path = PathInterface::SELF_ATOM;
+        }
+
         $isAbsolute = false;
         $hasTrailingSeparator = false;
 
-        $atoms = explode(AbstractPath::ATOM_SEPARATOR, $path);
+        $atoms = explode(PathInterface::ATOM_SEPARATOR, $path);
         $numAtoms = count($atoms);
 
         if ($numAtoms > 1) {

@@ -155,16 +155,23 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
 
         $parentAtoms = $normalizer->normalize($path)->atoms();
         $childAtoms = $normalizer->normalize($this)->atoms();
-        $diff = array_diff_assoc($parentAtoms, $childAtoms);
-        $fillCount = (count($childAtoms) - count($parentAtoms)) + count($diff);
 
-        if ($fillCount > 0) {
-            $diff = array_merge(
-                array_fill(0, $fillCount, static::PARENT_ATOM),
-                $diff
-            );
+        if ($childAtoms === $parentAtoms) {
+            $diffAtoms = array(static::SELF_ATOM);
+        } else {
+            $diffAtoms = array_diff_assoc($parentAtoms, $childAtoms);
+            $fillCount =
+                (count($childAtoms) - count($parentAtoms)) +
+                count($diffAtoms);
+
+            if ($fillCount > 0) {
+                $diffAtoms = array_merge(
+                    array_fill(0, $fillCount, static::PARENT_ATOM),
+                    $diffAtoms
+                );
+            }
         }
 
-        return $this->createPath($diff, false);
+        return $this->createPath($diffAtoms, false);
     }
 }

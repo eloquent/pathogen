@@ -107,7 +107,6 @@ class WindowsPathNormalizerTest extends PHPUnit_Framework_TestCase
             'Parent, parent, self, parent, self'          => array('../.././../.',           '../../..'),
             'Parent, self, atom, parent, atom'            => array('.././foo/../bar',        '../bar'),
             'Parent, self, parent'                        => array('.././..',                '../..'),
-            'Root'                                        => array('',                       '.'),
             'Self'                                        => array('.',                      '.'),
             'Self, atom, parent'                          => array('./foo/..',               '.'),
             'Self, parent'                                => array('./..',                   '..'),

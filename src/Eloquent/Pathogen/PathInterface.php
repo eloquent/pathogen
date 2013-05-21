@@ -240,5 +240,4 @@ interface PathInterface
     const EXTENSION_SEPARATOR = '.';
     const PARENT_ATOM = '..';
     const SELF_ATOM = '.';
-    const EMPTY_ATOM = '';
 }

@@ -14,24 +14,6 @@ namespace Eloquent\Pathogen;
 class RelativePath extends AbstractPath implements RelativePathInterface
 {
     /**
-     * Returns a string representation of this path.
-     *
-     * @return string
-     */
-    public function string()
-    {
-        if ($this->hasAtoms()) {
-            return parent::string();
-        }
-
-        if ($this->hasTrailingSeparator()) {
-            return static::SELF_ATOM . static::ATOM_SEPARATOR;
-        }
-
-        return static::SELF_ATOM;
-    }
-
-    /**
      * Returns the last atom of this path.
      *
      * If this path has no atoms, or the only atom is a self atom, an empty
@@ -84,23 +66,7 @@ class RelativePath extends AbstractPath implements RelativePathInterface
             return $this;
         }
 
-        if (!$this->hasAtoms()) {
-            return $this->createPath(array(static::SELF_ATOM), false, true);
-        }
-
         return $this->createPath($this->atoms(), false, true);
-    }
-
-    /**
-     * Returns true if this path is the empty path.
-     *
-     * The empty path is a relative path with no atoms.
-     *
-     * @return boolean
-     */
-    public function isEmpty()
-    {
-        return !$this->hasAtoms();
     }
 
     /**
@@ -116,5 +82,22 @@ class RelativePath extends AbstractPath implements RelativePathInterface
         $atoms = $this->atoms();
 
         return 1 === count($atoms) && static::SELF_ATOM === $atoms[0];
+    }
+
+    // Implementation details ==================================================
+
+    /**
+     * @param mixed<string> $atoms
+     *
+     * @return array<string>
+     */
+    protected function normalizeAtoms($atoms)
+    {
+        $atoms = parent::normalizeAtoms($atoms);
+        if (count($atoms) < 1) {
+            throw new Exception\EmptyPathException;
+        }
+
+        return $atoms;
     }
 }

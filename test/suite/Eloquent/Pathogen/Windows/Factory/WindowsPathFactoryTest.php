@@ -57,7 +57,6 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
             'Absolute with empty atoms at end with drive'   => array('C:/foo//',                'C',   array('foo'),                     true,       true),
             'Absolute with whitespace atoms with drive'     => array('C:/ foo bar / baz qux ',  'C',   array(' foo bar ', ' baz qux '),  true,       false),
 
-            'Empty'                                         => array('',                        null,  array(),                          false,      false),
             'Self'                                          => array('.',                       null,  array('.'),                       false,      false),
             'Relative'                                      => array('foo/bar',                 null,  array('foo', 'bar'),              false,      false),
             'Relative with trailing separator'              => array('foo/bar/',                null,  array('foo', 'bar'),              false,      true),

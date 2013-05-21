@@ -25,12 +25,7 @@ abstract class AbstractPath implements PathInterface
             $hasTrailingSeparator = false;
         }
 
-        $this->atoms = array();
-        foreach ($atoms as $atom) {
-            $this->validateAtom($atom);
-            $this->atoms[] = $atom;
-        }
-
+        $this->atoms = $this->normalizeAtoms($atoms);
         $this->hasTrailingSeparator = $hasTrailingSeparator === true;
     }
 
@@ -350,7 +345,7 @@ abstract class AbstractPath implements PathInterface
 
         $resultingAtoms = $this->atoms();
         $name = $this->name();
-        if (static::EMPTY_ATOM === $name) {
+        if ('' === $name) {
             $resultingAtoms[] = sprintf(
                 '%s%s',
                 static::EXTENSION_SEPARATOR,
@@ -414,6 +409,22 @@ abstract class AbstractPath implements PathInterface
     }
 
     // Implementation details ==================================================
+
+    /**
+     * @param mixed<string> $atoms
+     *
+     * @return array<string>
+     */
+    protected function normalizeAtoms($atoms)
+    {
+        $normalizedAtoms = array();
+        foreach ($atoms as $atom) {
+            $this->validateAtom($atom);
+            $normalizedAtoms[] = $atom;
+        }
+
+        return $normalizedAtoms;
+    }
 
     /**
      * @param string $atom
