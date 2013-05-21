@@ -1,0 +1,1212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="1015" assertions="2069" failures="0" errors="0" time="4.348569">
+    <testsuite name="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" namespace="Eloquent\Pathogen" fullPackage="Eloquent.Pathogen" tests="112" assertions="194" failures="0" errors="0" time="0.432032">
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testConstructor" tests="7" assertions="28" failures="0" errors="0" time="0.041253">
+        <testcase name="testConstructor with data set &quot;Root&quot;" assertions="4" time="0.017026"/>
+        <testcase name="testConstructor with data set &quot;Single atom&quot;" assertions="4" time="0.004078"/>
+        <testcase name="testConstructor with data set &quot;Trailing slash&quot;" assertions="4" time="0.003984"/>
+        <testcase name="testConstructor with data set &quot;Multiple atoms&quot;" assertions="4" time="0.004096"/>
+        <testcase name="testConstructor with data set &quot;Parent atom&quot;" assertions="4" time="0.004025"/>
+        <testcase name="testConstructor with data set &quot;Self atom&quot;" assertions="4" time="0.004023"/>
+        <testcase name="testConstructor with data set &quot;Whitespace&quot;" assertions="4" time="0.004021"/>
+      </testsuite>
+      <testcase name="testConstructorDefaults" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="59" assertions="1" time="0.003377"/>
+      <testcase name="testConstructorFailureAtomContainingSeparator" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="66" assertions="2" time="0.005558"/>
+      <testcase name="testConstructorFailureEmptyAtom" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="75" assertions="1" time="0.003430"/>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testNamePartMethods" tests="8" assertions="48" failures="0" errors="0" time="0.035847">
+        <testcase name="testNamePartMethods with data set &quot;Root&quot;" assertions="6" time="0.004379"/>
+        <testcase name="testNamePartMethods with data set &quot;No extensions&quot;" assertions="6" time="0.004392"/>
+        <testcase name="testNamePartMethods with data set &quot;Empty extension&quot;" assertions="6" time="0.004419"/>
+        <testcase name="testNamePartMethods with data set &quot;Whitespace extension&quot;" assertions="6" time="0.004412"/>
+        <testcase name="testNamePartMethods with data set &quot;Single extension&quot;" assertions="6" time="0.004512"/>
+        <testcase name="testNamePartMethods with data set &quot;Multiple extensions&quot;" assertions="6" time="0.004585"/>
+        <testcase name="testNamePartMethods with data set &quot;No name with single extension&quot;" assertions="6" time="0.004576"/>
+        <testcase name="testNamePartMethods with data set &quot;No name with multiple extension&quot;" assertions="6" time="0.004572"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testParent" tests="3" assertions="3" failures="0" errors="0" time="0.009683">
+        <testcase name="testParent with data set &quot;Root&quot;" assertions="1" time="0.003184"/>
+        <testcase name="testParent with data set &quot;Single atom&quot;" assertions="1" time="0.003207"/>
+        <testcase name="testParent with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003292"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testStripTrailingSlash" tests="5" assertions="5" failures="0" errors="0" time="0.015787">
+        <testcase name="testStripTrailingSlash with data set &quot;Single atom&quot;" assertions="1" time="0.003239"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003204"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003303"/>
+        <testcase name="testStripTrailingSlash with data set &quot;No trailing slash&quot;" assertions="1" time="0.003035"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Root&quot;" assertions="1" time="0.003006"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testExtensionStripping" tests="6" assertions="12" failures="0" errors="0" time="0.021497">
+        <testcase name="testExtensionStripping with data set &quot;Root&quot;" assertions="2" time="0.003365"/>
+        <testcase name="testExtensionStripping with data set &quot;No extensions&quot;" assertions="2" time="0.003496"/>
+        <testcase name="testExtensionStripping with data set &quot;Empty extension&quot;" assertions="2" time="0.003676"/>
+        <testcase name="testExtensionStripping with data set &quot;Whitespace extension&quot;" assertions="2" time="0.003691"/>
+        <testcase name="testExtensionStripping with data set &quot;Single extension&quot;" assertions="2" time="0.003675"/>
+        <testcase name="testExtensionStripping with data set &quot;Multiple extensions&quot;" assertions="2" time="0.003594"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testJoinAtoms" tests="5" assertions="5" failures="0" errors="0" time="0.016247">
+        <testcase name="testJoinAtoms with data set &quot;Single atom to root&quot;" assertions="1" time="0.003236"/>
+        <testcase name="testJoinAtoms with data set &quot;Multiple atoms to root&quot;" assertions="1" time="0.003163"/>
+        <testcase name="testJoinAtoms with data set &quot;Multiple atoms to multiple atoms&quot;" assertions="1" time="0.003361"/>
+        <testcase name="testJoinAtoms with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003212"/>
+        <testcase name="testJoinAtoms with data set &quot;Special atoms&quot;" assertions="1" time="0.003275"/>
+      </testsuite>
+      <testcase name="testJoinAtomsFailureAtomContainingSeparator" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="203" assertions="2" time="0.003699"/>
+      <testcase name="testJoinAtomsFailureEmptyAtom" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="214" assertions="1" time="0.003409"/>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testJoinAtomSequence" tests="5" assertions="5" failures="0" errors="0" time="0.015939">
+        <testcase name="testJoinAtomSequence with data set &quot;Single atom to root&quot;" assertions="1" time="0.003195"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Multiple atoms to root&quot;" assertions="1" time="0.003229"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Multiple atoms to multiple atoms&quot;" assertions="1" time="0.003180"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003245"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Special atoms&quot;" assertions="1" time="0.003090"/>
+      </testsuite>
+      <testcase name="testJoinAtomSequenWithNonArray" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="235" assertions="1" time="0.003299"/>
+      <testcase name="testJoinAtomSequenceFailureAtomContainingSeparator" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="243" assertions="2" time="0.003560"/>
+      <testcase name="testJoinAtomSequenceFailureEmptyAtom" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="254" assertions="1" time="0.003534"/>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testJoin" tests="5" assertions="5" failures="0" errors="0" time="0.017964">
+        <testcase name="testJoin with data set &quot;Single atom to root&quot;" assertions="1" time="0.003989"/>
+        <testcase name="testJoin with data set &quot;Multiple atoms to root&quot;" assertions="1" time="0.003406"/>
+        <testcase name="testJoin with data set &quot;Multiple atoms to multiple atoms&quot;" assertions="1" time="0.003563"/>
+        <testcase name="testJoin with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003467"/>
+        <testcase name="testJoin with data set &quot;Special atoms&quot;" assertions="1" time="0.003539"/>
+      </testsuite>
+      <testcase name="testJoinFailureAbsoluteJoinPath" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="288" assertions="1" time="0.003534"/>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testJoinTrailingSlash" tests="5" assertions="5" failures="0" errors="0" time="0.016106">
+        <testcase name="testJoinTrailingSlash with data set &quot;Root atom&quot;" assertions="1" time="0.003121"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Single atom&quot;" assertions="1" time="0.003324"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Whitespace atom&quot;" assertions="1" time="0.003298"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003376"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Existing trailing slash&quot;" assertions="1" time="0.002987"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testJoinExtensions" tests="7" assertions="7" failures="0" errors="0" time="0.023285">
+        <testcase name="testJoinExtensions with data set &quot;Add to root&quot;" assertions="1" time="0.003342"/>
+        <testcase name="testJoinExtensions with data set &quot;Empty extension&quot;" assertions="1" time="0.003275"/>
+        <testcase name="testJoinExtensions with data set &quot;Whitespace extension&quot;" assertions="1" time="0.003358"/>
+        <testcase name="testJoinExtensions with data set &quot;Single extension&quot;" assertions="1" time="0.003388"/>
+        <testcase name="testJoinExtensions with data set &quot;Multiple extensions&quot;" assertions="1" time="0.003305"/>
+        <testcase name="testJoinExtensions with data set &quot;Empty extension with trailing slash&quot;" assertions="1" time="0.003363"/>
+        <testcase name="testJoinExtensions with data set &quot;Multiple extensions with trailing slash&quot;" assertions="1" time="0.003254"/>
+      </testsuite>
+      <testcase name="testJoinExtensionsFailureAtomContainingSeparator" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="344" assertions="2" time="0.003741"/>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testJoinExtensionSequence" tests="7" assertions="7" failures="0" errors="0" time="0.023103">
+        <testcase name="testJoinExtensionSequence with data set &quot;Add to root&quot;" assertions="1" time="0.003210"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Empty extension&quot;" assertions="1" time="0.003331"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Whitespace extension&quot;" assertions="1" time="0.003320"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Single extension&quot;" assertions="1" time="0.003317"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Multiple extensions&quot;" assertions="1" time="0.003301"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Empty extension with trailing slash&quot;" assertions="1" time="0.003329"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Multiple extensions with trailing slash&quot;" assertions="1" time="0.003295"/>
+      </testsuite>
+      <testcase name="testJoinExtensionSequenWithNonArray" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="366" assertions="1" time="0.003365"/>
+      <testcase name="testJoinExtensionSequenceFailureAtomContainingSeparator" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="374" assertions="2" time="0.003643"/>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testSuffixName" tests="7" assertions="7" failures="0" errors="0" time="0.023335">
+        <testcase name="testSuffixName with data set &quot;Root&quot;" assertions="1" time="0.003315"/>
+        <testcase name="testSuffixName with data set &quot;Empty suffix&quot;" assertions="1" time="0.003220"/>
+        <testcase name="testSuffixName with data set &quot;Empty suffix and trailing slash&quot;" assertions="1" time="0.003403"/>
+        <testcase name="testSuffixName with data set &quot;Whitespace suffix&quot;" assertions="1" time="0.003282"/>
+        <testcase name="testSuffixName with data set &quot;Normal suffix&quot;" assertions="1" time="0.003403"/>
+        <testcase name="testSuffixName with data set &quot;Suffix with dots&quot;" assertions="1" time="0.003396"/>
+        <testcase name="testSuffixName with data set &quot;Suffix with dots and trailing slash&quot;" assertions="1" time="0.003316"/>
+      </testsuite>
+      <testcase name="testSuffixNameFailureAtomContainingSeparator" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="409" assertions="2" time="0.003714"/>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testPrefixName" tests="7" assertions="7" failures="0" errors="0" time="0.023351">
+        <testcase name="testPrefixName with data set &quot;Root&quot;" assertions="1" time="0.003179"/>
+        <testcase name="testPrefixName with data set &quot;Empty prefix&quot;" assertions="1" time="0.003395"/>
+        <testcase name="testPrefixName with data set &quot;Empty prefix and trailing slash&quot;" assertions="1" time="0.003235"/>
+        <testcase name="testPrefixName with data set &quot;Whitespace prefix&quot;" assertions="1" time="0.003418"/>
+        <testcase name="testPrefixName with data set &quot;Normal prefix&quot;" assertions="1" time="0.003324"/>
+        <testcase name="testPrefixName with data set &quot;Prefix with dots&quot;" assertions="1" time="0.003392"/>
+        <testcase name="testPrefixName with data set &quot;Prefix with dots and trailing slash&quot;" assertions="1" time="0.003408"/>
+      </testsuite>
+      <testcase name="testPrefixNameFailureAtomContainingSeparator" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="444" assertions="2" time="0.003780"/>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testIsRoot" tests="3" assertions="3" failures="0" errors="0" time="0.012267">
+        <testcase name="testIsRoot with data set &quot;Root&quot;" assertions="1" time="0.004403"/>
+        <testcase name="testIsRoot with data set &quot;Root non-normalized&quot;" assertions="1" time="0.003999"/>
+        <testcase name="testIsRoot with data set &quot;Not root&quot;" assertions="1" time="0.003865"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testAncestry" tests="8" assertions="16" failures="0" errors="0" time="0.044385">
+        <testcase name="testAncestry with data set &quot;Parent&quot;" assertions="2" time="0.005635"/>
+        <testcase name="testAncestry with data set &quot;Root as parent&quot;" assertions="2" time="0.005271"/>
+        <testcase name="testAncestry with data set &quot;Resolve special atoms&quot;" assertions="2" time="0.005859"/>
+        <testcase name="testAncestry with data set &quot;Not immediate parent&quot;" assertions="2" time="0.005562"/>
+        <testcase name="testAncestry with data set &quot;Root not immediate parent&quot;" assertions="2" time="0.005546"/>
+        <testcase name="testAncestry with data set &quot;Unrelated paths&quot;" assertions="2" time="0.005456"/>
+        <testcase name="testAncestry with data set &quot;Same paths&quot;" assertions="2" time="0.005529"/>
+        <testcase name="testAncestry with data set &quot;Longer parent path&quot;" assertions="2" time="0.005527"/>
+      </testsuite>
+      <testcase name="testIsParentOfFailureRelativeChild" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="502" assertions="1" time="0.003664"/>
+      <testcase name="testIsAncestorOfFailureRelativeChild" class="Eloquent\Pathogen\AbsolutePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/AbsolutePathTest.php" line="511" assertions="1" time="0.003600"/>
+      <testsuite name="Eloquent\Pathogen\AbsolutePathTest::testRelativeTo" tests="8" assertions="8" failures="0" errors="0" time="0.033076">
+        <testcase name="testRelativeTo with data set &quot;Self&quot;" assertions="1" time="0.003972"/>
+        <testcase name="testRelativeTo with data set &quot;Child&quot;" assertions="1" time="0.004021"/>
+        <testcase name="testRelativeTo with data set &quot;Ancestor&quot;" assertions="1" time="0.004105"/>
+        <testcase name="testRelativeTo with data set &quot;Sibling&quot;" assertions="1" time="0.004000"/>
+        <testcase name="testRelativeTo with data set &quot;Parent's sibling&quot;" assertions="1" time="0.004254"/>
+        <testcase name="testRelativeTo with data set &quot;Parent's sibling's child&quot;" assertions="1" time="0.004289"/>
+        <testcase name="testRelativeTo with data set &quot;Completely unrelated&quot;" assertions="1" time="0.004228"/>
+        <testcase name="testRelativeTo with data set &quot;Lengthly unrelated child&quot;" assertions="1" time="0.004207"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Exception\EmptyPathAtomExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Exception/EmptyPathAtomExceptionTest.php" namespace="Eloquent\Pathogen\Exception" fullPackage="Eloquent.Pathogen.Exception" tests="1" assertions="5" failures="0" errors="0" time="0.003639">
+      <testcase name="testException" class="Eloquent\Pathogen\Exception\EmptyPathAtomExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Exception/EmptyPathAtomExceptionTest.php" line="23" assertions="5" time="0.003639"/>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Exception\EmptyPathExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Exception/EmptyPathExceptionTest.php" namespace="Eloquent\Pathogen\Exception" fullPackage="Eloquent.Pathogen.Exception" tests="1" assertions="3" failures="0" errors="0" time="0.003506">
+      <testcase name="testException" class="Eloquent\Pathogen\Exception\EmptyPathExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Exception/EmptyPathExceptionTest.php" line="19" assertions="3" time="0.003506"/>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Exception\InvalidPathAtomCharacterExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Exception/InvalidPathAtomCharacterExceptionTest.php" namespace="Eloquent\Pathogen\Exception" fullPackage="Eloquent.Pathogen.Exception" tests="1" assertions="6" failures="0" errors="0" time="0.004093">
+      <testcase name="testException" class="Eloquent\Pathogen\Exception\InvalidPathAtomCharacterExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Exception/InvalidPathAtomCharacterExceptionTest.php" line="23" assertions="6" time="0.004093"/>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Exception\InvalidPathStateExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Exception/InvalidPathStateExceptionTest.php" namespace="Eloquent\Pathogen\Exception" fullPackage="Eloquent.Pathogen.Exception" tests="1" assertions="4" failures="0" errors="0" time="0.003552">
+      <testcase name="testException" class="Eloquent\Pathogen\Exception\InvalidPathStateExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Exception/InvalidPathStateExceptionTest.php" line="19" assertions="4" time="0.003552"/>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Exception\PathAtomContainsSeparatorExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Exception/PathAtomContainsSeparatorExceptionTest.php" namespace="Eloquent\Pathogen\Exception" fullPackage="Eloquent.Pathogen.Exception" tests="1" assertions="6" failures="0" errors="0" time="0.003664">
+      <testcase name="testException" class="Eloquent\Pathogen\Exception\PathAtomContainsSeparatorExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Exception/PathAtomContainsSeparatorExceptionTest.php" line="23" assertions="6" time="0.003664"/>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Factory\PathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Factory/PathFactoryTest.php" namespace="Eloquent\Pathogen\Factory" fullPackage="Eloquent.Pathogen.Factory" tests="28" assertions="112" failures="0" errors="0" time="0.131386">
+      <testsuite name="Eloquent\Pathogen\Factory\PathFactoryTest::testCreate" tests="14" assertions="56" failures="0" errors="0" time="0.065992">
+        <testcase name="testCreate with data set &quot;Root&quot;" assertions="4" time="0.004595"/>
+        <testcase name="testCreate with data set &quot;Absolute&quot;" assertions="4" time="0.004804"/>
+        <testcase name="testCreate with data set &quot;Absolute with trailing separator&quot;" assertions="4" time="0.004626"/>
+        <testcase name="testCreate with data set &quot;Absolute with empty atoms&quot;" assertions="4" time="0.004821"/>
+        <testcase name="testCreate with data set &quot;Absolute with empty atoms at start&quot;" assertions="4" time="0.004605"/>
+        <testcase name="testCreate with data set &quot;Absolute with empty atoms at end&quot;" assertions="4" time="0.004805"/>
+        <testcase name="testCreate with data set &quot;Absolute with whitespace atoms&quot;" assertions="4" time="0.004635"/>
+        <testcase name="testCreate with data set &quot;Empty&quot;" assertions="4" time="0.004634"/>
+        <testcase name="testCreate with data set &quot;Self&quot;" assertions="4" time="0.004811"/>
+        <testcase name="testCreate with data set &quot;Relative&quot;" assertions="4" time="0.004668"/>
+        <testcase name="testCreate with data set &quot;Relative with trailing separator&quot;" assertions="4" time="0.004845"/>
+        <testcase name="testCreate with data set &quot;Relative with empty atoms&quot;" assertions="4" time="0.004660"/>
+        <testcase name="testCreate with data set &quot;Relative with empty atoms at end&quot;" assertions="4" time="0.004838"/>
+        <testcase name="testCreate with data set &quot;Relative with whitespace atoms&quot;" assertions="4" time="0.004645"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Factory\PathFactoryTest::testCreateFromAtoms" tests="14" assertions="56" failures="0" errors="0" time="0.065394">
+        <testcase name="testCreateFromAtoms with data set &quot;Root&quot;" assertions="4" time="0.004497"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute&quot;" assertions="4" time="0.004597"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with trailing separator&quot;" assertions="4" time="0.004662"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with empty atoms&quot;" assertions="4" time="0.004594"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with empty atoms at start&quot;" assertions="4" time="0.004768"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with empty atoms at end&quot;" assertions="4" time="0.004566"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with whitespace atoms&quot;" assertions="4" time="0.004790"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Empty&quot;" assertions="4" time="0.004593"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Self&quot;" assertions="4" time="0.004773"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Relative&quot;" assertions="4" time="0.004619"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Relative with trailing separator&quot;" assertions="4" time="0.004828"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Relative with empty atoms&quot;" assertions="4" time="0.004623"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Relative with empty atoms at end&quot;" assertions="4" time="0.004834"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Relative with whitespace atoms&quot;" assertions="4" time="0.004650"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\FileSystem\FileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/FileSystemPathFactoryTest.php" namespace="Eloquent\Pathogen\FileSystem" fullPackage="Eloquent.Pathogen.FileSystem" tests="5" assertions="15" failures="0" errors="0" time="0.041073">
+      <testcase name="testConstructor" class="Eloquent\Pathogen\FileSystem\FileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/FileSystemPathFactoryTest.php" line="39" assertions="2" time="0.008277"/>
+      <testcase name="testConstructorDefaults" class="Eloquent\Pathogen\FileSystem\FileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/FileSystemPathFactoryTest.php" line="45" assertions="2" time="0.004995"/>
+      <testcase name="testCreatePosix" class="Eloquent\Pathogen\FileSystem\FileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/FileSystemPathFactoryTest.php" line="59" assertions="4" time="0.009011"/>
+      <testcase name="testCreateWindows" class="Eloquent\Pathogen\FileSystem\FileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/FileSystemPathFactoryTest.php" line="71" assertions="4" time="0.010008"/>
+      <testcase name="testCreateFromAtoms" class="Eloquent\Pathogen\FileSystem\FileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/FileSystemPathFactoryTest.php" line="86" assertions="3" time="0.008782"/>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/PlatformFileSystemPathFactoryTest.php" namespace="Eloquent\Pathogen\FileSystem" fullPackage="Eloquent.Pathogen.FileSystem" tests="6" assertions="20" failures="0" errors="0" time="0.158436">
+      <testcase name="testConstructor" class="Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/PlatformFileSystemPathFactoryTest.php" line="41" assertions="2" time="0.006707"/>
+      <testcase name="testConstructorDefaults" class="Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/PlatformFileSystemPathFactoryTest.php" line="47" assertions="2" time="0.106495"/>
+      <testcase name="testCreatePosix" class="Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/PlatformFileSystemPathFactoryTest.php" line="61" assertions="4" time="0.010833"/>
+      <testcase name="testCreateWindows" class="Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/PlatformFileSystemPathFactoryTest.php" line="76" assertions="4" time="0.010850"/>
+      <testcase name="testCreateFromAtomsPosix" class="Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/PlatformFileSystemPathFactoryTest.php" line="94" assertions="4" time="0.011017"/>
+      <testcase name="testCreateFromAtomsWindows" class="Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/FileSystem/PlatformFileSystemPathFactoryTest.php" line="113" assertions="4" time="0.012534"/>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Normalizer\PathNormalizerTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Normalizer/PathNormalizerTest.php" namespace="Eloquent\Pathogen\Normalizer" fullPackage="Eloquent.Pathogen.Normalizer" tests="48" assertions="48" failures="0" errors="0" time="0.167823">
+      <testsuite name="Eloquent\Pathogen\Normalizer\PathNormalizerTest::testNormalizeAbsolutePaths" tests="17" assertions="17" failures="0" errors="0" time="0.058602">
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom&quot;" assertions="1" time="0.003476"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, atom&quot;" assertions="1" time="0.003479"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, atom, atom, parent, parent, atom&quot;" assertions="1" time="0.003491"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, atom, parent&quot;" assertions="1" time="0.003398"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, atom, slash&quot;" assertions="1" time="0.003474"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, parent&quot;" assertions="1" time="0.003420"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, parent, atom&quot;" assertions="1" time="0.003483"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, parent, atom, slash&quot;" assertions="1" time="0.003692"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, self, atom&quot;" assertions="1" time="0.003491"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, self, atom, parent, atom&quot;" assertions="1" time="0.003555"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, self, atom, parent, parent, atom&quot;" assertions="1" time="0.003510"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent&quot;" assertions="1" time="0.003268"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent, atom&quot;" assertions="1" time="0.003258"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent, atom, parent&quot;" assertions="1" time="0.003321"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent, parent&quot;" assertions="1" time="0.003418"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent, parent, atom&quot;" assertions="1" time="0.003488"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Self&quot;" assertions="1" time="0.003380"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Normalizer\PathNormalizerTest::testNormalizeRelativePaths" tests="31" assertions="31" failures="0" errors="0" time="0.109222">
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom&quot;" assertions="1" time="0.003468"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, atom&quot;" assertions="1" time="0.003479"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, atom, atom, parent, parent, atom&quot;" assertions="1" time="0.003543"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, atom, parent&quot;" assertions="1" time="0.003428"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, atom, slash&quot;" assertions="1" time="0.003396"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, parent&quot;" assertions="1" time="0.003431"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, parent, atom&quot;" assertions="1" time="0.003416"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, parent, atom, slash&quot;" assertions="1" time="0.003457"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, self, atom&quot;" assertions="1" time="0.003538"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, self, atom, parent, atom&quot;" assertions="1" time="0.003613"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent&quot;" assertions="1" time="0.003452"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom&quot;" assertions="1" time="0.003518"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, parent&quot;" assertions="1" time="0.003466"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, parent, atom, self&quot;" assertions="1" time="0.003575"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, parent, parent&quot;" assertions="1" time="0.003596"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, parent, parent, parent&quot;" assertions="1" time="0.003644"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, parent, self, atom&quot;" assertions="1" time="0.003625"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, self&quot;" assertions="1" time="0.003538"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, self, parent, atom&quot;" assertions="1" time="0.003545"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, parent&quot;" assertions="1" time="0.003510"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, parent, atom, atom&quot;" assertions="1" time="0.003642"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, parent, atom, parent, atom&quot;" assertions="1" time="0.003657"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, parent, self, parent, self&quot;" assertions="1" time="0.003636"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, self, atom, parent, atom&quot;" assertions="1" time="0.003603"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, self, parent&quot;" assertions="1" time="0.003507"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Self&quot;" assertions="1" time="0.003474"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Self, atom, parent&quot;" assertions="1" time="0.003553"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Self, parent&quot;" assertions="1" time="0.003505"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Self, parent, atom&quot;" assertions="1" time="0.003465"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Self, self&quot;" assertions="1" time="0.003392"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Self, self, atom&quot;" assertions="1" time="0.003549"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" namespace="Eloquent\Pathogen" fullPackage="Eloquent.Pathogen" tests="95" assertions="169" failures="0" errors="0" time="0.353643">
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testConstructor" tests="7" assertions="28" failures="0" errors="0" time="0.029293">
+        <testcase name="testConstructor with data set &quot;Self&quot;" assertions="4" time="0.004159"/>
+        <testcase name="testConstructor with data set &quot;Single atom&quot;" assertions="4" time="0.004158"/>
+        <testcase name="testConstructor with data set &quot;Trailing slash&quot;" assertions="4" time="0.004216"/>
+        <testcase name="testConstructor with data set &quot;Multiple atoms&quot;" assertions="4" time="0.004173"/>
+        <testcase name="testConstructor with data set &quot;Parent atom&quot;" assertions="4" time="0.004205"/>
+        <testcase name="testConstructor with data set &quot;Self atom&quot;" assertions="4" time="0.004202"/>
+        <testcase name="testConstructor with data set &quot;Whitespace&quot;" assertions="4" time="0.004180"/>
+      </testsuite>
+      <testcase name="testConstructorDefaults" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="58" assertions="1" time="0.003028"/>
+      <testcase name="testConstructorFailureAtomContainingSeparator" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="65" assertions="2" time="0.003562"/>
+      <testcase name="testConstructorFailureEmptyAtom" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="74" assertions="1" time="0.003396"/>
+      <testcase name="testConstructorFailureEmptyPath" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="82" assertions="1" time="0.003133"/>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testNamePartMethods" tests="8" assertions="48" failures="0" errors="0" time="0.040528">
+        <testcase name="testNamePartMethods with data set &quot;Self&quot;" assertions="6" time="0.004627"/>
+        <testcase name="testNamePartMethods with data set &quot;No extensions&quot;" assertions="6" time="0.005024"/>
+        <testcase name="testNamePartMethods with data set &quot;Empty extension&quot;" assertions="6" time="0.005139"/>
+        <testcase name="testNamePartMethods with data set &quot;Whitespace extension&quot;" assertions="6" time="0.005192"/>
+        <testcase name="testNamePartMethods with data set &quot;Single extension&quot;" assertions="6" time="0.005147"/>
+        <testcase name="testNamePartMethods with data set &quot;Multiple extensions&quot;" assertions="6" time="0.005147"/>
+        <testcase name="testNamePartMethods with data set &quot;No name with single extension&quot;" assertions="6" time="0.005160"/>
+        <testcase name="testNamePartMethods with data set &quot;No name with multiple extension&quot;" assertions="6" time="0.005092"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testParent" tests="3" assertions="3" failures="0" errors="0" time="0.010143">
+        <testcase name="testParent with data set &quot;Self&quot;" assertions="1" time="0.003371"/>
+        <testcase name="testParent with data set &quot;Single atom&quot;" assertions="1" time="0.003425"/>
+        <testcase name="testParent with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003347"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testStripTrailingSlash" tests="5" assertions="5" failures="0" errors="0" time="0.016675">
+        <testcase name="testStripTrailingSlash with data set &quot;Single atom&quot;" assertions="1" time="0.003429"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003355"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003479"/>
+        <testcase name="testStripTrailingSlash with data set &quot;No trailing slash&quot;" assertions="1" time="0.003154"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Self&quot;" assertions="1" time="0.003258"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testExtensionStripping" tests="6" assertions="12" failures="0" errors="0" time="0.023218">
+        <testcase name="testExtensionStripping with data set &quot;Self&quot;" assertions="2" time="0.003579"/>
+        <testcase name="testExtensionStripping with data set &quot;No extensions&quot;" assertions="2" time="0.003707"/>
+        <testcase name="testExtensionStripping with data set &quot;Empty extension&quot;" assertions="2" time="0.004006"/>
+        <testcase name="testExtensionStripping with data set &quot;Whitespace extension&quot;" assertions="2" time="0.003970"/>
+        <testcase name="testExtensionStripping with data set &quot;Single extension&quot;" assertions="2" time="0.003975"/>
+        <testcase name="testExtensionStripping with data set &quot;Multiple extensions&quot;" assertions="2" time="0.003981"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testJoinAtoms" tests="5" assertions="5" failures="0" errors="0" time="0.017210">
+        <testcase name="testJoinAtoms with data set &quot;Single atom to self&quot;" assertions="1" time="0.003425"/>
+        <testcase name="testJoinAtoms with data set &quot;Multiple atoms to self&quot;" assertions="1" time="0.003472"/>
+        <testcase name="testJoinAtoms with data set &quot;Multiple atoms to multiple atoms&quot;" assertions="1" time="0.003474"/>
+        <testcase name="testJoinAtoms with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003439"/>
+        <testcase name="testJoinAtoms with data set &quot;Special atoms&quot;" assertions="1" time="0.003400"/>
+      </testsuite>
+      <testcase name="testJoinAtomsFailureAtomContainingSeparator" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="210" assertions="2" time="0.003908"/>
+      <testcase name="testJoinAtomsFailureEmptyAtom" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="221" assertions="1" time="0.003716"/>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testJoinAtomSequence" tests="5" assertions="5" failures="0" errors="0" time="0.017104">
+        <testcase name="testJoinAtomSequence with data set &quot;Single atom to self&quot;" assertions="1" time="0.003433"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Multiple atoms to self&quot;" assertions="1" time="0.003366"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Multiple atoms to multiple atoms&quot;" assertions="1" time="0.003511"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003371"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Special atoms&quot;" assertions="1" time="0.003423"/>
+      </testsuite>
+      <testcase name="testJoinAtomSequenceFailureAtomContainingSeparator" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="242" assertions="2" time="0.003873"/>
+      <testcase name="testJoinAtomSequenceFailureEmptyAtom" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="253" assertions="1" time="0.003759"/>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testJoin" tests="6" assertions="6" failures="0" errors="0" time="0.022010">
+        <testcase name="testJoin with data set &quot;Relative atom to self&quot;" assertions="1" time="0.003692"/>
+        <testcase name="testJoin with data set &quot;Single atom to self&quot;" assertions="1" time="0.003571"/>
+        <testcase name="testJoin with data set &quot;Multiple atoms to self&quot;" assertions="1" time="0.003740"/>
+        <testcase name="testJoin with data set &quot;Multiple atoms to multiple atoms&quot;" assertions="1" time="0.003748"/>
+        <testcase name="testJoin with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003577"/>
+        <testcase name="testJoin with data set &quot;Special atoms&quot;" assertions="1" time="0.003682"/>
+      </testsuite>
+      <testcase name="testJoinFailureAbsoluteJoinPath" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="288" assertions="1" time="0.003686"/>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testJoinTrailingSlash" tests="5" assertions="5" failures="0" errors="0" time="0.017210">
+        <testcase name="testJoinTrailingSlash with data set &quot;Self atom&quot;" assertions="1" time="0.003382"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Single atom&quot;" assertions="1" time="0.003669"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Whitespace atom&quot;" assertions="1" time="0.003443"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003431"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Existing trailing slash&quot;" assertions="1" time="0.003285"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testJoinExtensions" tests="7" assertions="7" failures="0" errors="0" time="0.024518">
+        <testcase name="testJoinExtensions with data set &quot;Add to self&quot;" assertions="1" time="0.003486"/>
+        <testcase name="testJoinExtensions with data set &quot;Empty extension&quot;" assertions="1" time="0.003535"/>
+        <testcase name="testJoinExtensions with data set &quot;Whitespace extension&quot;" assertions="1" time="0.003542"/>
+        <testcase name="testJoinExtensions with data set &quot;Single extension&quot;" assertions="1" time="0.003475"/>
+        <testcase name="testJoinExtensions with data set &quot;Multiple extensions&quot;" assertions="1" time="0.003583"/>
+        <testcase name="testJoinExtensions with data set &quot;Empty extension with trailing slash&quot;" assertions="1" time="0.003439"/>
+        <testcase name="testJoinExtensions with data set &quot;Multiple extensions with trailing slash&quot;" assertions="1" time="0.003458"/>
+      </testsuite>
+      <testcase name="testJoinExtensionsFailureAtomContainingSeparator" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="344" assertions="2" time="0.003894"/>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testJoinExtensionSequence" tests="7" assertions="7" failures="0" errors="0" time="0.024213">
+        <testcase name="testJoinExtensionSequence with data set &quot;Add to self&quot;" assertions="1" time="0.003494"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Empty extension&quot;" assertions="1" time="0.003382"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Whitespace extension&quot;" assertions="1" time="0.003501"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Single extension&quot;" assertions="1" time="0.003462"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Multiple extensions&quot;" assertions="1" time="0.003515"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Empty extension with trailing slash&quot;" assertions="1" time="0.003408"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Multiple extensions with trailing slash&quot;" assertions="1" time="0.003451"/>
+      </testsuite>
+      <testcase name="testJoinExtensionSequenceFailureAtomContainingSeparator" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="366" assertions="2" time="0.003928"/>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testSuffixName" tests="7" assertions="7" failures="0" errors="0" time="0.024640">
+        <testcase name="testSuffixName with data set &quot;Self&quot;" assertions="1" time="0.003378"/>
+        <testcase name="testSuffixName with data set &quot;Empty suffix&quot;" assertions="1" time="0.003570"/>
+        <testcase name="testSuffixName with data set &quot;Empty suffix and trailing slash&quot;" assertions="1" time="0.003530"/>
+        <testcase name="testSuffixName with data set &quot;Whitespace suffix&quot;" assertions="1" time="0.003561"/>
+        <testcase name="testSuffixName with data set &quot;Normal suffix&quot;" assertions="1" time="0.003543"/>
+        <testcase name="testSuffixName with data set &quot;Suffix with dots&quot;" assertions="1" time="0.003486"/>
+        <testcase name="testSuffixName with data set &quot;Suffix with dots and trailing slash&quot;" assertions="1" time="0.003572"/>
+      </testsuite>
+      <testcase name="testSuffixNameFailureAtomContainingSeparator" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="401" assertions="2" time="0.003881"/>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testPrefixName" tests="7" assertions="7" failures="0" errors="0" time="0.024586">
+        <testcase name="testPrefixName with data set &quot;Self&quot;" assertions="1" time="0.003478"/>
+        <testcase name="testPrefixName with data set &quot;Empty atom and trailing slash&quot;" assertions="1" time="0.003328"/>
+        <testcase name="testPrefixName with data set &quot;Empty prefix&quot;" assertions="1" time="0.003561"/>
+        <testcase name="testPrefixName with data set &quot;Whitespace prefix&quot;" assertions="1" time="0.003505"/>
+        <testcase name="testPrefixName with data set &quot;Normal prefix&quot;" assertions="1" time="0.003564"/>
+        <testcase name="testPrefixName with data set &quot;Prefix with dots&quot;" assertions="1" time="0.003580"/>
+        <testcase name="testPrefixName with data set &quot;Prefix with dots with trailing slash&quot;" assertions="1" time="0.003570"/>
+      </testsuite>
+      <testcase name="testPrefixNameFailureAtomContainingSeparator" class="Eloquent\Pathogen\RelativePathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/RelativePathTest.php" line="436" assertions="2" time="0.003961"/>
+      <testsuite name="Eloquent\Pathogen\RelativePathTest::testIsSelf" tests="4" assertions="4" failures="0" errors="0" time="0.014570">
+        <testcase name="testIsSelf with data set &quot;Self&quot;" assertions="1" time="0.004004"/>
+        <testcase name="testIsSelf with data set &quot;Self non-normalized&quot;" assertions="1" time="0.003594"/>
+        <testcase name="testIsSelf with data set &quot;Single atom&quot;" assertions="1" time="0.003377"/>
+        <testcase name="testIsSelf with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003595"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Resolver\PathResolverTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Resolver/PathResolverTest.php" namespace="Eloquent\Pathogen\Resolver" fullPackage="Eloquent.Pathogen.Resolver" tests="18" assertions="18" failures="0" errors="0" time="0.066192">
+      <testsuite name="Eloquent\Pathogen\Resolver\PathResolverTest::testResolveAbsolutePaths" tests="4" assertions="4" failures="0" errors="0" time="0.014345">
+        <testcase name="testResolveAbsolutePaths with data set &quot;Root against single atom&quot;" assertions="1" time="0.003910"/>
+        <testcase name="testResolveAbsolutePaths with data set &quot;Single atom against single atom&quot;" assertions="1" time="0.003408"/>
+        <testcase name="testResolveAbsolutePaths with data set &quot;Multiple atoms against single atom&quot;" assertions="1" time="0.003464"/>
+        <testcase name="testResolveAbsolutePaths with data set &quot;Multiple atoms against multiple atoms&quot;" assertions="1" time="0.003563"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Resolver\PathResolverTest::testResolveRelativePaths" tests="14" assertions="14" failures="0" errors="0" time="0.051847">
+        <testcase name="testResolveRelativePaths with data set &quot;Root against single atom&quot;" assertions="1" time="0.003598"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Single atom against single atom&quot;" assertions="1" time="0.003651"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Multiple atoms against single atom&quot;" assertions="1" time="0.003741"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Multiple atoms with slash against single atoms&quot;" assertions="1" time="0.003740"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Multiple atoms against multiple atoms&quot;" assertions="1" time="0.003775"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Multiple atoms with slash against multiple atoms&quot;" assertions="1" time="0.003744"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Multiple atoms with slash against multiple atoms with slash&quot;" assertions="1" time="0.003743"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Root against parent atom&quot;" assertions="1" time="0.003609"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Single atom against parent atom&quot;" assertions="1" time="0.003677"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Single atom with slash against parent atom&quot;" assertions="1" time="0.003672"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Single atom with slash against parent atom with slash&quot;" assertions="1" time="0.003643"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Multiple atoms against parent and single atom&quot;" assertions="1" time="0.003696"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Multiple atoms with slash against parent atom and single atom&quot;" assertions="1" time="0.003780"/>
+        <testcase name="testResolveRelativePaths with data set &quot;Multiple atoms with slash against parent atom and single atom with slash&quot;" assertions="1" time="0.003778"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" namespace="Eloquent\Pathogen\Windows" fullPackage="Eloquent.Pathogen.Windows" tests="343" assertions="654" failures="0" errors="0" time="1.469953">
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testJoinDrive" tests="4" assertions="4" failures="0" errors="0" time="0.014479">
+        <testcase name="testJoinDrive with data set &quot;Join root&quot;" assertions="1" time="0.003484"/>
+        <testcase name="testJoinDrive with data set &quot;Join drive-less&quot;" assertions="1" time="0.003689"/>
+        <testcase name="testJoinDrive with data set &quot;Join with existing drive&quot;" assertions="1" time="0.003682"/>
+        <testcase name="testJoinDrive with data set &quot;Join with trailing slash&quot;" assertions="1" time="0.003624"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testConstructor" tests="14" assertions="84" failures="0" errors="0" time="0.072560">
+        <testcase name="testConstructor with data set &quot;Root&quot;" assertions="6" time="0.005016"/>
+        <testcase name="testConstructor with data set &quot;Single atom&quot;" assertions="6" time="0.005198"/>
+        <testcase name="testConstructor with data set &quot;Trailing slash&quot;" assertions="6" time="0.005028"/>
+        <testcase name="testConstructor with data set &quot;Multiple atoms&quot;" assertions="6" time="0.005080"/>
+        <testcase name="testConstructor with data set &quot;Parent atom&quot;" assertions="6" time="0.005300"/>
+        <testcase name="testConstructor with data set &quot;Self atom&quot;" assertions="6" time="0.005250"/>
+        <testcase name="testConstructor with data set &quot;Whitespace&quot;" assertions="6" time="0.005111"/>
+        <testcase name="testConstructor with data set &quot;Root with drive&quot;" assertions="6" time="0.005145"/>
+        <testcase name="testConstructor with data set &quot;Single atom with drive&quot;" assertions="6" time="0.005136"/>
+        <testcase name="testConstructor with data set &quot;Trailing slash with drive&quot;" assertions="6" time="0.005058"/>
+        <testcase name="testConstructor with data set &quot;Multiple atoms with drive&quot;" assertions="6" time="0.005352"/>
+        <testcase name="testConstructor with data set &quot;Parent atom with drive&quot;" assertions="6" time="0.005367"/>
+        <testcase name="testConstructor with data set &quot;Self atom with drive&quot;" assertions="6" time="0.005168"/>
+        <testcase name="testConstructor with data set &quot;Whitespace with drive&quot;" assertions="6" time="0.005351"/>
+      </testsuite>
+      <testcase name="testConstructorDefaults" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="114" assertions="1" time="0.003042"/>
+      <testcase name="testConstructorFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="121" assertions="2" time="0.003699"/>
+      <testcase name="testConstructorFailureAtomContainingBackslash" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="130" assertions="2" time="0.003651"/>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testConstructorFailureAtomContainingInvalidCharacter" tests="39" assertions="78" failures="0" errors="0" time="0.145706">
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 0)&quot;" assertions="2" time="0.003772"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 1)&quot;" assertions="2" time="0.003748"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 2)&quot;" assertions="2" time="0.003641"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 3)&quot;" assertions="2" time="0.003741"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 4)&quot;" assertions="2" time="0.003701"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 5)&quot;" assertions="2" time="0.003634"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 6)&quot;" assertions="2" time="0.003644"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 7)&quot;" assertions="2" time="0.003689"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 8)&quot;" assertions="2" time="0.003743"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 9)&quot;" assertions="2" time="0.003770"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 10)&quot;" assertions="2" time="0.003771"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 11)&quot;" assertions="2" time="0.003748"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 12)&quot;" assertions="2" time="0.003750"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 13)&quot;" assertions="2" time="0.003755"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 14)&quot;" assertions="2" time="0.003777"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 15)&quot;" assertions="2" time="0.003791"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 16)&quot;" assertions="2" time="0.003746"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 17)&quot;" assertions="2" time="0.003735"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 18)&quot;" assertions="2" time="0.003730"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 19)&quot;" assertions="2" time="0.003704"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 20)&quot;" assertions="2" time="0.003713"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 21)&quot;" assertions="2" time="0.003770"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 22)&quot;" assertions="2" time="0.003712"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 23)&quot;" assertions="2" time="0.003664"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 24)&quot;" assertions="2" time="0.003643"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 25)&quot;" assertions="2" time="0.003668"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 26)&quot;" assertions="2" time="0.003731"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 27)&quot;" assertions="2" time="0.003983"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 28)&quot;" assertions="2" time="0.003779"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 29)&quot;" assertions="2" time="0.003786"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 30)&quot;" assertions="2" time="0.003706"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 31)&quot;" assertions="2" time="0.003772"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 60)&quot;" assertions="2" time="0.003699"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 62)&quot;" assertions="2" time="0.003747"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 58)&quot;" assertions="2" time="0.003749"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 34)&quot;" assertions="2" time="0.003778"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 124)&quot;" assertions="2" time="0.003770"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 63)&quot;" assertions="2" time="0.003722"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 42)&quot;" assertions="2" time="0.003724"/>
+      </testsuite>
+      <testcase name="testConstructorFailureEmptyAtom" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="155" assertions="1" time="0.003475"/>
+      <testcase name="testConstructorFailureInvalidDriveSpecifierCharacter" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="163" assertions="1" time="0.003501"/>
+      <testcase name="testConstructorFailureInvalidDriveSpecifierLength" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="171" assertions="1" time="0.003378"/>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testNamePartMethods" tests="16" assertions="96" failures="0" errors="0" time="0.078186">
+        <testcase name="testNamePartMethods with data set &quot;Root&quot;" assertions="6" time="0.004753"/>
+        <testcase name="testNamePartMethods with data set &quot;No extensions&quot;" assertions="6" time="0.005005"/>
+        <testcase name="testNamePartMethods with data set &quot;Empty extension&quot;" assertions="6" time="0.004840"/>
+        <testcase name="testNamePartMethods with data set &quot;Whitespace extension&quot;" assertions="6" time="0.004805"/>
+        <testcase name="testNamePartMethods with data set &quot;Single extension&quot;" assertions="6" time="0.005022"/>
+        <testcase name="testNamePartMethods with data set &quot;Multiple extensions&quot;" assertions="6" time="0.004808"/>
+        <testcase name="testNamePartMethods with data set &quot;No name with single extension&quot;" assertions="6" time="0.004990"/>
+        <testcase name="testNamePartMethods with data set &quot;No name with multiple extension&quot;" assertions="6" time="0.004857"/>
+        <testcase name="testNamePartMethods with data set &quot;Root with drive&quot;" assertions="6" time="0.004742"/>
+        <testcase name="testNamePartMethods with data set &quot;No extensions with drive&quot;" assertions="6" time="0.005025"/>
+        <testcase name="testNamePartMethods with data set &quot;Empty extension with drive&quot;" assertions="6" time="0.004821"/>
+        <testcase name="testNamePartMethods with data set &quot;Whitespace extension with drive&quot;" assertions="6" time="0.004800"/>
+        <testcase name="testNamePartMethods with data set &quot;Single extension with drive&quot;" assertions="6" time="0.005078"/>
+        <testcase name="testNamePartMethods with data set &quot;Multiple extensions with drive&quot;" assertions="6" time="0.004846"/>
+        <testcase name="testNamePartMethods with data set &quot;No name with single extension with drive&quot;" assertions="6" time="0.004823"/>
+        <testcase name="testNamePartMethods with data set &quot;No name with multiple extension with drive&quot;" assertions="6" time="0.004970"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testParent" tests="6" assertions="6" failures="0" errors="0" time="0.022194">
+        <testcase name="testParent with data set &quot;Root&quot;" assertions="1" time="0.003613"/>
+        <testcase name="testParent with data set &quot;Single atom&quot;" assertions="1" time="0.003701"/>
+        <testcase name="testParent with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003834"/>
+        <testcase name="testParent with data set &quot;Root with drive&quot;" assertions="1" time="0.003549"/>
+        <testcase name="testParent with data set &quot;Single atom with drive&quot;" assertions="1" time="0.003673"/>
+        <testcase name="testParent with data set &quot;Multiple atoms with drive&quot;" assertions="1" time="0.003824"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testStripTrailingSlash" tests="10" assertions="10" failures="0" errors="0" time="0.036073">
+        <testcase name="testStripTrailingSlash with data set &quot;Single atom&quot;" assertions="1" time="0.003690"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003776"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003796"/>
+        <testcase name="testStripTrailingSlash with data set &quot;No trailing slash&quot;" assertions="1" time="0.003424"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Root&quot;" assertions="1" time="0.003321"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Single atom with drive&quot;" assertions="1" time="0.003607"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Multiple atoms with drive&quot;" assertions="1" time="0.003841"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Whitespace atoms with drive&quot;" assertions="1" time="0.003785"/>
+        <testcase name="testStripTrailingSlash with data set &quot;No trailing slash with drive&quot;" assertions="1" time="0.003446"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Root with drive&quot;" assertions="1" time="0.003387"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testExtensionStripping" tests="12" assertions="24" failures="0" errors="0" time="0.049111">
+        <testcase name="testExtensionStripping with data set &quot;Root&quot;" assertions="2" time="0.003766"/>
+        <testcase name="testExtensionStripping with data set &quot;No extensions&quot;" assertions="2" time="0.003817"/>
+        <testcase name="testExtensionStripping with data set &quot;Empty extension&quot;" assertions="2" time="0.004231"/>
+        <testcase name="testExtensionStripping with data set &quot;Whitespace extension&quot;" assertions="2" time="0.004261"/>
+        <testcase name="testExtensionStripping with data set &quot;Single extension&quot;" assertions="2" time="0.004256"/>
+        <testcase name="testExtensionStripping with data set &quot;Multiple extensions&quot;" assertions="2" time="0.004180"/>
+        <testcase name="testExtensionStripping with data set &quot;Root with drive&quot;" assertions="2" time="0.003677"/>
+        <testcase name="testExtensionStripping with data set &quot;No extensions with drive&quot;" assertions="2" time="0.003735"/>
+        <testcase name="testExtensionStripping with data set &quot;Empty extension with drive&quot;" assertions="2" time="0.004410"/>
+        <testcase name="testExtensionStripping with data set &quot;Whitespace extension with drive&quot;" assertions="2" time="0.004271"/>
+        <testcase name="testExtensionStripping with data set &quot;Single extension with drive&quot;" assertions="2" time="0.004258"/>
+        <testcase name="testExtensionStripping with data set &quot;Multiple extensions with drive&quot;" assertions="2" time="0.004249"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testJoinAtoms" tests="10" assertions="10" failures="0" errors="0" time="0.037582">
+        <testcase name="testJoinAtoms with data set &quot;Single atom to root&quot;" assertions="1" time="0.003639"/>
+        <testcase name="testJoinAtoms with data set &quot;Multiple atoms to root&quot;" assertions="1" time="0.003693"/>
+        <testcase name="testJoinAtoms with data set &quot;Multiple atoms to multiple atoms&quot;" assertions="1" time="0.003895"/>
+        <testcase name="testJoinAtoms with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003760"/>
+        <testcase name="testJoinAtoms with data set &quot;Special atoms&quot;" assertions="1" time="0.003809"/>
+        <testcase name="testJoinAtoms with data set &quot;Single atom to root with drive&quot;" assertions="1" time="0.003634"/>
+        <testcase name="testJoinAtoms with data set &quot;Multiple atoms to root with drive&quot;" assertions="1" time="0.003692"/>
+        <testcase name="testJoinAtoms with data set &quot;Multiple atoms to multiple atoms with drive&quot;" assertions="1" time="0.003918"/>
+        <testcase name="testJoinAtoms with data set &quot;Whitespace atoms with drive&quot;" assertions="1" time="0.003739"/>
+        <testcase name="testJoinAtoms with data set &quot;Special atoms with drive&quot;" assertions="1" time="0.003803"/>
+      </testsuite>
+      <testcase name="testJoinAtomsFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="331" assertions="2" time="0.004243"/>
+      <testcase name="testJoinAtomsFailureAtomContainingBackslash" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="342" assertions="2" time="0.004219"/>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testJoinAtomsFailureAtomContainingInvalidCharacter" tests="39" assertions="78" failures="0" errors="0" time="0.169434">
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 0)&quot;" assertions="2" time="0.004329"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 1)&quot;" assertions="2" time="0.004331"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 2)&quot;" assertions="2" time="0.004327"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 3)&quot;" assertions="2" time="0.004308"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 4)&quot;" assertions="2" time="0.004338"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 5)&quot;" assertions="2" time="0.004332"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 6)&quot;" assertions="2" time="0.004299"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 7)&quot;" assertions="2" time="0.004326"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 8)&quot;" assertions="2" time="0.004487"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 9)&quot;" assertions="2" time="0.004339"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 10)&quot;" assertions="2" time="0.004330"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 11)&quot;" assertions="2" time="0.004325"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 12)&quot;" assertions="2" time="0.004325"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 13)&quot;" assertions="2" time="0.004317"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 14)&quot;" assertions="2" time="0.004307"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 15)&quot;" assertions="2" time="0.004349"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 16)&quot;" assertions="2" time="0.004372"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 17)&quot;" assertions="2" time="0.004461"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 18)&quot;" assertions="2" time="0.004336"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 19)&quot;" assertions="2" time="0.004308"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 20)&quot;" assertions="2" time="0.004321"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 21)&quot;" assertions="2" time="0.004315"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 22)&quot;" assertions="2" time="0.004313"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 23)&quot;" assertions="2" time="0.004306"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 24)&quot;" assertions="2" time="0.004329"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 25)&quot;" assertions="2" time="0.004323"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 26)&quot;" assertions="2" time="0.004286"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 27)&quot;" assertions="2" time="0.004366"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 28)&quot;" assertions="2" time="0.004347"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 29)&quot;" assertions="2" time="0.004311"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 30)&quot;" assertions="2" time="0.004320"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 31)&quot;" assertions="2" time="0.004329"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 60)&quot;" assertions="2" time="0.004335"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 62)&quot;" assertions="2" time="0.004553"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 58)&quot;" assertions="2" time="0.004584"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 34)&quot;" assertions="2" time="0.004308"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 124)&quot;" assertions="2" time="0.004316"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 63)&quot;" assertions="2" time="0.004308"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 42)&quot;" assertions="2" time="0.004317"/>
+      </testsuite>
+      <testcase name="testJoinAtomsFailureEmptyAtom" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="371" assertions="1" time="0.004123"/>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testJoinAtomSequence" tests="10" assertions="10" failures="0" errors="0" time="0.037201">
+        <testcase name="testJoinAtomSequence with data set &quot;Single atom to root&quot;" assertions="1" time="0.003557"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Multiple atoms to root&quot;" assertions="1" time="0.003642"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Multiple atoms to multiple atoms&quot;" assertions="1" time="0.003883"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003710"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Special atoms&quot;" assertions="1" time="0.003753"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Single atom to root with drive&quot;" assertions="1" time="0.003607"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Multiple atoms to root with drive&quot;" assertions="1" time="0.003644"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Multiple atoms to multiple atoms with drive&quot;" assertions="1" time="0.003888"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Whitespace atoms with drive&quot;" assertions="1" time="0.003738"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Special atoms with drive&quot;" assertions="1" time="0.003779"/>
+      </testsuite>
+      <testcase name="testJoinAtomSequenWithNonArray" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="392" assertions="1" time="0.003801"/>
+      <testcase name="testJoinAtomSequenceFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="400" assertions="2" time="0.004231"/>
+      <testcase name="testJoinAtomSequenceFailureAtomContainingBackslash" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="411" assertions="2" time="0.004221"/>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testJoinAtomSequenceFailureAtomContainingInvalidCharacter" tests="39" assertions="78" failures="0" errors="0" time="0.167811">
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 0)&quot;" assertions="2" time="0.004291"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 1)&quot;" assertions="2" time="0.004297"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 2)&quot;" assertions="2" time="0.004294"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 3)&quot;" assertions="2" time="0.004303"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 4)&quot;" assertions="2" time="0.004279"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 5)&quot;" assertions="2" time="0.004311"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 6)&quot;" assertions="2" time="0.004337"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 7)&quot;" assertions="2" time="0.004270"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 8)&quot;" assertions="2" time="0.004223"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 9)&quot;" assertions="2" time="0.004279"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 10)&quot;" assertions="2" time="0.004307"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 11)&quot;" assertions="2" time="0.004295"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 12)&quot;" assertions="2" time="0.004298"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 13)&quot;" assertions="2" time="0.004286"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 14)&quot;" assertions="2" time="0.004283"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 15)&quot;" assertions="2" time="0.004314"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 16)&quot;" assertions="2" time="0.004332"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 17)&quot;" assertions="2" time="0.004308"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 18)&quot;" assertions="2" time="0.004288"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 19)&quot;" assertions="2" time="0.004290"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 20)&quot;" assertions="2" time="0.004305"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 21)&quot;" assertions="2" time="0.004291"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 22)&quot;" assertions="2" time="0.004299"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 23)&quot;" assertions="2" time="0.004278"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 24)&quot;" assertions="2" time="0.004385"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 25)&quot;" assertions="2" time="0.004340"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 26)&quot;" assertions="2" time="0.004280"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 27)&quot;" assertions="2" time="0.004267"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 28)&quot;" assertions="2" time="0.004289"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 29)&quot;" assertions="2" time="0.004567"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 30)&quot;" assertions="2" time="0.004307"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 31)&quot;" assertions="2" time="0.004293"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 60)&quot;" assertions="2" time="0.004303"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 62)&quot;" assertions="2" time="0.004294"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 58)&quot;" assertions="2" time="0.004286"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 34)&quot;" assertions="2" time="0.004281"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 124)&quot;" assertions="2" time="0.004289"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 63)&quot;" assertions="2" time="0.004287"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 42)&quot;" assertions="2" time="0.004284"/>
+      </testsuite>
+      <testcase name="testJoinAtomSequenceFailureEmptyAtom" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="440" assertions="1" time="0.004101"/>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testJoin" tests="10" assertions="10" failures="0" errors="0" time="0.040263">
+        <testcase name="testJoin with data set &quot;Single atom to root&quot;" assertions="1" time="0.003859"/>
+        <testcase name="testJoin with data set &quot;Multiple atoms to root&quot;" assertions="1" time="0.003969"/>
+        <testcase name="testJoin with data set &quot;Multiple atoms to multiple atoms&quot;" assertions="1" time="0.004217"/>
+        <testcase name="testJoin with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003994"/>
+        <testcase name="testJoin with data set &quot;Special atoms&quot;" assertions="1" time="0.004076"/>
+        <testcase name="testJoin with data set &quot;Single atom to root with drive&quot;" assertions="1" time="0.003825"/>
+        <testcase name="testJoin with data set &quot;Multiple atoms to root with drive&quot;" assertions="1" time="0.004031"/>
+        <testcase name="testJoin with data set &quot;Multiple atoms to multiple atoms with drive&quot;" assertions="1" time="0.004217"/>
+        <testcase name="testJoin with data set &quot;Whitespace atoms with drive&quot;" assertions="1" time="0.003976"/>
+        <testcase name="testJoin with data set &quot;Special atoms with drive&quot;" assertions="1" time="0.004099"/>
+      </testsuite>
+      <testcase name="testJoinFailureAbsoluteJoinPath" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="480" assertions="1" time="0.003957"/>
+      <testcase name="testJoinFailureAbsoluteJoinPathWithDrive" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="489" assertions="1" time="0.003912"/>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testJoinTrailingSlash" tests="10" assertions="10" failures="0" errors="0" time="0.036215">
+        <testcase name="testJoinTrailingSlash with data set &quot;Root atom&quot;" assertions="1" time="0.003466"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Single atom&quot;" assertions="1" time="0.003732"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Whitespace atom&quot;" assertions="1" time="0.003723"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003839"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Existing trailing slash&quot;" assertions="1" time="0.003393"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Root atom with drive&quot;" assertions="1" time="0.003388"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Single atom with drive&quot;" assertions="1" time="0.003697"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Whitespace atom with drive&quot;" assertions="1" time="0.003708"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Multiple atoms with drive&quot;" assertions="1" time="0.003872"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Existing trailing slash with drive&quot;" assertions="1" time="0.003397"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testJoinExtensions" tests="14" assertions="14" failures="0" errors="0" time="0.052725">
+        <testcase name="testJoinExtensions with data set &quot;Add to root&quot;" assertions="1" time="0.003731"/>
+        <testcase name="testJoinExtensions with data set &quot;Empty extension&quot;" assertions="1" time="0.003755"/>
+        <testcase name="testJoinExtensions with data set &quot;Whitespace extension&quot;" assertions="1" time="0.003772"/>
+        <testcase name="testJoinExtensions with data set &quot;Single extension&quot;" assertions="1" time="0.003763"/>
+        <testcase name="testJoinExtensions with data set &quot;Multiple extensions&quot;" assertions="1" time="0.003772"/>
+        <testcase name="testJoinExtensions with data set &quot;Empty extension with trailing slash&quot;" assertions="1" time="0.003767"/>
+        <testcase name="testJoinExtensions with data set &quot;Multiple extensions with trailing slash&quot;" assertions="1" time="0.003765"/>
+        <testcase name="testJoinExtensions with data set &quot;Add to root with drive&quot;" assertions="1" time="0.003711"/>
+        <testcase name="testJoinExtensions with data set &quot;Empty extension with drive&quot;" assertions="1" time="0.003784"/>
+        <testcase name="testJoinExtensions with data set &quot;Whitespace extension with drive&quot;" assertions="1" time="0.003782"/>
+        <testcase name="testJoinExtensions with data set &quot;Single extension with drive&quot;" assertions="1" time="0.003764"/>
+        <testcase name="testJoinExtensions with data set &quot;Multiple extensions with drive&quot;" assertions="1" time="0.003786"/>
+        <testcase name="testJoinExtensions with data set &quot;Empty extension with trailing slash with drive&quot;" assertions="1" time="0.003779"/>
+        <testcase name="testJoinExtensions with data set &quot;Multiple extensions with trailing slash with drive&quot;" assertions="1" time="0.003794"/>
+      </testsuite>
+      <testcase name="testJoinExtensionsFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="559" assertions="2" time="0.004214"/>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testJoinExtensionSequence" tests="14" assertions="14" failures="0" errors="0" time="0.052298">
+        <testcase name="testJoinExtensionSequence with data set &quot;Add to root&quot;" assertions="1" time="0.003691"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Empty extension&quot;" assertions="1" time="0.003748"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Whitespace extension&quot;" assertions="1" time="0.003689"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Single extension&quot;" assertions="1" time="0.003756"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Multiple extensions&quot;" assertions="1" time="0.003725"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Empty extension with trailing slash&quot;" assertions="1" time="0.003749"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Multiple extensions with trailing slash&quot;" assertions="1" time="0.003745"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Add to root with drive&quot;" assertions="1" time="0.003717"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Empty extension with drive&quot;" assertions="1" time="0.003733"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Whitespace extension with drive&quot;" assertions="1" time="0.003759"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Single extension with drive&quot;" assertions="1" time="0.003732"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Multiple extensions with drive&quot;" assertions="1" time="0.003738"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Empty extension with trailing slash with drive&quot;" assertions="1" time="0.003747"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Multiple extensions with trailing slash with drive&quot;" assertions="1" time="0.003768"/>
+      </testsuite>
+      <testcase name="testJoinExtensionSequenWithNonArray" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="581" assertions="1" time="0.003780"/>
+      <testcase name="testJoinExtensionSequenceFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="589" assertions="2" time="0.004343"/>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testSuffixName" tests="14" assertions="14" failures="0" errors="0" time="0.053380">
+        <testcase name="testSuffixName with data set &quot;Root&quot;" assertions="1" time="0.003678"/>
+        <testcase name="testSuffixName with data set &quot;Empty suffix&quot;" assertions="1" time="0.003777"/>
+        <testcase name="testSuffixName with data set &quot;Empty suffix and trailing slash&quot;" assertions="1" time="0.003780"/>
+        <testcase name="testSuffixName with data set &quot;Whitespace suffix&quot;" assertions="1" time="0.003886"/>
+        <testcase name="testSuffixName with data set &quot;Normal suffix&quot;" assertions="1" time="0.003823"/>
+        <testcase name="testSuffixName with data set &quot;Suffix with dots&quot;" assertions="1" time="0.003843"/>
+        <testcase name="testSuffixName with data set &quot;Suffix with dots and trailing slash&quot;" assertions="1" time="0.003838"/>
+        <testcase name="testSuffixName with data set &quot;Root with drive&quot;" assertions="1" time="0.003680"/>
+        <testcase name="testSuffixName with data set &quot;Empty suffix with drive&quot;" assertions="1" time="0.003845"/>
+        <testcase name="testSuffixName with data set &quot;Empty suffix and trailing slash with drive&quot;" assertions="1" time="0.003862"/>
+        <testcase name="testSuffixName with data set &quot;Whitespace suffix with drive&quot;" assertions="1" time="0.003841"/>
+        <testcase name="testSuffixName with data set &quot;Normal suffix with drive&quot;" assertions="1" time="0.003851"/>
+        <testcase name="testSuffixName with data set &quot;Suffix with dots with drive&quot;" assertions="1" time="0.003824"/>
+        <testcase name="testSuffixName with data set &quot;Suffix with dots and trailing slash with drive&quot;" assertions="1" time="0.003852"/>
+      </testsuite>
+      <testcase name="testSuffixNameFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="632" assertions="2" time="0.004192"/>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testPrefixName" tests="14" assertions="14" failures="0" errors="0" time="0.053711">
+        <testcase name="testPrefixName with data set &quot;Root&quot;" assertions="1" time="0.003663"/>
+        <testcase name="testPrefixName with data set &quot;Empty prefix&quot;" assertions="1" time="0.003848"/>
+        <testcase name="testPrefixName with data set &quot;Empty prefix and trailing slash&quot;" assertions="1" time="0.003844"/>
+        <testcase name="testPrefixName with data set &quot;Whitespace prefix&quot;" assertions="1" time="0.003838"/>
+        <testcase name="testPrefixName with data set &quot;Normal prefix&quot;" assertions="1" time="0.003814"/>
+        <testcase name="testPrefixName with data set &quot;Prefix with dots&quot;" assertions="1" time="0.003989"/>
+        <testcase name="testPrefixName with data set &quot;Prefix with dots and trailing slash&quot;" assertions="1" time="0.003858"/>
+        <testcase name="testPrefixName with data set &quot;Root with drive&quot;" assertions="1" time="0.003695"/>
+        <testcase name="testPrefixName with data set &quot;Empty prefix with drive&quot;" assertions="1" time="0.003874"/>
+        <testcase name="testPrefixName with data set &quot;Empty prefix and trailing slash with drive&quot;" assertions="1" time="0.003851"/>
+        <testcase name="testPrefixName with data set &quot;Whitespace prefix with drive&quot;" assertions="1" time="0.003871"/>
+        <testcase name="testPrefixName with data set &quot;Normal prefix with drive&quot;" assertions="1" time="0.003860"/>
+        <testcase name="testPrefixName with data set &quot;Prefix with dots with drive&quot;" assertions="1" time="0.003844"/>
+        <testcase name="testPrefixName with data set &quot;Prefix with dots and trailing slash with drive&quot;" assertions="1" time="0.003863"/>
+      </testsuite>
+      <testcase name="testPrefixNameFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="675" assertions="2" time="0.004187"/>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testIsRoot" tests="6" assertions="6" failures="0" errors="0" time="0.024738">
+        <testcase name="testIsRoot with data set &quot;Root&quot;" assertions="1" time="0.004110"/>
+        <testcase name="testIsRoot with data set &quot;Root non-normalized&quot;" assertions="1" time="0.004276"/>
+        <testcase name="testIsRoot with data set &quot;Not root&quot;" assertions="1" time="0.004113"/>
+        <testcase name="testIsRoot with data set &quot;Root with drive&quot;" assertions="1" time="0.003998"/>
+        <testcase name="testIsRoot with data set &quot;Root non-normalized with drive&quot;" assertions="1" time="0.004148"/>
+        <testcase name="testIsRoot with data set &quot;Not root with drive&quot;" assertions="1" time="0.004093"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testAncestry" tests="18" assertions="36" failures="0" errors="0" time="0.128335">
+        <testcase name="testAncestry with data set &quot;Parent&quot;" assertions="2" time="0.007604"/>
+        <testcase name="testAncestry with data set &quot;Root as parent&quot;" assertions="2" time="0.006777"/>
+        <testcase name="testAncestry with data set &quot;Resolve special atoms&quot;" assertions="2" time="0.008087"/>
+        <testcase name="testAncestry with data set &quot;Not immediate parent&quot;" assertions="2" time="0.007293"/>
+        <testcase name="testAncestry with data set &quot;Root not immediate parent&quot;" assertions="2" time="0.006814"/>
+        <testcase name="testAncestry with data set &quot;Unrelated paths&quot;" assertions="2" time="0.006905"/>
+        <testcase name="testAncestry with data set &quot;Same paths&quot;" assertions="2" time="0.007381"/>
+        <testcase name="testAncestry with data set &quot;Longer parent path&quot;" assertions="2" time="0.007347"/>
+        <testcase name="testAncestry with data set &quot;Parent with drive&quot;" assertions="2" time="0.007155"/>
+        <testcase name="testAncestry with data set &quot;Root as parent with drive&quot;" assertions="2" time="0.006771"/>
+        <testcase name="testAncestry with data set &quot;Resolve special atoms with drive&quot;" assertions="2" time="0.008099"/>
+        <testcase name="testAncestry with data set &quot;Not immediate parent with drive&quot;" assertions="2" time="0.007336"/>
+        <testcase name="testAncestry with data set &quot;Root not immediate parent with drive&quot;" assertions="2" time="0.006902"/>
+        <testcase name="testAncestry with data set &quot;Unrelated paths with drive&quot;" assertions="2" time="0.006787"/>
+        <testcase name="testAncestry with data set &quot;Same paths with drive&quot;" assertions="2" time="0.007432"/>
+        <testcase name="testAncestry with data set &quot;Longer parent path with drive&quot;" assertions="2" time="0.007334"/>
+        <testcase name="testAncestry with data set &quot;Parent with mismatched drive&quot;" assertions="2" time="0.005158"/>
+        <testcase name="testAncestry with data set &quot;Parent with drive ignore case&quot;" assertions="2" time="0.007153"/>
+      </testsuite>
+      <testcase name="testAncestryWithRegularPath" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="748" assertions="2" time="0.005939"/>
+      <testcase name="testAncestryWithRegularPathMismatch" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="757" assertions="2" time="0.004076"/>
+      <testcase name="testIsParentOfFailureRelativeChild" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="766" assertions="1" time="0.004006"/>
+      <testcase name="testIsAncestorOfFailureRelativeChild" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="775" assertions="1" time="0.003980"/>
+      <testsuite name="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest::testRelativeTo" tests="17" assertions="17" failures="0" errors="0" time="0.088064">
+        <testcase name="testRelativeTo with data set &quot;Self&quot;" assertions="1" time="0.004943"/>
+        <testcase name="testRelativeTo with data set &quot;Child&quot;" assertions="1" time="0.004876"/>
+        <testcase name="testRelativeTo with data set &quot;Ancestor&quot;" assertions="1" time="0.005222"/>
+        <testcase name="testRelativeTo with data set &quot;Sibling&quot;" assertions="1" time="0.004829"/>
+        <testcase name="testRelativeTo with data set &quot;Parent's sibling&quot;" assertions="1" time="0.005495"/>
+        <testcase name="testRelativeTo with data set &quot;Parent's sibling's child&quot;" assertions="1" time="0.005467"/>
+        <testcase name="testRelativeTo with data set &quot;Completely unrelated&quot;" assertions="1" time="0.005385"/>
+        <testcase name="testRelativeTo with data set &quot;Lengthly unrelated child&quot;" assertions="1" time="0.005318"/>
+        <testcase name="testRelativeTo with data set &quot;Self with drive&quot;" assertions="1" time="0.004852"/>
+        <testcase name="testRelativeTo with data set &quot;Child with drive&quot;" assertions="1" time="0.004893"/>
+        <testcase name="testRelativeTo with data set &quot;Ancestor with drive&quot;" assertions="1" time="0.005102"/>
+        <testcase name="testRelativeTo with data set &quot;Sibling with drive&quot;" assertions="1" time="0.004888"/>
+        <testcase name="testRelativeTo with data set &quot;Parent's sibling with drive&quot;" assertions="1" time="0.005230"/>
+        <testcase name="testRelativeTo with data set &quot;Parent's sibling's child with drive&quot;" assertions="1" time="0.005670"/>
+        <testcase name="testRelativeTo with data set &quot;Completely unrelated with drive&quot;" assertions="1" time="0.005352"/>
+        <testcase name="testRelativeTo with data set &quot;Lengthly unrelated child with drive&quot;" assertions="1" time="0.005640"/>
+        <testcase name="testRelativeTo with data set &quot;Child with drive ignore case&quot;" assertions="1" time="0.004902"/>
+      </testsuite>
+      <testcase name="testRelativeToWithRegularPath" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="821" assertions="1" time="0.004801"/>
+      <testcase name="testRelativeToFailureDriveMismatch" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="830" assertions="2" time="0.004680"/>
+      <testcase name="testRelativeToFailureDriveMismatchRegularPath" class="Eloquent\Pathogen\Windows\AbsoluteWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/AbsoluteWindowsPathTest.php" line="842" assertions="2" time="0.004135"/>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Windows\Exception\DriveMismatchExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/Exception/DriveMismatchExceptionTest.php" namespace="Eloquent\Pathogen\Windows\Exception" fullPackage="Eloquent.Pathogen.Windows.Exception" tests="1" assertions="5" failures="0" errors="0" time="0.003753">
+      <testcase name="testException" class="Eloquent\Pathogen\Windows\Exception\DriveMismatchExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/Exception/DriveMismatchExceptionTest.php" line="19" assertions="5" time="0.003753"/>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Windows\Exception\InvalidDriveSpecifierExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/Exception/InvalidDriveSpecifierExceptionTest.php" namespace="Eloquent\Pathogen\Windows\Exception" fullPackage="Eloquent.Pathogen.Windows.Exception" tests="1" assertions="4" failures="0" errors="0" time="0.003584">
+      <testcase name="testException" class="Eloquent\Pathogen\Windows\Exception\InvalidDriveSpecifierExceptionTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/Exception/InvalidDriveSpecifierExceptionTest.php" line="19" assertions="4" time="0.003584"/>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/Factory/WindowsPathFactoryTest.php" namespace="Eloquent\Pathogen\Windows\Factory" fullPackage="Eloquent.Pathogen.Windows.Factory" tests="72" assertions="331" failures="0" errors="0" time="0.366472">
+      <testcase name="testConstructor" class="Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/Factory/WindowsPathFactoryTest.php" line="27" assertions="1" time="0.003119"/>
+      <testcase name="testConstructorDefaults" class="Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/Factory/WindowsPathFactoryTest.php" line="32" assertions="1" time="0.003656"/>
+      <testsuite name="Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryTest::testCreate" tests="23" assertions="109" failures="0" errors="0" time="0.118963">
+        <testcase name="testCreate with data set &quot;Root&quot;" assertions="5" time="0.005299"/>
+        <testcase name="testCreate with data set &quot;Absolute&quot;" assertions="5" time="0.005240"/>
+        <testcase name="testCreate with data set &quot;Absolute with trailing separator&quot;" assertions="5" time="0.005287"/>
+        <testcase name="testCreate with data set &quot;Absolute with empty atoms&quot;" assertions="5" time="0.005100"/>
+        <testcase name="testCreate with data set &quot;Absolute with empty atoms at start&quot;" assertions="5" time="0.005073"/>
+        <testcase name="testCreate with data set &quot;Absolute with empty atoms at end&quot;" assertions="5" time="0.005345"/>
+        <testcase name="testCreate with data set &quot;Absolute with whitespace atoms&quot;" assertions="5" time="0.005108"/>
+        <testcase name="testCreate with data set &quot;Absolute with trailing separator using backslashes&quot;" assertions="5" time="0.005125"/>
+        <testcase name="testCreate with data set &quot;Root with drive&quot;" assertions="5" time="0.005252"/>
+        <testcase name="testCreate with data set &quot;Root with drive and no trailing slash&quot;" assertions="5" time="0.004984"/>
+        <testcase name="testCreate with data set &quot;Absolute with drive&quot;" assertions="5" time="0.005116"/>
+        <testcase name="testCreate with data set &quot;Absolute with trailing separator with drive&quot;" assertions="5" time="0.005395"/>
+        <testcase name="testCreate with data set &quot;Absolute with empty atoms with drive&quot;" assertions="5" time="0.005302"/>
+        <testcase name="testCreate with data set &quot;Absolute with empty atoms at start with drive&quot;" assertions="5" time="0.005088"/>
+        <testcase name="testCreate with data set &quot;Absolute with empty atoms at end with drive&quot;" assertions="5" time="0.005149"/>
+        <testcase name="testCreate with data set &quot;Absolute with whitespace atoms with drive&quot;" assertions="5" time="0.005379"/>
+        <testcase name="testCreate with data set &quot;Absolute with trailing separator with drive using backslashes&quot;" assertions="5" time="0.005114"/>
+        <testcase name="testCreate with data set &quot;Self&quot;" assertions="4" time="0.004936"/>
+        <testcase name="testCreate with data set &quot;Relative&quot;" assertions="4" time="0.005215"/>
+        <testcase name="testCreate with data set &quot;Relative with trailing separator&quot;" assertions="4" time="0.004975"/>
+        <testcase name="testCreate with data set &quot;Relative with empty atoms&quot;" assertions="4" time="0.004983"/>
+        <testcase name="testCreate with data set &quot;Relative with empty atoms at end&quot;" assertions="4" time="0.005234"/>
+        <testcase name="testCreate with data set &quot;Relative with whitespace atoms&quot;" assertions="4" time="0.005264"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryTest::testCreateFromAtoms" tests="23" assertions="109" failures="0" errors="0" time="0.118875">
+        <testcase name="testCreateFromAtoms with data set &quot;Root&quot;" assertions="5" time="0.005306"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute&quot;" assertions="5" time="0.005327"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with trailing separator&quot;" assertions="5" time="0.005466"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with empty atoms&quot;" assertions="5" time="0.005407"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with empty atoms at start&quot;" assertions="5" time="0.005049"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with empty atoms at end&quot;" assertions="5" time="0.005050"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with whitespace atoms&quot;" assertions="5" time="0.005328"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with trailing separator using backslashes&quot;" assertions="5" time="0.005406"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Root with drive&quot;" assertions="5" time="0.005035"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Root with drive and no trailing slash&quot;" assertions="5" time="0.005006"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with drive&quot;" assertions="5" time="0.005336"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with trailing separator with drive&quot;" assertions="5" time="0.005201"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with empty atoms with drive&quot;" assertions="5" time="0.005131"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with empty atoms at start with drive&quot;" assertions="5" time="0.005265"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with empty atoms at end with drive&quot;" assertions="5" time="0.005138"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with whitespace atoms with drive&quot;" assertions="5" time="0.005138"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Absolute with trailing separator with drive using backslashes&quot;" assertions="5" time="0.005276"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Self&quot;" assertions="4" time="0.004909"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Relative&quot;" assertions="4" time="0.005153"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Relative with trailing separator&quot;" assertions="4" time="0.004931"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Relative with empty atoms&quot;" assertions="4" time="0.005043"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Relative with empty atoms at end&quot;" assertions="4" time="0.005024"/>
+        <testcase name="testCreateFromAtoms with data set &quot;Relative with whitespace atoms&quot;" assertions="4" time="0.004951"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryTest::testCreateFromDriveAndAtoms" tests="23" assertions="109" failures="0" errors="0" time="0.118291">
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Root&quot;" assertions="5" time="0.005140"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute&quot;" assertions="5" time="0.005144"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with trailing separator&quot;" assertions="5" time="0.005119"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with empty atoms&quot;" assertions="5" time="0.005346"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with empty atoms at start&quot;" assertions="5" time="0.005034"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with empty atoms at end&quot;" assertions="5" time="0.005637"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with whitespace atoms&quot;" assertions="5" time="0.005053"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with trailing separator using backslashes&quot;" assertions="5" time="0.005073"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Root with drive&quot;" assertions="5" time="0.005247"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Root with drive and no trailing slash&quot;" assertions="5" time="0.005149"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with drive&quot;" assertions="5" time="0.005385"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with trailing separator with drive&quot;" assertions="5" time="0.005072"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with empty atoms with drive&quot;" assertions="5" time="0.005092"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with empty atoms at start with drive&quot;" assertions="5" time="0.005317"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with empty atoms at end with drive&quot;" assertions="5" time="0.005039"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with whitespace atoms with drive&quot;" assertions="5" time="0.005080"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Absolute with trailing separator with drive using backslashes&quot;" assertions="5" time="0.005310"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Self&quot;" assertions="4" time="0.004916"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Relative&quot;" assertions="4" time="0.004939"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Relative with trailing separator&quot;" assertions="4" time="0.005214"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Relative with empty atoms&quot;" assertions="4" time="0.004925"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Relative with empty atoms at end&quot;" assertions="4" time="0.004941"/>
+        <testcase name="testCreateFromDriveAndAtoms with data set &quot;Relative with whitespace atoms&quot;" assertions="4" time="0.005119"/>
+      </testsuite>
+      <testcase name="testCreateFromDriveAndAtomsFailureRelativeWithDrive" class="Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/Factory/WindowsPathFactoryTest.php" line="120" assertions="2" time="0.003568"/>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Windows\Normalizer\WindowsPathNormalizerTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/Normalizer/WindowsPathNormalizerTest.php" namespace="Eloquent\Pathogen\Windows\Normalizer" fullPackage="Eloquent.Pathogen.Windows.Normalizer" tests="66" assertions="66" failures="0" errors="0" time="0.262533">
+      <testsuite name="Eloquent\Pathogen\Windows\Normalizer\WindowsPathNormalizerTest::testNormalizeAbsolutePaths" tests="35" assertions="35" failures="0" errors="0" time="0.137671">
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom&quot;" assertions="1" time="0.003880"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, atom&quot;" assertions="1" time="0.003920"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, atom, atom, parent, parent, atom&quot;" assertions="1" time="0.004230"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, atom, parent&quot;" assertions="1" time="0.003958"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, atom, slash&quot;" assertions="1" time="0.003927"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, parent&quot;" assertions="1" time="0.003867"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, parent, atom&quot;" assertions="1" time="0.003956"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, parent, atom, slash&quot;" assertions="1" time="0.003947"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, self, atom&quot;" assertions="1" time="0.003967"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, self, atom, parent, atom&quot;" assertions="1" time="0.004120"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, self, atom, parent, parent, atom&quot;" assertions="1" time="0.004138"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent&quot;" assertions="1" time="0.003679"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent, atom&quot;" assertions="1" time="0.003787"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent, atom, parent&quot;" assertions="1" time="0.003765"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent, parent&quot;" assertions="1" time="0.003850"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent, parent, atom&quot;" assertions="1" time="0.003943"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Self&quot;" assertions="1" time="0.003758"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom with drive&quot;" assertions="1" time="0.003755"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, atom with drive&quot;" assertions="1" time="0.003973"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, atom, atom, parent, parent, atom with drive&quot;" assertions="1" time="0.004203"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, atom, parent with drive&quot;" assertions="1" time="0.003968"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, atom, slash with drive&quot;" assertions="1" time="0.003916"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, parent with drive&quot;" assertions="1" time="0.003851"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, parent, atom with drive&quot;" assertions="1" time="0.003964"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, parent, atom, slash with drive&quot;" assertions="1" time="0.003926"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, self, atom with drive&quot;" assertions="1" time="0.004018"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, self, atom, parent, atom with drive&quot;" assertions="1" time="0.004161"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Atom, self, atom, parent, parent, atom with drive&quot;" assertions="1" time="0.004112"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent with drive&quot;" assertions="1" time="0.003794"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent, atom with drive&quot;" assertions="1" time="0.003911"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent, atom, parent with drive&quot;" assertions="1" time="0.003821"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent, parent with drive&quot;" assertions="1" time="0.003848"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Parent, parent, atom with drive&quot;" assertions="1" time="0.003982"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Self with drive&quot;" assertions="1" time="0.003806"/>
+        <testcase name="testNormalizeAbsolutePaths with data set &quot;Drive uppercase&quot;" assertions="1" time="0.003969"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\Normalizer\WindowsPathNormalizerTest::testNormalizeRelativePaths" tests="31" assertions="31" failures="0" errors="0" time="0.124862">
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom&quot;" assertions="1" time="0.003832"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, atom&quot;" assertions="1" time="0.003952"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, atom, atom, parent, parent, atom&quot;" assertions="1" time="0.004169"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, atom, parent&quot;" assertions="1" time="0.003963"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, atom, slash&quot;" assertions="1" time="0.003943"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, parent&quot;" assertions="1" time="0.004135"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, parent, atom&quot;" assertions="1" time="0.003977"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, parent, atom, slash&quot;" assertions="1" time="0.003958"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, self, atom&quot;" assertions="1" time="0.003958"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Atom, self, atom, parent, atom&quot;" assertions="1" time="0.004135"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent&quot;" assertions="1" time="0.003854"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom&quot;" assertions="1" time="0.004038"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, parent&quot;" assertions="1" time="0.004032"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, parent, atom, self&quot;" assertions="1" time="0.004140"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, parent, parent&quot;" assertions="1" time="0.004073"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, parent, parent, parent&quot;" assertions="1" time="0.004189"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, parent, self, atom&quot;" assertions="1" time="0.004157"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, self&quot;" assertions="1" time="0.003990"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, atom, self, parent, atom&quot;" assertions="1" time="0.004154"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, parent&quot;" assertions="1" time="0.003943"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, parent, atom, atom&quot;" assertions="1" time="0.004234"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, parent, atom, parent, atom&quot;" assertions="1" time="0.004188"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, parent, self, parent, self&quot;" assertions="1" time="0.004175"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, self, atom, parent, atom&quot;" assertions="1" time="0.004183"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Parent, self, parent&quot;" assertions="1" time="0.004006"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Self&quot;" assertions="1" time="0.003816"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Self, atom, parent&quot;" assertions="1" time="0.003882"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Self, parent&quot;" assertions="1" time="0.003896"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Self, parent, atom&quot;" assertions="1" time="0.004019"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Self, self&quot;" assertions="1" time="0.003894"/>
+        <testcase name="testNormalizeRelativePaths with data set &quot;Self, self, atom&quot;" assertions="1" time="0.003977"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" namespace="Eloquent\Pathogen\Windows" fullPackage="Eloquent.Pathogen.Windows" tests="215" assertions="409" failures="0" errors="0" time="0.873235">
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testConstructor" tests="7" assertions="28" failures="0" errors="0" time="0.031566">
+        <testcase name="testConstructor with data set &quot;Self&quot;" assertions="4" time="0.004437"/>
+        <testcase name="testConstructor with data set &quot;Single atom&quot;" assertions="4" time="0.004357"/>
+        <testcase name="testConstructor with data set &quot;Trailing slash&quot;" assertions="4" time="0.004452"/>
+        <testcase name="testConstructor with data set &quot;Multiple atoms&quot;" assertions="4" time="0.004537"/>
+        <testcase name="testConstructor with data set &quot;Parent atom&quot;" assertions="4" time="0.004644"/>
+        <testcase name="testConstructor with data set &quot;Self atom&quot;" assertions="4" time="0.004605"/>
+        <testcase name="testConstructor with data set &quot;Whitespace&quot;" assertions="4" time="0.004534"/>
+      </testsuite>
+      <testcase name="testConstructorDefaults" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="78" assertions="1" time="0.003164"/>
+      <testcase name="testConstructorFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="85" assertions="2" time="0.003756"/>
+      <testcase name="testConstructorFailureAtomContainingBackslash" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="94" assertions="2" time="0.003658"/>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testConstructorFailureAtomContainingInvalidCharacter" tests="39" assertions="78" failures="0" errors="0" time="0.147882">
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 0)&quot;" assertions="2" time="0.003774"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 1)&quot;" assertions="2" time="0.003682"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 2)&quot;" assertions="2" time="0.003812"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 3)&quot;" assertions="2" time="0.003767"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 4)&quot;" assertions="2" time="0.003721"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 5)&quot;" assertions="2" time="0.003820"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 6)&quot;" assertions="2" time="0.003824"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 7)&quot;" assertions="2" time="0.003722"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 8)&quot;" assertions="2" time="0.003800"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 9)&quot;" assertions="2" time="0.003818"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 10)&quot;" assertions="2" time="0.003683"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 11)&quot;" assertions="2" time="0.003798"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 12)&quot;" assertions="2" time="0.003802"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 13)&quot;" assertions="2" time="0.003696"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 14)&quot;" assertions="2" time="0.003800"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 15)&quot;" assertions="2" time="0.003816"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 16)&quot;" assertions="2" time="0.003773"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 17)&quot;" assertions="2" time="0.003762"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 18)&quot;" assertions="2" time="0.003821"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 19)&quot;" assertions="2" time="0.003805"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 20)&quot;" assertions="2" time="0.003760"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 21)&quot;" assertions="2" time="0.003829"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 22)&quot;" assertions="2" time="0.003774"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 23)&quot;" assertions="2" time="0.003781"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 24)&quot;" assertions="2" time="0.003832"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 25)&quot;" assertions="2" time="0.003922"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 26)&quot;" assertions="2" time="0.003803"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 27)&quot;" assertions="2" time="0.003890"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 28)&quot;" assertions="2" time="0.003772"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 29)&quot;" assertions="2" time="0.003849"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 30)&quot;" assertions="2" time="0.003824"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 31)&quot;" assertions="2" time="0.003815"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 60)&quot;" assertions="2" time="0.003809"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 62)&quot;" assertions="2" time="0.003752"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 58)&quot;" assertions="2" time="0.003811"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 34)&quot;" assertions="2" time="0.003821"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 124)&quot;" assertions="2" time="0.003726"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 63)&quot;" assertions="2" time="0.003817"/>
+        <testcase name="testConstructorFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 42)&quot;" assertions="2" time="0.003800"/>
+      </testsuite>
+      <testcase name="testConstructorFailureEmptyAtom" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="119" assertions="1" time="0.003527"/>
+      <testcase name="testConstructorFailureEmptyPath" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="127" assertions="1" time="0.003488"/>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testNamePartMethods" tests="8" assertions="48" failures="0" errors="0" time="0.041250">
+        <testcase name="testNamePartMethods with data set &quot;Self&quot;" assertions="6" time="0.004910"/>
+        <testcase name="testNamePartMethods with data set &quot;No extensions&quot;" assertions="6" time="0.005150"/>
+        <testcase name="testNamePartMethods with data set &quot;Empty extension&quot;" assertions="6" time="0.005164"/>
+        <testcase name="testNamePartMethods with data set &quot;Whitespace extension&quot;" assertions="6" time="0.005180"/>
+        <testcase name="testNamePartMethods with data set &quot;Single extension&quot;" assertions="6" time="0.005163"/>
+        <testcase name="testNamePartMethods with data set &quot;Multiple extensions&quot;" assertions="6" time="0.005144"/>
+        <testcase name="testNamePartMethods with data set &quot;No name with single extension&quot;" assertions="6" time="0.005150"/>
+        <testcase name="testNamePartMethods with data set &quot;No name with multiple extension&quot;" assertions="6" time="0.005389"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testParent" tests="3" assertions="3" failures="0" errors="0" time="0.011056">
+        <testcase name="testParent with data set &quot;Self&quot;" assertions="1" time="0.003612"/>
+        <testcase name="testParent with data set &quot;Single atom&quot;" assertions="1" time="0.003662"/>
+        <testcase name="testParent with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003782"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testStripTrailingSlash" tests="5" assertions="5" failures="0" errors="0" time="0.017566">
+        <testcase name="testStripTrailingSlash with data set &quot;Single atom&quot;" assertions="1" time="0.003487"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003744"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003619"/>
+        <testcase name="testStripTrailingSlash with data set &quot;No trailing slash&quot;" assertions="1" time="0.003447"/>
+        <testcase name="testStripTrailingSlash with data set &quot;Self&quot;" assertions="1" time="0.003269"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testExtensionStripping" tests="6" assertions="12" failures="0" errors="0" time="0.024947">
+        <testcase name="testExtensionStripping with data set &quot;Self&quot;" assertions="2" time="0.003832"/>
+        <testcase name="testExtensionStripping with data set &quot;No extensions&quot;" assertions="2" time="0.003907"/>
+        <testcase name="testExtensionStripping with data set &quot;Empty extension&quot;" assertions="2" time="0.004300"/>
+        <testcase name="testExtensionStripping with data set &quot;Whitespace extension&quot;" assertions="2" time="0.004309"/>
+        <testcase name="testExtensionStripping with data set &quot;Single extension&quot;" assertions="2" time="0.004281"/>
+        <testcase name="testExtensionStripping with data set &quot;Multiple extensions&quot;" assertions="2" time="0.004318"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testJoinAtoms" tests="5" assertions="5" failures="0" errors="0" time="0.018645">
+        <testcase name="testJoinAtoms with data set &quot;Single atom to self&quot;" assertions="1" time="0.003652"/>
+        <testcase name="testJoinAtoms with data set &quot;Multiple atoms to self&quot;" assertions="1" time="0.003773"/>
+        <testcase name="testJoinAtoms with data set &quot;Multiple atoms to multiple atoms&quot;" assertions="1" time="0.003876"/>
+        <testcase name="testJoinAtoms with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003576"/>
+        <testcase name="testJoinAtoms with data set &quot;Special atoms&quot;" assertions="1" time="0.003768"/>
+      </testsuite>
+      <testcase name="testJoinAtomsFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="255" assertions="2" time="0.004210"/>
+      <testcase name="testJoinAtomsFailureAtomContainingBackslash" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="266" assertions="2" time="0.004226"/>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testJoinAtomsFailureAtomContainingInvalidCharacter" tests="39" assertions="78" failures="0" errors="0" time="0.168607">
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 0)&quot;" assertions="2" time="0.004310"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 1)&quot;" assertions="2" time="0.004241"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 2)&quot;" assertions="2" time="0.004290"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 3)&quot;" assertions="2" time="0.004322"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 4)&quot;" assertions="2" time="0.004327"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 5)&quot;" assertions="2" time="0.004383"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 6)&quot;" assertions="2" time="0.004339"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 7)&quot;" assertions="2" time="0.004309"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 8)&quot;" assertions="2" time="0.004290"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 9)&quot;" assertions="2" time="0.004285"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 10)&quot;" assertions="2" time="0.004570"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 11)&quot;" assertions="2" time="0.004268"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 12)&quot;" assertions="2" time="0.004295"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 13)&quot;" assertions="2" time="0.004280"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 14)&quot;" assertions="2" time="0.004306"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 15)&quot;" assertions="2" time="0.004359"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 16)&quot;" assertions="2" time="0.004251"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 17)&quot;" assertions="2" time="0.004308"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 18)&quot;" assertions="2" time="0.004298"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 19)&quot;" assertions="2" time="0.004286"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 20)&quot;" assertions="2" time="0.004290"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 21)&quot;" assertions="2" time="0.004368"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 22)&quot;" assertions="2" time="0.004343"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 23)&quot;" assertions="2" time="0.004318"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 24)&quot;" assertions="2" time="0.004298"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 25)&quot;" assertions="2" time="0.004312"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 26)&quot;" assertions="2" time="0.004471"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 27)&quot;" assertions="2" time="0.004310"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 28)&quot;" assertions="2" time="0.004311"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 29)&quot;" assertions="2" time="0.004314"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 30)&quot;" assertions="2" time="0.004366"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 31)&quot;" assertions="2" time="0.004445"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 60)&quot;" assertions="2" time="0.004295"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 62)&quot;" assertions="2" time="0.004293"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 58)&quot;" assertions="2" time="0.004309"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 34)&quot;" assertions="2" time="0.004313"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 124)&quot;" assertions="2" time="0.004296"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 63)&quot;" assertions="2" time="0.004311"/>
+        <testcase name="testJoinAtomsFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 42)&quot;" assertions="2" time="0.004327"/>
+      </testsuite>
+      <testcase name="testJoinAtomsFailureEmptyAtom" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="295" assertions="1" time="0.004095"/>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testJoinAtomSequence" tests="5" assertions="5" failures="0" errors="0" time="0.018551">
+        <testcase name="testJoinAtomSequence with data set &quot;Single atom to self&quot;" assertions="1" time="0.003679"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Multiple atoms to self&quot;" assertions="1" time="0.003737"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Multiple atoms to multiple atoms&quot;" assertions="1" time="0.003720"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003692"/>
+        <testcase name="testJoinAtomSequence with data set &quot;Special atoms&quot;" assertions="1" time="0.003723"/>
+      </testsuite>
+      <testcase name="testJoinAtomSequenceFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="316" assertions="2" time="0.004194"/>
+      <testcase name="testJoinAtomSequenceFailureAtomContainingBackslash" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="327" assertions="2" time="0.004131"/>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testJoinAtomSequenceFailureAtomContainingInvalidCharacter" tests="39" assertions="78" failures="0" errors="0" time="0.167468">
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 0)&quot;" assertions="2" time="0.004312"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 1)&quot;" assertions="2" time="0.004305"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 2)&quot;" assertions="2" time="0.004280"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 3)&quot;" assertions="2" time="0.004286"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 4)&quot;" assertions="2" time="0.004221"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 5)&quot;" assertions="2" time="0.004275"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 6)&quot;" assertions="2" time="0.004268"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 7)&quot;" assertions="2" time="0.004295"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 8)&quot;" assertions="2" time="0.004258"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 9)&quot;" assertions="2" time="0.004359"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 10)&quot;" assertions="2" time="0.004223"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 11)&quot;" assertions="2" time="0.004263"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 12)&quot;" assertions="2" time="0.004539"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 13)&quot;" assertions="2" time="0.004206"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 14)&quot;" assertions="2" time="0.004272"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 15)&quot;" assertions="2" time="0.004260"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 16)&quot;" assertions="2" time="0.004276"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 17)&quot;" assertions="2" time="0.004319"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 18)&quot;" assertions="2" time="0.004229"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 19)&quot;" assertions="2" time="0.004269"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 20)&quot;" assertions="2" time="0.004266"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 21)&quot;" assertions="2" time="0.004279"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 22)&quot;" assertions="2" time="0.004291"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 23)&quot;" assertions="2" time="0.004261"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 24)&quot;" assertions="2" time="0.004248"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 25)&quot;" assertions="2" time="0.004269"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 26)&quot;" assertions="2" time="0.004282"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 27)&quot;" assertions="2" time="0.004274"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 28)&quot;" assertions="2" time="0.004328"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 29)&quot;" assertions="2" time="0.004243"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 30)&quot;" assertions="2" time="0.004271"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 31)&quot;" assertions="2" time="0.004468"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 60)&quot;" assertions="2" time="0.004290"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 62)&quot;" assertions="2" time="0.004561"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 58)&quot;" assertions="2" time="0.004276"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 34)&quot;" assertions="2" time="0.004311"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 124)&quot;" assertions="2" time="0.004264"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 63)&quot;" assertions="2" time="0.004272"/>
+        <testcase name="testJoinAtomSequenceFailureAtomContainingInvalidCharacter with data set &quot;Invalid path atom character (ASCII 42)&quot;" assertions="2" time="0.004298"/>
+      </testsuite>
+      <testcase name="testJoinAtomSequenceFailureEmptyAtom" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="356" assertions="1" time="0.004063"/>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testJoin" tests="6" assertions="6" failures="0" errors="0" time="0.024387">
+        <testcase name="testJoin with data set &quot;Relative atom to self&quot;" assertions="1" time="0.004027"/>
+        <testcase name="testJoin with data set &quot;Single atom to self&quot;" assertions="1" time="0.003924"/>
+        <testcase name="testJoin with data set &quot;Multiple atoms to self&quot;" assertions="1" time="0.004145"/>
+        <testcase name="testJoin with data set &quot;Multiple atoms to multiple atoms&quot;" assertions="1" time="0.004181"/>
+        <testcase name="testJoin with data set &quot;Whitespace atoms&quot;" assertions="1" time="0.003946"/>
+        <testcase name="testJoin with data set &quot;Special atoms&quot;" assertions="1" time="0.004164"/>
+      </testsuite>
+      <testcase name="testJoinFailureAbsoluteJoinPath" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="391" assertions="1" time="0.003926"/>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testJoinTrailingSlash" tests="5" assertions="5" failures="0" errors="0" time="0.017965">
+        <testcase name="testJoinTrailingSlash with data set &quot;Self atom&quot;" assertions="1" time="0.003660"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Single atom&quot;" assertions="1" time="0.003596"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Whitespace atom&quot;" assertions="1" time="0.003571"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003736"/>
+        <testcase name="testJoinTrailingSlash with data set &quot;Existing trailing slash&quot;" assertions="1" time="0.003402"/>
+      </testsuite>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testJoinExtensions" tests="7" assertions="7" failures="0" errors="0" time="0.026160">
+        <testcase name="testJoinExtensions with data set &quot;Add to self&quot;" assertions="1" time="0.003722"/>
+        <testcase name="testJoinExtensions with data set &quot;Empty extension&quot;" assertions="1" time="0.003770"/>
+        <testcase name="testJoinExtensions with data set &quot;Whitespace extension&quot;" assertions="1" time="0.003759"/>
+        <testcase name="testJoinExtensions with data set &quot;Single extension&quot;" assertions="1" time="0.003688"/>
+        <testcase name="testJoinExtensions with data set &quot;Multiple extensions&quot;" assertions="1" time="0.003754"/>
+        <testcase name="testJoinExtensions with data set &quot;Empty extension with trailing slash&quot;" assertions="1" time="0.003787"/>
+        <testcase name="testJoinExtensions with data set &quot;Multiple extensions with trailing slash&quot;" assertions="1" time="0.003680"/>
+      </testsuite>
+      <testcase name="testJoinExtensionsFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="447" assertions="2" time="0.004250"/>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testJoinExtensionSequence" tests="7" assertions="7" failures="0" errors="0" time="0.026026">
+        <testcase name="testJoinExtensionSequence with data set &quot;Add to self&quot;" assertions="1" time="0.003769"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Empty extension&quot;" assertions="1" time="0.003706"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Whitespace extension&quot;" assertions="1" time="0.003637"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Single extension&quot;" assertions="1" time="0.003737"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Multiple extensions&quot;" assertions="1" time="0.003629"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Empty extension with trailing slash&quot;" assertions="1" time="0.003789"/>
+        <testcase name="testJoinExtensionSequence with data set &quot;Multiple extensions with trailing slash&quot;" assertions="1" time="0.003759"/>
+      </testsuite>
+      <testcase name="testJoinExtensionSequenceFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="469" assertions="2" time="0.004232"/>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testSuffixName" tests="7" assertions="7" failures="0" errors="0" time="0.026658">
+        <testcase name="testSuffixName with data set &quot;Self&quot;" assertions="1" time="0.003654"/>
+        <testcase name="testSuffixName with data set &quot;Empty suffix&quot;" assertions="1" time="0.003845"/>
+        <testcase name="testSuffixName with data set &quot;Empty suffix and trailing slash&quot;" assertions="1" time="0.003855"/>
+        <testcase name="testSuffixName with data set &quot;Whitespace suffix&quot;" assertions="1" time="0.003736"/>
+        <testcase name="testSuffixName with data set &quot;Normal suffix&quot;" assertions="1" time="0.003855"/>
+        <testcase name="testSuffixName with data set &quot;Suffix with dots&quot;" assertions="1" time="0.003851"/>
+        <testcase name="testSuffixName with data set &quot;Suffix with dots and trailing slash&quot;" assertions="1" time="0.003862"/>
+      </testsuite>
+      <testcase name="testSuffixNameFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="504" assertions="2" time="0.004144"/>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testPrefixName" tests="7" assertions="7" failures="0" errors="0" time="0.026350">
+        <testcase name="testPrefixName with data set &quot;Self&quot;" assertions="1" time="0.003702"/>
+        <testcase name="testPrefixName with data set &quot;Empty atom and trailing slash&quot;" assertions="1" time="0.003679"/>
+        <testcase name="testPrefixName with data set &quot;Empty prefix&quot;" assertions="1" time="0.003735"/>
+        <testcase name="testPrefixName with data set &quot;Whitespace prefix&quot;" assertions="1" time="0.003828"/>
+        <testcase name="testPrefixName with data set &quot;Normal prefix&quot;" assertions="1" time="0.003813"/>
+        <testcase name="testPrefixName with data set &quot;Prefix with dots&quot;" assertions="1" time="0.003803"/>
+        <testcase name="testPrefixName with data set &quot;Prefix with dots with trailing slash&quot;" assertions="1" time="0.003790"/>
+      </testsuite>
+      <testcase name="testPrefixNameFailureAtomContainingSeparator" class="Eloquent\Pathogen\Windows\RelativeWindowsPathTest" file="/home/travis/build/eloquent/pathogen/test/suite/Eloquent/Pathogen/Windows/RelativeWindowsPathTest.php" line="539" assertions="2" time="0.004092"/>
+      <testsuite name="Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testIsSelf" tests="4" assertions="4" failures="0" errors="0" time="0.014995">
+        <testcase name="testIsSelf with data set &quot;Self&quot;" assertions="1" time="0.003739"/>
+        <testcase name="testIsSelf with data set &quot;Self non-normalized&quot;" assertions="1" time="0.003847"/>
+        <testcase name="testIsSelf with data set &quot;Single atom&quot;" assertions="1" time="0.003635"/>
+        <testcase name="testIsSelf with data set &quot;Multiple atoms&quot;" assertions="1" time="0.003774"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
