@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\FileSystem;
+namespace Eloquent\Pathogen\FileSystem\Factory;
 
 use Phake;
 use PHPUnit_Framework_TestCase;
 
 /**
- * @covers \Eloquent\Pathogen\FileSystem\FileSystemPathFactory
- * @covers \Eloquent\Pathogen\FileSystem\AbstractFileSystemPathFactory
+ * @covers \Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory
+ * @covers \Eloquent\Pathogen\FileSystem\Factory\AbstractFileSystemPathFactory
  */
-class FileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
+class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
@@ -30,9 +30,11 @@ class FileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
         $this->windowsFactory = Phake::partialMock(
             '\Eloquent\Pathogen\Windows\Factory\WindowsPathFactory'
         );
-        $this->factory = new FileSystemPathFactory(
+        $this->isolator = Phake::mock('Icecave\Isolator\Isolator');
+        $this->factory = new PlatformFileSystemPathFactory(
             $this->posixFactory,
-            $this->windowsFactory
+            $this->windowsFactory,
+            $this->isolator
         );
     }
 
@@ -44,7 +46,7 @@ class FileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorDefaults()
     {
-        $this->factory = new FileSystemPathFactory;
+        $this->factory = new PlatformFileSystemPathFactory;
 
         $this->assertInstanceOf(
             '\Eloquent\Pathogen\Factory\PathFactory',
@@ -58,6 +60,9 @@ class FileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testCreatePosix()
     {
+        Phake::when($this->isolator)
+            ->defined('PHP_WINDOWS_VERSION_BUILD')
+            ->thenReturn(false);
         $path = $this->factory->create('/foo/bar');
 
         $this->assertSame('/foo/bar', $path->string());
@@ -70,30 +75,59 @@ class FileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testCreateWindows()
     {
-        $path = $this->factory->create('C:/foo/bar');
+        Phake::when($this->isolator)
+            ->defined('PHP_WINDOWS_VERSION_BUILD')
+            ->thenReturn(true);
+        $path = $this->factory->create('/foo/bar');
 
-        $this->assertSame('C:/foo/bar', $path->string());
+        $this->assertSame('/foo/bar', $path->string());
         $this->assertInstanceOf(
             '\Eloquent\Pathogen\Windows\AbsoluteWindowsPath',
             $path
         );
-        Phake::verify($this->windowsFactory)->create('C:/foo/bar');
+        Phake::verify($this->windowsFactory)->create('/foo/bar');
         Phake::verify($this->posixFactory, Phake::never())->create(
             Phake::anyParameters()
         );
     }
 
-    public function testCreateFromAtoms()
+    public function testCreateFromAtomsPosix()
     {
+        Phake::when($this->isolator)
+            ->defined('PHP_WINDOWS_VERSION_BUILD')
+            ->thenReturn(false);
         $path = $this->factory->createFromAtoms(array('foo', 'bar'), false, false);
 
         $this->assertSame('foo/bar', $path->string());
+        $this->assertInstanceOf('\Eloquent\Pathogen\RelativePath', $path);
         Phake::verify($this->posixFactory)->createFromAtoms(
             array('foo', 'bar'),
             false,
             false
         );
         Phake::verify($this->windowsFactory, Phake::never())->createFromAtoms(
+            Phake::anyParameters()
+        );
+    }
+
+    public function testCreateFromAtomsWindows()
+    {
+        Phake::when($this->isolator)
+            ->defined('PHP_WINDOWS_VERSION_BUILD')
+            ->thenReturn(true);
+        $path = $this->factory->createFromAtoms(array('foo', 'bar'), false, false);
+
+        $this->assertSame('foo/bar', $path->string());
+        $this->assertInstanceOf(
+            '\Eloquent\Pathogen\Windows\RelativeWindowsPath',
+            $path
+        );
+        Phake::verify($this->windowsFactory)->createFromAtoms(
+            array('foo', 'bar'),
+            false,
+            false
+        );
+        Phake::verify($this->posixFactory, Phake::never())->createFromAtoms(
             Phake::anyParameters()
         );
     }

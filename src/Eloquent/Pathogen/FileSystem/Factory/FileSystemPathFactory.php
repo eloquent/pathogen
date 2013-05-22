@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\FileSystem;
+namespace Eloquent\Pathogen\FileSystem\Factory;
 
 use Eloquent\Pathogen\PathInterface;
 
