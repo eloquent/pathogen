@@ -25,7 +25,7 @@ class PathNormalizer implements PathNormalizerInterface
     public function __construct(PathFactoryInterface $factory = null)
     {
         if (null === $factory) {
-            $factory = new PathFactory($this);
+            $factory = new PathFactory;
         }
 
         $this->factory = $factory;
