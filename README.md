@@ -275,6 +275,22 @@ $drive = $path->drive(); // returns a single-character string, or null
 It is worth noting that Pathogen does *not* support drive specifiers for
 relative Windows paths, only for absolute Windows paths.
 
+## Common use case examples
+
+### Resolving a user-provided path against the current working directory
+
+```php
+use Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory;
+use Eloquent\Pathogen\FileSystem\Resolver\WorkingDirectoryResolver;
+
+$pathFactory = new PlatformFileSystemPathFactory;
+$pathResolver = new WorkingDirectoryResolver;
+
+$path = $pathResolver->resolve(
+    $pathFactory->create($_SERVER['argv'][1])
+);
+```
+
 <!-- References -->
 
 [AbsolutePathInterface]: src/Eloquent/Pathogen/AbsolutePathInterface.php
