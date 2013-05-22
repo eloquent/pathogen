@@ -144,17 +144,17 @@ ok 142 - Eloquent\Pathogen\Factory\PathFactoryTest::testCreateFromAtoms with dat
 ok 143 - Eloquent\Pathogen\Factory\PathFactoryTest::testCreateFromAtoms with data set "Relative with empty atoms" ('foo//bar', array('foo', 'bar'), false, false)
 ok 144 - Eloquent\Pathogen\Factory\PathFactoryTest::testCreateFromAtoms with data set "Relative with empty atoms at end" ('foo/bar//', array('foo', 'bar'), false, true)
 ok 145 - Eloquent\Pathogen\Factory\PathFactoryTest::testCreateFromAtoms with data set "Relative with whitespace atoms" (' foo bar / baz qux ', array(' foo bar ', ' baz qux '), false, false)
-ok 146 - Eloquent\Pathogen\FileSystem\FileSystemPathFactoryTest::testConstructor
-ok 147 - Eloquent\Pathogen\FileSystem\FileSystemPathFactoryTest::testConstructorDefaults
-ok 148 - Eloquent\Pathogen\FileSystem\FileSystemPathFactoryTest::testCreatePosix
-ok 149 - Eloquent\Pathogen\FileSystem\FileSystemPathFactoryTest::testCreateWindows
-ok 150 - Eloquent\Pathogen\FileSystem\FileSystemPathFactoryTest::testCreateFromAtoms
-ok 151 - Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest::testConstructor
-ok 152 - Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest::testConstructorDefaults
-ok 153 - Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest::testCreatePosix
-ok 154 - Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest::testCreateWindows
-ok 155 - Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest::testCreateFromAtomsPosix
-ok 156 - Eloquent\Pathogen\FileSystem\PlatformFileSystemPathFactoryTest::testCreateFromAtomsWindows
+ok 146 - Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactoryTest::testConstructor
+ok 147 - Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactoryTest::testConstructorDefaults
+ok 148 - Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactoryTest::testCreatePosix
+ok 149 - Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactoryTest::testCreateWindows
+ok 150 - Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactoryTest::testCreateFromAtoms
+ok 151 - Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactoryTest::testConstructor
+ok 152 - Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactoryTest::testConstructorDefaults
+ok 153 - Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactoryTest::testCreatePosix
+ok 154 - Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactoryTest::testCreateWindows
+ok 155 - Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactoryTest::testCreateFromAtomsPosix
+ok 156 - Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactoryTest::testCreateFromAtomsWindows
 ok 157 - Eloquent\Pathogen\Normalizer\PathNormalizerTest::testNormalizeAbsolutePaths with data set "Atom" ('/foo', '/foo')
 ok 158 - Eloquent\Pathogen\Normalizer\PathNormalizerTest::testNormalizeAbsolutePaths with data set "Atom, atom" ('/foo/bar', '/foo/bar')
 ok 159 - Eloquent\Pathogen\Normalizer\PathNormalizerTest::testNormalizeAbsolutePaths with data set "Atom, atom, atom, parent, parent, atom" ('/foo/bar/baz/../../qux', '/foo/qux')

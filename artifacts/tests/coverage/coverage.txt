@@ -1,7 +1,7 @@
 
 
 Code Coverage Report 
-  2013-05-22 00:39:17
+  2013-05-22 00:43:02
 
  Summary: 
   Classes: 100.00% (21/21)
@@ -28,11 +28,11 @@ Code Coverage Report
   Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  1/  1)
 \Eloquent\Pathogen\Factory::PathFactory
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 36/ 36)
-\Eloquent\Pathogen\FileSystem::AbstractFileSystemPathFactory
+\Eloquent\Pathogen\FileSystem\Factory::AbstractFileSystemPathFactory
   Methods: 100.00% ( 3/ 3)   Lines: 100.00% ( 11/ 11)
-\Eloquent\Pathogen\FileSystem::FileSystemPathFactory
+\Eloquent\Pathogen\FileSystem\Factory::FileSystemPathFactory
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  7/  7)
-\Eloquent\Pathogen\FileSystem::PlatformFileSystemPathFactory
+\Eloquent\Pathogen\FileSystem\Factory::PlatformFileSystemPathFactory
   Methods: 100.00% ( 4/ 4)   Lines: 100.00% ( 11/ 11)
 \Eloquent\Pathogen\Normalizer::PathNormalizer
   Methods: 100.00% ( 7/ 7)   Lines: 100.00% ( 46/ 46)
