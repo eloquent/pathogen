@@ -1,12 +1,12 @@
 
 
 Code Coverage Report 
-  2013-05-22 06:10:47
+  2013-05-22 09:38:17
 
  Summary: 
-  Classes: 100.00% (24/24)
-  Methods: 100.00% (106/106)
-  Lines:   100.00% (533/533)
+  Classes: 100.00% (25/25)
+  Methods: 100.00% (112/112)
+  Lines:   100.00% (554/554)
 
 \Eloquent\Pathogen::AbsolutePath
   Methods: 100.00% ( 6/ 6)   Lines: 100.00% ( 40/ 40)
@@ -29,19 +29,21 @@ Code Coverage Report
 \Eloquent\Pathogen\Factory::PathFactory
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 36/ 36)
 \Eloquent\Pathogen\FileSystem\Factory::AbstractFileSystemPathFactory
-  Methods: 100.00% ( 3/ 3)   Lines: 100.00% ( 11/ 11)
+  Methods: 100.00% ( 8/ 8)   Lines: 100.00% ( 25/ 25)
 \Eloquent\Pathogen\FileSystem\Factory::FileSystemPathFactory
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  7/  7)
 \Eloquent\Pathogen\FileSystem\Factory::PlatformFileSystemPathFactory
-  Methods: 100.00% ( 4/ 4)   Lines: 100.00% ( 11/ 11)
+  Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  5/  5)
 \Eloquent\Pathogen\FileSystem\Normalizer::FileSystemPathNormalizer
   Methods: 100.00% ( 4/ 4)   Lines: 100.00% ( 14/ 14)
 \Eloquent\Pathogen\FileSystem\Resolver::WorkingDirectoryResolver
-  Methods: 100.00% ( 3/ 3)   Lines: 100.00% ( 12/ 12)
+  Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 11/ 11)
 \Eloquent\Pathogen\Normalizer::PathNormalizer
   Methods: 100.00% ( 7/ 7)   Lines: 100.00% ( 46/ 46)
 \Eloquent\Pathogen\Resolver::BoundPathResolver
   Methods: 100.00% ( 4/ 4)   Lines: 100.00% (  9/  9)
+\Eloquent\Pathogen\Resolver::NormalizingPathResolver
+  Methods: 100.00% ( 4/ 4)   Lines: 100.00% ( 14/ 14)
 \Eloquent\Pathogen\Resolver::PathResolver
   Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  3/  3)
 \Eloquent\Pathogen\Windows::AbsoluteWindowsPath
