@@ -12,56 +12,44 @@
 namespace Eloquent\Pathogen\FileSystem\Resolver;
 
 use Eloquent\Pathogen\AbsolutePathInterface;
-use Eloquent\Pathogen\Factory\PathFactoryInterface;
+use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactoryInterface;
 use Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory;
 use Eloquent\Pathogen\Resolver\BoundPathResolver;
 use Eloquent\Pathogen\Resolver\PathResolverInterface;
-use Icecave\Isolator\Isolator;
 
 class WorkingDirectoryResolver extends BoundPathResolver
 {
     /**
-     * @param AbsolutePathInterface|null $workingDirectoryPath
-     * @param PathResolverInterface|null $resolver
-     * @param PathFactoryInterface|null  $factory
-     * @param Isolator|null              $isolator
+     * @param AbsolutePathInterface|null          $workingDirectoryPath
+     * @param PathResolverInterface|null          $resolver
+     * @param FileSystemPathFactoryInterface|null $factory
      */
     public function __construct(
         AbsolutePathInterface $workingDirectoryPath = null,
         PathResolverInterface $resolver = null,
-        PathFactoryInterface $factory = null,
-        Isolator $isolator = null
+        FileSystemPathFactoryInterface $factory = null
     ) {
         if (null === $factory) {
             $factory = new PlatformFileSystemPathFactory;
         }
 
         $this->factory = $factory;
-        $this->isolator = Isolator::get($isolator);
 
         if (null === $workingDirectoryPath) {
-            $workingDirectoryPath = $this->currentWorkingDirectoryPath();
+            $workingDirectoryPath = $this->factory()
+                ->createWorkingDirectoryPath();
         }
 
         parent::__construct($workingDirectoryPath, $resolver);
     }
 
     /**
-     * @return PathFactoryInterface
+     * @return FileSystemPathFactoryInterface
      */
     public function factory()
     {
         return $this->factory;
     }
 
-    /**
-     * @return AbsolutePathInterface
-     */
-    protected function currentWorkingDirectoryPath()
-    {
-        return $this->factory()->create($this->isolator->getcwd());
-    }
-
     private $factory;
-    private $isolator;
 }

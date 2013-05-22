@@ -33,8 +33,7 @@ class WorkingDirectoryResolverTest extends PHPUnit_Framework_TestCase
         $this->resolver = new WorkingDirectoryResolver(
             $this->workingDirectoryPath,
             $this->innerResolver,
-            $this->factory,
-            $this->isolator
+            $this->factory
         );
 
         Phake::when($this->isolator)
@@ -49,14 +48,13 @@ class WorkingDirectoryResolverTest extends PHPUnit_Framework_TestCase
         $this->assertSame($this->factory, $this->resolver->factory());
     }
 
-    public function testConstructorDefaults()
+    public function testConstructorDefaultWorkingDirectoryPath()
     {
         Phake::when($this->isolator)->getcwd()->thenReturn('/path/to/cwd');
         $this->resolver = new WorkingDirectoryResolver(
             null,
-            null,
-            null,
-            $this->isolator
+            $this->innerResolver,
+            $this->factory
         );
 
         $this->assertInstanceOf(
@@ -64,6 +62,14 @@ class WorkingDirectoryResolverTest extends PHPUnit_Framework_TestCase
             $this->resolver->basePath()
         );
         $this->assertSame('/path/to/cwd', $this->resolver->basePath()->string());
+    }
+
+    public function testConstructorDefaultResolverAndFactory()
+    {
+        $this->resolver = new WorkingDirectoryResolver(
+            $this->workingDirectoryPath
+        );
+
         $this->assertInstanceOf(
             'Eloquent\Pathogen\Resolver\PathResolver',
             $this->resolver->resolver()

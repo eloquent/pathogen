@@ -30,10 +30,15 @@ class FileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
         $this->windowsFactory = Phake::partialMock(
             '\Eloquent\Pathogen\Windows\Factory\WindowsPathFactory'
         );
+        $this->isolator = Phake::mock('Icecave\Isolator\Isolator');
         $this->factory = new FileSystemPathFactory(
             $this->posixFactory,
-            $this->windowsFactory
+            $this->windowsFactory,
+            $this->isolator
         );
+
+        Phake::when($this->isolator)->getcwd()->thenReturn('/path/to/cwd');
+        Phake::when($this->isolator)->sys_get_temp_dir()->thenReturn('/path/to/tmp');
     }
 
     public function testConstructor()
@@ -94,6 +99,123 @@ class FileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
             false
         );
         Phake::verify($this->windowsFactory, Phake::never())->createFromAtoms(
+            Phake::anyParameters()
+        );
+    }
+
+    public function testCreateWorkingDirectoryPathPosix()
+    {
+        Phake::when($this->isolator)
+            ->defined('PHP_WINDOWS_VERSION_BUILD')
+            ->thenReturn(false);
+        $path = $this->factory->createWorkingDirectoryPath();
+
+        $this->assertSame('/path/to/cwd', $path->string());
+        $this->assertInstanceOf('\Eloquent\Pathogen\AbsolutePath', $path);
+        Phake::verify($this->posixFactory)->create('/path/to/cwd');
+        Phake::verify($this->windowsFactory, Phake::never())->create(
+            Phake::anyParameters()
+        );
+    }
+
+    public function testCreateWorkingDirectoryPathWindows()
+    {
+        Phake::when($this->isolator)
+            ->defined('PHP_WINDOWS_VERSION_BUILD')
+            ->thenReturn(true);
+        $path = $this->factory->createWorkingDirectoryPath();
+
+        $this->assertSame('/path/to/cwd', $path->string());
+        $this->assertInstanceOf(
+            '\Eloquent\Pathogen\Windows\AbsoluteWindowsPath',
+            $path
+        );
+        Phake::verify($this->windowsFactory)->create('/path/to/cwd');
+        Phake::verify($this->posixFactory, Phake::never())->create(
+            Phake::anyParameters()
+        );
+    }
+
+    public function testCreateTemporaryDirectoryPathPosix()
+    {
+        Phake::when($this->isolator)
+            ->defined('PHP_WINDOWS_VERSION_BUILD')
+            ->thenReturn(false);
+        $path = $this->factory->createTemporaryDirectoryPath();
+
+        $this->assertSame('/path/to/tmp', $path->string());
+        $this->assertInstanceOf('\Eloquent\Pathogen\AbsolutePath', $path);
+        Phake::verify($this->posixFactory)->create('/path/to/tmp');
+        Phake::verify($this->windowsFactory, Phake::never())->create(
+            Phake::anyParameters()
+        );
+    }
+
+    public function testCreateTemporaryDirectoryPathWindows()
+    {
+        Phake::when($this->isolator)
+            ->defined('PHP_WINDOWS_VERSION_BUILD')
+            ->thenReturn(true);
+        $path = $this->factory->createTemporaryDirectoryPath();
+
+        $this->assertSame('/path/to/tmp', $path->string());
+        $this->assertInstanceOf(
+            '\Eloquent\Pathogen\Windows\AbsoluteWindowsPath',
+            $path
+        );
+        Phake::verify($this->windowsFactory)->create('/path/to/tmp');
+        Phake::verify($this->posixFactory, Phake::never())->create(
+            Phake::anyParameters()
+        );
+    }
+
+    public function testCreateTemporaryPathPosix()
+    {
+        Phake::when($this->isolator)->uniqid('', true)->thenReturn('unique-id');
+        Phake::when($this->isolator)
+            ->defined('PHP_WINDOWS_VERSION_BUILD')
+            ->thenReturn(false);
+        $path = $this->factory->createTemporaryPath();
+
+        $this->assertSame('/path/to/tmp/unique-id', $path->string());
+        $this->assertInstanceOf('\Eloquent\Pathogen\AbsolutePath', $path);
+        Phake::verify($this->posixFactory)->create('/path/to/tmp');
+        Phake::verify($this->windowsFactory, Phake::never())->create(
+            Phake::anyParameters()
+        );
+    }
+
+    public function testCreateTemporaryPathWindows()
+    {
+        Phake::when($this->isolator)->uniqid('', true)->thenReturn('unique-id');
+        Phake::when($this->isolator)
+            ->defined('PHP_WINDOWS_VERSION_BUILD')
+            ->thenReturn(true);
+        $path = $this->factory->createTemporaryPath();
+
+        $this->assertSame('/path/to/tmp/unique-id', $path->string());
+        $this->assertInstanceOf(
+            '\Eloquent\Pathogen\Windows\AbsoluteWindowsPath',
+            $path
+        );
+        Phake::verify($this->windowsFactory)->create('/path/to/tmp');
+        Phake::verify($this->posixFactory, Phake::never())->create(
+            Phake::anyParameters()
+        );
+    }
+
+    public function testCreateTemporaryPathWithPrefix()
+    {
+        Phake::when($this->isolator)->uniqid('foo-', true)->thenReturn('foo-unique-id');
+        Phake::when($this->isolator)
+            ->defined('PHP_WINDOWS_VERSION_BUILD')
+            ->thenReturn(false);
+        $path = $this->factory->createTemporaryPath('foo-');
+
+        $this->assertSame('/path/to/tmp/foo-unique-id', $path->string());
+        $this->assertInstanceOf('\Eloquent\Pathogen\AbsolutePath', $path);
+        Phake::verify($this->posixFactory)->create('/path/to/tmp');
+        Phake::verify($this->windowsFactory, Phake::never())->create(
             Phake::anyParameters()
         );
     }
