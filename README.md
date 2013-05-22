@@ -92,6 +92,17 @@ $nameSuffix = $path->nameSuffix(); // returns a string or null
 $extension = $path->extension(); // returns a string or null
 ```
 
+#### Trailing separators
+
+Pathogen is capable of representing a path with a trailing separator (`/`). This
+is useful in the case that a trailing separator has a special meaning to some
+logic, such as the behaviour of the Unix cp command. The trailing separator
+support is purely for the use of developers utilizing Pathogen; it does not
+affect any logic used by Pathogen itself.
+
+It is worth noting that all new path instances produced by Pathogen will strip
+any trailing slashes unless it is explicitly stated otherwise.
+
 ### Absolute and relative paths
 
 In Pathogen, absolute and relative paths are represented by two different
@@ -249,6 +260,20 @@ cannot be modified. When performing some mutating operation on a path, such as
 normalization or resolution, a new path instance is produced, rather than the
 original instance being altered. This allows a path to be exposed as part of an
 interface without creating a leaky abstraction.
+
+### Windows path support
+
+Pathogen provides support for most common usages of Windows paths. In addition
+to the methods available to unix-style absolute paths, Windows absolute paths
+contain an optional drive specifier. This example shows how to retrieve the
+drive specifier from a path instance:
+
+```php
+$drive = $path->drive(); // returns a single-character string, or null
+```
+
+It is worth noting that Pathogen does *not* support drive specifiers for
+relative Windows paths, only for absolute Windows paths.
 
 <!-- References -->
 
