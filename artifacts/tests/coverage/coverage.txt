@@ -1,12 +1,12 @@
 
 
 Code Coverage Report 
-  2013-05-22 01:00:27
+  2013-05-22 03:42:58
 
  Summary: 
-  Classes: 100.00% (22/22)
-  Methods: 100.00% (99/99)
-  Lines:   100.00% (512/512)
+  Classes: 100.00% (23/23)
+  Methods: 100.00% (103/103)
+  Lines:   100.00% (521/521)
 
 \Eloquent\Pathogen::AbsolutePath
   Methods: 100.00% ( 6/ 6)   Lines: 100.00% ( 40/ 40)
@@ -38,6 +38,8 @@ Code Coverage Report
   Methods: 100.00% ( 4/ 4)   Lines: 100.00% ( 14/ 14)
 \Eloquent\Pathogen\Normalizer::PathNormalizer
   Methods: 100.00% ( 7/ 7)   Lines: 100.00% ( 46/ 46)
+\Eloquent\Pathogen\Resolver::BoundPathResolver
+  Methods: 100.00% ( 4/ 4)   Lines: 100.00% (  9/  9)
 \Eloquent\Pathogen\Resolver::PathResolver
   Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  3/  3)
 \Eloquent\Pathogen\Windows::AbsoluteWindowsPath
