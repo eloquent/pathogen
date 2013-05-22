@@ -16,7 +16,7 @@ use Eloquent\Pathogen\PathInterface;
 interface BoundPathResolverInterface
 {
     /**
-     * @param PathInterface         $path
+     * @param PathInterface $path
      *
      * @return AbsolutePathInterface
      */

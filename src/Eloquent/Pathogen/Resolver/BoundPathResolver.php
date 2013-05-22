@@ -17,29 +17,19 @@ use Eloquent\Pathogen\PathInterface;
 class BoundPathResolver implements BoundPathResolverInterface
 {
     /**
-     * @param AbsolutePathInterface $basePath
+     * @param AbsolutePathInterface      $basePath
+     * @param PathResolverInterface|null $resolver
      */
-    public function __construct(AbsolutePathInterface $basePath)
-    {
-        $this->basePath = $basePath;
-    }
-
-    /**
-     * @param PathInterface         $path
-     *
-     * @return AbsolutePathInterface
-     */
-    public function resolve(PathInterface $path, PathResolverInterface $resolver = null)
-    {
-        if ($path instanceof AbsolutePathInterface) {
-            return $path;
-        }
-
+    public function __construct(
+        AbsolutePathInterface $basePath,
+        PathResolverInterface $resolver = null
+    ) {
         if (null === $resolver) {
             $resolver = new PathResolver;
         }
 
-        return $resolver->resolve($this->basePath(), $path);
+        $this->basePath = $basePath;
+        $this->resolver = $resolver;
     }
 
     /**
@@ -50,5 +40,24 @@ class BoundPathResolver implements BoundPathResolverInterface
         return $this->basePath;
     }
 
+    /**
+     * @returns PathResolverInterface
+     */
+    public function resolver()
+    {
+        return $this->resolver;
+    }
+
+    /**
+     * @param PathInterface $path
+     *
+     * @return AbsolutePathInterface
+     */
+    public function resolve(PathInterface $path)
+    {
+        return $this->resolver()->resolve($this->basePath(), $path);
+    }
+
     private $basePath;
+    private $resolver;
 }

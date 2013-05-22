@@ -21,51 +21,35 @@ class BoundPathResolverTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->factory = new PathFactory;
-        $this->resolver = new BoundPathResolver($this->factory->create('/foo/bar'));
-    }
-
-    public function resolveAbsolutePathData()
-    {
-        //                             path             expectedResult
-        return array(
-            'Single atom'     => array('/baz',          '/baz'),
-            'Multiple atoms'  => array('/baz/../qux',   '/baz/../qux'),
+        $this->basePath = $this->factory->create('/foo/bar');
+        $this->innerResolver = new PathResolver;
+        $this->resolver = new BoundPathResolver(
+            $this->basePath,
+            $this->innerResolver
         );
     }
 
-    /**
-     * @dataProvider resolveAbsolutePathData
-     */
-    public function testResolveAbsolutePaths($pathString, $expectedResult)
+    public function testConstructor()
     {
-        $path = $this->factory->create($pathString);
-        $resolved = $this->resolver->resolve($path);
-
-        $this->assertSame($expectedResult, $resolved->string());
+        $this->assertSame($this->basePath, $this->resolver->basePath());
+        $this->assertSame($this->innerResolver, $this->resolver->resolver());
     }
 
-    public function resolveRelativePathData()
+    public function testConstructorDefaults()
     {
-        //                                                      path         expectedResult
-        return array(
-            'Single atom'                              => array('baz',       '/foo/bar/baz'),
-            'Multiple atoms'                           => array('baz/qux',   '/foo/bar/baz/qux'),
-            'Multiple atoms with slash'                => array('baz/qux/',  '/foo/bar/baz/qux'),
-            'Parent atom'                              => array('..',        '/foo/bar/..'),
-            'Parent atom with slash'                   => array('../',       '/foo/bar/..'),
-            'Parent and single atom'                   => array('../baz',    '/foo/bar/../baz'),
-            'Parent atom and single atom with slash'   => array('../baz/',   '/foo/bar/../baz'),
+        $this->resolver = new BoundPathResolver($this->basePath);
+
+        $this->assertInstanceOf(
+            __NAMESPACE__ . '\PathResolver',
+            $this->resolver->resolver()
         );
     }
 
-    /**
-     * @dataProvider resolveRelativePathData
-     */
-    public function testResolveRelativePaths($pathString, $expectedResult)
+    public function testResolve()
     {
-        $path = $this->factory->create($pathString);
-        $resolved = $this->resolver->resolve($path);
+        $path = $this->factory->create('baz/qux');
+        $resolvedPath = $this->resolver->resolve($path);
 
-        $this->assertSame($expectedResult, $resolved->string());
+        $this->assertSame('/foo/bar/baz/qux', $resolvedPath->string());
     }
 }
