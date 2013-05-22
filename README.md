@@ -80,7 +80,7 @@ created, although the path classes *can* be constructed directly if desired.
 A simple example of path factory usage is as follows:
 
 ```php
-use Eloquent\Pathogen\FileSystem\FileSystemPathFactory;
+use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory;
 
 $factory = new FileSystemPathFactory;
 
@@ -94,15 +94,15 @@ Resolution of a path involves taking a path which may be relative or absolute,
 and figuring out where that path points to, given a known 'base' path. The
 result of path resolution will always be an absolute path.
 
-For example, consider a current path of `/path/to/foo`. If you have a relative
-path of `bar/baz`, this will resolve to `/path/to/foo/bar/baz`. If you have an
-absolute path of `/path/to/qux`, this will not change after resolution, as it is
+For example, consider a current path of `/path/to/foo`. A relative path of
+`bar/baz`, will resolve to `/path/to/foo/bar/baz` against this path. Conversely,
+an absolute path of `/path/to/qux` will not change after resolution, as it is
 already an absolute path.
 
 Path resolution is achieved by passing a path through a path resolver, like so:
 
 ```php
-use Eloquent\Pathogen\FileSystem\FileSystemPathFactory;
+use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory;
 use Eloquent\Pathogen\Resolver\PathResolver;
 
 $factory = new FileSystemPathFactory;
@@ -137,11 +137,11 @@ a calculation, or done manually through the API. If a normalized path is
 required for some reason, this is left to the developer to handle:
 
 ```php
-use Eloquent\Pathogen\FileSystem\FileSystemPathFactory;
-use Eloquent\Pathogen\Normalizer\PathNormalizer;
+use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory;
+use Eloquent\Pathogen\FileSystem\Normalizer\FileSystemPathNormalizer;
 
 $factory = new FileSystemPathFactory;
-$normalizer = new PathNormalizer;
+$normalizer = new FileSystemPathNormalizer;
 
 $path = $factory->create('/path/./to/foo/../bar');
 
@@ -149,12 +149,54 @@ $normalizedPath = $normalizer->normalize($path);
 echo $normalizedPath->string(); // outputs '/path/to/bar'
 ```
 
+### File system paths
+
+Pathogen provides support for dealing with file system paths in a *platform
+agnostic* way. There are two approaches supported by Pathogen, which can be
+applied depending on the situation.
+
+The first approach is to inspect the path string and create an appropriate path
+instance based upon a 'best guess'. This is handled by the
+[FileSystemPathFactory][]:
+
+```php
+use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory;
+
+$factory = new FileSystemPathFactory;
+
+$pathFoo = $factory->create('/path/to/foo'); // creates a unix-style path
+$pathBar = $factory->create('C:/path/to/bar'); // creates a windows path
+```
+
+The second approach is to create paths based upon the current platform the code
+is running under. That is, when running under Linux or Unix, create unix-style
+paths, and when running under Windows, create windows paths. This is handled by
+the [PlatformFileSystemPathFactory][]:
+
+```php
+use Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory;
+
+$factory = new PlatformFileSystemPathFactory;
+
+$path = $factory->create('/path/to/foo'); // creates a path to match the current platform
+```
+
+### Immutability of paths
+
+Paths in Pathogen are *immutable*, meaning that once they are created, they
+cannot be modified. When performing some mutating operation on a path, such as
+normalization or resolution, a new path instance is produced, rather than the
+original instance being altered. This allows a path to be exposed as part of an
+interface without creating a leaky abstraction.
+
 <!-- references -->
 [AbsolutePathInterface]: src/Eloquent/Pathogen/AbsolutePathInterface.php
 [Build Status]: https://raw.github.com/eloquent/pathogen/gh-pages/artifacts/images/icecave/regular/build-status.png
 [Composer]: http://getcomposer.org/
 [eloquent/pathogen]: https://packagist.org/packages/eloquent/pathogen
+[FileSystemPathFactory]: src/Eloquent/Pathogen/FileSystem/Factory/FileSystemPathFactory.php
 [PathFactoryInterface]: src/Eloquent/Pathogen/Factory/PathFactoryInterface.php
 [PathInterface]: src/Eloquent/Pathogen/PathInterface.php
+[PlatformFileSystemPathFactory]: src/Eloquent/Pathogen/FileSystem/Factory/PlatformFileSystemPathFactory.php
 [RelativePathInterface]: src/Eloquent/Pathogen/RelativePathInterface.php
 [Test Coverage]: https://raw.github.com/eloquent/pathogen/gh-pages/artifacts/images/icecave/regular/coverage.png
