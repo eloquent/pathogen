@@ -275,7 +275,7 @@ $drive = $path->drive(); // returns a single-character string, or null
 It is worth noting that Pathogen does *not* support drive specifiers for
 relative Windows paths, only for absolute Windows paths.
 
-## Common use case examples
+## Usage examples
 
 ### Resolving a user-provided path against the current working directory
 
@@ -289,6 +289,34 @@ $pathResolver = new WorkingDirectoryResolver;
 $path = $pathResolver->resolve(
     $pathFactory->create($_SERVER['argv'][1])
 );
+```
+
+### Determining whether one path exists inside another
+
+```php
+use Eloquent\Pathogen\Factory\PathFactory;
+
+$pathFactory = new PathFactory;
+
+$basePath = $pathFactory->create('/path/to/foo');
+$pathA = $pathFactory->create('/path/to/foo/bar');
+$pathB = $pathFactory->create('/path/to/somewhere/else');
+
+var_dump($basePath->isAncestorOf($pathA)); // outputs 'bool(true)'
+var_dump($basePath->isAncestorOf($pathB)); // outputs 'bool(false)'
+```
+
+### Appending an extension to a path
+
+```php
+use Eloquent\Pathogen\Factory\PathFactory;
+
+$pathFactory = new PathFactory;
+
+$path = $pathFactory->create('/path/to/foo.bar');
+$pathWithExtension = $path->joinExtensions('baz');
+
+echo $pathWithExtension->string(); // outputs '/path/to/foo.bar.baz'
 ```
 
 <!-- References -->
