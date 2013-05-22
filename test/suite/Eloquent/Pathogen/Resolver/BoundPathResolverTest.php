@@ -21,6 +21,7 @@ class BoundPathResolverTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->factory = new PathFactory;
+
         $this->basePath = $this->factory->create('/foo/bar');
         $this->innerResolver = new PathResolver;
         $this->resolver = new BoundPathResolver(
