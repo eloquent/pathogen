@@ -1,12 +1,12 @@
 
 
 Code Coverage Report 
-  2013-05-22 00:43:02
+  2013-05-22 01:00:27
 
  Summary: 
-  Classes: 100.00% (21/21)
-  Methods: 100.00% (95/95)
-  Lines:   100.00% (498/498)
+  Classes: 100.00% (22/22)
+  Methods: 100.00% (99/99)
+  Lines:   100.00% (512/512)
 
 \Eloquent\Pathogen::AbsolutePath
   Methods: 100.00% ( 6/ 6)   Lines: 100.00% ( 40/ 40)
@@ -34,6 +34,8 @@ Code Coverage Report
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  7/  7)
 \Eloquent\Pathogen\FileSystem\Factory::PlatformFileSystemPathFactory
   Methods: 100.00% ( 4/ 4)   Lines: 100.00% ( 11/ 11)
+\Eloquent\Pathogen\FileSystem\Normalizer::FileSystemPathNormalizer
+  Methods: 100.00% ( 4/ 4)   Lines: 100.00% ( 14/ 14)
 \Eloquent\Pathogen\Normalizer::PathNormalizer
   Methods: 100.00% ( 7/ 7)   Lines: 100.00% ( 46/ 46)
 \Eloquent\Pathogen\Resolver::PathResolver
