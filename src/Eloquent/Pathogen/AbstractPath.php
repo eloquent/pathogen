@@ -44,7 +44,7 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
-     * Returns true is at least one atom is present
+     * Returns true is at least one atom is present.
      *
      * @return boolean
      */

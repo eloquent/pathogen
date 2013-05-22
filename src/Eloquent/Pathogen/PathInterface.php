@@ -23,7 +23,7 @@ interface PathInterface
     public function atoms();
 
     /**
-     * Returns true is at least one atom is present
+     * Returns true is at least one atom is present.
      *
      * @return boolean
      */

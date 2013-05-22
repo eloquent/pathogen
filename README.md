@@ -18,7 +18,36 @@ while providing a comprehensive API.
 
 ## Pathogen concepts
 
-### Path atoms
+### Path parts
+
+The overall structure of a Pathogen path can be broken down into smaller parts.
+This diagram shows some of these named parts as they apply to a typical path:
+
+      A   A   ___ A ___
+     / \ / \ /         \
+    /foo/bar/baz.qux.pop
+             \_________/
+                name
+    \___________________/
+            path
+
+    A = atom
+
+The 'name' portion can be further broken down as follows:
+
+
+      NWE    E
+    /     \ / \
+    baz.qux.pop
+    \_/ \_____/
+     NP   NS
+
+    NWE = name without extension
+      E = extension
+     NP = name prefix
+     NS = name suffix
+
+#### Path atoms
 
 In Pathogen, a path consists of a sequence of 'atoms'. Atoms are the individual
 sections of the path hierarchy. Given the path `/path/to/foo`, the sequence of
@@ -31,7 +60,39 @@ path. The double dot (`..`) is referred to as the 'parent atom' and is used to
 reference the path above the current one. Anyone familiar with typical file
 system paths should be familiar with their behaviour already.
 
-### Absolute vs. relative paths
+Given a path instance, the atoms of the path can be determined as follows:
+
+```php
+$atoms = $path->atoms(); // returns an array of strings
+```
+
+#### Path name
+
+The 'name' section of a path is simply the last atom of a path. If a path has no
+atoms, its name is an empty string. Given a path instance, the name of the path
+can be determined like so:
+
+```php
+$name = $path->name(); // returns a string
+```
+
+#### Path name extensions
+
+The name of a path can be further divided using extension separators (`.`). For
+example, given the path name `foo.bar.baz`, Pathogen can determine the 'name
+without extension' (`foo`), the 'name prefix' (`foo.bar`), the 'name suffix'
+(`bar.baz`), and the 'extension' (`baz`).
+
+Given a path instance, the various sections can be retrieved as follows:
+
+```php
+$nameWithoutExtension = $path->nameWithoutExtension(); // returns a string
+$namePrefix = $path->namePrefix(); // returns a string
+$nameSuffix = $path->nameSuffix(); // returns a string or null
+$extension = $path->extension(); // returns a string or null
+```
+
+### Absolute and relative paths
 
 In Pathogen, absolute and relative paths are represented by two different
 classes. While both classes implement a common [PathInterface][], other methods
@@ -189,7 +250,8 @@ normalization or resolution, a new path instance is produced, rather than the
 original instance being altered. This allows a path to be exposed as part of an
 interface without creating a leaky abstraction.
 
-<!-- references -->
+<!-- References -->
+
 [AbsolutePathInterface]: src/Eloquent/Pathogen/AbsolutePathInterface.php
 [Build Status]: https://raw.github.com/eloquent/pathogen/gh-pages/artifacts/images/icecave/regular/build-status.png
 [Composer]: http://getcomposer.org/
