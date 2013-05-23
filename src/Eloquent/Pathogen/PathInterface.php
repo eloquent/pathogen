@@ -60,6 +60,15 @@ interface PathInterface
     public function name();
 
     /**
+     * Returns the atoms of this path's name as an array of strings.
+     *
+     * For example, the path name 'foo.bar' has the atoms 'foo' and 'bar'.
+     *
+     * @return array<integer,string>
+     */
+    public function nameAtoms();
+
+    /**
      * Returns the last atom of this path, excluding the last extension.
      *
      * If this path has no atoms, an empty string is returned.
@@ -228,6 +237,56 @@ interface PathInterface
      * the atom to be invalid.
      */
     public function prefixName($prefix);
+
+    /**
+     * Returns a new path instance with the supplied name replacing the existing
+     * one.
+     *
+     * @param string $name
+     *
+     * @return PathInterface
+     */
+    public function replaceName($name);
+
+    /**
+     * Returns a new path instance with the supplied name replacing the portion
+     * of the existing name preceding the last extension.
+     *
+     * @param string $nameWithoutExtension
+     *
+     * @return PathInterface
+     */
+    public function replaceNameWithoutExtension($nameWithoutExtension);
+
+    /**
+     * Returns a new path instance with the supplied name prefix replacing the
+     * existing one.
+     *
+     * @param string $namePrefix
+     *
+     * @return PathInterface
+     */
+    public function replaceNamePrefix($namePrefix);
+
+    /**
+     * Returns a new path instance with the supplied name suffix replacing the
+     * existing one.
+     *
+     * @param string|null $nameSuffix
+     *
+     * @return PathInterface
+     */
+    public function replaceNameSuffix($nameSuffix);
+
+    /**
+     * Returns a new path instance with the supplied extension replacing the
+     * existing one.
+     *
+     * @param string|null $extension
+     *
+     * @return PathInterface
+     */
+    public function replaceExtension($extension);
 
     const ATOM_SEPARATOR = '/';
     const EXTENSION_SEPARATOR = '.';

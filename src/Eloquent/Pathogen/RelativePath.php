@@ -14,26 +14,6 @@ namespace Eloquent\Pathogen;
 class RelativePath extends AbstractPath implements RelativePathInterface
 {
     /**
-     * Returns the last atom of this path.
-     *
-     * If this path has no atoms, or the only atom is a self atom, an empty
-     * string is returned.
-     *
-     * @return string
-     */
-    public function name()
-    {
-        $atoms = $this->atoms();
-        $numAtoms = count($atoms);
-
-        if (1 === $numAtoms && static::SELF_ATOM === $atoms[0]) {
-            return '';
-        }
-
-        return parent::name();
-    }
-
-    /**
      * Returns a new path instance with a trailing slash suffixed to this path.
      *
      * @return PathInterface

@@ -22,7 +22,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      */
     public function string()
     {
-        return sprintf('%s%s', static::ATOM_SEPARATOR, parent::string());
+        return static::ATOM_SEPARATOR . parent::string();
     }
 
     /**

@@ -85,21 +85,20 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     {
         $drive = $this->drive();
         if (null !== $drive) {
-            return sprintf(
-                '%s:%s%s%s',
-                $drive,
-                static::ATOM_SEPARATOR,
-                implode(static::ATOM_SEPARATOR, $this->atoms()),
-                $this->hasTrailingSeparator() ? static::ATOM_SEPARATOR : ''
-            );
+            return
+                $drive .
+                ':' .
+                static::ATOM_SEPARATOR .
+                implode(static::ATOM_SEPARATOR, $this->atoms()) .
+                ($this->hasTrailingSeparator() ? static::ATOM_SEPARATOR : '')
+            ;
         }
 
-        return sprintf(
-            '%s%s%s',
-            static::ATOM_SEPARATOR,
-            implode(static::ATOM_SEPARATOR, $this->atoms()),
-            $this->hasTrailingSeparator() ? static::ATOM_SEPARATOR : ''
-        );
+        return
+            static::ATOM_SEPARATOR .
+            implode(static::ATOM_SEPARATOR, $this->atoms()) .
+            ($this->hasTrailingSeparator() ? static::ATOM_SEPARATOR : '')
+        ;
     }
 
     // Implementation of AbsolutePathInterface =================================
