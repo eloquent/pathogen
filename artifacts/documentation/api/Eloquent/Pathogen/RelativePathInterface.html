@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>Eloquent\Pathogen\RelativePathInterface | API</title>
+                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../../classes.html">Classes</a></li>
+                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">API</div>
+
+            <div class="type">Interface</div>
+    <h1><a href="../../Eloquent/Pathogen.html">Eloquent\Pathogen</a>\RelativePathInterface</h1>
+    </div>
+        <div class="content">
+                <p>interface    <strong>RelativePathInterface</strong>        implements
+        <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></p>
+
+    
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    <abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_atoms">atoms</a>()
+                    <p>Returns the atoms of this path as an array of strings.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_atoms"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_hasAtoms">hasAtoms</a>()
+                    <p>Returns true is at least one atom is present.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_hasAtoms"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_hasTrailingSeparator">hasTrailingSeparator</a>()
+                    <p>Returns true if this path ends with a path separator.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_hasTrailingSeparator"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_string">string</a>()
+                    <p>Returns a string representation of this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_string"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method___toString">__toString</a>()
+                    <p>Returns a string representation of this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method___toString"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_name">name</a>()
+                    <p>Returns the last atom of this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_name"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_nameAtoms">nameAtoms</a>()
+                    <p>Returns the atoms of this path&#039;s name as an array of strings.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_nameAtoms"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_nameWithoutExtension">nameWithoutExtension</a>()
+                    <p>Returns the last atom of this path, excluding the last extension.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_nameWithoutExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_namePrefix">namePrefix</a>()
+                    <p>Returns the last atom of this path, excluding any extensions.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_namePrefix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string|null
+                </td>
+                <td class="last">
+                    <a href="#method_nameSuffix">nameSuffix</a>()
+                    <p>Returns the extensions of this path&#039;s last atom.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_nameSuffix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string|null
+                </td>
+                <td class="last">
+                    <a href="#method_extension">extension</a>()
+                    <p>Returns the last extension of this path&#039;s last atom.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_extension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_hasExtension">hasExtension</a>()
+                    <p>Returns true if this path&#039;s last atom has any extensions.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_hasExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_parent">parent</a>()
+                    <p>Returns the parent of this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_parent"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_stripTrailingSlash">stripTrailingSlash</a>()
+                    <p>Returns a new path instance with the trailing slash removed from this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_stripTrailingSlash"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_stripExtension">stripExtension</a>()
+                    <p>Returns a new path instance with the last extension removed from this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_stripExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_stripNameSuffix">stripNameSuffix</a>()
+                    <p>Returns a new path instance with all extensions removed from this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_stripNameSuffix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_joinAtoms">joinAtoms</a>($atom)
+                    <p>Returns a new path with the supplied atom(s) suffixed to this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_joinAtoms"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_joinAtomSequence">joinAtomSequence</a>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms)
+                    <p>Returns a new path with the supplied sequence of atoms suffixed to this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_joinAtomSequence"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_join">join</a>(<a href="../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> $path)
+                    <p>Returns a new path with the supplied path suffixed to this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_join"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_joinTrailingSlash">joinTrailingSlash</a>()
+                    <p>Returns a new path instance with a trailing slash suffixed to this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_joinTrailingSlash"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_joinExtensions">joinExtensions</a>($extension)
+                    <p>Returns a new path instance with the supplied extensions suffixed to this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_joinExtensions"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_joinExtensionSequence">joinExtensionSequence</a>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $extensions)
+                    <p>Returns a new path instance with the supplied extensions suffixed to this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_joinExtensionSequence"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_suffixName">suffixName</a>(string $suffix)
+                    <p>Returns a new path instance with the supplied string suffixed to the last path atom.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_suffixName"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_prefixName">prefixName</a>(string $prefix)
+                    <p>Returns a new path instance with the supplied string prefixed to the last path atom.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_prefixName"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_replace">replace</a>(integer $offset, <abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $replacement, integer|null $length = null)
+                    <p>Returns a new path instance that has a portion of this path&#039;s atoms replaced with a different sequence of atoms.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_replace"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_replaceName">replaceName</a>(string $name)
+                    <p>Returns a new path instance with the supplied name replacing the existing one.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceName"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_replaceNameWithoutExtension">replaceNameWithoutExtension</a>(string $nameWithoutExtension)
+                    <p>Returns a new path instance with the supplied name replacing the portion of the existing name preceding the last extension.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNameWithoutExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_replaceNamePrefix">replaceNamePrefix</a>(string $namePrefix)
+                    <p>Returns a new path instance with the supplied name prefix replacing the existing one.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNamePrefix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_replaceNameSuffix">replaceNameSuffix</a>(string|null $nameSuffix)
+                    <p>Returns a new path instance with the supplied name suffix replacing the existing one.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNameSuffix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_replaceExtension">replaceExtension</a>(string|null $extension)
+                    <p>Returns a new path instance with the supplied extension replacing the existing one.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_isSelf">isSelf</a>(<a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
+                    <p>Returns true if this path is the self path.</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method_atoms">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_atoms"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 23</div>
+        <code>            public            <abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr>
+    <strong>atoms</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns the atoms of this path as an array of strings.</p>
+        <p>For example, the path &#039;/foo/bar&#039; has the atoms &#039;foo&#039; and &#039;bar&#039;.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_hasAtoms">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_hasAtoms"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 30</div>
+        <code>            public            boolean
+    <strong>hasAtoms</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns true is at least one atom is present.</p>
+        <p></p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_hasTrailingSeparator">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_hasTrailingSeparator"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 37</div>
+        <code>            public            boolean
+    <strong>hasTrailingSeparator</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns true if this path ends with a path separator.</p>
+        <p></p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_string">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_string"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 44</div>
+        <code>            public            string
+    <strong>string</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns a string representation of this path.</p>
+        <p></p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method___toString">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method___toString"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 51</div>
+        <code>            public            string
+    <strong>__toString</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns a string representation of this path.</p>
+        <p></p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_name">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_name"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 60</div>
+        <code>            public            string
+    <strong>name</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns the last atom of this path.</p>
+        <p>If this path has no atoms, an empty string is returned.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_nameAtoms">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_nameAtoms"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 69</div>
+        <code>            public            <abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr>
+    <strong>nameAtoms</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns the atoms of this path&#039;s name as an array of strings.</p>
+        <p>For example, the path name &#039;foo.bar&#039; has the atoms &#039;foo&#039; and &#039;bar&#039;.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_nameWithoutExtension">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_nameWithoutExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 78</div>
+        <code>            public            string
+    <strong>nameWithoutExtension</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns the last atom of this path, excluding the last extension.</p>
+        <p>If this path has no atoms, an empty string is returned.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_namePrefix">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_namePrefix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 87</div>
+        <code>            public            string
+    <strong>namePrefix</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns the last atom of this path, excluding any extensions.</p>
+        <p>If this path has no atoms, an empty string is returned.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_nameSuffix">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_nameSuffix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 97</div>
+        <code>            public            string|null
+    <strong>nameSuffix</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns the extensions of this path&#039;s last atom.</p>
+        <p>If the last atom has no extensions, or this path has no atoms, this<br />
+ method will return null.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_extension">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_extension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 107</div>
+        <code>            public            string|null
+    <strong>extension</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns the last extension of this path&#039;s last atom.</p>
+        <p>If the last atom has no extensions, or this path has no atoms, this<br />
+ method will return null.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_hasExtension">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_hasExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 114</div>
+        <code>            public            boolean
+    <strong>hasExtension</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns true if this path&#039;s last atom has any extensions.</p>
+        <p></p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_parent">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_parent"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 121</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>parent</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns the parent of this path.</p>
+        <p></p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_stripTrailingSlash">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_stripTrailingSlash"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 131</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>stripTrailingSlash</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with the trailing slash removed from this path.</p>
+        <p>If this path has no trailing slash, the path is returned unmodified.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_stripExtension">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_stripExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 141</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>stripExtension</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with the last extension removed from this path.</p>
+        <p>If this path has no extensions, the path is returned unmodified.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_stripNameSuffix">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_stripNameSuffix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 150</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>stripNameSuffix</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with all extensions removed from this path.</p>
+        <p>If this path has no extensions, the path is returned unmodified.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_joinAtoms">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinAtoms"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 162</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>joinAtoms</strong>($atom)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path with the supplied atom(s) suffixed to this path.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$atom</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Exception\InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
+                <td>If any joined atoms are invalid.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_joinAtomSequence">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinAtomSequence"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 174</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>joinAtomSequence</strong>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path with the supplied sequence of atoms suffixed to this path.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
+                <td>$atoms</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Exception\InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
+                <td>If any joined atoms are invalid.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_join">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_join"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 183</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>join</strong>(<a href="../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> $path)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path with the supplied path suffixed to this path.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a></td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_joinTrailingSlash">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinTrailingSlash"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 190</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>joinTrailingSlash</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with a trailing slash suffixed to this path.</p>
+        <p></p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_joinExtensions">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinExtensions"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 203</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>joinExtensions</strong>($extension)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with the supplied extensions suffixed to this path.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$extension</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Exception\InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
+                <td>If the suffixed extensions cause the atom to be invalid.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_joinExtensionSequence">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinExtensionSequence"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 215</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>joinExtensionSequence</strong>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $extensions)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with the supplied extensions suffixed to this path.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
+                <td>$extensions</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Exception\InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
+                <td>If the suffixed extensions cause the atom to be invalid.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_suffixName">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_suffixName"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 227</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>suffixName</strong>(string $suffix)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with the supplied string suffixed to the last path atom.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$suffix</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Exception\InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
+                <td>If the suffix causes the atom to be invalid.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_prefixName">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_prefixName"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 239</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>prefixName</strong>(string $prefix)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with the supplied string prefixed to the last path atom.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$prefix</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Exception\InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
+                <td>If the prefix causes the atom to be invalid.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_replace">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replace"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 251</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>replace</strong>(integer $offset, <abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $replacement, integer|null $length = null)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance that has a portion of this path&#039;s atoms replaced with a different sequence of atoms.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>integer</td>
+                <td>$offset</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td><abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
+                <td>$replacement</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>integer|null</td>
+                <td>$length</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_replaceName">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceName"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 261</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>replaceName</strong>(string $name)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with the supplied name replacing the existing one.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_replaceNameWithoutExtension">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNameWithoutExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 271</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>replaceNameWithoutExtension</strong>(string $nameWithoutExtension)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with the supplied name replacing the portion of the existing name preceding the last extension.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$nameWithoutExtension</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_replaceNamePrefix">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNamePrefix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 281</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>replaceNamePrefix</strong>(string $namePrefix)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with the supplied name prefix replacing the existing one.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$namePrefix</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_replaceNameSuffix">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNameSuffix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 291</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>replaceNameSuffix</strong>(string|null $nameSuffix)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with the supplied name suffix replacing the existing one.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string|null</td>
+                <td>$nameSuffix</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_replaceExtension">
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 301</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>replaceExtension</strong>(string|null $extension)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with the supplied extension replacing the existing one.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string|null</td>
+                <td>$extension</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_isSelf">
+        <div class="location">at line 26</div>
+        <code>            public            boolean
+    <strong>isSelf</strong>(<a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
+    </h3>
+    <div class="details">
+        <p>Returns true if this path is the self path.</p>
+        <p>The self path is a relative path with a single self atom (i.e. a dot<br />
+ &#039;.&#039;).</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
+                <td>$normalizer</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

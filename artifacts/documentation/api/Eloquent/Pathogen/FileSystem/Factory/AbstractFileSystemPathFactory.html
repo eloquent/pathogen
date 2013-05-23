@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>Eloquent\Pathogen\FileSystem\Factory\AbstractFileSystemPathFactory | API</title>
+                    <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../../../../classes.html">Classes</a></li>
+                            <li><a href="../../../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../../../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">API</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../../../../Eloquent/Pathogen/FileSystem/Factory.html">Eloquent\Pathogen\FileSystem\Factory</a>\AbstractFileSystemPathFactory</h1>
+    </div>
+        <div class="content">
+                <p>abstract class    <strong>AbstractFileSystemPathFactory</strong>        implements
+        <a href="../../../../Eloquent/Pathogen/FileSystem/Factory/FileSystemPathFactoryInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactoryInterface">FileSystemPathFactoryInterface</abbr></a></p>
+
+    
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>(<a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a> $posixFactory = null, <a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a> $windowsFactory = null, <abbr title="Icecave\Isolator\Isolator">Isolator</abbr> $isolator = null)
+                    <p></p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_posixFactory">posixFactory</a>()
+                    <p></p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_windowsFactory">windowsFactory</a>()
+                    <p></p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_createWorkingDirectoryPath">createWorkingDirectoryPath</a>()
+                    <p>Returns a new path instance representing the current working directory path.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_createTemporaryDirectoryPath">createTemporaryDirectoryPath</a>()
+                    <p>Returns a new path instance representing the system default temporary directory path.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_createTemporaryPath">createTemporaryPath</a>(string|null $prefix = null)
+                    <p>Returns a new path instance representing a path suitable for use as the location for a new temporary file or directory.</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method___construct">
+        <div class="location">at line 28</div>
+        <code>            public            
+    <strong>__construct</strong>(<a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a> $posixFactory = null, <a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a> $windowsFactory = null, <abbr title="Icecave\Isolator\Isolator">Isolator</abbr> $isolator = null)</code>
+    </h3>
+    <div class="details">
+        <p></p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a></td>
+                <td>$posixFactory</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td><a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a></td>
+                <td>$windowsFactory</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td><abbr title="Icecave\Isolator\Isolator">Isolator</abbr></td>
+                <td>$isolator</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_posixFactory">
+        <div class="location">at line 48</div>
+        <code>            public            <a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a>
+    <strong>posixFactory</strong>()</code>
+    </h3>
+    <div class="details">
+        <p></p>
+        <p></p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_windowsFactory">
+        <div class="location">at line 56</div>
+        <code>            public            <a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a>
+    <strong>windowsFactory</strong>()</code>
+    </h3>
+    <div class="details">
+        <p></p>
+        <p></p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_createWorkingDirectoryPath">
+        <div class="location">at line 67</div>
+        <code>            public            <a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+    <strong>createWorkingDirectoryPath</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance representing the current working directory path.</p>
+        <p></p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_createTemporaryDirectoryPath">
+        <div class="location">at line 79</div>
+        <code>            public            <a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+    <strong>createTemporaryDirectoryPath</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance representing the system default temporary directory path.</p>
+        <p></p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_createTemporaryPath">
+        <div class="location">at line 93</div>
+        <code>            public            <a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+    <strong>createTemporaryPath</strong>(string|null $prefix = null)</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance representing a path suitable for use as the location for a new temporary file or directory.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string|null</td>
+                <td>$prefix</td>
+                <td>A string to use as a prefix for the path name.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>
