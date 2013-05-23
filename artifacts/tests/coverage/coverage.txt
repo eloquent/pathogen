@@ -1,19 +1,19 @@
 
 
 Code Coverage Report 
-  2013-05-22 23:19:10
+  2013-05-23 03:27:28
 
  Summary: 
   Classes: 100.00% (25/25)
-  Methods: 100.00% (112/112)
-  Lines:   100.00% (554/554)
+  Methods: 100.00% (117/117)
+  Lines:   100.00% (570/570)
 
 \Eloquent\Pathogen::AbsolutePath
   Methods: 100.00% ( 6/ 6)   Lines: 100.00% ( 40/ 40)
 \Eloquent\Pathogen::AbstractPath
-  Methods: 100.00% (26/26)   Lines: 100.00% (125/125)
+  Methods: 100.00% (32/32)   Lines: 100.00% (150/150)
 \Eloquent\Pathogen::RelativePath
-  Methods: 100.00% ( 4/ 4)   Lines: 100.00% ( 17/ 17)
+  Methods: 100.00% ( 3/ 3)   Lines: 100.00% ( 12/ 12)
 \Eloquent\Pathogen\Exception::AbstractInvalidPathAtomException
   Methods:  66.67% ( 2/ 3)   Lines: 100.00% ( 11/ 11)
 \Eloquent\Pathogen\Exception::EmptyPathAtomException
@@ -47,7 +47,7 @@ Code Coverage Report
 \Eloquent\Pathogen\Resolver::PathResolver
   Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  3/  3)
 \Eloquent\Pathogen\Windows::AbsoluteWindowsPath
-  Methods: 100.00% (13/13)   Lines: 100.00% ( 74/ 74)
+  Methods: 100.00% (13/13)   Lines: 100.00% ( 70/ 70)
 \Eloquent\Pathogen\Windows::RelativeWindowsPath
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  7/  7)
 \Eloquent\Pathogen\Windows\Exception::DriveMismatchException
