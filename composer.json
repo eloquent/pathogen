@@ -21,7 +21,8 @@
         "icecave/isolator": "~2"
     },
     "require-dev": {
-        "icecave/archer": "~0.3"
+        "icecave/archer": "~0.3",
+        "sami/sami": "~1"
     },
     "autoload": {
         "psr-0": {
