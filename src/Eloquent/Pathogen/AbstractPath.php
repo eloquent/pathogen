@@ -356,6 +356,35 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
+     * Returns a new path instance that has a portion of this path's atoms
+     * replaced with a different sequence of atoms.
+     *
+     * @param integer       $offset
+     * @param mixed<string> $replacement
+     * @param integer|null  $length
+     *
+     * @return PathInterface
+     */
+    public function replace($offset, $replacement, $length = null)
+    {
+        $atoms = $this->atoms();
+
+        if (!is_array($replacement)) {
+            $replacement = iterator_to_array($replacement);
+        }
+        if (null === $length) {
+            $length = count($atoms);
+        }
+
+        array_splice($atoms, $offset, $length, $replacement);
+
+        return $this->createPath(
+            $atoms,
+            $this instanceof AbsolutePathInterface
+        );
+    }
+
+    /**
      * Returns a new path instance with the supplied string suffixed to the last
      * path atom.
      *

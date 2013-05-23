@@ -239,6 +239,18 @@ interface PathInterface
     public function prefixName($prefix);
 
     /**
+     * Returns a new path instance that has a portion of this path's atoms
+     * replaced with a different sequence of atoms.
+     *
+     * @param integer       $offset
+     * @param mixed<string> $replacement
+     * @param integer|null  $length
+     *
+     * @return PathInterface
+     */
+    public function replace($offset, $replacement, $length = null);
+
+    /**
      * Returns a new path instance with the supplied name replacing the existing
      * one.
      *
