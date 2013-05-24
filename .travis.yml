@@ -21,7 +21,6 @@ env:
 install:
   - ./.travis.install
 script:
-  - ./bin/build-api-documentation
   - ./vendor/bin/archer travis:build
 
 matrix:

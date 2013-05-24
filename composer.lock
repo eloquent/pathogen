@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "359175f74ce36c9b321bbebaa6939446",
+    "hash": "2a3c7a0eb2d593e059789647ac270ce9",
     "packages": [
         {
             "name": "icecave/isolator",
@@ -57,23 +57,27 @@
     "packages-dev": [
         {
             "name": "icecave/archer",
-            "version": "0.3.1",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/archer.git",
-                "reference": "0.3.1"
+                "reference": "b8b2092c766992b72b40c853f8ba66687216f72a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/archer/zipball/0.3.1",
-                "reference": "0.3.1",
+                "url": "https://api.github.com/repos/IcecaveStudios/archer/zipball/b8b2092c766992b72b40c853f8ba66687216f72a",
+                "reference": "b8b2092c766992b72b40c853f8ba66687216f72a",
                 "shasum": ""
             },
             "require": {
                 "phake/phake": ">=1.0,<2.0",
                 "php": ">=5.3",
+                "sami/sami": ">=1.0,<2.0",
                 "symfony/console": ">=2.0,<3.0",
                 "symfony/process": ">=2.0,<3.0"
+            },
+            "require-dev": {
+                "eloquent/liberator": ">=1.0,<2.0"
             },
             "suggest": {
                 "ext-openssl": "OpenSSL is required to encrypt GitHub OAuth tokens for artifact publication."
@@ -100,21 +104,26 @@
                 },
                 {
                     "name": "James Harris",
-                    "email": "james.harris@icecave.com.au"
+                    "email": "james.harris@icecave.com.au",
+                    "homepage": "https://github.com/jmalloc"
                 }
             ],
-            "description": "PHP testing and continuous integration by convention.",
+            "description": "PHP projects by convention.",
             "homepage": "https://github.com/IcecaveStudios/archer",
             "keywords": [
+                "api",
                 "artifacts",
+                "convention",
                 "coverage",
+                "documentation",
                 "phake",
                 "phpunit",
+                "project",
                 "test",
                 "testing",
                 "unit"
             ],
-            "time": "2013-04-30 07:52:53"
+            "time": "2013-05-24 04:14:39"
         },
         {
             "name": "nikic/php-parser",
@@ -590,9 +599,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "icecave/archer": 20
+    },
     "platform": {
         "php": ">=5.3.3"
     },
