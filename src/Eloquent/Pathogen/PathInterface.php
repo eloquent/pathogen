@@ -23,6 +23,16 @@ interface PathInterface
     public function atoms();
 
     /**
+     * Returns a subsequence of the atoms of this path as an array of strings.
+     *
+     * @param integer      $index
+     * @param integer|null $length
+     *
+     * @return array<integer,string>
+     */
+    public function sliceAtoms($index, $length = null);
+
+    /**
      * Returns true is at least one atom is present.
      *
      * @return boolean
@@ -242,13 +252,13 @@ interface PathInterface
      * Returns a new path instance that has a portion of this path's atoms
      * replaced with a different sequence of atoms.
      *
-     * @param integer       $offset
+     * @param integer       $index
      * @param mixed<string> $replacement
      * @param integer|null  $length
      *
      * @return PathInterface
      */
-    public function replace($offset, $replacement, $length = null);
+    public function replace($index, $replacement, $length = null);
 
     /**
      * Returns a new path instance with the supplied name replacing the existing
@@ -304,13 +314,13 @@ interface PathInterface
      * Returns a new path instance that has a portion of this name's atoms
      * replaced with a different sequence of atoms.
      *
-     * @param integer       $offset
+     * @param integer       $index
      * @param mixed<string> $replacement
      * @param integer|null  $length
      *
      * @return PathInterface
      */
-    public function replaceNameAtoms($offset, $replacement, $length = null);
+    public function replaceNameAtoms($index, $replacement, $length = null);
 
     const ATOM_SEPARATOR = '/';
     const EXTENSION_SEPARATOR = '.';

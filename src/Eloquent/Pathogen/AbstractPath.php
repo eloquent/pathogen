@@ -32,11 +32,7 @@ abstract class AbstractPath implements PathInterface
     // Implementation of PathInterface =========================================
 
     /**
-     * Returns the atoms of this path as an array of strings.
-     *
-     * For example, the path '/foo/bar' has the atoms 'foo' and 'bar'.
-     *
-     * @return mixed<integer,string>
+     * @inheritDoc
      */
     public function atoms()
     {
@@ -44,10 +40,18 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
-     * Returns true is at least one atom is present.
-     *
-     * @return boolean
+     * {@inheritDoc}
      */
+    public function sliceAtoms($index, $length = null)
+    {
+        $atoms = $this->atoms();
+        if (null === $length) {
+            $length = count($atoms);
+        }
+
+        return array_slice($atoms, $index, $length);
+    }
+
     public function hasAtoms()
     {
         return count($this->atoms()) > 0;
@@ -359,13 +363,13 @@ abstract class AbstractPath implements PathInterface
      * Returns a new path instance that has a portion of this path's atoms
      * replaced with a different sequence of atoms.
      *
-     * @param integer       $offset
+     * @param integer       $index
      * @param mixed<string> $replacement
      * @param integer|null  $length
      *
      * @return PathInterface
      */
-    public function replace($offset, $replacement, $length = null)
+    public function replace($index, $replacement, $length = null)
     {
         $atoms = $this->atoms();
 
@@ -376,7 +380,7 @@ abstract class AbstractPath implements PathInterface
             $length = count($atoms);
         }
 
-        array_splice($atoms, $offset, $length, $replacement);
+        array_splice($atoms, $index, $length, $replacement);
 
         return $this->createPath(
             $atoms,
@@ -561,13 +565,13 @@ abstract class AbstractPath implements PathInterface
      * Returns a new path instance that has a portion of this name's atoms
      * replaced with a different sequence of atoms.
      *
-     * @param integer       $offset
+     * @param integer       $index
      * @param mixed<string> $replacement
      * @param integer|null  $length
      *
      * @return PathInterface
      */
-    public function replaceNameAtoms($offset, $replacement, $length = null)
+    public function replaceNameAtoms($index, $replacement, $length = null)
     {
         $atoms = $this->nameAtoms();
 
@@ -578,7 +582,7 @@ abstract class AbstractPath implements PathInterface
             $length = count($atoms);
         }
 
-        array_splice($atoms, $offset, $length, $replacement);
+        array_splice($atoms, $index, $length, $replacement);
 
         return $this->replaceName(implode(self::EXTENSION_SEPARATOR, $atoms));
     }

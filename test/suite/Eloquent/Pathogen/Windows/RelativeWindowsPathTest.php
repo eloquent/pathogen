@@ -133,6 +133,25 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         new RelativeWindowsPath(array());
     }
 
+    public function sliceAtomsData()
+    {
+        //                                  path                index  length  expectedResult
+        return array(
+            'Slice till end'       => array('foo/bar/baz/qux',  1,     null,   array('bar', 'baz', 'qux')),
+            'Slice specific range' => array('foo/bar/baz/qux',  1,     2,      array('bar', 'baz')),
+        );
+    }
+
+    /**
+     * @dataProvider sliceAtomsData
+     */
+    public function testSliceAtoms($pathString, $index, $length, array $expectedResult)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame($expectedResult, $path->sliceAtoms($index, $length));
+    }
+
     public function namePartData()
     {
         //                                             path            name            nameWithoutExtension  namePrefix  nameSuffix  extension
