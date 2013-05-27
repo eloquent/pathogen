@@ -11,6 +11,7 @@
 
 namespace Eloquent\Pathogen\Windows;
 
+use ArrayIterator;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -566,6 +567,50 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
             "Invalid path atom 'bar/foo'. Path atoms must not contain separators."
         );
         $path->prefixName('bar/');
+    }
+
+    public function replaceData()
+    {
+        //                                              path                offset  replacement              length  expectedResult
+        return array(
+            'Replace single atom implicit'     => array('foo/bar/baz/qux',  2,      array('doom'),           null,   'foo/bar/doom'),
+            'Replace multiple atoms implicit'  => array('foo/bar/baz/qux',  1,      array('doom', 'splat'),  null,   'foo/doom/splat'),
+            'Replace single atom explicit'     => array('foo/bar/baz/qux',  1,      array('doom'),           2,      'foo/doom/qux'),
+            'Replace multiple atoms explicit'  => array('foo/bar/baz/qux',  1,      array('doom', 'splat'),  1,      'foo/doom/splat/baz/qux'),
+            'Replace atoms past end'           => array('foo/bar/baz/qux',  111,    array('doom'),           222,    'foo/bar/baz/qux/doom'),
+        );
+    }
+
+    /**
+     * @dataProvider replaceData
+     */
+    public function testReplace($pathString, $offset, $replacement, $length, $expectedResultString)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame(
+            $expectedResultString,
+            $path->replace($offset, $replacement, $length)->string()
+        );
+    }
+
+    public function testReplaceWithNonArray()
+    {
+        $path = $this->factory->create('foo/bar/baz/qux');
+        $result = $path->replace(1, new ArrayIterator(array('doom', 'splat')), 1);
+
+        $this->assertSame('foo/doom/splat/baz/qux', $result->string());
+    }
+
+    public function testReplaceFailureAtomContainingSeparator()
+    {
+        $path = $this->factory->create('foo');
+
+        $this->setExpectedException(
+            'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
+            "Invalid path atom 'bar/'. Path atoms must not contain separators."
+        );
+        $path->replace(1, array('bar/'));
     }
 
     public function replaceNameData()
