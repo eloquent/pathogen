@@ -300,6 +300,18 @@ interface PathInterface
      */
     public function replaceExtension($extension);
 
+    /**
+     * Returns a new path instance that has a portion of this name's atoms
+     * replaced with a different sequence of atoms.
+     *
+     * @param integer       $offset
+     * @param mixed<string> $replacement
+     * @param integer|null  $length
+     *
+     * @return PathInterface
+     */
+    public function replaceNameAtoms($offset, $replacement, $length = null);
+
     const ATOM_SEPARATOR = '/';
     const EXTENSION_SEPARATOR = '.';
     const PARENT_ATOM = '..';

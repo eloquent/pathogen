@@ -711,6 +711,39 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $path->replaceExtension('qux/');
     }
 
+    public function replaceNameAtomsData()
+    {
+        //                                              path                offset  replacement              length  expectedResult
+        return array(
+            'Replace single atom implicit'     => array('foo.bar.baz.qux',  2,      array('doom'),           null,   'foo.bar.doom'),
+            'Replace multiple atoms implicit'  => array('foo.bar.baz.qux',  1,      array('doom', 'splat'),  null,   'foo.doom.splat'),
+            'Replace single atom explicit'     => array('foo.bar.baz.qux',  1,      array('doom'),           2,      'foo.doom.qux'),
+            'Replace multiple atoms explicit'  => array('foo.bar.baz.qux',  1,      array('doom', 'splat'),  1,      'foo.doom.splat.baz.qux'),
+            'Replace atoms past end'           => array('foo.bar.baz.qux',  111,    array('doom'),           222,    'foo.bar.baz.qux.doom'),
+        );
+    }
+
+    /**
+     * @dataProvider replaceNameAtomsData
+     */
+    public function testReplaceAtoms($pathString, $offset, $replacement, $length, $expectedResultString)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame(
+            $expectedResultString,
+            $path->replaceNameAtoms($offset, $replacement, $length)->string()
+        );
+    }
+
+    public function testReplaceAtomsWithNonArray()
+    {
+        $path = $this->factory->create('foo.bar.baz.qux');
+        $result = $path->replaceNameAtoms(1, new ArrayIterator(array('doom', 'splat')), 1);
+
+        $this->assertSame('foo.doom.splat.baz.qux', $result->string());
+    }
+
     // tests for RelativePathInterface implementation ==========================
 
     public function isSelfData()

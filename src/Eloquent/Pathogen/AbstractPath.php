@@ -483,10 +483,7 @@ abstract class AbstractPath implements PathInterface
      */
     public function replaceNamePrefix($namePrefix)
     {
-        $atoms = $this->nameAtoms();
-        array_splice($atoms, 0, 1, array($namePrefix));
-
-        return $this->replaceName(implode(self::EXTENSION_SEPARATOR, $atoms));
+        return $this->replaceNameAtoms(0, array($namePrefix), 1);
     }
 
     /**
@@ -556,6 +553,32 @@ abstract class AbstractPath implements PathInterface
         } elseif (null !== $extension) {
             $atoms[] = $extension;
         }
+
+        return $this->replaceName(implode(self::EXTENSION_SEPARATOR, $atoms));
+    }
+
+    /**
+     * Returns a new path instance that has a portion of this name's atoms
+     * replaced with a different sequence of atoms.
+     *
+     * @param integer       $offset
+     * @param mixed<string> $replacement
+     * @param integer|null  $length
+     *
+     * @return PathInterface
+     */
+    public function replaceNameAtoms($offset, $replacement, $length = null)
+    {
+        $atoms = $this->nameAtoms();
+
+        if (!is_array($replacement)) {
+            $replacement = iterator_to_array($replacement);
+        }
+        if (null === $length) {
+            $length = count($atoms);
+        }
+
+        array_splice($atoms, $offset, $length, $replacement);
 
         return $this->replaceName(implode(self::EXTENSION_SEPARATOR, $atoms));
     }
