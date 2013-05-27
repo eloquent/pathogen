@@ -32,7 +32,11 @@ abstract class AbstractPath implements PathInterface
     // Implementation of PathInterface =========================================
 
     /**
-     * @inheritDoc
+     * Returns the atoms of this path as an array of strings.
+     *
+     * For example, the path '/foo/bar' has the atoms 'foo' and 'bar'.
+     *
+     * @return array<integer,string>
      */
     public function atoms()
     {
@@ -40,7 +44,12 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns a subsequence of the atoms of this path as an array of strings.
+     *
+     * @param integer      $index
+     * @param integer|null $length
+     *
+     * @return array<integer,string>
      */
     public function sliceAtoms($index, $length = null)
     {
@@ -52,6 +61,11 @@ abstract class AbstractPath implements PathInterface
         return array_slice($atoms, $index, $length);
     }
 
+    /**
+     * Returns true is at least one atom is present.
+     *
+     * @return boolean
+     */
     public function hasAtoms()
     {
         return count($this->atoms()) > 0;
@@ -119,6 +133,25 @@ abstract class AbstractPath implements PathInterface
     public function nameAtoms()
     {
         return explode(static::EXTENSION_SEPARATOR, $this->name());
+    }
+
+    /**
+     * Returns a subsequence of the atoms of this path's name as an array of
+     * strings.
+     *
+     * @param integer      $index
+     * @param integer|null $length
+     *
+     * @return array<integer,string>
+     */
+    public function sliceNameAtoms($index, $length = null)
+    {
+        $atoms = $this->nameAtoms();
+        if (null === $length) {
+            $length = count($atoms);
+        }
+
+        return array_slice($atoms, $index, $length);
     }
 
     /**

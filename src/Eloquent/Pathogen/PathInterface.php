@@ -79,6 +79,17 @@ interface PathInterface
     public function nameAtoms();
 
     /**
+     * Returns a subsequence of the atoms of this path's name as an array of
+     * strings.
+     *
+     * @param integer      $index
+     * @param integer|null $length
+     *
+     * @return array<integer,string>
+     */
+    public function sliceNameAtoms($index, $length = null);
+
+    /**
      * Returns the last atom of this path, excluding the last extension.
      *
      * If this path has no atoms, an empty string is returned.

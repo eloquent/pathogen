@@ -158,6 +158,25 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($nameAtoms, $path->nameAtoms());
     }
 
+    public function sliceNameAtomsData()
+    {
+        //                                  path                index  length  expectedResult
+        return array(
+            'Slice till end'       => array('foo.bar.baz.qux',  1,     null,   array('bar', 'baz', 'qux')),
+            'Slice specific range' => array('foo.bar.baz.qux',  1,     2,      array('bar', 'baz')),
+        );
+    }
+
+    /**
+     * @dataProvider sliceNameAtomsData
+     */
+    public function testNameSliceAtoms($pathString, $index, $length, array $expectedResult)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame($expectedResult, $path->sliceNameAtoms($index, $length));
+    }
+
     public function parentData()
     {
         //                             path        parent
