@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2a3c7a0eb2d593e059789647ac270ce9",
+    "hash": "229d6525de7b23eefe6b1c22e3299a98",
     "packages": [
         {
             "name": "icecave/isolator",
@@ -38,7 +38,8 @@
             "authors": [
                 {
                     "name": "James Harris",
-                    "email": "james.harris@icecave.com.au"
+                    "email": "james.harris@icecave.com.au",
+                    "homepage": "https://github.com/jmalloc"
                 }
             ],
             "description": "Isolate PHP tests from the global environment.",
@@ -57,16 +58,16 @@
     "packages-dev": [
         {
             "name": "icecave/archer",
-            "version": "dev-develop",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/archer.git",
-                "reference": "b8b2092c766992b72b40c853f8ba66687216f72a"
+                "reference": "0.4.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IcecaveStudios/archer/zipball/b8b2092c766992b72b40c853f8ba66687216f72a",
-                "reference": "b8b2092c766992b72b40c853f8ba66687216f72a",
+                "url": "https://api.github.com/repos/IcecaveStudios/archer/zipball/0.4.0",
+                "reference": "0.4.0",
                 "shasum": ""
             },
             "require": {
@@ -123,7 +124,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2013-05-24 04:14:39"
+            "time": "2013-05-27 03:41:09"
         },
         {
             "name": "nikic/php-parser",
@@ -599,9 +600,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "icecave/archer": 20
-    },
+    "stability-flags": [
+
+    ],
     "platform": {
         "php": ">=5.3.3"
     },
