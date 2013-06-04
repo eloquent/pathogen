@@ -5,6 +5,8 @@
 [![Build Status]][Latest build]
 [![Test Coverage]][Test coverage report]
 
+## Installation and documentation
+
 * Available as [Composer] package [eloquent/pathogen].
 * [API documentation] available.
 
