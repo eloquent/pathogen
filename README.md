@@ -2,12 +2,11 @@
 
 *General-purpose path library for PHP.*
 
-[![Build Status]](http://travis-ci.org/eloquent/pathogen)
-[![Test Coverage]](http://lqnt.co/pathogen/artifacts/tests/coverage/)
+[![Build Status]][Latest build]
+[![Test Coverage]][Test coverage report]
 
-## Installation
-
-Available as [Composer][] package [eloquent/pathogen][].
+* Available as [Composer] package [eloquent/pathogen].
+* [API documentation] available.
 
 ## What is Pathogen?
 
@@ -106,8 +105,8 @@ any trailing slashes unless it is explicitly stated otherwise.
 ### Absolute and relative paths
 
 In Pathogen, absolute and relative paths are represented by two different
-classes. While both classes implement a common [PathInterface][], other methods
-are provided by the [AbsolutePathInterface][] or the [RelativePathInterface][]
+classes. While both classes implement a common [PathInterface], other methods
+are provided by the [AbsolutePathInterface] or the [RelativePathInterface]
 respectively.
 
 This distinction provides, amongst other benefits, the ability to harness PHP's
@@ -145,9 +144,9 @@ as a single self atom (`.`).
 ### Path factories
 
 Pathogen provides factory classes for creating paths. All path factories
-implement [PathFactoryInterface][] which allows a path to be created from
-various kinds of input. This is the typical way in which path instances are
-created, although the path classes *can* be constructed directly if desired.
+implement [PathFactoryInterface] which allows a path to be created from various
+kinds of input. This is the typical way in which path instances are created,
+although the path classes *can* be constructed directly if desired.
 
 A simple example of path factory usage is as follows:
 
@@ -229,7 +228,7 @@ applied depending on the situation.
 
 The first approach is to inspect the path string and create an appropriate path
 instance based upon a 'best guess'. This is handled by the
-[FileSystemPathFactory][]:
+[FileSystemPathFactory]:
 
 ```php
 use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory;
@@ -243,7 +242,7 @@ $pathBar = $factory->create('C:/path/to/bar'); // creates a windows path
 The second approach is to create paths based upon the current platform the code
 is running under. That is, when running under Linux or Unix, create unix-style
 paths, and when running under Windows, create windows paths. This is handled by
-the [PlatformFileSystemPathFactory][]:
+the [PlatformFileSystemPathFactory]:
 
 ```php
 use Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory;
@@ -321,13 +320,16 @@ echo $pathWithExtension->string(); // outputs '/path/to/foo.bar.baz'
 
 <!-- References -->
 
-[AbsolutePathInterface]: src/Eloquent/Pathogen/AbsolutePathInterface.php
+[AbsolutePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/AbsolutePathInterface.html
+[API documentation]: http://lqnt.co/pathogen/artifacts/documentation/api/
 [Build Status]: https://raw.github.com/eloquent/pathogen/gh-pages/artifacts/images/icecave/regular/build-status.png
 [Composer]: http://getcomposer.org/
 [eloquent/pathogen]: https://packagist.org/packages/eloquent/pathogen
-[FileSystemPathFactory]: src/Eloquent/Pathogen/FileSystem/Factory/FileSystemPathFactory.php
-[PathFactoryInterface]: src/Eloquent/Pathogen/Factory/PathFactoryInterface.php
-[PathInterface]: src/Eloquent/Pathogen/PathInterface.php
-[PlatformFileSystemPathFactory]: src/Eloquent/Pathogen/FileSystem/Factory/PlatformFileSystemPathFactory.php
-[RelativePathInterface]: src/Eloquent/Pathogen/RelativePathInterface.php
+[FileSystemPathFactory]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/Factory/FileSystemPathFactory.html
+[Latest build]: http://travis-ci.org/eloquent/pathogen
+[PathFactoryInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/Factory/PathFactoryInterface.html
+[PathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/PathInterface.html
+[PlatformFileSystemPathFactory]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/Factory/PlatformFileSystemPathFactory.html
+[RelativePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/RelativePathInterface.html
+[Test coverage report]: http://lqnt.co/pathogen/artifacts/tests/coverage/
 [Test Coverage]: https://raw.github.com/eloquent/pathogen/gh-pages/artifacts/images/icecave/regular/coverage.png
