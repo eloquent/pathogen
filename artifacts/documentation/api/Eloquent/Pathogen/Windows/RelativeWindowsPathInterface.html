@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="robots" content="index, follow, all" />
-        <title>Eloquent\Pathogen\Windows\RelativeWindowsPathInterface | eloquent/pathogen API</title>
+        <title>Eloquent\Pathogen\Windows\RelativeWindowsPathInterface | Pathogen API</title>
                     <link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
                             </head>
         <body id="class">
@@ -16,7 +16,7 @@
             
         </ul>
 
-        <div id="title">eloquent/pathogen API</div>
+        <div id="title">Pathogen API</div>
 
             <div class="type">Interface</div>
     <h1><a href="../../../Eloquent/Pathogen/Windows.html">Eloquent\Pathogen\Windows</a>\RelativeWindowsPathInterface</h1>
@@ -37,7 +37,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_isSelf">isSelf</a>(<a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
-                    <p>Returns true if this path is the self path.</p>
+                    <p>Determine whether this path is the self path.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/RelativePathInterface.html#method_isSelf"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a></small></td>
             </tr>
@@ -47,12 +47,12 @@
         <h2>Details</h2>
 
                         <h3 id="method_isSelf">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePathInterface.html#method_isSelf"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> at line 26</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePathInterface.html#method_isSelf"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> at line 30</div>
         <code>            public            boolean
     <strong>isSelf</strong>(<a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
     <div class="details">
-        <p>Returns true if this path is the self path.</p>
+        <p>Determine whether this path is the self path.</p>
         <p>The self path is a relative path with a single self atom (i.e. a dot<br />
  &#039;.&#039;).</p>
         <div class="tags">
@@ -62,7 +62,7 @@
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
                 <td>$normalizer</td>
-                <td></td>
+                <td>The normalizer to use when determining the result.</td>
             </tr>
             </table>
 
@@ -72,7 +72,7 @@
                     <table>
         <tr>
             <td>boolean</td>
-            <td></td>
+            <td>True if this path is the self path.</td>
         </tr>
     </table>
 

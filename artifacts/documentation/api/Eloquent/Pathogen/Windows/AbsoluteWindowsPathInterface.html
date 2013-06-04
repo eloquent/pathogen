@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="robots" content="index, follow, all" />
-        <title>Eloquent\Pathogen\Windows\AbsoluteWindowsPathInterface | eloquent/pathogen API</title>
+        <title>Eloquent\Pathogen\Windows\AbsoluteWindowsPathInterface | Pathogen API</title>
                     <link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
                             </head>
         <body id="class">
@@ -16,7 +16,7 @@
             
         </ul>
 
-        <div id="title">eloquent/pathogen API</div>
+        <div id="title">Pathogen API</div>
 
             <div class="type">Interface</div>
     <h1><a href="../../../Eloquent/Pathogen/Windows.html">Eloquent\Pathogen\Windows</a>\AbsoluteWindowsPathInterface</h1>
@@ -37,7 +37,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_isRoot">isRoot</a>(<a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
-                    <p>Returns true if this path is the root path.</p>
+                    <p>Determine whether this path is the root path.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html#method_isRoot"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></small></td>
             </tr>
@@ -47,7 +47,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_isParentOf">isParentOf</a>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
-                    <p>Returns true if this path is the direct parent of the supplied path.</p>
+                    <p>Determine if this path is the direct parent of the supplied path.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html#method_isParentOf"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></small></td>
             </tr>
@@ -57,7 +57,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_isAncestorOf">isAncestorOf</a>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
-                    <p>Returns true if this path is an ancestor of the supplied path.</p>
+                    <p>Determine if this path is an ancestor of the supplied path.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html#method_isAncestorOf"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></small></td>
             </tr>
@@ -67,7 +67,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_relativeTo">relativeTo</a>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
-                    <p>Returns a relative path from the supplied path to this path.</p>
+                    <p>Determine the shortest path from the supplied path to this path.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html#method_relativeTo"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></small></td>
             </tr>
@@ -107,12 +107,12 @@
         <h2>Details</h2>
 
                         <h3 id="method_isRoot">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html#method_isRoot"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> at line 25</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html#method_isRoot"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> at line 29</div>
         <code>            public            boolean
     <strong>isRoot</strong>(<a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
     <div class="details">
-        <p>Returns true if this path is the root path.</p>
+        <p>Determine whether this path is the root path.</p>
         <p>The root path is an absolute path with no atoms.</p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -121,7 +121,7 @@
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
                 <td>$normalizer</td>
-                <td></td>
+                <td>The normalizer to use when determining the result.</td>
             </tr>
             </table>
 
@@ -131,7 +131,7 @@
                     <table>
         <tr>
             <td>boolean</td>
-            <td></td>
+            <td>True if this path is the root path.</td>
         </tr>
     </table>
 
@@ -141,12 +141,12 @@
     </div>
 
                 <h3 id="method_isParentOf">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html#method_isParentOf"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> at line 37</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html#method_isParentOf"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> at line 44</div>
         <code>            public            boolean
     <strong>isParentOf</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
     <div class="details">
-        <p>Returns true if this path is the direct parent of the supplied path.</p>
+        <p>Determine if this path is the direct parent of the supplied path.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -155,12 +155,12 @@
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
                 <td>$path</td>
-                <td></td>
+                <td>The child path.</td>
             </tr>
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
                 <td>$normalizer</td>
-                <td></td>
+                <td>The normalizer to use when determining the result.</td>
             </tr>
             </table>
 
@@ -170,7 +170,7 @@
                     <table>
         <tr>
             <td>boolean</td>
-            <td></td>
+            <td>True if this path is the direct parent of the supplied path.</td>
         </tr>
     </table>
 
@@ -180,12 +180,12 @@
     </div>
 
                 <h3 id="method_isAncestorOf">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html#method_isAncestorOf"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> at line 50</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html#method_isAncestorOf"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> at line 59</div>
         <code>            public            boolean
     <strong>isAncestorOf</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
     <div class="details">
-        <p>Returns true if this path is an ancestor of the supplied path.</p>
+        <p>Determine if this path is an ancestor of the supplied path.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -194,12 +194,12 @@
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
                 <td>$path</td>
-                <td></td>
+                <td>The child path.</td>
             </tr>
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
                 <td>$normalizer</td>
-                <td></td>
+                <td>The normalizer to use when determining the result.</td>
             </tr>
             </table>
 
@@ -209,7 +209,7 @@
                     <table>
         <tr>
             <td>boolean</td>
-            <td></td>
+            <td>True if this path is an ancestor of the supplied path.</td>
         </tr>
     </table>
 
@@ -219,12 +219,12 @@
     </div>
 
                 <h3 id="method_relativeTo">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html#method_relativeTo"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> at line 66</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html#method_relativeTo"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> at line 78</div>
         <code>            public            <a href="../../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a>
     <strong>relativeTo</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
     <div class="details">
-        <p>Returns a relative path from the supplied path to this path.</p>
+        <p>Determine the shortest path from the supplied path to this path.</p>
         <p>For example, given path A equal to &#039;/foo/bar&#039;, and path B equal to<br />
  &#039;/foo/baz&#039;, A relative to B would be &#039;../bar&#039;.</p>
         <div class="tags">
@@ -234,12 +234,12 @@
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
                 <td>$path</td>
-                <td></td>
+                <td>The path that the generated path will be relative to.</td>
             </tr>
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
                 <td>$normalizer</td>
-                <td></td>
+                <td>The normalizer to use when determining the result.</td>
             </tr>
             </table>
 
@@ -249,7 +249,7 @@
                     <table>
         <tr>
             <td><a href="../../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a></td>
-            <td></td>
+            <td>A relative path from the supplied path to this path.</td>
         </tr>
     </table>
 

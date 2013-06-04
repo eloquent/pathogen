@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="robots" content="index, follow, all" />
-        <title>Eloquent\Pathogen\AbstractPath | eloquent/pathogen API</title>
+        <title>Eloquent\Pathogen\AbstractPath | Pathogen API</title>
                     <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
                             </head>
         <body id="class">
@@ -16,7 +16,7 @@
             
         </ul>
 
-        <div id="title">eloquent/pathogen API</div>
+        <div id="title">Pathogen API</div>
 
             <div class="type">Class</div>
     <h1><a href="../../Eloquent/Pathogen.html">Eloquent\Pathogen</a>\AbstractPath</h1>
@@ -25,6 +25,10 @@
                 <p>abstract class    <strong>AbstractPath</strong>        implements
         <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></p>
 
+            <div class="description">
+            <p>Abstract base class for implementing PathInterface.</p>
+            <p></p>
+        </div>
     
     
     
@@ -37,7 +41,7 @@
                 </td>
                 <td class="last">
                     <a href="#method___construct">__construct</a>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, boolean|null $hasTrailingSeparator = null)
-                    <p></p>
+                    <p>Construct a new path instance.</p>
                 </td>
                 <td></td>
             </tr>
@@ -47,7 +51,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_atoms">atoms</a>()
-                    <p>Returns the atoms of this path as an array of strings.</p>
+                    <p>Get the atoms of this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -57,7 +61,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_sliceAtoms">sliceAtoms</a>(integer $index, integer|null $length = null)
-                    <p>Returns a subsequence of the atoms of this path as an array of strings.</p>
+                    <p>Get a subset of the atoms of this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -67,7 +71,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_hasAtoms">hasAtoms</a>()
-                    <p>Returns true is at least one atom is present.</p>
+                    <p>Determine if this path has any atoms.</p>
                 </td>
                 <td></td>
             </tr>
@@ -77,7 +81,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_hasTrailingSeparator">hasTrailingSeparator</a>()
-                    <p>Returns true if this path ends with a path separator.</p>
+                    <p>Determine if this path has a trailing separator.</p>
                 </td>
                 <td></td>
             </tr>
@@ -87,7 +91,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_string">string</a>()
-                    <p>Returns a string representation of this path.</p>
+                    <p>Generate a string representation of this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -97,7 +101,7 @@
                 </td>
                 <td class="last">
                     <a href="#method___toString">__toString</a>()
-                    <p>Returns a string representation of this path.</p>
+                    <p>Generate a string representation of this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -107,7 +111,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_name">name</a>()
-                    <p>Returns the last atom of this path.</p>
+                    <p>Get this path&#039;s name.</p>
                 </td>
                 <td></td>
             </tr>
@@ -117,7 +121,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_nameAtoms">nameAtoms</a>()
-                    <p>Returns the atoms of this path&#039;s name as an array of strings.</p>
+                    <p>Get this path&#039;s name atoms.</p>
                 </td>
                 <td></td>
             </tr>
@@ -127,7 +131,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_sliceNameAtoms">sliceNameAtoms</a>(integer $index, integer|null $length = null)
-                    <p>Returns a subsequence of the atoms of this path&#039;s name as an array of strings.</p>
+                    <p>Get a subset of this path&#039;s name atoms.</p>
                 </td>
                 <td></td>
             </tr>
@@ -137,7 +141,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_nameWithoutExtension">nameWithoutExtension</a>()
-                    <p>Returns the last atom of this path, excluding the last extension.</p>
+                    <p>Get this path&#039;s name, excluding the last extension.</p>
                 </td>
                 <td></td>
             </tr>
@@ -147,7 +151,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_namePrefix">namePrefix</a>()
-                    <p>Returns the last atom of this path, excluding any extensions.</p>
+                    <p>Get this path&#039;s name, excluding all extensions.</p>
                 </td>
                 <td></td>
             </tr>
@@ -157,7 +161,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_nameSuffix">nameSuffix</a>()
-                    <p>Returns the extensions of this path&#039;s last atom.</p>
+                    <p>Get all of this path&#039;s extensions.</p>
                 </td>
                 <td></td>
             </tr>
@@ -167,7 +171,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_extension">extension</a>()
-                    <p>Returns the last extension of this path&#039;s last atom.</p>
+                    <p>Get this path&#039;s last extension.</p>
                 </td>
                 <td></td>
             </tr>
@@ -177,7 +181,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_hasExtension">hasExtension</a>()
-                    <p>Returns true if this path&#039;s last atom has any extensions.</p>
+                    <p>Determine if this path has any extensions.</p>
                 </td>
                 <td></td>
             </tr>
@@ -187,7 +191,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_parent">parent</a>()
-                    <p>Returns the parent of this path.</p>
+                    <p>Get the parent of this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -197,7 +201,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_stripTrailingSlash">stripTrailingSlash</a>()
-                    <p>Returns a new path instance with the trailing slash removed from this path.</p>
+                    <p>Strips the trailing slash from this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -207,7 +211,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_stripExtension">stripExtension</a>()
-                    <p>Returns a new path instance with the last extension removed from this path.</p>
+                    <p>Strips the last extension from this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -217,7 +221,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_stripNameSuffix">stripNameSuffix</a>()
-                    <p>Returns a new path instance with all extensions removed from this path.</p>
+                    <p>Strips all extensions from this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -227,7 +231,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_joinAtoms">joinAtoms</a>($atom)
-                    <p>Returns a new path with the supplied atom(s) suffixed to this path.</p>
+                    <p>Joins one or more atoms to this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -237,7 +241,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_joinAtomSequence">joinAtomSequence</a>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms)
-                    <p>Returns a new path with the supplied sequence of atoms suffixed to this path.</p>
+                    <p>Joins a sequence of atoms to this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -247,7 +251,17 @@
                 </td>
                 <td class="last">
                     <a href="#method_join">join</a>(<a href="../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> $path)
-                    <p>Returns a new path with the supplied path suffixed to this path.</p>
+                    <p>Joins the supplied path to this path.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_joinTrailingSlash">joinTrailingSlash</a>()
+                    <p>Returns a new path instance with a trailing slash suffixed to this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -257,7 +271,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_joinExtensions">joinExtensions</a>($extension)
-                    <p>Returns a new path instance with the supplied extensions suffixed to this path.</p>
+                    <p>Joins one or more extensions to this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -267,17 +281,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_joinExtensionSequence">joinExtensionSequence</a>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $extensions)
-                    <p>Returns a new path instance with the supplied extensions suffixed to this path.</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
-                </td>
-                <td class="last">
-                    <a href="#method_replace">replace</a>(integer $index, <abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $replacement, integer|null $length = null)
-                    <p>Returns a new path instance that has a portion of this path&#039;s atoms replaced with a different sequence of atoms.</p>
+                    <p>Joins a sequence of extensions to this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -287,7 +291,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_suffixName">suffixName</a>(string $suffix)
-                    <p>Returns a new path instance with the supplied string suffixed to the last path atom.</p>
+                    <p>Suffixes this path&#039;s name with a supplied string.</p>
                 </td>
                 <td></td>
             </tr>
@@ -297,7 +301,17 @@
                 </td>
                 <td class="last">
                     <a href="#method_prefixName">prefixName</a>(string $prefix)
-                    <p>Returns a new path instance with the supplied string prefixed to the last path atom.</p>
+                    <p>Prefixes this path&#039;s name with a supplied string.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_replace">replace</a>(integer $index, <abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $replacement, integer|null $length = null)
+                    <p>Replace a section of this path with the supplied atom sequence.</p>
                 </td>
                 <td></td>
             </tr>
@@ -307,7 +321,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_replaceName">replaceName</a>(string $name)
-                    <p>Returns a new path instance with the supplied name replacing the existing one.</p>
+                    <p>Replace this path&#039;s name.</p>
                 </td>
                 <td></td>
             </tr>
@@ -317,7 +331,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_replaceNameWithoutExtension">replaceNameWithoutExtension</a>(string $nameWithoutExtension)
-                    <p>Returns a new path instance with the supplied name replacing the portion of the existing name preceding the last extension.</p>
+                    <p>Replace this path&#039;s name, but keep the last extension.</p>
                 </td>
                 <td></td>
             </tr>
@@ -327,7 +341,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_replaceNamePrefix">replaceNamePrefix</a>(string $namePrefix)
-                    <p>Returns a new path instance with the supplied name prefix replacing the existing one.</p>
+                    <p>Replace this path&#039;s name, but keep any extensions.</p>
                 </td>
                 <td></td>
             </tr>
@@ -337,7 +351,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_replaceNameSuffix">replaceNameSuffix</a>(string|null $nameSuffix)
-                    <p>Returns a new path instance with the supplied name suffix replacing the existing one.</p>
+                    <p>Replace all of this path&#039;s extensions.</p>
                 </td>
                 <td></td>
             </tr>
@@ -347,7 +361,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_replaceExtension">replaceExtension</a>(string|null $extension)
-                    <p>Returns a new path instance with the supplied extension replacing the existing one.</p>
+                    <p>Replace this path&#039;s last extension.</p>
                 </td>
                 <td></td>
             </tr>
@@ -357,7 +371,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_replaceNameAtoms">replaceNameAtoms</a>(integer $index, <abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $replacement, integer|null $length = null)
-                    <p>Returns a new path instance that has a portion of this name&#039;s atoms replaced with a different sequence of atoms.</p>
+                    <p>Replace a section of this path&#039;s name with the supplied name atom sequence.</p>
                 </td>
                 <td></td>
             </tr>
@@ -367,12 +381,12 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 22</div>
+        <div class="location">at line 29</div>
         <code>            public            
     <strong>__construct</strong>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, boolean|null $hasTrailingSeparator = null)</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Construct a new path instance.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -381,12 +395,12 @@
                     <tr>
                 <td><abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
                 <td>$atoms</td>
-                <td></td>
+                <td>The path atoms.</td>
             </tr>
                     <tr>
                 <td>boolean|null</td>
                 <td>$hasTrailingSeparator</td>
-                <td></td>
+                <td>True if this path has a trailing separator.</td>
             </tr>
             </table>
 
@@ -397,7 +411,7 @@
                     <table>
                     <tr>
                 <td><abbr title="Exception\InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
-                <td></td>
+                <td>If any of the supplied path atoms are invalid.</td>
             </tr>
             </table>
 
@@ -406,12 +420,12 @@
     </div>
 
                 <h3 id="method_atoms">
-        <div class="location">at line 41</div>
+        <div class="location">at line 49</div>
         <code>            public            <abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr>
     <strong>atoms</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns the atoms of this path as an array of strings.</p>
+        <p>Get the atoms of this path.</p>
         <p>For example, the path &#039;/foo/bar&#039; has the atoms &#039;foo&#039; and &#039;bar&#039;.</p>
         <div class="tags">
             
@@ -420,7 +434,7 @@
                     <table>
         <tr>
             <td><abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr></td>
-            <td></td>
+            <td>The atoms of this path as an array of strings.</td>
         </tr>
     </table>
 
@@ -430,12 +444,12 @@
     </div>
 
                 <h3 id="method_sliceAtoms">
-        <div class="location">at line 54</div>
+        <div class="location">at line 63</div>
         <code>            public            <abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr>
     <strong>sliceAtoms</strong>(integer $index, integer|null $length = null)</code>
     </h3>
     <div class="details">
-        <p>Returns a subsequence of the atoms of this path as an array of strings.</p>
+        <p>Get a subset of the atoms of this path.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -444,12 +458,12 @@
                     <tr>
                 <td>integer</td>
                 <td>$index</td>
-                <td></td>
+                <td>The index of the first atom.</td>
             </tr>
                     <tr>
                 <td>integer|null</td>
                 <td>$length</td>
-                <td></td>
+                <td>The maximum number of atoms.</td>
             </tr>
             </table>
 
@@ -459,7 +473,7 @@
                     <table>
         <tr>
             <td><abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr></td>
-            <td></td>
+            <td>An array of strings representing the subset of path atoms.</td>
         </tr>
     </table>
 
@@ -469,12 +483,12 @@
     </div>
 
                 <h3 id="method_hasAtoms">
-        <div class="location">at line 69</div>
+        <div class="location">at line 78</div>
         <code>            public            boolean
     <strong>hasAtoms</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns true is at least one atom is present.</p>
+        <p>Determine if this path has any atoms.</p>
         <p></p>
         <div class="tags">
             
@@ -483,7 +497,7 @@
                     <table>
         <tr>
             <td>boolean</td>
-            <td></td>
+            <td>True if this path has at least one atom.</td>
         </tr>
     </table>
 
@@ -493,12 +507,12 @@
     </div>
 
                 <h3 id="method_hasTrailingSeparator">
-        <div class="location">at line 79</div>
+        <div class="location">at line 88</div>
         <code>            public            boolean
     <strong>hasTrailingSeparator</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns true if this path ends with a path separator.</p>
+        <p>Determine if this path has a trailing separator.</p>
         <p></p>
         <div class="tags">
             
@@ -507,7 +521,7 @@
                     <table>
         <tr>
             <td>boolean</td>
-            <td></td>
+            <td>True if this path has a trailing separator.</td>
         </tr>
     </table>
 
@@ -517,12 +531,12 @@
     </div>
 
                 <h3 id="method_string">
-        <div class="location">at line 89</div>
+        <div class="location">at line 98</div>
         <code>            public            string
     <strong>string</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns a string representation of this path.</p>
+        <p>Generate a string representation of this path.</p>
         <p></p>
         <div class="tags">
             
@@ -531,7 +545,7 @@
                     <table>
         <tr>
             <td>string</td>
-            <td></td>
+            <td>A string representation of this path.</td>
         </tr>
     </table>
 
@@ -541,12 +555,12 @@
     </div>
 
                 <h3 id="method___toString">
-        <div class="location">at line 102</div>
+        <div class="location">at line 111</div>
         <code>            public            string
     <strong>__toString</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns a string representation of this path.</p>
+        <p>Generate a string representation of this path.</p>
         <p></p>
         <div class="tags">
             
@@ -555,7 +569,7 @@
                     <table>
         <tr>
             <td>string</td>
-            <td></td>
+            <td>A string representation of this path.</td>
         </tr>
     </table>
 
@@ -565,13 +579,13 @@
     </div>
 
                 <h3 id="method_name">
-        <div class="location">at line 114</div>
+        <div class="location">at line 122</div>
         <code>            public            string
     <strong>name</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns the last atom of this path.</p>
-        <p>If this path has no atoms, an empty string is returned.</p>
+        <p>Get this path&#039;s name.</p>
+        <p></p>
         <div class="tags">
             
                             <h4>Return Value</h4>
@@ -579,7 +593,7 @@
                     <table>
         <tr>
             <td>string</td>
-            <td></td>
+            <td>The last path atom if one exists, otherwise an empty string.</td>
         </tr>
     </table>
 
@@ -589,12 +603,12 @@
     </div>
 
                 <h3 id="method_nameAtoms">
-        <div class="location">at line 133</div>
+        <div class="location">at line 142</div>
         <code>            public            <abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr>
     <strong>nameAtoms</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns the atoms of this path&#039;s name as an array of strings.</p>
+        <p>Get this path&#039;s name atoms.</p>
         <p>For example, the path name &#039;foo.bar&#039; has the atoms &#039;foo&#039; and &#039;bar&#039;.</p>
         <div class="tags">
             
@@ -603,7 +617,7 @@
                     <table>
         <tr>
             <td><abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr></td>
-            <td></td>
+            <td>The atoms of this path&#039;s name as an array of strings.</td>
         </tr>
     </table>
 
@@ -613,12 +627,12 @@
     </div>
 
                 <h3 id="method_sliceNameAtoms">
-        <div class="location">at line 147</div>
+        <div class="location">at line 156</div>
         <code>            public            <abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr>
     <strong>sliceNameAtoms</strong>(integer $index, integer|null $length = null)</code>
     </h3>
     <div class="details">
-        <p>Returns a subsequence of the atoms of this path&#039;s name as an array of strings.</p>
+        <p>Get a subset of this path&#039;s name atoms.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -627,12 +641,12 @@
                     <tr>
                 <td>integer</td>
                 <td>$index</td>
-                <td></td>
+                <td>The index of the first atom.</td>
             </tr>
                     <tr>
                 <td>integer|null</td>
                 <td>$length</td>
-                <td></td>
+                <td>The maximum number of atoms.</td>
             </tr>
             </table>
 
@@ -642,7 +656,7 @@
                     <table>
         <tr>
             <td><abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr></td>
-            <td></td>
+            <td>An array of strings representing the subset of path name atoms.</td>
         </tr>
     </table>
 
@@ -652,13 +666,13 @@
     </div>
 
                 <h3 id="method_nameWithoutExtension">
-        <div class="location">at line 164</div>
+        <div class="location">at line 172</div>
         <code>            public            string
     <strong>nameWithoutExtension</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns the last atom of this path, excluding the last extension.</p>
-        <p>If this path has no atoms, an empty string is returned.</p>
+        <p>Get this path&#039;s name, excluding the last extension.</p>
+        <p></p>
         <div class="tags">
             
                             <h4>Return Value</h4>
@@ -666,7 +680,7 @@
                     <table>
         <tr>
             <td>string</td>
-            <td></td>
+            <td>The last atom of this path, excluding the last extension. If this path has no atoms, an empty string is returned.</td>
         </tr>
     </table>
 
@@ -676,13 +690,13 @@
     </div>
 
                 <h3 id="method_namePrefix">
-        <div class="location">at line 183</div>
+        <div class="location">at line 190</div>
         <code>            public            string
     <strong>namePrefix</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns the last atom of this path, excluding any extensions.</p>
-        <p>If this path has no atoms, an empty string is returned.</p>
+        <p>Get this path&#039;s name, excluding all extensions.</p>
+        <p></p>
         <div class="tags">
             
                             <h4>Return Value</h4>
@@ -690,7 +704,7 @@
                     <table>
         <tr>
             <td>string</td>
-            <td></td>
+            <td>The last atom of this path, excluding any extensions. If this path has no atoms, an empty string is returned.</td>
         </tr>
     </table>
 
@@ -700,14 +714,13 @@
     </div>
 
                 <h3 id="method_nameSuffix">
-        <div class="location">at line 198</div>
+        <div class="location">at line 204</div>
         <code>            public            string|null
     <strong>nameSuffix</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns the extensions of this path&#039;s last atom.</p>
-        <p>If the last atom has no extensions, or this path has no atoms, this<br />
- method will return null.</p>
+        <p>Get all of this path&#039;s extensions.</p>
+        <p></p>
         <div class="tags">
             
                             <h4>Return Value</h4>
@@ -715,7 +728,7 @@
                     <table>
         <tr>
             <td>string|null</td>
-            <td></td>
+            <td>The extensions of this path&#039;s last atom. If the last atom has no extensions, or this path has no atoms, this method will return null.</td>
         </tr>
     </table>
 
@@ -725,14 +738,13 @@
     </div>
 
                 <h3 id="method_extension">
-        <div class="location">at line 218</div>
+        <div class="location">at line 223</div>
         <code>            public            string|null
     <strong>extension</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns the last extension of this path&#039;s last atom.</p>
-        <p>If the last atom has no extensions, or this path has no atoms, this<br />
- method will return null.</p>
+        <p>Get this path&#039;s last extension.</p>
+        <p></p>
         <div class="tags">
             
                             <h4>Return Value</h4>
@@ -740,7 +752,7 @@
                     <table>
         <tr>
             <td>string|null</td>
-            <td></td>
+            <td>The last extension of this path&#039;s last atom. If the last atom has no extensions, or this path has no atoms, this method will return null.</td>
         </tr>
     </table>
 
@@ -750,12 +762,12 @@
     </div>
 
                 <h3 id="method_hasExtension">
-        <div class="location">at line 235</div>
+        <div class="location">at line 240</div>
         <code>            public            boolean
     <strong>hasExtension</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns true if this path&#039;s last atom has any extensions.</p>
+        <p>Determine if this path has any extensions.</p>
         <p></p>
         <div class="tags">
             
@@ -764,7 +776,7 @@
                     <table>
         <tr>
             <td>boolean</td>
-            <td></td>
+            <td>True if this path&#039;s last atom has any extensions.</td>
         </tr>
     </table>
 
@@ -774,12 +786,12 @@
     </div>
 
                 <h3 id="method_parent">
-        <div class="location">at line 245</div>
+        <div class="location">at line 250</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>parent</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns the parent of this path.</p>
+        <p>Get the parent of this path.</p>
         <p></p>
         <div class="tags">
             
@@ -788,7 +800,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>The parent of this path.</td>
         </tr>
     </table>
 
@@ -798,13 +810,13 @@
     </div>
 
                 <h3 id="method_stripTrailingSlash">
-        <div class="location">at line 264</div>
+        <div class="location">at line 268</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>stripTrailingSlash</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance with the trailing slash removed from this path.</p>
-        <p>If this path has no trailing slash, the path is returned unmodified.</p>
+        <p>Strips the trailing slash from this path.</p>
+        <p></p>
         <div class="tags">
             
                             <h4>Return Value</h4>
@@ -812,7 +824,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance with the trailing slash removed from this path. If this path has no trailing slash, the path is returned unmodified.</td>
         </tr>
     </table>
 
@@ -822,13 +834,13 @@
     </div>
 
                 <h3 id="method_stripExtension">
-        <div class="location">at line 284</div>
+        <div class="location">at line 287</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>stripExtension</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance with the last extension removed from this path.</p>
-        <p>If this path has no extensions, the path is returned unmodified.</p>
+        <p>Strips the last extension from this path.</p>
+        <p></p>
         <div class="tags">
             
                             <h4>Return Value</h4>
@@ -836,7 +848,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance with the last extension removed from this path. If this path has no extensions, the path is returned unmodified.</td>
         </tr>
     </table>
 
@@ -846,13 +858,13 @@
     </div>
 
                 <h3 id="method_stripNameSuffix">
-        <div class="location">at line 296</div>
+        <div class="location">at line 299</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>stripNameSuffix</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance with all extensions removed from this path.</p>
-        <p>If this path has no extensions, the path is returned unmodified.</p>
+        <p>Strips all extensions from this path.</p>
+        <p></p>
         <div class="tags">
             
                             <h4>Return Value</h4>
@@ -860,7 +872,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance with all extensions removed from this path. If this path has no extensions, the path is returned unmodified.</td>
         </tr>
     </table>
 
@@ -870,12 +882,12 @@
     </div>
 
                 <h3 id="method_joinAtoms">
-        <div class="location">at line 311</div>
+        <div class="location">at line 315</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinAtoms</strong>($atom)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path with the supplied atom(s) suffixed to this path.</p>
+        <p>Joins one or more atoms to this path.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -894,7 +906,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path with the supplied atom(s) suffixed to this path.</td>
         </tr>
     </table>
 
@@ -913,12 +925,12 @@
     </div>
 
                 <h3 id="method_joinAtomSequence">
-        <div class="location">at line 326</div>
+        <div class="location">at line 330</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinAtomSequence</strong>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path with the supplied sequence of atoms suffixed to this path.</p>
+        <p>Joins a sequence of atoms to this path.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -927,7 +939,7 @@
                     <tr>
                 <td><abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
                 <td>$atoms</td>
-                <td></td>
+                <td>The path atoms to append.</td>
             </tr>
             </table>
 
@@ -937,7 +949,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path with the supplied sequence of atoms suffixed to this path.</td>
         </tr>
     </table>
 
@@ -956,12 +968,12 @@
     </div>
 
                 <h3 id="method_join">
-        <div class="location">at line 345</div>
+        <div class="location">at line 351</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>join</strong>(<a href="../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> $path)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path with the supplied path suffixed to this path.</p>
+        <p>Joins the supplied path to this path.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -970,7 +982,7 @@
                     <tr>
                 <td><a href="../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a></td>
                 <td>$path</td>
-                <td></td>
+                <td>The path whose atoms should be joined to this path.</td>
             </tr>
             </table>
 
@@ -980,7 +992,31 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path with the supplied path suffixed to this path.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_joinTrailingSlash">
+        <div class="location">at line 361</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>joinTrailingSlash</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns a new path instance with a trailing slash suffixed to this path.</p>
+        <p></p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td>A new path instance with a trailing slash suffixed to this path.</td>
         </tr>
     </table>
 
@@ -990,12 +1026,12 @@
     </div>
 
                 <h3 id="method_joinExtensions">
-        <div class="location">at line 361</div>
+        <div class="location">at line 385</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinExtensions</strong>($extension)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance with the supplied extensions suffixed to this path.</p>
+        <p>Joins one or more extensions to this path.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -1014,7 +1050,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance with the supplied extensions suffixed to this path.</td>
         </tr>
     </table>
 
@@ -1033,12 +1069,12 @@
     </div>
 
                 <h3 id="method_joinExtensionSequence">
-        <div class="location">at line 376</div>
+        <div class="location">at line 400</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinExtensionSequence</strong>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $extensions)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance with the supplied extensions suffixed to this path.</p>
+        <p>Joins a sequence of extensions to this path.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -1057,7 +1093,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance with the supplied extensions suffixed to this path.</td>
         </tr>
     </table>
 
@@ -1075,57 +1111,13 @@
                     </div>
     </div>
 
-                <h3 id="method_replace">
-        <div class="location">at line 405</div>
-        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
-    <strong>replace</strong>(integer $index, <abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $replacement, integer|null $length = null)</code>
-    </h3>
-    <div class="details">
-        <p>Returns a new path instance that has a portion of this path&#039;s atoms replaced with a different sequence of atoms.</p>
-        <p></p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td>integer</td>
-                <td>$index</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td><abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
-                <td>$replacement</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>integer|null</td>
-                <td>$length</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
                 <h3 id="method_suffixName">
-        <div class="location">at line 434</div>
+        <div class="location">at line 429</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>suffixName</strong>(string $suffix)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance with the supplied string suffixed to the last path atom.</p>
+        <p>Suffixes this path&#039;s name with a supplied string.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -1134,7 +1126,7 @@
                     <tr>
                 <td>string</td>
                 <td>$suffix</td>
-                <td></td>
+                <td>The string to suffix to the path name.</td>
             </tr>
             </table>
 
@@ -1144,7 +1136,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance with the supplied string suffixed to the last path atom.</td>
         </tr>
     </table>
 
@@ -1163,12 +1155,12 @@
     </div>
 
                 <h3 id="method_prefixName">
-        <div class="location">at line 454</div>
+        <div class="location">at line 449</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>prefixName</strong>(string $prefix)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance with the supplied string prefixed to the last path atom.</p>
+        <p>Prefixes this path&#039;s name with a supplied string.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -1177,7 +1169,7 @@
                     <tr>
                 <td>string</td>
                 <td>$prefix</td>
-                <td></td>
+                <td>The string to prefix to the path name.</td>
             </tr>
             </table>
 
@@ -1187,7 +1179,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance with the supplied string prefixed to the last path atom.</td>
         </tr>
     </table>
 
@@ -1205,22 +1197,32 @@
                     </div>
     </div>
 
-                <h3 id="method_replaceName">
-        <div class="location">at line 472</div>
+                <h3 id="method_replace">
+        <div class="location">at line 470</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
-    <strong>replaceName</strong>(string $name)</code>
+    <strong>replace</strong>(integer $index, <abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $replacement, integer|null $length = null)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance with the supplied name replacing the existing one.</p>
+        <p>Replace a section of this path with the supplied atom sequence.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
 
                     <table>
                     <tr>
-                <td>string</td>
-                <td>$name</td>
-                <td></td>
+                <td>integer</td>
+                <td>$index</td>
+                <td>The start index of the replacement.</td>
+            </tr>
+                    <tr>
+                <td><abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
+                <td>$replacement</td>
+                <td>The replacement atom sequence.</td>
+            </tr>
+                    <tr>
+                <td>integer|null</td>
+                <td>$length</td>
+                <td>The number of atoms to replace. If $length is null, the entire remainder of the path will be replaced.</td>
             </tr>
             </table>
 
@@ -1230,7 +1232,41 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance that has a portion of this path&#039;s atoms replaced with a different sequence of atoms.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_replaceName">
+        <div class="location">at line 497</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>replaceName</strong>(string $name)</code>
+    </h3>
+    <div class="details">
+        <p>Replace this path&#039;s name.</p>
+        <p></p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td>The new path name.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td>A new path instance with the supplied name replacing the existing one.</td>
         </tr>
     </table>
 
@@ -1240,12 +1276,12 @@
     </div>
 
                 <h3 id="method_replaceNameWithoutExtension">
-        <div class="location">at line 501</div>
+        <div class="location">at line 527</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceNameWithoutExtension</strong>(string $nameWithoutExtension)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance with the supplied name replacing the portion of the existing name preceding the last extension.</p>
+        <p>Replace this path&#039;s name, but keep the last extension.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -1254,7 +1290,7 @@
                     <tr>
                 <td>string</td>
                 <td>$nameWithoutExtension</td>
-                <td></td>
+                <td>The replacement string.</td>
             </tr>
             </table>
 
@@ -1264,7 +1300,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance with the supplied name replacing the portion of the existing name preceding the last extension.</td>
         </tr>
     </table>
 
@@ -1274,12 +1310,12 @@
     </div>
 
                 <h3 id="method_replaceNamePrefix">
-        <div class="location">at line 521</div>
+        <div class="location">at line 547</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceNamePrefix</strong>(string $namePrefix)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance with the supplied name prefix replacing the existing one.</p>
+        <p>Replace this path&#039;s name, but keep any extensions.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -1288,7 +1324,7 @@
                     <tr>
                 <td>string</td>
                 <td>$namePrefix</td>
-                <td></td>
+                <td>The replacement string.</td>
             </tr>
             </table>
 
@@ -1298,7 +1334,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance with the supplied name prefix replacing the existing one.</td>
         </tr>
     </table>
 
@@ -1308,12 +1344,12 @@
     </div>
 
                 <h3 id="method_replaceNameSuffix">
-        <div class="location">at line 534</div>
+        <div class="location">at line 561</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceNameSuffix</strong>(string|null $nameSuffix)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance with the supplied name suffix replacing the existing one.</p>
+        <p>Replace all of this path&#039;s extensions.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -1322,7 +1358,7 @@
                     <tr>
                 <td>string|null</td>
                 <td>$nameSuffix</td>
-                <td></td>
+                <td>The replacement string, or null to remove all extensions.</td>
             </tr>
             </table>
 
@@ -1332,7 +1368,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance with the supplied name suffix replacing the existing one.</td>
         </tr>
     </table>
 
@@ -1342,12 +1378,12 @@
     </div>
 
                 <h3 id="method_replaceExtension">
-        <div class="location">at line 567</div>
+        <div class="location">at line 595</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceExtension</strong>(string|null $extension)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance with the supplied extension replacing the existing one.</p>
+        <p>Replace this path&#039;s last extension.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -1356,7 +1392,7 @@
                     <tr>
                 <td>string|null</td>
                 <td>$extension</td>
-                <td></td>
+                <td>The replacement string, or null to remove the last extension.</td>
             </tr>
             </table>
 
@@ -1366,7 +1402,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance with the supplied extension replacing the existing one.</td>
         </tr>
     </table>
 
@@ -1376,12 +1412,12 @@
     </div>
 
                 <h3 id="method_replaceNameAtoms">
-        <div class="location">at line 607</div>
+        <div class="location">at line 638</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceNameAtoms</strong>(integer $index, <abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $replacement, integer|null $length = null)</code>
     </h3>
     <div class="details">
-        <p>Returns a new path instance that has a portion of this name&#039;s atoms replaced with a different sequence of atoms.</p>
+        <p>Replace a section of this path&#039;s name with the supplied name atom sequence.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -1390,17 +1426,17 @@
                     <tr>
                 <td>integer</td>
                 <td>$index</td>
-                <td></td>
+                <td>The start index of the replacement.</td>
             </tr>
                     <tr>
                 <td><abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
                 <td>$replacement</td>
-                <td></td>
+                <td>The replacement name atom sequence.</td>
             </tr>
                     <tr>
                 <td>integer|null</td>
                 <td>$length</td>
-                <td></td>
+                <td>The number of atoms to replace. If $length is null, the entire remainder of the path name will be replaced.</td>
             </tr>
             </table>
 
@@ -1410,7 +1446,7 @@
                     <table>
         <tr>
             <td><a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>A new path instance that has a portion of this name&#039;s atoms replaced with a different sequence of atoms.</td>
         </tr>
     </table>
 
