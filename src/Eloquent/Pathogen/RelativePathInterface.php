@@ -11,17 +11,21 @@
 
 namespace Eloquent\Pathogen;
 
+/**
+ * The interface implemented by relative Pathogen paths.
+ */
 interface RelativePathInterface extends PathInterface
 {
     /**
-     * Returns true if this path is the self path.
+     * Determine whether this path is the self path.
      *
      * The self path is a relative path with a single self atom (i.e. a dot
      * '.').
      *
-     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer
+     *     to use when determining the result.
      *
-     * @return boolean
+     * @return boolean True if this path is the self path.
      */
     public function isSelf(
         Normalizer\PathNormalizerInterface $normalizer = null

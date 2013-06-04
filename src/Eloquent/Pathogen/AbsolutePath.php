@@ -11,14 +11,17 @@
 
 namespace Eloquent\Pathogen;
 
+/**
+ * Represents an absolute path.
+ */
 class AbsolutePath extends AbstractPath implements AbsolutePathInterface
 {
     // Implementation of PathInterface =========================================
 
     /**
-     * Returns a string representation of this path.
+     * Generate a string representation of this path.
      *
-     * @return string
+     * @return string A string representation of this path.
      */
     public function string()
     {
@@ -26,29 +29,31 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
     }
 
     /**
-     * Returns a new path instance with a trailing slash suffixed to this path.
+     * Adds a trailing slash to this path.
      *
-     * @return PathInterface
+     * @return PathInterface A new path instance with a trailing slash suffixed
+     *     to this path.
      */
     public function joinTrailingSlash()
     {
-        if ($this->hasTrailingSeparator() || !$this->hasAtoms()) {
+        if (!$this->hasAtoms()) {
             return $this;
         }
 
-        return $this->createPath($this->atoms(), true, true);
+        return parent::joinTrailingSlash();
     }
 
     // Implementation of AbsolutePathInterface =================================
 
     /**
-     * Returns true if this path is the root path.
+     * Determine whether this path is the root path.
      *
      * The root path is an absolute path with no atoms.
      *
-     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer
+     *     to use when determining the result.
      *
-     * @return boolean
+     * @return boolean True if this path is the root path.
      */
     public function isRoot(
         Normalizer\PathNormalizerInterface $normalizer = null
@@ -61,12 +66,15 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
     }
 
     /**
-     * Returns true if this path is the direct parent of the supplied path.
+     * Determine if this path is the direct parent of the supplied path.
      *
-     * @param AbsolutePathInterface                   $path
-     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     * @param AbsolutePathInterface $path The child
+     *     path.
+     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer
+     *     to use when determining the result.
      *
-     * @return boolean
+     * @return boolean True if this path is the direct parent of the supplied
+     *     path.
      */
     public function isParentOf(
         AbsolutePathInterface $path,
@@ -83,12 +91,14 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
     }
 
     /**
-     * Returns true if this path is an ancestor of the supplied path.
+     * Determine if this path is an ancestor of the supplied path.
      *
-     * @param AbsolutePathInterface                   $path
-     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     * @param AbsolutePathInterface $path The child
+     *     path.
+     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer
+     *     to use when determining the result.
      *
-     * @return boolean
+     * @return boolean True if this path is an ancestor of the supplied path.
      */
     public function isAncestorOf(
         AbsolutePathInterface $path,
@@ -108,15 +118,18 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
     }
 
     /**
-     * Returns a relative path from the supplied path to this path.
+     * Determine the shortest path from the supplied path to this path.
      *
      * For example, given path A equal to '/foo/bar', and path B equal to
      * '/foo/baz', A relative to B would be '../bar'.
      *
-     * @param AbsolutePathInterface                   $path
-     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     * @param AbsolutePathInterface $path The path that
+     *     the generated path will be relative to.
+     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer
+     *     to use when determining the result.
      *
-     * @return RelativePathInterface
+     * @return RelativePathInterface A relative path from the supplied path to
+     *     this path.
      */
     public function relativeTo(
         AbsolutePathInterface $path,
