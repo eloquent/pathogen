@@ -12,7 +12,7 @@
 namespace Eloquent\Pathogen;
 
 /**
- * The interface implemented by relative Pathogen paths.
+ * The interface implemented by relative paths.
  */
 interface RelativePathInterface extends PathInterface
 {

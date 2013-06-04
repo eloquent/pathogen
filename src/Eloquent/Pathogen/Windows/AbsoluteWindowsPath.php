@@ -18,18 +18,25 @@ use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException;
 use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 
+/**
+ * Represents an absolute Windows path.
+ */
 class AbsoluteWindowsPath extends AbsolutePath implements
     AbsoluteWindowsPathInterface
 {
     /**
-     * @param mixed<string> $atoms
-     * @param string|null   $drive
-     * @param boolean|null  $hasTrailingSeparator
+     * Construct a new path instance.
+     *
+     * @param mixed<string> $atoms The path atoms.
+     * @param string|null   $drive The drive specifier, or null if the path has
+     *     no drive specifier.
+     * @param boolean|null $hasTrailingSeparator True if this path has a
+     *     trailing separator.
      *
      * @throws Exception\InvalidDriveSpecifierException If the drive specifier
-     * is invalid
-     * @throws InvalidPathAtomExceptionInterface If any supplied atom is
-     * invalid.
+     *     is invalid
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied path
+     *     atoms are invalid.
      */
     public function __construct($atoms, $drive, $hasTrailingSeparator = null)
     {
@@ -45,7 +52,10 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     // Implementation of AbsoluteWindowsPathInterface ==========================
 
     /**
-     * @return string|null
+     * Get this path's drive specifier.
+     *
+     * @return string|null The drive specifier, or null if this path does not
+     *     have a drive specifier.
      */
     public function drive()
     {
@@ -53,7 +63,9 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     }
 
     /**
-     * @return boolean
+     * Determine whether this path has a drive specifier.
+     *
+     * @return boolean True is this path has a drive specifier.
      */
     public function hasDrive()
     {
@@ -61,9 +73,13 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     }
 
     /**
-     * @return string|null $drive
+     * Joins the supplied drive specifier to this path.
      *
-     * @return AbsoluteWindowsPathInterface
+     * @return string|null $drive The drive specifier to use, or null to remove
+     *     the drive specifier.
+     *
+     * @return AbsoluteWindowsPathInterface A new path instance with the
+     *     supplied drive specifier joined to this path.
      */
     public function joinDrive($drive)
     {
@@ -77,9 +93,9 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     // Implementation of PathInterface =========================================
 
     /**
-     * Returns a string representation of this path.
+     * Generate a string representation of this path.
      *
-     * @return string
+     * @return string A string representation of this path.
      */
     public function string()
     {
@@ -104,12 +120,14 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     // Implementation of AbsolutePathInterface =================================
 
     /**
-     * Returns true if this path is the direct parent of the supplied path.
+     * Determine if this path is the direct parent of the supplied path.
      *
-     * @param AbsolutePathInterface        $path
-     * @param PathNormalizerInterface|null $normalizer
+     * @param AbsolutePathInterface        $path       The child path.
+     * @param PathNormalizerInterface|null $normalizer The normalizer to use
+     *     when determining the result.
      *
-     * @return boolean
+     * @return boolean True if this path is the direct parent of the supplied
+     *     path.
      */
     public function isParentOf(
         AbsolutePathInterface $path,
@@ -127,12 +145,13 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     }
 
     /**
-     * Returns true if this path is an ancestor of the supplied path.
+     * Determine if this path is an ancestor of the supplied path.
      *
-     * @param AbsolutePathInterface        $path
-     * @param PathNormalizerInterface|null $normalizer
+     * @param AbsolutePathInterface        $path       The child path.
+     * @param PathNormalizerInterface|null $normalizer The normalizer to use
+     *     when determining the result.
      *
-     * @return boolean
+     * @return boolean True if this path is an ancestor of the supplied path.
      */
     public function isAncestorOf(
         AbsolutePathInterface $path,
@@ -150,15 +169,18 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     }
 
     /**
-     * Returns a relative path from the supplied path to this path.
+     * Determine the shortest path from the supplied path to this path.
      *
      * For example, given path A equal to '/foo/bar', and path B equal to
      * '/foo/baz', A relative to B would be '../bar'.
      *
-     * @param AbsolutePathInterface        $path
-     * @param PathNormalizerInterface|null $normalizer
+     * @param AbsolutePathInterface $path The path that the generated path will
+     *     be relative to.
+     * @param PathNormalizerInterface|null $normalizer The normalizer to use
+     *     when determining the result.
      *
-     * @return RelativePathInterface
+     * @return RelativePathInterface A relative path from the supplied path to
+     *     this path.
      */
     public function relativeTo(
         AbsolutePathInterface $path,

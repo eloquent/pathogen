@@ -68,8 +68,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
     /**
      * Determine if this path is the direct parent of the supplied path.
      *
-     * @param AbsolutePathInterface $path The child
-     *     path.
+     * @param AbsolutePathInterface                   $path       The child path.
      * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer
      *     to use when determining the result.
      *
@@ -93,8 +92,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
     /**
      * Determine if this path is an ancestor of the supplied path.
      *
-     * @param AbsolutePathInterface $path The child
-     *     path.
+     * @param AbsolutePathInterface                   $path       The child path.
      * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer
      *     to use when determining the result.
      *
@@ -123,8 +121,8 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      * For example, given path A equal to '/foo/bar', and path B equal to
      * '/foo/baz', A relative to B would be '../bar'.
      *
-     * @param AbsolutePathInterface $path The path that
-     *     the generated path will be relative to.
+     * @param AbsolutePathInterface $path The path that the generated path will
+     *     be relative to.
      * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer
      *     to use when determining the result.
      *
