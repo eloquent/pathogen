@@ -25,6 +25,10 @@
                 <p>class    <strong>AbsoluteWindowsPath</strong>        extends <a href="../../../Eloquent/Pathogen/AbsolutePath.html"><abbr title="Eloquent\Pathogen\AbsolutePath">AbsolutePath</abbr></a>        implements
         <a href="../../../Eloquent/Pathogen/Windows/AbsoluteWindowsPathInterface.html"><abbr title="Eloquent\Pathogen\Windows\AbsoluteWindowsPathInterface">AbsoluteWindowsPathInterface</abbr></a></p>
 
+            <div class="description">
+            <p>Represents an absolute Windows path.</p>
+            <p></p>
+        </div>
     
     
     
@@ -37,7 +41,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_string">string</a>()
-                    <p>Returns a string representation of this path.</p>
+                    <p>Generate a string representation of this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -67,7 +71,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_isParentOf">isParentOf</a>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
-                    <p>Returns true if this path is the direct parent of the supplied path.</p>
+                    <p>Determine if this path is the direct parent of the supplied path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -77,7 +81,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_isAncestorOf">isAncestorOf</a>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
-                    <p>Returns true if this path is an ancestor of the supplied path.</p>
+                    <p>Determine if this path is an ancestor of the supplied path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -87,7 +91,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_relativeTo">relativeTo</a>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
-                    <p>Returns a relative path from the supplied path to this path.</p>
+                    <p>Determine the shortest path from the supplied path to this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -97,7 +101,7 @@
                 </td>
                 <td class="last">
                     <a href="#method___construct">__construct</a>(<abbr title="Eloquent\Pathogen\Windows\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive, boolean|null $hasTrailingSeparator = null)
-                    <p></p>
+                    <p>Construct a new path instance.</p>
                 </td>
                 <td></td>
             </tr>
@@ -107,7 +111,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_drive">drive</a>()
-                    <p></p>
+                    <p>Get this path&#039;s drive specifier.</p>
                 </td>
                 <td></td>
             </tr>
@@ -117,7 +121,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_hasDrive">hasDrive</a>()
-                    <p></p>
+                    <p>Determine whether this path has a drive specifier.</p>
                 </td>
                 <td></td>
             </tr>
@@ -127,7 +131,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_joinDrive">joinDrive</a>($drive)
-                    <p></p>
+                    <p>Joins the supplied drive specifier to this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -137,12 +141,12 @@
         <h2>Details</h2>
 
                         <h3 id="method_string">
-        <div class="location">at line 84</div>
+        <div class="location">at line 100</div>
         <code>            public            string
     <strong>string</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns a string representation of this path.</p>
+        <p>Generate a string representation of this path.</p>
         <p></p>
         <div class="tags">
             
@@ -219,12 +223,12 @@
     </div>
 
                 <h3 id="method_isParentOf">
-        <div class="location">at line 114</div>
+        <div class="location">at line 132</div>
         <code>            public            boolean
     <strong>isParentOf</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
     <div class="details">
-        <p>Returns true if this path is the direct parent of the supplied path.</p>
+        <p>Determine if this path is the direct parent of the supplied path.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -258,12 +262,12 @@
     </div>
 
                 <h3 id="method_isAncestorOf">
-        <div class="location">at line 137</div>
+        <div class="location">at line 156</div>
         <code>            public            boolean
     <strong>isAncestorOf</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
     <div class="details">
-        <p>Returns true if this path is an ancestor of the supplied path.</p>
+        <p>Determine if this path is an ancestor of the supplied path.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -297,12 +301,12 @@
     </div>
 
                 <h3 id="method_relativeTo">
-        <div class="location">at line 163</div>
+        <div class="location">at line 185</div>
         <code>            public            <abbr title="Eloquent\Pathogen\Windows\RelativePathInterface">RelativePathInterface</abbr>
     <strong>relativeTo</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
     <div class="details">
-        <p>Returns a relative path from the supplied path to this path.</p>
+        <p>Determine the shortest path from the supplied path to this path.</p>
         <p>For example, given path A equal to &#039;/foo/bar&#039;, and path B equal to<br />
  &#039;/foo/baz&#039;, A relative to B would be &#039;../bar&#039;.</p>
         <div class="tags">
@@ -337,12 +341,12 @@
     </div>
 
                 <h3 id="method___construct">
-        <div class="location">at line 34</div>
+        <div class="location">at line 41</div>
         <code>            public            
     <strong>__construct</strong>(<abbr title="Eloquent\Pathogen\Windows\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive, boolean|null $hasTrailingSeparator = null)</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Construct a new path instance.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -351,17 +355,17 @@
                     <tr>
                 <td><abbr title="Eloquent\Pathogen\Windows\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
                 <td>$atoms</td>
-                <td></td>
+                <td>The path atoms.</td>
             </tr>
                     <tr>
                 <td>string|null</td>
                 <td>$drive</td>
-                <td></td>
+                <td>The drive specifier, or null if the path has no drive specifier.</td>
             </tr>
                     <tr>
                 <td>boolean|null</td>
                 <td>$hasTrailingSeparator</td>
-                <td></td>
+                <td>True if this path has a trailing separator.</td>
             </tr>
             </table>
 
@@ -376,7 +380,7 @@
             </tr>
                     <tr>
                 <td><abbr title="InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
-                <td>If any supplied atom is invalid.</td>
+                <td>If any of the supplied path atoms are invalid.</td>
             </tr>
             </table>
 
@@ -385,12 +389,12 @@
     </div>
 
                 <h3 id="method_drive">
-        <div class="location">at line 50</div>
+        <div class="location">at line 60</div>
         <code>            public            string|null
     <strong>drive</strong>()</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Get this path&#039;s drive specifier.</p>
         <p></p>
         <div class="tags">
             
@@ -399,7 +403,7 @@
                     <table>
         <tr>
             <td>string|null</td>
-            <td></td>
+            <td>The drive specifier, or null if this path does not have a drive specifier.</td>
         </tr>
     </table>
 
@@ -409,12 +413,12 @@
     </div>
 
                 <h3 id="method_hasDrive">
-        <div class="location">at line 58</div>
+        <div class="location">at line 70</div>
         <code>            public            boolean
     <strong>hasDrive</strong>()</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Determine whether this path has a drive specifier.</p>
         <p></p>
         <div class="tags">
             
@@ -423,7 +427,7 @@
                     <table>
         <tr>
             <td>boolean</td>
-            <td></td>
+            <td>True is this path has a drive specifier.</td>
         </tr>
     </table>
 
@@ -433,12 +437,12 @@
     </div>
 
                 <h3 id="method_joinDrive">
-        <div class="location">at line 68</div>
+        <div class="location">at line 84</div>
         <code>            public            string|null
     <strong>joinDrive</strong>($drive)</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Joins the supplied drive specifier to this path.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -457,7 +461,7 @@
                     <table>
         <tr>
             <td>string|null</td>
-            <td>$drive</td>
+            <td>$drive The drive specifier to use, or null to remove the drive specifier.</td>
         </tr>
     </table>
 
