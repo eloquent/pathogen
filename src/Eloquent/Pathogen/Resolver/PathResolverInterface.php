@@ -14,13 +14,18 @@ namespace Eloquent\Pathogen\Resolver;
 use Eloquent\Pathogen\AbsolutePathInterface;
 use Eloquent\Pathogen\PathInterface;
 
+/**
+ * The interface implemented by path resolvers.
+ */
 interface PathResolverInterface
 {
     /**
-     * @param AbsolutePathInterface $basePath
-     * @param PathInterface         $path
+     * Resolve a path against a given base path.
      *
-     * @return AbsolutePathInterface
+     * @param AbsolutePathInterface $basePath The base path.
+     * @param PathInterface         $path     The path to resolve.
+     *
+     * @return AbsolutePathInterface The resolved path.
      */
     public function resolve(
         AbsolutePathInterface $basePath,
