@@ -25,6 +25,10 @@
                 <p>class    <strong>BoundPathResolver</strong>        implements
         <a href="../../../Eloquent/Pathogen/Resolver/BoundPathResolverInterface.html"><abbr title="Eloquent\Pathogen\Resolver\BoundPathResolverInterface">BoundPathResolverInterface</abbr></a></p>
 
+            <div class="description">
+            <p>A path resolver that wraps another path resolver with a fixed base path.</p>
+            <p></p>
+        </div>
     
     
     
@@ -37,7 +41,7 @@
                 </td>
                 <td class="last">
                     <a href="#method___construct">__construct</a>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath, <a href="../../../Eloquent/Pathogen/Resolver/PathResolverInterface.html"><abbr title="Eloquent\Pathogen\Resolver\PathResolverInterface">PathResolverInterface</abbr></a> $resolver = null)
-                    <p></p>
+                    <p>Construct a new bound path resolver.</p>
                 </td>
                 <td></td>
             </tr>
@@ -47,7 +51,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_basePath">basePath</a>()
-                    <p></p>
+                    <p>Get the base path used by this resolver.</p>
                 </td>
                 <td></td>
             </tr>
@@ -57,7 +61,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_resolver">resolver</a>()
-                    <p></p>
+                    <p>Get the resolver used internally by this resolver.</p>
                 </td>
                 <td></td>
             </tr>
@@ -67,7 +71,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_resolve">resolve</a>(<a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> $path)
-                    <p></p>
+                    <p>Resolve a path against the base path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -77,12 +81,12 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 23</div>
+        <div class="location">at line 28</div>
         <code>            public            
     <strong>__construct</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath, <a href="../../../Eloquent/Pathogen/Resolver/PathResolverInterface.html"><abbr title="Eloquent\Pathogen\Resolver\PathResolverInterface">PathResolverInterface</abbr></a> $resolver = null)</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Construct a new bound path resolver.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -91,12 +95,12 @@
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
                 <td>$basePath</td>
-                <td></td>
+                <td>The base path.</td>
             </tr>
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/Resolver/PathResolverInterface.html"><abbr title="Eloquent\Pathogen\Resolver\PathResolverInterface">PathResolverInterface</abbr></a></td>
                 <td>$resolver</td>
-                <td></td>
+                <td>The path resolver to use.</td>
             </tr>
             </table>
 
@@ -107,12 +111,12 @@
     </div>
 
                 <h3 id="method_basePath">
-        <div class="location">at line 38</div>
+        <div class="location">at line 45</div>
         <code>            public            
     <strong>basePath</strong>()</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Get the base path used by this resolver.</p>
         <p></p>
         <div class="tags">
             
@@ -122,12 +126,12 @@
     </div>
 
                 <h3 id="method_resolver">
-        <div class="location">at line 46</div>
+        <div class="location">at line 55</div>
         <code>            public            
     <strong>resolver</strong>()</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Get the resolver used internally by this resolver.</p>
         <p></p>
         <div class="tags">
             
@@ -137,12 +141,12 @@
     </div>
 
                 <h3 id="method_resolve">
-        <div class="location">at line 56</div>
+        <div class="location">at line 67</div>
         <code>            public            <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
     <strong>resolve</strong>(<a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> $path)</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Resolve a path against the base path.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -151,7 +155,7 @@
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
                 <td>$path</td>
-                <td></td>
+                <td>The path to resolve.</td>
             </tr>
             </table>
 
@@ -161,7 +165,7 @@
                     <table>
         <tr>
             <td><a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
-            <td></td>
+            <td>The resolved path.</td>
         </tr>
     </table>
 
