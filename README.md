@@ -12,10 +12,10 @@
 
 ## What is Pathogen?
 
-**Pathogen** is a library for path manipulation. **Pathogen** supports file
-system paths including Unix and Windows style paths, but is truly a
-general-purpose path implementation, capable of representing URI paths and other
-path-like structures while providing a comprehensive API.
+*Pathogen* is a library for path manipulation. *Pathogen* supports file system
+paths including Unix and Windows style paths, but is truly a general-purpose
+path implementation, capable of representing URI paths and other path-like
+structures while providing a comprehensive API.
 
 ## Table of contents
 
@@ -43,7 +43,7 @@ path-like structures while providing a comprehensive API.
 
 ### Path parts
 
-The overall structure of a **Pathogen** path can be broken down into smaller
+The overall structure of a *Pathogen* path can be broken down into smaller
 parts. This diagram shows some of these named parts as they apply to a typical
 path:
 
@@ -72,16 +72,16 @@ The 'name' portion can be further broken down as follows:
 
 #### Path atoms
 
-In **Pathogen**, a path consists of a sequence of 'atoms'. Atoms are the
+In *Pathogen*, a path consists of a sequence of 'atoms'. Atoms are the
 individual sections of the path hierarchy. Given the path `/path/to/foo`, the
 sequence of atoms would be `path`, `to`, `foo`. The slash character is referred
 to as the 'separator'.
 
-The atoms `.` and `..` have special meaning in **Pathogen**. The single dot
-(`.`) is referred to as the 'self atom' and is typically used to reference the
-current path. The double dot (`..`) is referred to as the 'parent atom' and is
-used to reference the path above the current one. Anyone familiar with typical
-file system paths should be familiar with their behaviour already.
+The atoms `.` and `..` have special meaning in *Pathogen*. The single dot (`.`)
+is referred to as the 'self atom' and is typically used to reference the current
+path. The double dot (`..`) is referred to as the 'parent atom' and is used to
+reference the path above the current one. Anyone familiar with typical file
+system paths should be familiar with their behaviour already.
 
 Given a path instance, the atoms of the path can be determined as follows:
 
@@ -102,7 +102,7 @@ $name = $path->name(); // returns a string
 #### Path name extensions
 
 The name of a path can be further divided using extension separators (`.`). For
-example, given the path name `foo.bar.baz`, **Pathogen** can determine the 'name
+example, given the path name `foo.bar.baz`, *Pathogen* can determine the 'name
 without extension' (`foo`), the 'name prefix' (`foo.bar`), the 'name suffix'
 (`bar.baz`), and the 'extension' (`baz`).
 
@@ -117,18 +117,18 @@ $extension = $path->extension(); // returns a string or null
 
 #### Trailing separators
 
-**Pathogen** is capable of representing a path with a trailing separator (`/`).
+*Pathogen* is capable of representing a path with a trailing separator (`/`).
 This is useful in the case that a trailing separator has a special meaning to
 some logic, such as the behaviour of the Unix cp command. The trailing separator
-support is purely for the use of developers utilizing **Pathogen**; it does not
-affect any logic used by **Pathogen** itself.
+support is purely for the use of developers utilizing *Pathogen*; it does not
+affect any logic used by *Pathogen* itself.
 
-It is worth noting that all new path instances produced by **Pathogen** will
-strip any trailing slashes unless it is explicitly stated otherwise.
+It is worth noting that all new path instances produced by *Pathogen* will strip
+any trailing slashes unless it is explicitly stated otherwise.
 
 ### Absolute and relative paths
 
-In **Pathogen**, absolute and relative paths are represented by two different
+In *Pathogen*, absolute and relative paths are represented by two different
 classes. While both classes implement a common [PathInterface], other methods
 are provided by the [AbsolutePathInterface] or the [RelativePathInterface]
 respectively.
@@ -167,7 +167,7 @@ as a single self atom (`.`).
 
 ### Path factories
 
-**Pathogen** provides factory classes for creating paths. All path factories
+*Pathogen* provides factory classes for creating paths. All path factories
 implement [PathFactoryInterface] which allows a path to be created from various
 kinds of input. This is the typical way in which path instances are created,
 although the path classes *can* be constructed directly if desired.
@@ -227,7 +227,7 @@ parent atoms will normalize. That is, paths with more parent atoms than regular
 atoms, like `/..`, `/../..`, or `/foo/../..` will all normalize to be the root
 path (`/`).
 
-Normalization typically never takes place in **Pathogen** unless it is required
+Normalization typically never takes place in *Pathogen* unless it is required
 for a calculation, or done manually through the API. If a normalized path is
 required for some reason, this is left to the developer to handle:
 
@@ -246,8 +246,8 @@ echo $normalizedPath->string(); // outputs '/path/to/bar'
 
 ### File system paths
 
-**Pathogen** provides support for dealing with file system paths in a *platform
-agnostic* way. There are two approaches supported by **Pathogen**, which can be
+*Pathogen* provides support for dealing with file system paths in a *platform
+agnostic* way. There are two approaches supported by *Pathogen*, which can be
 applied depending on the situation.
 
 The first approach is to inspect the path string and create an appropriate path
@@ -278,7 +278,7 @@ $path = $factory->create('/path/to/foo'); // creates a path to match the current
 
 ### Immutability of paths
 
-Paths in **Pathogen** are *immutable*, meaning that once they are created, they
+Paths in *Pathogen* are *immutable*, meaning that once they are created, they
 cannot be modified. When performing some mutating operation on a path, such as
 normalization or resolution, a new path instance is produced, rather than the
 original instance being altered. This allows a path to be exposed as part of an
@@ -286,16 +286,16 @@ interface without creating a leaky abstraction.
 
 ### Windows path support
 
-**Pathogen** provides support for most common usages of Windows paths. In
-addition to the methods available to unix-style absolute paths, Windows absolute
-paths contain an optional drive specifier. This example shows how to retrieve
-the drive specifier from a path instance:
+*Pathogen* provides support for most common usages of Windows paths. In addition
+to the methods available to unix-style absolute paths, Windows absolute paths
+contain an optional drive specifier. This example shows how to retrieve the
+drive specifier from a path instance:
 
 ```php
 $drive = $path->drive(); // returns a single-character string, or null
 ```
 
-It is worth noting that **Pathogen** does *not* support drive specifiers for
+It is worth noting that *Pathogen* does *not* support drive specifiers for
 relative Windows paths, only for absolute Windows paths.
 
 ## Usage examples
@@ -353,6 +353,19 @@ $path = $pathFactory->create('/path/to/foo.bar');
 $pathWithNewExtension = $path->replaceExtension('baz');
 
 echo $pathWithNewExtension->string(); // outputs '/path/to/foo.baz'
+```
+
+### Replacing a section of a path
+
+```php
+use Eloquent\Pathogen\Factory\PathFactory;
+
+$pathFactory = new PathFactory;
+
+$path = $pathFactory->create('/path/to/foo/bar');
+$pathWithReplacement = $path->replace(1, array('for', 'baz'), 2);
+
+echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
 ```
 
 <!-- References -->
