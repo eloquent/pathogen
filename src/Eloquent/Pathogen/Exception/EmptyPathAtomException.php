@@ -13,10 +13,15 @@ namespace Eloquent\Pathogen\Exception;
 
 use Exception;
 
+/**
+ * An empty path atom was supplied.
+ */
 final class EmptyPathAtomException extends AbstractInvalidPathAtomException
 {
     /**
-     * @param Exception|null $previous
+     * Construct a new empty path atom exception.
+     *
+     * @param Exception|null $previous The previous exception, if available.
      */
     public function __construct(Exception $previous = null)
     {
@@ -24,7 +29,9 @@ final class EmptyPathAtomException extends AbstractInvalidPathAtomException
     }
 
     /**
-     * @return string
+     * Get the reason message.
+     *
+     * @return string The reason message.
      */
     public function reason()
     {

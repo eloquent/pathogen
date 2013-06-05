@@ -14,31 +14,38 @@ namespace Eloquent\Pathogen\FileSystem\Factory;
 use Eloquent\Pathogen\AbsolutePathInterface;
 use Eloquent\Pathogen\Factory\PathFactoryInterface;
 
+/**
+ * The interface implemented by path factories that deal with file system paths.
+ */
 interface FileSystemPathFactoryInterface extends PathFactoryInterface
 {
     /**
-     * Returns a new path instance representing the current working directory
-     * path.
+     * Create a path representing the current working directory.
      *
-     * @return AbsolutePathInterface
+     * @return AbsolutePathInterface A new path instance representing the
+     *     current working directory path.
      */
     public function createWorkingDirectoryPath();
 
     /**
-     * Returns a new path instance representing the system default temporary
-     * directory path.
+     * Create a path representing the system temporary directory.
      *
-     * @return AbsolutePathInterface
+     * @return AbsolutePathInterface A new path instance representing the system
+     *     default temporary directory path.
      */
     public function createTemporaryDirectoryPath();
 
     /**
-     * Returns a new path instance representing a path suitable for use as the
-     * location for a new temporary file or directory.
+     * Create a path representing a suitable for use as the location for a new
+     * temporary file or directory.
+     *
+     * This path is not guaranteed to be unused, but collisions are fairly
+     * unlikely.
      *
      * @param string|null $prefix A string to use as a prefix for the path name.
      *
-     * @return AbsolutePathInterface
+     * @return AbsolutePathInterface A new path instance representing the new
+     *     temporary path.
      */
     public function createTemporaryPath($prefix = null);
 }

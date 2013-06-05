@@ -14,10 +14,15 @@ namespace Eloquent\Pathogen\Exception;
 use Exception;
 use LogicException;
 
+/**
+ * No path atoms were supplied when constructing a new relative path.
+ */
 final class EmptyPathException extends LogicException
 {
     /**
-     * @param Exception|null $previous
+     * Construct a new empty path exception.
+     *
+     * @param Exception|null $previous The previous exception, if available.
      */
     public function __construct(Exception $previous = null)
     {

@@ -47,7 +47,7 @@ class WindowsPathFactory extends PathFactory implements
      *
      * @return PathInterface
      * @throws Exception\InvalidDriveSpecifierException If the drive specifier
-     * is invalid
+     * is invalid.
      */
     public function create($path)
     {
@@ -135,7 +135,7 @@ class WindowsPathFactory extends PathFactory implements
      *
      * @return PathInterface
      * @throws Exception\InvalidDriveSpecifierException If the drive specifier
-     * is invalid
+     * is invalid.
      * @throws InvalidPathAtomExceptionInterface If any supplied atom is
      * invalid.
      */

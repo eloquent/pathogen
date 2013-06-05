@@ -17,13 +17,20 @@ use Eloquent\Pathogen\Factory\PathFactoryInterface;
 use Eloquent\Pathogen\Windows\Factory\WindowsPathFactory;
 use Icecave\Isolator\Isolator;
 
+/**
+ * Abstract base class for classes implementing FileSystemPathFactoryInterface.
+ */
 abstract class AbstractFileSystemPathFactory implements
     FileSystemPathFactoryInterface
 {
     /**
-     * @param PathFactoryInterface|null $posixFactory
-     * @param PathFactoryInterface|null $windowsFactory
-     * @param Isolator|null             $isolator
+     * Construct a new file system path factory.
+     *
+     * @param PathFactoryInterface|null $posixFactory The path factory to use
+     *     for Unix-style paths.
+     * @param PathFactoryInterface|null $windowsFactory The path factory to use
+     *     for Windows paths.
+     * @param Isolator|null $isolator The isolator to use.
      */
     public function __construct(
         PathFactoryInterface $posixFactory = null,
@@ -43,7 +50,9 @@ abstract class AbstractFileSystemPathFactory implements
     }
 
     /**
-     * @return PathFactoryInterface
+     * Get the path factory used for Unix-style paths.
+     *
+     * @return PathFactoryInterface The path factory used for Unix-style paths.
      */
     public function posixFactory()
     {
@@ -51,7 +60,9 @@ abstract class AbstractFileSystemPathFactory implements
     }
 
     /**
-     * @return PathFactoryInterface
+     * Get the path factory used for Windows paths.
+     *
+     * @return PathFactoryInterface The path factory used for Windows paths.
      */
     public function windowsFactory()
     {
@@ -59,10 +70,10 @@ abstract class AbstractFileSystemPathFactory implements
     }
 
     /**
-     * Returns a new path instance representing the current working directory
-     * path.
+     * Create a path representing the current working directory.
      *
-     * @return AbsolutePathInterface
+     * @return AbsolutePathInterface A new path instance representing the
+     *     current working directory path.
      */
     public function createWorkingDirectoryPath()
     {
@@ -71,10 +82,10 @@ abstract class AbstractFileSystemPathFactory implements
     }
 
     /**
-     * Returns a new path instance representing the system default temporary
-     * directory path.
+     * Create a path representing the system temporary directory.
      *
-     * @return AbsolutePathInterface
+     * @return AbsolutePathInterface A new path instance representing the system
+     *     default temporary directory path.
      */
     public function createTemporaryDirectoryPath()
     {
@@ -83,12 +94,16 @@ abstract class AbstractFileSystemPathFactory implements
     }
 
     /**
-     * Returns a new path instance representing a path suitable for use as the
-     * location for a new temporary file or directory.
+     * Create a path representing a suitable for use as the location for a new
+     * temporary file or directory.
+     *
+     * This path is not guaranteed to be unused, but collisions are fairly
+     * unlikely.
      *
      * @param string|null $prefix A string to use as a prefix for the path name.
      *
-     * @return AbsolutePathInterface
+     * @return AbsolutePathInterface A new path instance representing the new
+     *     temporary path.
      */
     public function createTemporaryPath($prefix = null)
     {

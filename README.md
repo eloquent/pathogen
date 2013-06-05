@@ -36,7 +36,6 @@ This diagram shows some of these named parts as they apply to a typical path:
 
 The 'name' portion can be further broken down as follows:
 
-
       NWE    E
     /     \ / \
     baz.qux.pop

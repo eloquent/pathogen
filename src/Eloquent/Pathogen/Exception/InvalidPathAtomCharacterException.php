@@ -13,12 +13,17 @@ namespace Eloquent\Pathogen\Exception;
 
 use Exception;
 
+/**
+ * An invalid character was encountered in a path atom.
+ */
 final class InvalidPathAtomCharacterException extends AbstractInvalidPathAtomException
 {
     /**
-     * @param string         $atom
-     * @param string         $character
-     * @param Exception|null $previous
+     * Construct a new invalid path atom character exception.
+     *
+     * @param string         $atom      The invalid path atom.
+     * @param string         $character The invalid character.
+     * @param Exception|null $previous  The previous exception, if available.
      */
     public function __construct($atom, $character, Exception $previous = null)
     {
@@ -28,7 +33,9 @@ final class InvalidPathAtomCharacterException extends AbstractInvalidPathAtomExc
     }
 
     /**
-     * @return string
+     * Get the invalid character that caused the exception.
+     *
+     * @return string The invalid character.
      */
     public function character()
     {
@@ -36,7 +43,9 @@ final class InvalidPathAtomCharacterException extends AbstractInvalidPathAtomExc
     }
 
     /**
-     * @return string
+     * Get the reason message.
+     *
+     * @return string The reason message.
      */
     public function reason()
     {

@@ -13,12 +13,18 @@ namespace Eloquent\Pathogen\Exception;
 
 use Exception;
 
+/**
+ * Abstract base class for exceptions implementing
+ * InvalidPathAtomExceptionInterface.
+ */
 abstract class AbstractInvalidPathAtomException extends Exception
     implements InvalidPathAtomExceptionInterface
 {
     /**
-     * @param string         $atom
-     * @param Exception|null $previous
+     * Construct a new invalid path atom exception.
+     *
+     * @param string         $atom     The invalid path atom.
+     * @param Exception|null $previous The previous exception, if available.
      */
     public function __construct($atom, Exception $previous = null)
     {
@@ -36,9 +42,9 @@ abstract class AbstractInvalidPathAtomException extends Exception
     }
 
     /**
-     * Returns the invalid path atom.
+     * Get the invalid path atom.
      *
-     * @return string
+     * @return string The invalid path atom.
      */
     public function atom()
     {
@@ -46,7 +52,9 @@ abstract class AbstractInvalidPathAtomException extends Exception
     }
 
     /**
-     * @return string
+     * Get the reason message.
+     *
+     * @return string The reason message.
      */
     abstract public function reason();
 

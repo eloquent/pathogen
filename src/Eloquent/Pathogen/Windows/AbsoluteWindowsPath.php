@@ -34,7 +34,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      *     trailing separator.
      *
      * @throws Exception\InvalidDriveSpecifierException If the drive specifier
-     *     is invalid
+     *     is invalid.
      * @throws InvalidPathAtomExceptionInterface If any of the supplied path
      *     atoms are invalid.
      */

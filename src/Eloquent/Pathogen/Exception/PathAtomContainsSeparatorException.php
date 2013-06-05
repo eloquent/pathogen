@@ -11,11 +11,16 @@
 
 namespace Eloquent\Pathogen\Exception;
 
+/**
+ * A supplied path atom contains a path separator.
+ */
 final class PathAtomContainsSeparatorException
     extends AbstractInvalidPathAtomException
 {
     /**
-     * @return string
+     * Get the reason message.
+     *
+     * @return string The reason message.
      */
     public function reason()
     {
