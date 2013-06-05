@@ -16,11 +16,17 @@ use Eloquent\Pathogen\Normalizer\PathNormalizer;
 use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 use Eloquent\Pathogen\PathInterface;
 
+/**
+ * A path resolver that wraps another path resolver and automatically normalizes
+ * the result.
+ */
 class NormalizingPathResolver implements PathResolverInterface
 {
     /**
-     * @param PathNormalizerInterface|null $normalizer
-     * @param PathResolverInterface|null   $resolver
+     * Construct a new normalizing path resolver.
+     *
+     * @param PathNormalizerInterface|null $normalizer The path normalizer to use.
+     * @param PathResolverInterface|null   $resolver   The path resolver to use.
      */
     public function __construct(
         PathNormalizerInterface $normalizer = null,
@@ -38,7 +44,9 @@ class NormalizingPathResolver implements PathResolverInterface
     }
 
     /**
-     * @return PathNormalizerInterface
+     * Get the path normalizer used by this resolver.
+     *
+     * @return PathNormalizerInterface The path normalizer.
      */
     public function normalizer()
     {
@@ -46,7 +54,9 @@ class NormalizingPathResolver implements PathResolverInterface
     }
 
     /**
-     * @return PathResolverInterface
+     * Get the resolver used internally by this resolver.
+     *
+     * @returns PathResolverInterface The inner path resolver.
      */
     public function resolver()
     {
@@ -54,10 +64,12 @@ class NormalizingPathResolver implements PathResolverInterface
     }
 
     /**
-     * @param AbsolutePathInterface $basePath
-     * @param PathInterface         $path
+     * Resolve a path against a given base path.
      *
-     * @return AbsolutePathInterface
+     * @param AbsolutePathInterface $basePath The base path.
+     * @param PathInterface         $path     The path to resolve.
+     *
+     * @return AbsolutePathInterface The resolved path.
      */
     public function resolve(
         AbsolutePathInterface $basePath,

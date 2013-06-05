@@ -17,12 +17,18 @@ use Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory;
 use Eloquent\Pathogen\Resolver\BoundPathResolver;
 use Eloquent\Pathogen\Resolver\PathResolverInterface;
 
+/**
+ * A bound path resolver for resolving file system paths against the current
+ * working directory.
+ */
 class WorkingDirectoryResolver extends BoundPathResolver
 {
     /**
-     * @param AbsolutePathInterface|null          $workingDirectoryPath
-     * @param PathResolverInterface|null          $resolver
-     * @param FileSystemPathFactoryInterface|null $factory
+     * Construct a new working directory path resolver.
+     *
+     * @param AbsolutePathInterface|null          $workingDirectoryPath The working directory path.
+     * @param PathResolverInterface|null          $resolver             The path resolver to use.
+     * @param FileSystemPathFactoryInterface|null $factory              The path factory to use.
      */
     public function __construct(
         AbsolutePathInterface $workingDirectoryPath = null,
@@ -44,7 +50,9 @@ class WorkingDirectoryResolver extends BoundPathResolver
     }
 
     /**
-     * @return FileSystemPathFactoryInterface
+     * Get the path factory used by this resolver.
+     *
+     * @return FileSystemPathFactoryInterface The path factory.
      */
     public function factory()
     {

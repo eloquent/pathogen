@@ -14,11 +14,16 @@ namespace Eloquent\Pathogen\Resolver;
 use Eloquent\Pathogen\AbsolutePathInterface;
 use Eloquent\Pathogen\PathInterface;
 
+/**
+ * A path resolver that wraps another path resolver with a fixed base path.
+ */
 class BoundPathResolver implements BoundPathResolverInterface
 {
     /**
-     * @param AbsolutePathInterface      $basePath
-     * @param PathResolverInterface|null $resolver
+     * Construct a new bound path resolver.
+     *
+     * @param AbsolutePathInterface      $basePath The base path.
+     * @param PathResolverInterface|null $resolver The path resolver to use.
      */
     public function __construct(
         AbsolutePathInterface $basePath,
@@ -33,7 +38,9 @@ class BoundPathResolver implements BoundPathResolverInterface
     }
 
     /**
-     * @returns AbsolutePathInterface
+     * Get the base path used by this resolver.
+     *
+     * @returns AbsolutePathInterface The base path.
      */
     public function basePath()
     {
@@ -41,7 +48,9 @@ class BoundPathResolver implements BoundPathResolverInterface
     }
 
     /**
-     * @returns PathResolverInterface
+     * Get the resolver used internally by this resolver.
+     *
+     * @returns PathResolverInterface The inner path resolver.
      */
     public function resolver()
     {
@@ -49,9 +58,11 @@ class BoundPathResolver implements BoundPathResolverInterface
     }
 
     /**
-     * @param PathInterface $path
+     * Resolve a path against the base path.
      *
-     * @return AbsolutePathInterface
+     * @param PathInterface $path The path to resolve.
+     *
+     * @return AbsolutePathInterface The resolved path.
      */
     public function resolve(PathInterface $path)
     {
