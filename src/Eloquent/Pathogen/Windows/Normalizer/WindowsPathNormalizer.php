@@ -17,10 +17,15 @@ use Eloquent\Pathogen\Windows\AbsoluteWindowsPathInterface;
 use Eloquent\Pathogen\Windows\Factory\WindowsPathFactory;
 use Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryInterface;
 
+/**
+ * A path normalizer suitable for normalizing Windows paths.
+ */
 class WindowsPathNormalizer extends PathNormalizer
 {
     /**
-     * @param WindowsPathFactoryInterface|null $factory
+     * Construct a new Windows path normalizer.
+     *
+     * @param WindowsPathFactoryInterface|null $factory The path factory to use.
      */
     public function __construct(WindowsPathFactoryInterface $factory = null)
     {
@@ -32,9 +37,11 @@ class WindowsPathNormalizer extends PathNormalizer
     }
 
     /**
-     * @param PathInterface $path
+     * Normalize the supplied path to it's most canonical form.
      *
-     * @return PathInterface
+     * @param PathInterface $path The path to normalize.
+     *
+     * @return PathInterface The normalized path.
      */
     public function normalize(PathInterface $path)
     {
