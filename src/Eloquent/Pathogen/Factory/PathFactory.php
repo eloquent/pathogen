@@ -17,7 +17,7 @@ use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\RelativePath;
 
 /**
- * Creates generic path instances.
+ * A path factory that creates generic, Unix-style path instances.
  */
 class PathFactory implements PathFactoryInterface
 {

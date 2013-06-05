@@ -137,7 +137,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
             $normalizer = new Normalizer\WindowsPathNormalizer;
         }
 
-        if (!$this->driveLettersMatch($this, $path)) {
+        if (!$this->driveSpecifiersMatch($this, $path)) {
             return false;
         }
 
@@ -161,7 +161,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
             $normalizer = new Normalizer\WindowsPathNormalizer;
         }
 
-        if (!$this->driveLettersMatch($this, $path)) {
+        if (!$this->driveSpecifiersMatch($this, $path)) {
             return false;
         }
 
@@ -243,7 +243,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      *
      * @return boolean
      */
-    protected function driveLettersMatch(
+    protected function driveSpecifiersMatch(
         AbsolutePathInterface $left,
         AbsolutePathInterface $right
     ) {

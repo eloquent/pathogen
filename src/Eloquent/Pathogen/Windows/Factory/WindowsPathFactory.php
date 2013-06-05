@@ -19,11 +19,17 @@ use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\Windows\AbsoluteWindowsPath;
 use Eloquent\Pathogen\Windows\RelativeWindowsPath;
 
+/**
+ * A path factory that creates Windows path instances.
+ */
 class WindowsPathFactory extends PathFactory implements
     WindowsPathFactoryInterface
 {
     /**
-     * @param string $defaultDrive
+     * Construct a new Windows path factory.
+     *
+     * @param string $defaultDrive The default drive specifier to use when none
+     *     is specified, or null to leave the drive specifier empty.
      */
     public function __construct($defaultDrive = null)
     {
@@ -31,7 +37,9 @@ class WindowsPathFactory extends PathFactory implements
     }
 
     /**
-     * @return string|null
+     * Get the default drive specifier.
+     *
+     * @return string|null The default drive specifier.
      */
     public function defaultDrive()
     {
@@ -43,11 +51,9 @@ class WindowsPathFactory extends PathFactory implements
     /**
      * Creates a new path instance from its string representation.
      *
-     * @param string $path
+     * @param string $path The string representation of the path.
      *
-     * @return PathInterface
-     * @throws Exception\InvalidDriveSpecifierException If the drive specifier
-     * is invalid.
+     * @return PathInterface The newly created path instance.
      */
     public function create($path)
     {
@@ -98,13 +104,14 @@ class WindowsPathFactory extends PathFactory implements
      * Unless otherwise specified, created paths will be absolute, and have no
      * trailing separator.
      *
-     * @param mixed<string> $atoms
-     * @param boolean|null  $isAbsolute
-     * @param boolean|null  $hasTrailingSeparator
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean|null  $isAbsolute           True if the path is absolute.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a
+     *     trailing separator.
      *
-     * @return PathInterface
-     * @throws InvalidPathAtomExceptionInterface If any supplied atom is
-     * invalid.
+     * @return PathInterface                     The newly created path instance.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms
+     *     are invalid.
      */
     public function createFromAtoms(
         $atoms,
@@ -128,16 +135,15 @@ class WindowsPathFactory extends PathFactory implements
      * Unless otherwise specified, created paths will be absolute, and have no
      * trailing separator.
      *
-     * @param mixed<string> $atoms
-     * @param string|null   $drive
-     * @param boolean|null  $isAbsolute
-     * @param boolean|null  $hasTrailingSeparator
+     * @param mixed<string> $atoms                The path atoms.
+     * @param string|null   $drive                The drive specifier.
+     * @param boolean|null  $isAbsolute           True if the path is absolute.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a
+     *     trailing separator.
      *
-     * @return PathInterface
-     * @throws Exception\InvalidDriveSpecifierException If the drive specifier
-     * is invalid.
-     * @throws InvalidPathAtomExceptionInterface If any supplied atom is
-     * invalid.
+     * @return PathInterface                     The newly created path instance.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms
+     *     are invalid.
      */
     public function createFromDriveAndAtoms(
         $atoms,
