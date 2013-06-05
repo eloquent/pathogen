@@ -25,6 +25,10 @@
                 <p>abstract class    <strong>AbstractInvalidPathAtomException</strong>        extends <a href="http://php.net/Exception"><abbr title="Exception">Exception</abbr></a>        implements
         <a href="../../../Eloquent/Pathogen/Exception/InvalidPathAtomExceptionInterface.html"><abbr title="Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></a></p>
 
+            <div class="description">
+            <p>Abstract base class for exceptions implementing InvalidPathAtomExceptionInterface.</p>
+            <p></p>
+        </div>
     
     
     
@@ -37,7 +41,7 @@
                 </td>
                 <td class="last">
                     <a href="#method___construct">__construct</a>(string $atom, <a href="http://php.net/Exception"><abbr title="Exception">Exception</abbr></a> $previous = null)
-                    <p></p>
+                    <p>Construct a new invalid path atom exception.</p>
                 </td>
                 <td></td>
             </tr>
@@ -47,7 +51,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_atom">atom</a>()
-                    <p>Returns the invalid path atom.</p>
+                    <p>Get the invalid path atom.</p>
                 </td>
                 <td></td>
             </tr>
@@ -57,7 +61,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_reason">reason</a>()
-                    <p></p>
+                    <p>Get the reason message.</p>
                 </td>
                 <td></td>
             </tr>
@@ -67,12 +71,12 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 23</div>
+        <div class="location">at line 29</div>
         <code>            public            
     <strong>__construct</strong>(string $atom, <a href="http://php.net/Exception"><abbr title="Exception">Exception</abbr></a> $previous = null)</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Construct a new invalid path atom exception.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -81,12 +85,12 @@
                     <tr>
                 <td>string</td>
                 <td>$atom</td>
-                <td></td>
+                <td>The invalid path atom.</td>
             </tr>
                     <tr>
                 <td><a href="http://php.net/Exception"><abbr title="Exception">Exception</abbr></a></td>
                 <td>$previous</td>
-                <td></td>
+                <td>The previous exception, if available.</td>
             </tr>
             </table>
 
@@ -97,12 +101,12 @@
     </div>
 
                 <h3 id="method_atom">
-        <div class="location">at line 43</div>
+        <div class="location">at line 49</div>
         <code>            public            string
     <strong>atom</strong>()</code>
     </h3>
     <div class="details">
-        <p>Returns the invalid path atom.</p>
+        <p>Get the invalid path atom.</p>
         <p></p>
         <div class="tags">
             
@@ -111,7 +115,7 @@
                     <table>
         <tr>
             <td>string</td>
-            <td></td>
+            <td>The invalid path atom.</td>
         </tr>
     </table>
 
@@ -121,12 +125,12 @@
     </div>
 
                 <h3 id="method_reason">
-        <div class="location">at line 51</div>
+        <div class="location">at line 59</div>
         <code>    abstract        public            string
     <strong>reason</strong>()</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Get the reason message.</p>
         <p></p>
         <div class="tags">
             
@@ -135,7 +139,7 @@
                     <table>
         <tr>
             <td>string</td>
-            <td></td>
+            <td>The reason message.</td>
         </tr>
     </table>
 

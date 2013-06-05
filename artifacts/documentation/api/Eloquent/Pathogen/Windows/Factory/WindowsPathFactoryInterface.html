@@ -25,6 +25,10 @@
                 <p>interface    <strong>WindowsPathFactoryInterface</strong>        implements
         <a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a></p>
 
+            <div class="description">
+            <p>The interface implemented by path factories that create Windows paths.</p>
+            <p></p>
+        </div>
     
     
     
@@ -67,7 +71,7 @@
         <h2>Details</h2>
 
                         <h3 id="method_create">
-        <div class="location">in <a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html#method_create"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a> at line 26</div>
+        <div class="location">in <a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html#method_create"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a> at line 29</div>
         <code>            public            <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>create</strong>(string $path)</code>
     </h3>
@@ -81,7 +85,7 @@
                     <tr>
                 <td>string</td>
                 <td>$path</td>
-                <td></td>
+                <td>The string representation of the path.</td>
             </tr>
             </table>
 
@@ -91,7 +95,7 @@
                     <table>
         <tr>
             <td><a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>The newly created path instance.</td>
         </tr>
     </table>
 
@@ -101,7 +105,7 @@
     </div>
 
                 <h3 id="method_createFromAtoms">
-        <div class="location">in <a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html#method_createFromAtoms"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a> at line 42</div>
+        <div class="location">in <a href="../../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html#method_createFromAtoms"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a> at line 46</div>
         <code>            public            <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>createFromAtoms</strong>(<abbr title="Eloquent\Pathogen\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, boolean|null $isAbsolute = null, boolean|null $hasTrailingSeparator = null)</code>
     </h3>
@@ -116,17 +120,17 @@
                     <tr>
                 <td><abbr title="Eloquent\Pathogen\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
                 <td>$atoms</td>
-                <td></td>
+                <td>The path atoms.</td>
             </tr>
                     <tr>
                 <td>boolean|null</td>
                 <td>$isAbsolute</td>
-                <td></td>
+                <td>True if the path is absolute.</td>
             </tr>
                     <tr>
                 <td>boolean|null</td>
                 <td>$hasTrailingSeparator</td>
-                <td></td>
+                <td>True if the path has a trailing separator.</td>
             </tr>
             </table>
 
@@ -136,7 +140,7 @@
                     <table>
         <tr>
             <td><a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>The newly created path instance.</td>
         </tr>
     </table>
 
@@ -146,7 +150,7 @@
                     <table>
                     <tr>
                 <td><abbr title="InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
-                <td>If any supplied atom is invalid.</td>
+                <td>If any of the supplied atoms are invalid.</td>
             </tr>
             </table>
 
@@ -155,7 +159,7 @@
     </div>
 
                 <h3 id="method_createFromDriveAndAtoms">
-        <div class="location">at line 36</div>
+        <div class="location">at line 40</div>
         <code>            public            <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>createFromDriveAndAtoms</strong>(<abbr title="Eloquent\Pathogen\Windows\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive, boolean|null $isAbsolute = null, boolean|null $hasTrailingSeparator = null)</code>
     </h3>
@@ -170,22 +174,22 @@
                     <tr>
                 <td><abbr title="Eloquent\Pathogen\Windows\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
                 <td>$atoms</td>
-                <td></td>
+                <td>The path atoms.</td>
             </tr>
                     <tr>
                 <td>string|null</td>
                 <td>$drive</td>
-                <td></td>
+                <td>The drive specifier.</td>
             </tr>
                     <tr>
                 <td>boolean|null</td>
                 <td>$isAbsolute</td>
-                <td></td>
+                <td>True if the path is absolute.</td>
             </tr>
                     <tr>
                 <td>boolean|null</td>
                 <td>$hasTrailingSeparator</td>
-                <td></td>
+                <td>True if the path has a trailing separator.</td>
             </tr>
             </table>
 
@@ -195,7 +199,7 @@
                     <table>
         <tr>
             <td><a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>The newly created path instance.</td>
         </tr>
     </table>
 
@@ -205,7 +209,7 @@
                     <table>
                     <tr>
                 <td><abbr title="InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
-                <td>If any supplied atom is invalid.</td>
+                <td>If any of the supplied atoms are invalid.</td>
             </tr>
             </table>
 

@@ -25,6 +25,10 @@
                 <p>class    <strong>PathNormalizer</strong>        implements
         <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></p>
 
+            <div class="description">
+            <p>A path normalizer suitable for generic, Unix-style path instances.</p>
+            <p></p>
+        </div>
     
     
     
@@ -37,7 +41,7 @@
                 </td>
                 <td class="last">
                     <a href="#method___construct">__construct</a>(<a href="../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a> $factory = null)
-                    <p></p>
+                    <p>Construct a new path normalizer.</p>
                 </td>
                 <td></td>
             </tr>
@@ -47,7 +51,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_factory">factory</a>()
-                    <p></p>
+                    <p>Get the path factory used by this normalizer.</p>
                 </td>
                 <td></td>
             </tr>
@@ -57,7 +61,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_normalize">normalize</a>(<a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> $path)
-                    <p></p>
+                    <p>Normalize the supplied path to it&#039;s most canonical form.</p>
                 </td>
                 <td></td>
             </tr>
@@ -67,12 +71,12 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 25</div>
+        <div class="location">at line 30</div>
         <code>            public            
     <strong>__construct</strong>(<a href="../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a> $factory = null)</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Construct a new path normalizer.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -81,7 +85,7 @@
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a></td>
                 <td>$factory</td>
-                <td></td>
+                <td>The path factory to use.</td>
             </tr>
             </table>
 
@@ -92,12 +96,12 @@
     </div>
 
                 <h3 id="method_factory">
-        <div class="location">at line 37</div>
+        <div class="location">at line 44</div>
         <code>            public            <a href="../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a>
     <strong>factory</strong>()</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Get the path factory used by this normalizer.</p>
         <p></p>
         <div class="tags">
             
@@ -106,7 +110,7 @@
                     <table>
         <tr>
             <td><a href="../../../Eloquent/Pathogen/Factory/PathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Factory\PathFactoryInterface">PathFactoryInterface</abbr></a></td>
-            <td></td>
+            <td>The path factory.</td>
         </tr>
     </table>
 
@@ -116,12 +120,12 @@
     </div>
 
                 <h3 id="method_normalize">
-        <div class="location">at line 47</div>
+        <div class="location">at line 56</div>
         <code>            public            <a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>normalize</strong>(<a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> $path)</code>
     </h3>
     <div class="details">
-        <p></p>
+        <p>Normalize the supplied path to it&#039;s most canonical form.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -130,7 +134,7 @@
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
                 <td>$path</td>
-                <td></td>
+                <td>The path to normalize.</td>
             </tr>
             </table>
 
@@ -140,7 +144,7 @@
                     <table>
         <tr>
             <td><a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td></td>
+            <td>The normalized path.</td>
         </tr>
     </table>
 
