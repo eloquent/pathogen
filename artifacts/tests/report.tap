@@ -1326,4 +1326,9 @@ ok 1318 - Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testIsSelf with dat
 ok 1319 - Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testIsSelf with data set "Self non-normalized" ('./foo/..', true)
 ok 1320 - Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testIsSelf with data set "Single atom" ('foo', false)
 ok 1321 - Eloquent\Pathogen\Windows\RelativeWindowsPathTest::testIsSelf with data set "Multiple atoms" ('foo/bar', false)
-1..1321
+ok 1322 - FunctionalTest::testResolveAgainstWorkingDirectory
+ok 1323 - FunctionalTest::testDetermineAncestor
+ok 1324 - FunctionalTest::testAppendExtension
+ok 1325 - FunctionalTest::testReplaceExtension
+ok 1326 - FunctionalTest::testReplacePathSection
+1..1326
