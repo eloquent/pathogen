@@ -104,7 +104,7 @@ $name = $path->name(); // returns a string
 
 The name of a path can be further divided using extension separators (`.`). For
 example, given the path name `foo.bar.baz`, *Pathogen* can determine the 'name
-without extension' (`foo`), the 'name prefix' (`foo.bar`), the 'name suffix'
+without extension' (`foo.bar`), the 'name prefix' (`foo`), the 'name suffix'
 (`bar.baz`), and the 'extension' (`baz`).
 
 Given a path instance, the various sections can be retrieved as follows:
