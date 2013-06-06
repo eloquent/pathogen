@@ -38,6 +38,7 @@ structures while providing a comprehensive API.
     - [Determining whether one path exists inside another](#determining-whether-one-path-exists-inside-another)
     - [Appending an extension to a path](#appending-an-extension-to-a-path)
     - [Replacing a path's extension](#replacing-a-paths-extension)
+    - [Replacing a section of a path](#replacing-a-section-of-a-path)
 
 ## Pathogen concepts
 
