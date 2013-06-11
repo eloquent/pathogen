@@ -1,17 +1,17 @@
 
 
 Code Coverage Report 
-  2013-06-06 01:13:24
+  2013-06-11 04:11:31
 
  Summary: 
   Classes: 100.00% (25/25)
   Methods: 100.00% (121/121)
-  Lines:   100.00% (601/601)
+  Lines:   100.00% (606/606)
 
 \Eloquent\Pathogen::AbsolutePath
   Methods: 100.00% ( 6/ 6)   Lines: 100.00% ( 40/ 40)
 \Eloquent\Pathogen::AbstractPath
-  Methods: 100.00% (37/37)   Lines: 100.00% (184/184)
+  Methods: 100.00% (37/37)   Lines: 100.00% (189/189)
 \Eloquent\Pathogen::RelativePath
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  9/  9)
 \Eloquent\Pathogen\Exception::AbstractInvalidPathAtomException
