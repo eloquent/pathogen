@@ -172,21 +172,23 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function parentData()
     {
-        //                             path         parent
+        //                             path         numLevels  parent
         return array(
-            'Root'            => array('/',         '/..'),
-            'Single atom'     => array('/foo',      '/foo/..'),
-            'Multiple atoms'  => array('/foo/bar',  '/foo/bar/..'),
+            'Root'            => array('/',         null,      '/..'),
+            'Single atom'     => array('/foo',      null,      '/foo/..'),
+            'Multiple atoms'  => array('/foo/bar',  null,      '/foo/bar/..'),
+            'Up one level'    => array('/foo',      1,         '/foo/..'),
+            'Up two levels'   => array('/foo',      2,         '/foo/../..'),
         );
     }
 
     /**
      * @dataProvider parentData
      */
-    public function testParent($pathString, $parentPathString)
+    public function testParent($pathString, $numLevels, $parentPathString)
     {
         $path = $this->factory->create($pathString);
-        $parentPath = $path->parent();
+        $parentPath = $path->parent($numLevels);
 
         $this->assertSame($parentPathString, $parentPath->string());
     }

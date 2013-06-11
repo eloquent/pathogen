@@ -243,14 +243,22 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
-     * Get the parent of this path.
+     * Get the parent of this path a specified number of levels up.
      *
-     * @return PathInterface The parent of this path.
+     * @param integer|null $numLevels The number of levels up. Defaults to 1.
+     *
+     * @return PathInterface The parent of this path $numLevels up.
      */
-    public function parent()
+    public function parent($numLevels = null)
     {
-        $atoms = $this->atoms();
-        $atoms[] = static::PARENT_ATOM;
+        if (null === $numLevels) {
+            $numLevels = 1;
+        }
+
+        $atoms = array_merge(
+            $this->atoms(),
+            array_fill(0, $numLevels, static::PARENT_ATOM)
+        );
 
         return $this->createPath(
             $atoms,

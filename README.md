@@ -315,6 +315,23 @@ $path = $pathResolver->resolve(
 );
 ```
 
+### Resolving a path against another arbitrary path
+
+```php
+use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\Resolver\NormalizingPathResolver;
+
+$pathFactory = new PathFactory;
+$pathResolver = new NormalizingPathResolver;
+
+$basePath = $pathFactory->create('/path/to/base');
+$path = $pathFactory->create('../child');
+
+$resolvedPath = $pathResolver->resolve($basePath, $path);
+
+echo $resolvedPath->string(); // outputs '/path/to/child'
+```
+
 ### Determining whether one path exists inside another
 
 ```php

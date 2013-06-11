@@ -12,6 +12,7 @@
 use Eloquent\Pathogen\Factory\PathFactory;
 use Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory;
 use Eloquent\Pathogen\FileSystem\Resolver\WorkingDirectoryResolver;
+use Eloquent\Pathogen\Resolver\NormalizingPathResolver;
 
 class FunctionalTest extends PHPUnit_Framework_TestCase
 {
@@ -41,6 +42,21 @@ class FunctionalTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertSame(getcwd() . '/path/to/foo', $path->string());
+    }
+
+    public function testResolveArbitrary()
+    {
+        $this->expectOutputString('/path/to/child');
+
+        $pathFactory = new PathFactory;
+        $pathResolver = new NormalizingPathResolver;
+
+        $basePath = $pathFactory->create('/path/to/base');
+        $path = $pathFactory->create('../child');
+
+        $resolvedPath = $pathResolver->resolve($basePath, $path);
+
+        echo $resolvedPath->string(); // outputs '/path/to/child'
     }
 
     public function testDetermineAncestor()

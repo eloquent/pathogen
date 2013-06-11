@@ -136,11 +136,13 @@ interface PathInterface
     public function hasExtension();
 
     /**
-     * Get the parent of this path.
+     * Get the parent of this path a specified number of levels up.
      *
-     * @return PathInterface The parent of this path.
+     * @param integer|null $numLevels The number of levels up. Defaults to 1.
+     *
+     * @return PathInterface The parent of this path $numLevels up.
      */
-    public function parent();
+    public function parent($numLevels = null);
 
     /**
      * Strips the trailing slash from this path.

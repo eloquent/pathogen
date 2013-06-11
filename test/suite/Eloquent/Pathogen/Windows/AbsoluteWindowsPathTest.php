@@ -289,25 +289,29 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function parentData()
     {
-        //                                        path           parent
+        //                                        path           numLevels  parent
         return array(
-            'Root'                       => array('/',           '/..'),
-            'Single atom'                => array('/foo',        '/foo/..'),
-            'Multiple atoms'             => array('/foo/bar',    '/foo/bar/..'),
+            'Root'                       => array('/',           null,      '/..'),
+            'Single atom'                => array('/foo',        null,      '/foo/..'),
+            'Multiple atoms'             => array('/foo/bar',    null,      '/foo/bar/..'),
+            'Up one level'               => array('/foo',        1,         '/foo/..'),
+            'Up two levels'              => array('/foo',        2,         '/foo/../..'),
 
-            'Root with drive'            => array('C:/',         'C:/..'),
-            'Single atom with drive'     => array('C:/foo',      'C:/foo/..'),
-            'Multiple atoms with drive'  => array('C:/foo/bar',  'C:/foo/bar/..'),
+            'Root with drive'            => array('C:/',         null,      'C:/..'),
+            'Single atom with drive'     => array('C:/foo',      null,      'C:/foo/..'),
+            'Multiple atoms with drive'  => array('C:/foo/bar',  null,      'C:/foo/bar/..'),
+            'Up one level with drive'    => array('C:/foo',      1,         'C:/foo/..'),
+            'Up two levels with drive'   => array('C:/foo',      2,         'C:/foo/../..'),
         );
     }
 
     /**
      * @dataProvider parentData
      */
-    public function testParent($pathString, $parentPathString)
+    public function testParent($pathString, $numLevels, $parentPathString)
     {
         $path = $this->factory->create($pathString);
-        $parentPath = $path->parent();
+        $parentPath = $path->parent($numLevels);
 
         $this->assertSame($parentPathString, $parentPath->string());
     }

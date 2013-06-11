@@ -1,5 +1,5 @@
 # Pathogen changelog
 
-### 0.1.0
+### 0.1.0 (unreleased)
 
-* Initial implementation.
+* **[NEW]** Initial implementation.
