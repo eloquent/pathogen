@@ -830,7 +830,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
     {
         $parent = $this->factory->create($parentString);
         $child = $this->factory->create($childString);
-        $result = $parent->relativeTo($child);
+        $result = $child->relativeTo($parent);
 
         $this->assertSame($expectedResultString, $result->string());
     }
