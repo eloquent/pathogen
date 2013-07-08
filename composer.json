@@ -21,7 +21,7 @@
         "icecave/isolator": "~2"
     },
     "require-dev": {
-        "icecave/archer": "~0.4"
+        "icecave/archer": "1.0.0-alpha.1"
     },
     "autoload": {
         "psr-0": {
