@@ -16,14 +16,17 @@ use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\RelativePath;
 
+/**
+ * A path factory that creates generic, Unix-style path instances.
+ */
 class PathFactory implements PathFactoryInterface
 {
     /**
      * Creates a new path instance from its string representation.
      *
-     * @param string $path
+     * @param string $path The string representation of the path.
      *
-     * @return PathInterface
+     * @return PathInterface The newly created path instance.
      */
     public function create($path)
     {
@@ -71,13 +74,14 @@ class PathFactory implements PathFactoryInterface
      * Unless otherwise specified, created paths will be absolute, and have no
      * trailing separator.
      *
-     * @param mixed<string> $atoms
-     * @param boolean|null  $isAbsolute
-     * @param boolean|null  $hasTrailingSeparator
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean|null  $isAbsolute           True if the path is absolute.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a
+     *     trailing separator.
      *
-     * @return PathInterface
-     * @throws InvalidPathAtomExceptionInterface If any supplied atom is
-     * invalid.
+     * @return PathInterface                     The newly created path instance.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms
+     *     are invalid.
      */
     public function createFromAtoms(
         $atoms,

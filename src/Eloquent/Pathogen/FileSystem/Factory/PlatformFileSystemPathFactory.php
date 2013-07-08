@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\Factory;
+namespace Eloquent\Pathogen\FileSystem\Factory;
 
-use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\PathInterface;
 
 /**
- * The interface implemented by path factories.
+ * A path factory that produces file system paths whose type correlates to the
+ * platform on which the code is running.
  */
-interface PathFactoryInterface
+class PlatformFileSystemPathFactory extends AbstractFileSystemPathFactory
 {
     /**
      * Creates a new path instance from its string representation.
@@ -26,7 +26,10 @@ interface PathFactoryInterface
      *
      * @return PathInterface The newly created path instance.
      */
-    public function create($path);
+    public function create($path)
+    {
+        return $this->factoryByPlatform()->create($path);
+    }
 
     /**
      * Creates a new path instance from a set of path atoms.
@@ -47,5 +50,11 @@ interface PathFactoryInterface
         $atoms,
         $isAbsolute = null,
         $hasTrailingSeparator = null
-    );
+    ) {
+        return $this->factoryByPlatform()->createFromAtoms(
+            $atoms,
+            $isAbsolute,
+            $hasTrailingSeparator
+        );
+    }
 }

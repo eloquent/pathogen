@@ -11,6 +11,7 @@
 
 namespace Eloquent\Pathogen\Windows;
 
+use ArrayIterator;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -132,11 +133,30 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         new RelativeWindowsPath(array());
     }
 
+    public function sliceAtomsData()
+    {
+        //                                  path                index  length  expectedResult
+        return array(
+            'Slice till end'       => array('foo/bar/baz/qux',  1,     null,   array('bar', 'baz', 'qux')),
+            'Slice specific range' => array('foo/bar/baz/qux',  1,     2,      array('bar', 'baz')),
+        );
+    }
+
+    /**
+     * @dataProvider sliceAtomsData
+     */
+    public function testSliceAtoms($pathString, $index, $length, array $expectedResult)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame($expectedResult, $path->sliceAtoms($index, $length));
+    }
+
     public function namePartData()
     {
         //                                             path            name            nameWithoutExtension  namePrefix  nameSuffix  extension
         return array(
-            'Self'                            => array('.',            '',             '',                   '',         null,       null),
+            'Self'                            => array('.',            '.',            '',                   '',         '',         ''),
             'No extensions'                   => array('foo',          'foo',          'foo',                'foo',      null,       null),
             'Empty extension'                 => array('foo.',         'foo.',         'foo',                'foo',      '',         ''),
             'Whitespace extension'            => array('foo. ',        'foo. ',        'foo',                'foo',      ' ',        ' '),
@@ -162,23 +182,65 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         $this->assertSame(null !== $extension, $path->hasExtension());
     }
 
+    public function nameAtomsData()
+    {
+        //                                  path        nameAtoms
+        return array(
+            'Self'                 => array('.',        array('', '')),
+            'Single name atom'     => array('foo',      array('foo')),
+            'Multiple name atoms'  => array('foo.bar',  array('foo', 'bar')),
+            'Multiple path atoms'  => array('foo/bar',  array('bar')),
+        );
+    }
+
+    /**
+     * @dataProvider nameAtomsData
+     */
+    public function testNameAtoms($pathString, array $nameAtoms)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame($nameAtoms, $path->nameAtoms());
+    }
+
+    public function sliceNameAtomsData()
+    {
+        //                                  path                index  length  expectedResult
+        return array(
+            'Slice till end'       => array('foo.bar.baz.qux',  1,     null,   array('bar', 'baz', 'qux')),
+            'Slice specific range' => array('foo.bar.baz.qux',  1,     2,      array('bar', 'baz')),
+        );
+    }
+
+    /**
+     * @dataProvider sliceNameAtomsData
+     */
+    public function testNameSliceAtoms($pathString, $index, $length, array $expectedResult)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame($expectedResult, $path->sliceNameAtoms($index, $length));
+    }
+
     public function parentData()
     {
-        //                             path        parent
+        //                             path        numLevels  parent
         return array(
-            'Self'            => array('.',        './..'),
-            'Single atom'     => array('foo',      'foo/..'),
-            'Multiple atoms'  => array('foo/bar',  'foo/bar/..'),
+            'Self'            => array('.',        null,      './..'),
+            'Single atom'     => array('foo',      null,      'foo/..'),
+            'Multiple atoms'  => array('foo/bar',  null,      'foo/bar/..'),
+            'Up one level'    => array('foo',      1,         'foo/..'),
+            'Up two levels'   => array('foo',      2,         'foo/../..'),
         );
     }
 
     /**
      * @dataProvider parentData
      */
-    public function testParent($pathString, $parentPathString)
+    public function testParent($pathString, $numLevels, $parentPathString)
     {
         $path = $this->factory->create($pathString);
-        $parentPath = $path->parent();
+        $parentPath = $path->parent($numLevels);
 
         $this->assertSame($parentPathString, $parentPath->string());
     }
@@ -423,7 +485,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
     {
         //                                                       path      extensions            expectedResult
         return array(
-            'Add to self'                               => array('.',      array('foo'),         './.foo'),
+            'Add to self'                               => array('.',      array('foo'),         '.foo'),
             'Empty extension'                           => array('foo',    array(''),            'foo.'),
             'Whitespace extension'                      => array('foo',    array(' '),           'foo. '),
             'Single extension'                          => array('foo',    array('bar'),         'foo.bar'),
@@ -545,6 +607,268 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
             "Invalid path atom 'bar/foo'. Path atoms must not contain separators."
         );
         $path->prefixName('bar/');
+    }
+
+    public function replaceData()
+    {
+        //                                              path                offset  replacement              length  expectedResult
+        return array(
+            'Replace single atom implicit'     => array('foo/bar/baz/qux',  2,      array('doom'),           null,   'foo/bar/doom'),
+            'Replace multiple atoms implicit'  => array('foo/bar/baz/qux',  1,      array('doom', 'splat'),  null,   'foo/doom/splat'),
+            'Replace single atom explicit'     => array('foo/bar/baz/qux',  1,      array('doom'),           2,      'foo/doom/qux'),
+            'Replace multiple atoms explicit'  => array('foo/bar/baz/qux',  1,      array('doom', 'splat'),  1,      'foo/doom/splat/baz/qux'),
+            'Replace atoms past end'           => array('foo/bar/baz/qux',  111,    array('doom'),           222,    'foo/bar/baz/qux/doom'),
+        );
+    }
+
+    /**
+     * @dataProvider replaceData
+     */
+    public function testReplace($pathString, $offset, $replacement, $length, $expectedResultString)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame(
+            $expectedResultString,
+            $path->replace($offset, $replacement, $length)->string()
+        );
+    }
+
+    public function testReplaceWithNonArray()
+    {
+        $path = $this->factory->create('foo/bar/baz/qux');
+        $result = $path->replace(1, new ArrayIterator(array('doom', 'splat')), 1);
+
+        $this->assertSame('foo/doom/splat/baz/qux', $result->string());
+    }
+
+    public function testReplaceFailureAtomContainingSeparator()
+    {
+        $path = $this->factory->create('foo');
+
+        $this->setExpectedException(
+            'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
+            "Invalid path atom 'bar/'. Path atoms must not contain separators."
+        );
+        $path->replace(1, array('bar/'));
+    }
+
+    public function replaceNameData()
+    {
+        //                                             path            name         expectedResult
+        return array(
+            'Self'                            => array('.',            'foo',       'foo'),
+            'Empty name'                      => array('foo/bar',      '',          'foo'),
+            'Empty name with trailing slash'  => array('foo/bar/',     '',          'foo'),
+            'Whitespace name'                 => array('foo/bar',      ' ',         'foo/ '),
+            'Normal name'                     => array('foo.bar.baz',  'qux',       'qux'),
+            'Normal name with extensions'     => array('foo.bar.baz',  'qux.doom',  'qux.doom'),
+        );
+    }
+
+    /**
+     * @dataProvider replaceNameData
+     */
+    public function testReplaceName($pathString, $name, $expectedResultString)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame(
+            $expectedResultString,
+            $path->replaceName($name)->string()
+        );
+    }
+
+    public function testReplaceNameFailureAtomContainingSeparator()
+    {
+        $path = $this->factory->create('foo');
+
+        $this->setExpectedException(
+            'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
+            "Invalid path atom 'bar/'. Path atoms must not contain separators."
+        );
+        $path->replaceName('bar/');
+    }
+
+    public function replaceNameWithoutExtensionData()
+    {
+        //                                             path            name         expectedResult
+        return array(
+            'Self'                            => array('.',            'foo',       'foo.'),
+            'Empty name'                      => array('foo/bar',      '',          'foo'),
+            'Empty name with trailing slash'  => array('foo/bar/',     '',          'foo'),
+            'Whitespace name'                 => array('foo/bar',      ' ',         'foo/ '),
+            'Normal name'                     => array('foo.bar.baz',  'qux',       'qux.baz'),
+            'Normal name with extensions'     => array('foo.bar.baz',  'qux.doom',  'qux.doom.baz'),
+        );
+    }
+
+    /**
+     * @dataProvider replaceNameWithoutExtensionData
+     */
+    public function testReplaceNameWithoutExtension($pathString, $name, $expectedResultString)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame(
+            $expectedResultString,
+            $path->replaceNameWithoutExtension($name)->string()
+        );
+    }
+
+    public function testReplaceNameWithoutExtensionFailureAtomContainingSeparator()
+    {
+        $path = $this->factory->create('foo.bar.baz');
+
+        $this->setExpectedException(
+            'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
+            "Invalid path atom 'qux/.baz'. Path atoms must not contain separators."
+        );
+        $path->replaceNameWithoutExtension('qux/');
+    }
+
+    public function replaceNamePrefixData()
+    {
+        //                                             path            name         expectedResult
+        return array(
+            'Self'                            => array('.',            'foo',       'foo.'),
+            'Empty name'                      => array('foo/bar',      '',          'foo'),
+            'Empty name with trailing slash'  => array('foo/bar/',     '',          'foo'),
+            'Whitespace name'                 => array('foo/bar',      ' ',         'foo/ '),
+            'Normal name'                     => array('foo.bar.baz',  'qux',       'qux.bar.baz'),
+            'Normal name with extensions'     => array('foo.bar.baz',  'qux.doom',  'qux.doom.bar.baz'),
+        );
+    }
+
+    /**
+     * @dataProvider replaceNamePrefixData
+     */
+    public function testReplaceNamePrefix($pathString, $name, $expectedResultString)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame(
+            $expectedResultString,
+            $path->replaceNamePrefix($name)->string()
+        );
+    }
+
+    public function testReplaceNamePrefixFailureAtomContainingSeparator()
+    {
+        $path = $this->factory->create('foo.bar.baz');
+
+        $this->setExpectedException(
+            'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
+            "Invalid path atom 'qux/.bar.baz'. Path atoms must not contain separators."
+        );
+        $path->replaceNamePrefix('qux/');
+    }
+
+    public function replaceNameSuffixData()
+    {
+        //                                             path            name         expectedResult
+        return array(
+            'Self'                            => array('.',            'foo',       '.foo'),
+            'Empty name'                      => array('foo/bar',      '',          'foo/bar.'),
+            'Empty name with trailing slash'  => array('foo/bar/',     '',          'foo/bar.'),
+            'Whitespace name'                 => array('foo/bar',      ' ',         'foo/bar. '),
+            'Normal name'                     => array('foo.bar.baz',  'qux',       'foo.qux'),
+            'Normal name with extensions'     => array('foo.bar.baz',  'qux.doom',  'foo.qux.doom'),
+        );
+    }
+
+    /**
+     * @dataProvider replaceNameSuffixData
+     */
+    public function testReplaceNameSuffix($pathString, $name, $expectedResultString)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame(
+            $expectedResultString,
+            $path->replaceNameSuffix($name)->string()
+        );
+    }
+
+    public function testReplaceNameSuffixFailureAtomContainingSeparator()
+    {
+        $path = $this->factory->create('foo.bar.baz');
+
+        $this->setExpectedException(
+            'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
+            "Invalid path atom 'foo.qux/'. Path atoms must not contain separators."
+        );
+        $path->replaceNameSuffix('qux/');
+    }
+
+    public function replaceExtensionData()
+    {
+        //                                             path            name         expectedResult
+        return array(
+            'Self'                            => array('.',            'foo',       '.foo'),
+            'Empty name'                      => array('foo/bar',      '',          'foo/bar.'),
+            'Empty name with trailing slash'  => array('foo/bar/',     '',          'foo/bar.'),
+            'Whitespace name'                 => array('foo/bar',      ' ',         'foo/bar. '),
+            'Normal name'                     => array('foo.bar.baz',  'qux',       'foo.bar.qux'),
+            'Normal name with extensions'     => array('foo.bar.baz',  'qux.doom',  'foo.bar.qux.doom'),
+        );
+    }
+
+    /**
+     * @dataProvider replaceExtensionData
+     */
+    public function testReplaceExtension($pathString, $name, $expectedResultString)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame(
+            $expectedResultString,
+            $path->replaceExtension($name)->string()
+        );
+    }
+
+    public function testReplaceExtensionFailureAtomContainingSeparator()
+    {
+        $path = $this->factory->create('foo.bar.baz');
+
+        $this->setExpectedException(
+            'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
+            "Invalid path atom 'foo.bar.qux/'. Path atoms must not contain separators."
+        );
+        $path->replaceExtension('qux/');
+    }
+
+    public function replaceNameAtomsData()
+    {
+        //                                              path                offset  replacement              length  expectedResult
+        return array(
+            'Replace single atom implicit'     => array('foo.bar.baz.qux',  2,      array('doom'),           null,   'foo.bar.doom'),
+            'Replace multiple atoms implicit'  => array('foo.bar.baz.qux',  1,      array('doom', 'splat'),  null,   'foo.doom.splat'),
+            'Replace single atom explicit'     => array('foo.bar.baz.qux',  1,      array('doom'),           2,      'foo.doom.qux'),
+            'Replace multiple atoms explicit'  => array('foo.bar.baz.qux',  1,      array('doom', 'splat'),  1,      'foo.doom.splat.baz.qux'),
+            'Replace atoms past end'           => array('foo.bar.baz.qux',  111,    array('doom'),           222,    'foo.bar.baz.qux.doom'),
+        );
+    }
+
+    /**
+     * @dataProvider replaceNameAtomsData
+     */
+    public function testReplaceAtoms($pathString, $offset, $replacement, $length, $expectedResultString)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame(
+            $expectedResultString,
+            $path->replaceNameAtoms($offset, $replacement, $length)->string()
+        );
+    }
+
+    public function testReplaceAtomsWithNonArray()
+    {
+        $path = $this->factory->create('foo.bar.baz.qux');
+        $result = $path->replaceNameAtoms(1, new ArrayIterator(array('doom', 'splat')), 1);
+
+        $this->assertSame('foo.doom.splat.baz.qux', $result->string());
     }
 
     // tests for RelativePathInterface implementation ==========================

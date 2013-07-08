@@ -13,6 +13,9 @@ namespace Eloquent\Pathogen\Windows;
 
 use Eloquent\Pathogen\RelativePathInterface;
 
+/**
+ * The interface implemented by relative Windows paths.
+ */
 interface RelativeWindowsPathInterface extends
     RelativePathInterface,
     WindowsPathInterface

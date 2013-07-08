@@ -13,12 +13,17 @@ namespace Eloquent\Pathogen\Windows\Exception;
 
 use Exception;
 
+/**
+ * The drive specifiers of the two paths do not match.
+ */
 final class DriveMismatchException extends Exception
 {
     /**
-     * @param string         $leftDrive
-     * @param string         $rightDrive
-     * @param Exception|null $previous
+     * Constructs a new drive specifier mismatch exception.
+     *
+     * @param string         $leftDrive  The left-hand drive specifier.
+     * @param string         $rightDrive The right-hand drive specifier.
+     * @param Exception|null $previous   The previous exception, if available.
      */
     public function __construct(
         $leftDrive,
@@ -40,9 +45,9 @@ final class DriveMismatchException extends Exception
     }
 
     /**
-     * Returns the left-hand drive specifier.
+     * Get the left-hand drive specifier.
      *
-     * @return string
+     * @return string The left-hand drive specifier.
      */
     public function leftDrive()
     {
@@ -50,9 +55,9 @@ final class DriveMismatchException extends Exception
     }
 
     /**
-     * Returns the right-hand drive specifier.
+     * Get the right-hand drive specifier.
      *
-     * @return string
+     * @return string The right-hand drive specifier.
      */
     public function rightDrive()
     {

@@ -13,11 +13,16 @@ namespace Eloquent\Pathogen\Windows\Exception;
 
 use Exception;
 
+/**
+ * The provided drive specifier is invalid.
+ */
 final class InvalidDriveSpecifierException extends Exception
 {
     /**
-     * @param string         $drive
-     * @param Exception|null $previous
+     * Constructs a new invalid drive specifier exception.
+     *
+     * @param string         $drive    The invalid drive specifier.
+     * @param Exception|null $previous The previous exception, if available.
      */
     public function __construct($drive, Exception $previous = null)
     {
@@ -31,9 +36,9 @@ final class InvalidDriveSpecifierException extends Exception
     }
 
     /**
-     * Returns the invalid drive specifier.
+     * Get the invalid drive specifier.
      *
-     * @return string
+     * @return string The invalid drive specifier.
      */
     public function drive()
     {

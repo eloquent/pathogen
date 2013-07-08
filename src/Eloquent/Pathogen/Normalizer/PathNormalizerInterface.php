@@ -13,12 +13,17 @@ namespace Eloquent\Pathogen\Normalizer;
 
 use Eloquent\Pathogen\PathInterface;
 
+/**
+ * The interface implemented by path normalizers.
+ */
 interface PathNormalizerInterface
 {
     /**
-     * @param PathInterface $path
+     * Normalize the supplied path to it's most canonical form.
      *
-     * @return PathInterface
+     * @param PathInterface $path The path to normalize.
+     *
+     * @return PathInterface The normalized path.
      */
     public function normalize(PathInterface $path);
 }

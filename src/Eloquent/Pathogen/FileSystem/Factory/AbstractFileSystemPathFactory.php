@@ -1,0 +1,141 @@
+<?php
+
+/*
+ * This file is part of the Pathogen package.
+ *
+ * Copyright © 2013 Erin Millard
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Eloquent\Pathogen\FileSystem\Factory;
+
+use Eloquent\Pathogen\AbsolutePathInterface;
+use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\Factory\PathFactoryInterface;
+use Eloquent\Pathogen\Windows\Factory\WindowsPathFactory;
+use Icecave\Isolator\Isolator;
+
+/**
+ * Abstract base class for classes implementing FileSystemPathFactoryInterface.
+ */
+abstract class AbstractFileSystemPathFactory implements
+    FileSystemPathFactoryInterface
+{
+    /**
+     * Construct a new file system path factory.
+     *
+     * @param PathFactoryInterface|null $posixFactory The path factory to use
+     *     for Unix-style paths.
+     * @param PathFactoryInterface|null $windowsFactory The path factory to use
+     *     for Windows paths.
+     * @param Isolator|null $isolator The isolator to use.
+     */
+    public function __construct(
+        PathFactoryInterface $posixFactory = null,
+        PathFactoryInterface $windowsFactory = null,
+        Isolator $isolator = null
+    ) {
+        if (null === $posixFactory) {
+            $posixFactory = new PathFactory;
+        }
+        if (null === $windowsFactory) {
+            $windowsFactory = new WindowsPathFactory;
+        }
+
+        $this->posixFactory = $posixFactory;
+        $this->windowsFactory = $windowsFactory;
+        $this->isolator = Isolator::get($isolator);
+    }
+
+    /**
+     * Get the path factory used for Unix-style paths.
+     *
+     * @return PathFactoryInterface The path factory used for Unix-style paths.
+     */
+    public function posixFactory()
+    {
+        return $this->posixFactory;
+    }
+
+    /**
+     * Get the path factory used for Windows paths.
+     *
+     * @return PathFactoryInterface The path factory used for Windows paths.
+     */
+    public function windowsFactory()
+    {
+        return $this->windowsFactory;
+    }
+
+    /**
+     * Create a path representing the current working directory.
+     *
+     * @return AbsolutePathInterface A new path instance representing the
+     *     current working directory path.
+     */
+    public function createWorkingDirectoryPath()
+    {
+        return $this->factoryByPlatform()
+            ->create($this->isolator()->getcwd());
+    }
+
+    /**
+     * Create a path representing the system temporary directory.
+     *
+     * @return AbsolutePathInterface A new path instance representing the system
+     *     default temporary directory path.
+     */
+    public function createTemporaryDirectoryPath()
+    {
+        return $this->factoryByPlatform()
+            ->create($this->isolator()->sys_get_temp_dir());
+    }
+
+    /**
+     * Create a path representing a suitable for use as the location for a new
+     * temporary file or directory.
+     *
+     * This path is not guaranteed to be unused, but collisions are fairly
+     * unlikely.
+     *
+     * @param string|null $prefix A string to use as a prefix for the path name.
+     *
+     * @return AbsolutePathInterface A new path instance representing the new
+     *     temporary path.
+     */
+    public function createTemporaryPath($prefix = null)
+    {
+        if (null === $prefix) {
+            $prefix = '';
+        }
+
+        return $this->createTemporaryDirectoryPath()
+            ->joinAtoms($this->isolator()->uniqid($prefix, true));
+    }
+
+    /**
+     * @return Isolator
+     */
+    protected function isolator()
+    {
+        return $this->isolator;
+    }
+
+    /**
+     * @return PathFactoryInterface
+     */
+    protected function factoryByPlatform()
+    {
+        if ($this->isolator()->defined('PHP_WINDOWS_VERSION_BUILD')) {
+            return $this->windowsFactory();
+        }
+
+        return $this->posixFactory();
+    }
+
+    private $posixFactory;
+    private $windowsFactory;
+    private $isolator;
+}

@@ -15,6 +15,9 @@ use Eloquent\Pathogen\RelativePath;
 use Eloquent\Pathogen\Exception\InvalidPathAtomCharacterException;
 use Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException;
 
+/**
+ * Represents a relative Windows path.
+ */
 class RelativeWindowsPath extends RelativePath implements
     RelativeWindowsPathInterface
 {
