@@ -1170,7 +1170,7 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
     {
         $parent = $this->factory->create($parentString);
         $child = $this->factory->create($childString);
-        $result = $parent->relativeTo($child);
+        $result = $child->relativeTo($parent);
 
         $this->assertSame($expectedResultString, $result->string());
     }
@@ -1179,33 +1179,33 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
     {
         $parent = $this->factory->create('/foo');
         $child = $this->regularPathFactory->create('/foo/bar');
-        $result = $parent->relativeTo($child);
+        $result = $child->relativeTo($parent);
 
         $this->assertSame('bar', $result->string());
     }
 
     public function testRelativeToFailureDriveMismatch()
     {
-        $parent = $this->factory->create('C:/foo');
-        $child = $this->factory->create('D:/foo/bar');
+        $child = $this->factory->create('C:/foo/bar');
+        $parent = $this->factory->create('D:/foo');
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\DriveMismatchException',
             "Drive specifiers 'C' and 'D' do not match."
         );
-        $parent->relativeTo($child);
+        $child->relativeTo($parent);
     }
 
     public function testRelativeToFailureDriveMismatchRegularPath()
     {
-        $parent = $this->factory->create('C:/foo');
-        $child = $this->regularPathFactory->create('/foo/bar');
+        $child = $this->factory->create('C:/foo/bar');
+        $parent = $this->regularPathFactory->create('/foo');
 
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\DriveMismatchException',
             "Drive specifiers 'C' and NULL do not match."
         );
-        $parent->relativeTo($child);
+        $child->relativeTo($parent);
     }
 
     public function replaceNameAtomsData()
