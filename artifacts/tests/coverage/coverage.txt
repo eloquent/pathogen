@@ -1,15 +1,15 @@
 
 
 Code Coverage Report 
-  2013-07-08 12:33:19
+  2013-07-18 03:34:14
 
  Summary: 
   Classes: 100.00% (25/25)
   Methods: 100.00% (121/121)
-  Lines:   100.00% (606/606)
+  Lines:   100.00% (611/611)
 
 \Eloquent\Pathogen::AbsolutePath
-  Methods: 100.00% ( 6/ 6)   Lines: 100.00% ( 40/ 40)
+  Methods: 100.00% ( 6/ 6)   Lines: 100.00% ( 45/ 45)
 \Eloquent\Pathogen::AbstractPath
   Methods: 100.00% (37/37)   Lines: 100.00% (189/189)
 \Eloquent\Pathogen::RelativePath

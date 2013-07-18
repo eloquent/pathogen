@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1373286799">
-  <project timestamp="1373286799">
+<coverage generated="1374118454">
+  <project timestamp="1374118454">
     <package name="Eloquent\Pathogen">
       <file name="/home/travis/build/eloquent/pathogen/src/Eloquent/Pathogen/AbsolutePath.php">
         <class name="AbsolutePath" namespace="Eloquent\Pathogen">
-          <metrics methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="40" coveredstatements="40" elements="46" coveredelements="46"/>
+          <metrics methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="45" coveredstatements="45" elements="51" coveredelements="51"/>
         </class>
         <line num="26" type="method" name="string" crap="1" count="120"/>
         <line num="28" type="stmt" count="120"/>
@@ -34,40 +34,45 @@
         <line num="113" type="stmt" count="27"/>
         <line num="114" type="stmt" count="27"/>
         <line num="115" type="stmt" count="27"/>
-        <line num="132" type="method" name="relativeTo" crap="4" count="26"/>
-        <line num="136" type="stmt" count="26"/>
-        <line num="137" type="stmt" count="9"/>
-        <line num="138" type="stmt" count="9"/>
-        <line num="140" type="stmt" count="26"/>
-        <line num="141" type="stmt" count="26"/>
-        <line num="143" type="stmt" count="26"/>
+        <line num="132" type="method" name="relativeTo" crap="4" count="27"/>
+        <line num="136" type="stmt" count="27"/>
+        <line num="137" type="stmt" count="10"/>
+        <line num="138" type="stmt" count="10"/>
+        <line num="140" type="stmt" count="27"/>
+        <line num="141" type="stmt" count="27"/>
+        <line num="143" type="stmt" count="27"/>
         <line num="144" type="stmt" count="3"/>
         <line num="145" type="stmt" count="3"/>
-        <line num="146" type="stmt" count="23"/>
-        <line num="148" type="stmt" count="23"/>
-        <line num="149" type="stmt" count="23"/>
-        <line num="151" type="stmt" count="23"/>
-        <line num="152" type="stmt" count="15"/>
-        <line num="153" type="stmt" count="15"/>
-        <line num="155" type="stmt" count="15"/>
-        <line num="156" type="stmt" count="15"/>
-        <line num="159" type="stmt" count="26"/>
-        <line num="162" type="stmt" count="0"/>
-        <metrics loc="161" ncloc="92" classes="1" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="40" coveredstatements="40" elements="46" coveredelements="46"/>
+        <line num="146" type="stmt" count="24"/>
+        <line num="147" type="stmt" count="24"/>
+        <line num="148" type="stmt" count="24"/>
+        <line num="149" type="stmt" count="24"/>
+        <line num="150" type="stmt" count="24"/>
+        <line num="151" type="stmt" count="24"/>
+        <line num="154" type="stmt" count="24"/>
+        <line num="155" type="stmt" count="24"/>
+        <line num="157" type="stmt" count="24"/>
+        <line num="158" type="stmt" count="16"/>
+        <line num="159" type="stmt" count="16"/>
+        <line num="161" type="stmt" count="16"/>
+        <line num="162" type="stmt" count="16"/>
+        <line num="165" type="stmt" count="27"/>
+        <line num="168" type="stmt" count="0"/>
+        <metrics loc="167" ncloc="98" classes="1" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="45" coveredstatements="45" elements="51" coveredelements="51"/>
       </file>
       <file name="/home/travis/build/eloquent/pathogen/src/Eloquent/Pathogen/AbstractPath.php">
         <class name="AbstractPath" namespace="Eloquent\Pathogen">
           <metrics methods="37" coveredmethods="37" conditionals="0" coveredconditionals="0" statements="189" coveredstatements="189" elements="226" coveredelements="226"/>
         </class>
-        <line num="29" type="method" name="__construct" crap="2" count="1057"/>
-        <line num="31" type="stmt" count="1057"/>
-        <line num="32" type="stmt" count="867"/>
-        <line num="33" type="stmt" count="867"/>
-        <line num="35" type="stmt" count="1057"/>
-        <line num="36" type="stmt" count="967"/>
-        <line num="37" type="stmt" count="967"/>
-        <line num="49" type="method" name="atoms" crap="1" count="950"/>
-        <line num="51" type="stmt" count="950"/>
+        <line num="29" type="method" name="__construct" crap="2" count="1058"/>
+        <line num="31" type="stmt" count="1058"/>
+        <line num="32" type="stmt" count="868"/>
+        <line num="33" type="stmt" count="868"/>
+        <line num="35" type="stmt" count="1058"/>
+        <line num="36" type="stmt" count="968"/>
+        <line num="37" type="stmt" count="968"/>
+        <line num="49" type="method" name="atoms" crap="1" count="951"/>
+        <line num="51" type="stmt" count="951"/>
         <line num="63" type="method" name="sliceAtoms" crap="2" count="10"/>
         <line num="65" type="stmt" count="10"/>
         <line num="66" type="stmt" count="10"/>
@@ -76,12 +81,12 @@
         <line num="70" type="stmt" count="10"/>
         <line num="78" type="method" name="hasAtoms" crap="1" count="50"/>
         <line num="80" type="stmt" count="50"/>
-        <line num="88" type="method" name="hasTrailingSeparator" crap="1" count="610"/>
-        <line num="90" type="stmt" count="610"/>
-        <line num="98" type="method" name="string" crap="2" count="372"/>
-        <line num="101" type="stmt" count="372"/>
-        <line num="102" type="stmt" count="372"/>
-        <line num="103" type="stmt" count="372"/>
+        <line num="88" type="method" name="hasTrailingSeparator" crap="1" count="611"/>
+        <line num="90" type="stmt" count="611"/>
+        <line num="98" type="method" name="string" crap="2" count="373"/>
+        <line num="101" type="stmt" count="373"/>
+        <line num="102" type="stmt" count="373"/>
+        <line num="103" type="stmt" count="373"/>
         <line num="111" type="method" name="__toString" crap="1" count="7"/>
         <line num="113" type="stmt" count="7"/>
         <line num="122" type="method" name="name" crap="2" count="429"/>
@@ -264,27 +269,27 @@
         <line num="655" type="stmt" count="10"/>
         <line num="657" type="stmt" count="63"/>
         <line num="659" type="stmt" count="63"/>
-        <line num="669" type="method" name="normalizeAtoms" crap="2" count="1057"/>
-        <line num="671" type="stmt" count="1057"/>
-        <line num="672" type="stmt" count="1057"/>
-        <line num="673" type="stmt" count="1031"/>
-        <line num="674" type="stmt" count="943"/>
-        <line num="675" type="stmt" count="969"/>
-        <line num="677" type="stmt" count="969"/>
-        <line num="683" type="method" name="validateAtom" crap="3" count="1031"/>
-        <line num="685" type="stmt" count="1031"/>
+        <line num="669" type="method" name="normalizeAtoms" crap="2" count="1058"/>
+        <line num="671" type="stmt" count="1058"/>
+        <line num="672" type="stmt" count="1058"/>
+        <line num="673" type="stmt" count="1032"/>
+        <line num="674" type="stmt" count="944"/>
+        <line num="675" type="stmt" count="970"/>
+        <line num="677" type="stmt" count="970"/>
+        <line num="683" type="method" name="validateAtom" crap="3" count="1032"/>
+        <line num="685" type="stmt" count="1032"/>
         <line num="686" type="stmt" count="12"/>
-        <line num="687" type="stmt" count="1027"/>
+        <line num="687" type="stmt" count="1028"/>
         <line num="688" type="stmt" count="52"/>
-        <line num="690" type="stmt" count="1023"/>
-        <line num="699" type="method" name="createPath" crap="2" count="260"/>
-        <line num="704" type="stmt" count="260"/>
+        <line num="690" type="stmt" count="1024"/>
+        <line num="699" type="method" name="createPath" crap="2" count="261"/>
+        <line num="704" type="stmt" count="261"/>
         <line num="705" type="stmt" count="136"/>
         <line num="706" type="stmt" count="136"/>
         <line num="708" type="stmt" count="136"/>
-        <line num="711" type="stmt" count="124"/>
-        <line num="712" type="stmt" count="124"/>
-        <line num="714" type="stmt" count="124"/>
+        <line num="711" type="stmt" count="125"/>
+        <line num="712" type="stmt" count="125"/>
+        <line num="714" type="stmt" count="125"/>
         <line num="720" type="stmt" count="0"/>
         <metrics loc="719" ncloc="417" classes="1" methods="37" coveredmethods="37" conditionals="0" coveredconditionals="0" statements="189" coveredstatements="189" elements="226" coveredelements="226"/>
       </file>
@@ -981,6 +986,6 @@
       <line num="22" type="stmt" count="0"/>
       <metrics loc="21" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="38" loc="3649" ncloc="1881" classes="25" methods="121" coveredmethods="121" conditionals="0" coveredconditionals="0" statements="606" coveredstatements="606" elements="727" coveredelements="727"/>
+    <metrics files="38" loc="3655" ncloc="1887" classes="25" methods="121" coveredmethods="121" conditionals="0" coveredconditionals="0" statements="611" coveredstatements="611" elements="732" coveredelements="732"/>
   </project>
 </coverage>
