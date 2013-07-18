@@ -810,16 +810,17 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function relativeToData()
     {
-        //                                        parent           child             expectedResult
+        //                                        parent                child                 expectedResult
         return array(
-            'Self'                       => array('/foo',          '/foo',           '.'),
-            'Child'                      => array('/foo',          '/foo/bar',       'bar'),
-            'Ancestor'                   => array('/foo',          '/foo/bar/baz',   'bar/baz'),
-            'Sibling'                    => array('/foo',          '/bar',           '../bar'),
-            'Parent\'s sibling'          => array('/foo/bar/baz',  '/foo/qux',       '../../qux'),
-            'Parent\'s sibling\'s child' => array('/foo/bar/baz',  '/foo/qux/doom',  '../../qux/doom'),
-            'Completely unrelated'       => array('/foo/bar/baz',  '/qux/doom',      '../../../qux/doom'),
-            'Lengthly unrelated child'   => array('/foo/bar',      '/baz/qux/doom',  '../../baz/qux/doom'),
+            'Self'                       => array('/foo',               '/foo',               '.'),
+            'Child'                      => array('/foo',               '/foo/bar',           'bar'),
+            'Ancestor'                   => array('/foo',               '/foo/bar/baz',       'bar/baz'),
+            'Sibling'                    => array('/foo',               '/bar',               '../bar'),
+            'Parent\'s sibling'          => array('/foo/bar/baz',       '/foo/qux',           '../../qux'),
+            'Parent\'s sibling\'s child' => array('/foo/bar/baz',       '/foo/qux/doom',      '../../qux/doom'),
+            'Completely unrelated'       => array('/foo/bar/baz',       '/qux/doom',          '../../../qux/doom'),
+            'Lengthly unrelated child'   => array('/foo/bar',           '/baz/qux/doom',      '../../baz/qux/doom'),
+            'Common suffix'              => array('/foo/bar/baz/doom',  '/foo/bar/qux/doom',  '../../qux/doom'),
         );
     }
 

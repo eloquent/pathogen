@@ -144,6 +144,12 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
             $diffAtoms = array(static::SELF_ATOM);
         } else {
             $diffAtoms = array_diff_assoc($childAtoms, $parentAtoms);
+            $diffAtomIndices = array_keys($diffAtoms);
+            $diffAtoms = array_slice(
+                $childAtoms,
+                array_shift($diffAtomIndices)
+            );
+
             $fillCount =
                 (count($parentAtoms) - count($childAtoms)) +
                 count($diffAtoms);

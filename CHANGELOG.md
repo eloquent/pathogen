@@ -1,5 +1,10 @@
 # Pathogen changelog
 
+### 0.1.2 (unreleased)
+
+* **[FIXED]** AbsolutePath::relativeTo() now works for paths with common
+  suffixes ([#20]).
+
 ### 0.1.1 (2013-07-08)
 
 * **[FIXED]** AbsolutePath::relativeTo() no longer works backwards ([#18]).
@@ -11,3 +16,4 @@
 <!-- References -->
 
 [#18]: https://github.com/eloquent/pathogen/issues/18
+[#20]: https://github.com/eloquent/pathogen/issues/20
