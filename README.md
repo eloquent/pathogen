@@ -390,7 +390,7 @@ echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
 
 [AbsolutePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/AbsolutePathInterface.html
 [API documentation]: http://lqnt.co/pathogen/artifacts/documentation/api/
-[Build Status]: https://raw.github.com/eloquent/pathogen/gh-pages/artifacts/images/icecave/regular/build-status.png
+[Build Status]: https://api.travis-ci.org/eloquent/pathogen.png
 [Composer]: http://getcomposer.org/
 [eloquent/pathogen]: https://packagist.org/packages/eloquent/pathogen
 [FileSystemPathFactory]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/Factory/FileSystemPathFactory.html
@@ -400,4 +400,4 @@ echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
 [PlatformFileSystemPathFactory]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/Factory/PlatformFileSystemPathFactory.html
 [RelativePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/RelativePathInterface.html
 [Test coverage report]: http://lqnt.co/pathogen/artifacts/tests/coverage/
-[Test Coverage]: https://raw.github.com/eloquent/pathogen/gh-pages/artifacts/images/icecave/regular/coverage.png
+[Test Coverage]: https://coveralls.io/repos/eloquent/pathogen/badge.png
