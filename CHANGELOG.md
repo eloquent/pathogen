@@ -1,6 +1,6 @@
 # Pathogen changelog
 
-### 0.1.2 (unreleased)
+### 0.1.2 (2013-07-18)
 
 * **[FIXED]** AbsolutePath::relativeTo() now works for paths with common
   suffixes ([#20]).
