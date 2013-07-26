@@ -25,17 +25,17 @@ class FileSystemPathNormalizerTest extends PHPUnit_Framework_TestCase
 
         $this->factory = new FileSystemPathFactory;
 
-        $this->posixNormalizer = new PathNormalizer;
+        $this->unixNormalizer = new PathNormalizer;
         $this->windowsNormalizer = new WindowsPathNormalizer;
         $this->normalizer = new FileSystemPathNormalizer(
-            $this->posixNormalizer,
+            $this->unixNormalizer,
             $this->windowsNormalizer
         );
     }
 
     public function testConstructor()
     {
-        $this->assertSame($this->posixNormalizer, $this->normalizer->posixNormalizer());
+        $this->assertSame($this->unixNormalizer, $this->normalizer->unixNormalizer());
         $this->assertSame($this->windowsNormalizer, $this->normalizer->windowsNormalizer());
     }
 
@@ -45,7 +45,7 @@ class FileSystemPathNormalizerTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(
             '\Eloquent\Pathogen\Normalizer\PathNormalizer',
-            $this->normalizer->posixNormalizer()
+            $this->normalizer->unixNormalizer()
         );
         $this->assertInstanceOf(
             '\Eloquent\Pathogen\Windows\Normalizer\WindowsPathNormalizer',
@@ -53,7 +53,7 @@ class FileSystemPathNormalizerTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testNormalizePosix()
+    public function testNormalizeUnix()
     {
         $path = $this->factory->create('/path/./to/foo/../bar');
         $normalizedPath = $this->normalizer->normalize($path);

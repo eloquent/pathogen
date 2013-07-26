@@ -9,23 +9,25 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen;
+namespace Eloquent\Pathogen\Unix;
 
 use ArrayIterator;
 use Phake;
 use PHPUnit_Framework_TestCase;
 
 /**
+ * @covers \Eloquent\Pathogen\Unix\AbsoluteUnixPath
+ * @covers \Eloquent\Pathogen\FileSystem\AbstractAbsoluteFileSystemPath
  * @covers \Eloquent\Pathogen\AbsolutePath
  * @covers \Eloquent\Pathogen\AbstractPath
  */
-class AbsolutePathTest extends PHPUnit_Framework_TestCase
+class AbsoluteUnixPathTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
         parent::setUp();
 
-        $this->factory = new Factory\PathFactory;
+        $this->factory = new Factory\UnixPathFactory;
     }
 
     // tests for PathInterface implementation ==================================
@@ -59,7 +61,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorDefaults()
     {
-        $this->path = new AbsolutePath(array());
+        $this->path = new AbsoluteUnixPath(array());
 
         $this->assertFalse($this->path->hasTrailingSeparator());
     }
@@ -70,7 +72,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
             "Invalid path atom 'foo/bar'. Path atoms must not contain separators."
         );
-        new AbsolutePath(array('foo/bar'));
+        new AbsoluteUnixPath(array('foo/bar'));
     }
 
     public function testConstructorFailureEmptyAtom()
@@ -78,7 +80,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\EmptyPathAtomException'
         );
-        new AbsolutePath(array(''));
+        new AbsoluteUnixPath(array(''));
     }
 
     public function sliceAtomsData()
@@ -173,13 +175,13 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function parentData()
     {
-        //                             path         numLevels  parent
+        //                             path            numLevels  parent
         return array(
-            'Root'            => array('/',         null,      '/..'),
-            'Single atom'     => array('/foo',      null,      '/foo/..'),
-            'Multiple atoms'  => array('/foo/bar',  null,      '/foo/bar/..'),
-            'Up one level'    => array('/foo',      1,         '/foo/..'),
-            'Up two levels'   => array('/foo',      2,         '/foo/../..'),
+            'Root'            => array('/',             null,     '/'),
+            'Single atom'     => array('/foo',          null,     '/'),
+            'Multiple atoms'  => array('/foo/bar',      null,     '/foo'),
+            'Up one level'    => array('/foo/bar/baz',  1,        '/foo/bar'),
+            'Up two levels'   => array('/foo/bar/baz',  2,        '/foo'),
         );
     }
 

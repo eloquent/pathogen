@@ -9,13 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\Windows;
+namespace Eloquent\Pathogen\Unix;
 
-use Eloquent\Pathogen\FileSystem\FileSystemPathInterface;
+use Eloquent\Pathogen\FileSystem\AbstractAbsoluteFileSystemPath;
 
 /**
- * The interface implemented by all Windows paths.
+ * Represents an absolute Unix path.
  */
-interface WindowsPathInterface extends FileSystemPathInterface
+class AbsoluteUnixPath extends AbstractAbsoluteFileSystemPath implements
+    AbsoluteUnixPathInterface
 {
 }

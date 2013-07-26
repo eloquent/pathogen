@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\Windows;
+namespace Eloquent\Pathogen\Unix;
 
 use Eloquent\Pathogen\FileSystem\RelativeFileSystemPathInterface;
 
 /**
- * The interface implemented by relative Windows paths.
+ * The interface implemented by relative Unix paths.
  */
-interface RelativeWindowsPathInterface extends
+interface RelativeUnixPathInterface extends
     RelativeFileSystemPathInterface,
-    WindowsPathInterface
+    UnixPathInterface
 {
 }
