@@ -8,6 +8,7 @@
   factory.
 * **[IMPROVED]** File system paths will automatically normalize the result of
   the `parent()` method ([#21]).
+* **[NEW]** Implemented dependency consumer traits ([#22]).
 
 ### 0.1.2 (2013-07-18)
 
@@ -27,3 +28,4 @@
 [#18]: https://github.com/eloquent/pathogen/issues/18
 [#20]: https://github.com/eloquent/pathogen/issues/20
 [#21]: https://github.com/eloquent/pathogen/issues/21
+[#22]: https://github.com/eloquent/pathogen/issues/22

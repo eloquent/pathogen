@@ -13,6 +13,7 @@ use Eloquent\Pathogen\Factory\PathFactory;
 use Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory;
 use Eloquent\Pathogen\FileSystem\Resolver\WorkingDirectoryResolver;
 use Eloquent\Pathogen\Resolver\NormalizingPathResolver;
+use ExampleConsumer;
 
 class FunctionalTest extends PHPUnit_Framework_TestCase
 {
@@ -28,6 +29,14 @@ class FunctionalTest extends PHPUnit_Framework_TestCase
         parent::tearDown();
 
         $_SERVER = $this->server;
+    }
+
+    public function testConsumerTrait()
+    {
+        $this->expectOutputString('Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory');
+
+        $consumer = new ExampleConsumer;
+        echo get_class($consumer->pathFactory()); // outputs 'Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory'
     }
 
     public function testResolveAgainstWorkingDirectory()
