@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\Windows;
+namespace Eloquent\Pathogen\Unix;
 
 use Eloquent\Pathogen\FileSystem\FileSystemPathInterface;
 
 /**
- * The interface implemented by all Windows paths.
+ * The interface implemented by all Unix paths.
  */
-interface WindowsPathInterface extends FileSystemPathInterface
+interface UnixPathInterface extends FileSystemPathInterface
 {
 }

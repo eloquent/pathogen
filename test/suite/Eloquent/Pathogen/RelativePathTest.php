@@ -12,6 +12,7 @@
 namespace Eloquent\Pathogen;
 
 use ArrayIterator;
+use Phake;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -782,6 +783,24 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $result = $path->replaceNameAtoms(1, new ArrayIterator(array('doom', 'splat')), 1);
 
         $this->assertSame('foo.doom.splat.baz.qux', $result->string());
+    }
+
+    public function testNormalize()
+    {
+        $path = $this->factory->create('foo/../bar');
+        $normalizedPath = $this->factory->create('bar');
+
+        $this->assertEquals($normalizedPath, $path->normalize());
+    }
+
+    public function testNormalizeCustomNormalizer()
+    {
+        $path = $this->factory->create('foo/../bar');
+        $normalizedPath = $this->factory->create('bar');
+        $normalizer = Phake::mock('Eloquent\Pathogen\Normalizer\PathNormalizerInterface');
+        Phake::when($normalizer)->normalize($path)->thenReturn($normalizedPath);
+
+        $this->assertSame($normalizedPath, $path->normalize($normalizer));
     }
 
     // tests for RelativePathInterface implementation ==========================

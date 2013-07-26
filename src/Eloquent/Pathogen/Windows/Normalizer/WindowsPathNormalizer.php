@@ -37,7 +37,7 @@ class WindowsPathNormalizer extends PathNormalizer
     }
 
     /**
-     * Normalize the supplied path to it's most canonical form.
+     * Normalize the supplied path to its most canonical form.
      *
      * @param PathInterface $path The path to normalize.
      *

@@ -12,8 +12,8 @@
 namespace Eloquent\Pathogen\FileSystem\Factory;
 
 use Eloquent\Pathogen\AbsolutePathInterface;
-use Eloquent\Pathogen\Factory\PathFactory;
 use Eloquent\Pathogen\Factory\PathFactoryInterface;
+use Eloquent\Pathogen\Unix\Factory\UnixPathFactory;
 use Eloquent\Pathogen\Windows\Factory\WindowsPathFactory;
 use Icecave\Isolator\Isolator;
 
@@ -26,37 +26,37 @@ abstract class AbstractFileSystemPathFactory implements
     /**
      * Construct a new file system path factory.
      *
-     * @param PathFactoryInterface|null $posixFactory The path factory to use
-     *     for Unix-style paths.
+     * @param PathFactoryInterface|null $unixFactory The path factory to use
+     *     for Unix paths.
      * @param PathFactoryInterface|null $windowsFactory The path factory to use
      *     for Windows paths.
      * @param Isolator|null $isolator The isolator to use.
      */
     public function __construct(
-        PathFactoryInterface $posixFactory = null,
+        PathFactoryInterface $unixFactory = null,
         PathFactoryInterface $windowsFactory = null,
         Isolator $isolator = null
     ) {
-        if (null === $posixFactory) {
-            $posixFactory = new PathFactory;
+        if (null === $unixFactory) {
+            $unixFactory = new UnixPathFactory;
         }
         if (null === $windowsFactory) {
             $windowsFactory = new WindowsPathFactory;
         }
 
-        $this->posixFactory = $posixFactory;
+        $this->unixFactory = $unixFactory;
         $this->windowsFactory = $windowsFactory;
         $this->isolator = Isolator::get($isolator);
     }
 
     /**
-     * Get the path factory used for Unix-style paths.
+     * Get the path factory used for Unix paths.
      *
-     * @return PathFactoryInterface The path factory used for Unix-style paths.
+     * @return PathFactoryInterface The path factory used for Unix paths.
      */
-    public function posixFactory()
+    public function unixFactory()
     {
-        return $this->posixFactory;
+        return $this->unixFactory;
     }
 
     /**
@@ -132,10 +132,10 @@ abstract class AbstractFileSystemPathFactory implements
             return $this->windowsFactory();
         }
 
-        return $this->posixFactory();
+        return $this->unixFactory();
     }
 
-    private $posixFactory;
+    private $unixFactory;
     private $windowsFactory;
     private $isolator;
 }
