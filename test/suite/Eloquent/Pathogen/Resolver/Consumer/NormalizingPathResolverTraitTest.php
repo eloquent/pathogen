@@ -20,6 +20,10 @@ class NormalizingPathResolverTraitTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
+        if (!defined('T_TRAIT')) {
+            $this->markTestSkipped('Requires trait support');
+        }
+
         $this->consumer = $this->getObjectForTrait(
             __NAMESPACE__ . '\NormalizingPathResolverTrait'
         );

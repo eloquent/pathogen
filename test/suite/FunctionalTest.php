@@ -13,7 +13,6 @@ use Eloquent\Pathogen\Factory\PathFactory;
 use Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory;
 use Eloquent\Pathogen\FileSystem\Resolver\WorkingDirectoryResolver;
 use Eloquent\Pathogen\Resolver\NormalizingPathResolver;
-use ExampleConsumer;
 
 class FunctionalTest extends PHPUnit_Framework_TestCase
 {
