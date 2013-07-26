@@ -234,14 +234,12 @@ required for some reason, this is left to the developer to handle:
 
 ```php
 use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory;
-use Eloquent\Pathogen\FileSystem\Normalizer\FileSystemPathNormalizer;
 
 $factory = new FileSystemPathFactory;
-$normalizer = new FileSystemPathNormalizer;
 
 $path = $factory->create('/path/./to/foo/../bar');
 
-$normalizedPath = $normalizer->normalize($path);
+$normalizedPath = $path->normalize();
 echo $normalizedPath->string(); // outputs '/path/to/bar'
 ```
 
@@ -390,7 +388,7 @@ echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
 
 [AbsolutePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/AbsolutePathInterface.html
 [API documentation]: http://lqnt.co/pathogen/artifacts/documentation/api/
-[Build Status]: https://api.travis-ci.org/eloquent/pathogen.png
+[Build Status]: https://api.travis-ci.org/eloquent/pathogen.png?branch=master
 [Composer]: http://getcomposer.org/
 [eloquent/pathogen]: https://packagist.org/packages/eloquent/pathogen
 [FileSystemPathFactory]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/Factory/FileSystemPathFactory.html

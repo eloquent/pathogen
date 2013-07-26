@@ -13,10 +13,12 @@ namespace Eloquent\Pathogen\Windows;
 
 use ArrayIterator;
 use Eloquent\Pathogen\Factory\PathFactory;
+use Phake;
 use PHPUnit_Framework_TestCase;
 
 /**
  * @covers \Eloquent\Pathogen\Windows\AbsoluteWindowsPath
+ * @covers \Eloquent\Pathogen\FileSystem\AbstractAbsoluteFileSystemPath
  * @covers \Eloquent\Pathogen\AbsolutePath
  * @covers \Eloquent\Pathogen\AbstractPath
  */
@@ -289,19 +291,19 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function parentData()
     {
-        //                                        path           numLevels  parent
+        //                                        path               numLevels  parent
         return array(
-            'Root'                       => array('/',           null,      '/..'),
-            'Single atom'                => array('/foo',        null,      '/foo/..'),
-            'Multiple atoms'             => array('/foo/bar',    null,      '/foo/bar/..'),
-            'Up one level'               => array('/foo',        1,         '/foo/..'),
-            'Up two levels'              => array('/foo',        2,         '/foo/../..'),
+            'Root'                       => array('/',               null,      '/'),
+            'Single atom'                => array('/foo',            null,      '/'),
+            'Multiple atoms'             => array('/foo/bar',        null,      '/foo'),
+            'Up one level'               => array('/foo/bar/baz',    1,         '/foo/bar'),
+            'Up two levels'              => array('/foo/bar/baz',    2,         '/foo'),
 
-            'Root with drive'            => array('C:/',         null,      'C:/..'),
-            'Single atom with drive'     => array('C:/foo',      null,      'C:/foo/..'),
-            'Multiple atoms with drive'  => array('C:/foo/bar',  null,      'C:/foo/bar/..'),
-            'Up one level with drive'    => array('C:/foo',      1,         'C:/foo/..'),
-            'Up two levels with drive'   => array('C:/foo',      2,         'C:/foo/../..'),
+            'Root with drive'            => array('C:/',             null,      'C:/'),
+            'Single atom with drive'     => array('C:/foo',          null,      'C:/'),
+            'Multiple atoms with drive'  => array('C:/foo/bar',      null,      'C:/foo'),
+            'Up one level with drive'    => array('C:/foo/bar/baz',  1,         'C:/foo/bar'),
+            'Up two levels with drive'   => array('C:/foo/bar/baz',  2,         'C:/foo'),
         );
     }
 
@@ -1038,6 +1040,32 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
             "Invalid path atom 'foo.bar.qux/'. Path atoms must not contain separators."
         );
         $path->replaceExtension('qux/');
+    }
+
+    public function testNormalize()
+    {
+        $path = $this->factory->create('/foo/../bar');
+        $normalizedPath = $this->factory->create('/bar');
+
+        $this->assertEquals($normalizedPath, $path->normalize());
+    }
+
+    public function testNormalizeWithDrive()
+    {
+        $path = $this->factory->create('C:/foo/../bar');
+        $normalizedPath = $this->factory->create('C:/bar');
+
+        $this->assertEquals($normalizedPath, $path->normalize());
+    }
+
+    public function testNormalizeCustomNormalizer()
+    {
+        $path = $this->factory->create('/foo/../bar');
+        $normalizedPath = $this->factory->create('/bar');
+        $normalizer = Phake::mock('Eloquent\Pathogen\Normalizer\PathNormalizerInterface');
+        Phake::when($normalizer)->normalize($path)->thenReturn($normalizedPath);
+
+        $this->assertSame($normalizedPath, $path->normalize($normalizer));
     }
 
     // tests for AbsolutePathInterface implementation ==========================

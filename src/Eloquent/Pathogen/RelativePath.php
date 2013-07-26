@@ -33,10 +33,10 @@ class RelativePath extends AbstractPath implements RelativePathInterface
         Normalizer\PathNormalizerInterface $normalizer = null
     ) {
         if (null === $normalizer) {
-            $normalizer = new Normalizer\PathNormalizer;
+            $normalizer = $this->createDefaultNormalizer();
         }
 
-        $atoms = $normalizer->normalize($this)->atoms();
+        $atoms = $this->normalize($normalizer)->atoms();
 
         return 1 === count($atoms) && static::SELF_ATOM === $atoms[0];
     }

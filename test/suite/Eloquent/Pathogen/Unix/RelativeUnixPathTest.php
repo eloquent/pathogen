@@ -9,23 +9,25 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen;
+namespace Eloquent\Pathogen\Unix;
 
 use ArrayIterator;
 use Phake;
 use PHPUnit_Framework_TestCase;
 
 /**
+ * @covers \Eloquent\Pathogen\Unix\RelativeUnixPath
+ * @covers \Eloquent\Pathogen\FileSystem\AbstractRelativeFileSystemPath
  * @covers \Eloquent\Pathogen\RelativePath
  * @covers \Eloquent\Pathogen\AbstractPath
  */
-class RelativePathTest extends PHPUnit_Framework_TestCase
+class RelativeUnixPathTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
         parent::setUp();
 
-        $this->factory = new Factory\PathFactory;
+        $this->factory = new Factory\UnixPathFactory;
     }
 
     // tests for PathInterface implementation ==================================
@@ -59,7 +61,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorDefaults()
     {
-        $this->path = new RelativePath(array('.'));
+        $this->path = new RelativeUnixPath(array('.'));
 
         $this->assertFalse($this->path->hasTrailingSeparator());
     }
@@ -70,7 +72,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
             "Invalid path atom 'foo/bar'. Path atoms must not contain separators."
         );
-        new RelativePath(array('foo/bar'));
+        new RelativeUnixPath(array('foo/bar'));
     }
 
     public function testConstructorFailureEmptyAtom()
@@ -78,7 +80,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\EmptyPathAtomException'
         );
-        new RelativePath(array(''));
+        new RelativeUnixPath(array(''));
     }
 
     public function testConstructorFailureEmptyPath()
@@ -86,7 +88,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\EmptyPathException'
         );
-        new RelativePath(array());
+        new RelativeUnixPath(array());
     }
 
     public function sliceAtomsData()
@@ -182,11 +184,11 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
     {
         //                             path        numLevels  parent
         return array(
-            'Self'            => array('.',        null,      './..'),
-            'Single atom'     => array('foo',      null,      'foo/..'),
-            'Multiple atoms'  => array('foo/bar',  null,      'foo/bar/..'),
-            'Up one level'    => array('foo',      1,         'foo/..'),
-            'Up two levels'   => array('foo',      2,         'foo/../..'),
+            'Self'            => array('.',        null,      '..'),
+            'Single atom'     => array('foo',      null,      '.'),
+            'Multiple atoms'  => array('foo/bar',  null,      'foo'),
+            'Up one level'    => array('foo',      1,         '.'),
+            'Up two levels'   => array('foo',      2,         '..'),
         );
     }
 

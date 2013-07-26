@@ -11,14 +11,14 @@
 
 namespace Eloquent\Pathogen\Windows;
 
-use Eloquent\Pathogen\RelativePath;
 use Eloquent\Pathogen\Exception\InvalidPathAtomCharacterException;
 use Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException;
+use Eloquent\Pathogen\FileSystem\AbstractRelativeFileSystemPath;
 
 /**
  * Represents a relative Windows path.
  */
-class RelativeWindowsPath extends RelativePath implements
+class RelativeWindowsPath extends AbstractRelativeFileSystemPath implements
     RelativeWindowsPathInterface
 {
     /**

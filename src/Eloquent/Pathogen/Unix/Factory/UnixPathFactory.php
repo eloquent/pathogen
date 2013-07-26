@@ -9,32 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\FileSystem\Factory;
+namespace Eloquent\Pathogen\Unix\Factory;
 
+use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
+use Eloquent\Pathogen\Factory\PathFactory;
 use Eloquent\Pathogen\PathInterface;
+use Eloquent\Pathogen\Unix\AbsoluteUnixPath;
+use Eloquent\Pathogen\Unix\RelativeUnixPath;
 
 /**
- * A path factory that produces file system paths by inspecting the supplied
- * string, and determining the most suitable path type to use.
+ * A path factory that creates Unix path instances.
  */
-class FileSystemPathFactory extends AbstractFileSystemPathFactory
+class UnixPathFactory extends PathFactory
 {
-    /**
-     * Creates a new path instance from its string representation.
-     *
-     * @param string $path The string representation of the path.
-     *
-     * @return PathInterface The newly created path instance.
-     */
-    public function create($path)
-    {
-        if (preg_match('/^([a-zA-Z]):/', $path)) {
-            return $this->windowsFactory()->create($path);
-        }
-
-        return $this->unixFactory()->create($path);
-    }
-
     /**
      * Creates a new path instance from a set of path atoms.
      *
@@ -55,10 +42,10 @@ class FileSystemPathFactory extends AbstractFileSystemPathFactory
         $isAbsolute = null,
         $hasTrailingSeparator = null
     ) {
-        return $this->unixFactory()->createFromAtoms(
-            $atoms,
-            $isAbsolute,
-            $hasTrailingSeparator
-        );
+        if ($isAbsolute) {
+            return new AbsoluteUnixPath($atoms, $hasTrailingSeparator);
+        }
+
+        return new RelativeUnixPath($atoms, $hasTrailingSeparator);
     }
 }

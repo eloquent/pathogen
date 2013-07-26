@@ -12,10 +12,12 @@
 namespace Eloquent\Pathogen\Windows;
 
 use ArrayIterator;
+use Phake;
 use PHPUnit_Framework_TestCase;
 
 /**
  * @covers \Eloquent\Pathogen\Windows\RelativeWindowsPath
+ * @covers \Eloquent\Pathogen\FileSystem\AbstractRelativeFileSystemPath
  * @covers \Eloquent\Pathogen\RelativePath
  * @covers \Eloquent\Pathogen\AbstractPath
  */
@@ -226,11 +228,11 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
     {
         //                             path        numLevels  parent
         return array(
-            'Self'            => array('.',        null,      './..'),
-            'Single atom'     => array('foo',      null,      'foo/..'),
-            'Multiple atoms'  => array('foo/bar',  null,      'foo/bar/..'),
-            'Up one level'    => array('foo',      1,         'foo/..'),
-            'Up two levels'   => array('foo',      2,         'foo/../..'),
+            'Self'            => array('.',        null,      '..'),
+            'Single atom'     => array('foo',      null,      '.'),
+            'Multiple atoms'  => array('foo/bar',  null,      'foo'),
+            'Up one level'    => array('foo',      1,         '.'),
+            'Up two levels'   => array('foo',      2,         '..'),
         );
     }
 
@@ -869,6 +871,24 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         $result = $path->replaceNameAtoms(1, new ArrayIterator(array('doom', 'splat')), 1);
 
         $this->assertSame('foo.doom.splat.baz.qux', $result->string());
+    }
+
+    public function testNormalize()
+    {
+        $path = $this->factory->create('foo/../bar');
+        $normalizedPath = $this->factory->create('bar');
+
+        $this->assertEquals($normalizedPath, $path->normalize());
+    }
+
+    public function testNormalizeCustomNormalizer()
+    {
+        $path = $this->factory->create('foo/../bar');
+        $normalizedPath = $this->factory->create('bar');
+        $normalizer = Phake::mock('Eloquent\Pathogen\Normalizer\PathNormalizerInterface');
+        Phake::when($normalizer)->normalize($path)->thenReturn($normalizedPath);
+
+        $this->assertSame($normalizedPath, $path->normalize($normalizer));
     }
 
     // tests for RelativePathInterface implementation ==========================

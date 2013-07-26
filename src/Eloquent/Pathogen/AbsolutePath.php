@@ -58,11 +58,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
     public function isRoot(
         Normalizer\PathNormalizerInterface $normalizer = null
     ) {
-        if (null == $normalizer) {
-            $normalizer = new Normalizer\PathNormalizer;
-        }
-
-        return !$normalizer->normalize($this)->hasAtoms();
+        return !$this->normalize($normalizer)->hasAtoms();
     }
 
     /**
@@ -79,14 +75,14 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         AbsolutePathInterface $path,
         Normalizer\PathNormalizerInterface $normalizer = null
     ) {
-        if (null == $normalizer) {
-            $normalizer = new Normalizer\PathNormalizer;
+        if (null === $normalizer) {
+            $normalizer = $this->createDefaultNormalizer();
         }
 
         return
             $path->hasAtoms() &&
-            $normalizer->normalize($this)->atoms() ===
-                $normalizer->normalize($path->parent())->atoms();
+            $this->normalize($normalizer)->atoms() ===
+                $path->parent()->normalize($normalizer)->atoms();
     }
 
     /**
@@ -102,14 +98,14 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         AbsolutePathInterface $path,
         Normalizer\PathNormalizerInterface $normalizer = null
     ) {
-        if (null == $normalizer) {
-            $normalizer = new Normalizer\PathNormalizer;
+        if (null === $normalizer) {
+            $normalizer = $this->createDefaultNormalizer();
         }
 
-        $parentAtoms = $normalizer->normalize($this)->atoms();
+        $parentAtoms = $this->normalize($normalizer)->atoms();
 
         return $parentAtoms === array_slice(
-            $normalizer->normalize($path)->atoms(),
+            $path->normalize($normalizer)->atoms(),
             0,
             count($parentAtoms)
         );
@@ -133,12 +129,12 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         AbsolutePathInterface $path,
         Normalizer\PathNormalizerInterface $normalizer = null
     ) {
-        if (null == $normalizer) {
-            $normalizer = new Normalizer\PathNormalizer;
+        if (null === $normalizer) {
+            $normalizer = $this->createDefaultNormalizer();
         }
 
-        $parentAtoms = $normalizer->normalize($path)->atoms();
-        $childAtoms = $normalizer->normalize($this)->atoms();
+        $parentAtoms = $path->normalize($normalizer)->atoms();
+        $childAtoms = $this->normalize($normalizer)->atoms();
 
         if ($childAtoms === $parentAtoms) {
             $diffAtoms = array(static::SELF_ATOM);
