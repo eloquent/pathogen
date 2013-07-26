@@ -32,6 +32,10 @@ class FunctionalTest extends PHPUnit_Framework_TestCase
 
     public function testConsumerTrait()
     {
+        if (!defined('T_TRAIT')) {
+            $this->markTestSkipped('Requires trait support');
+        }
+
         $this->expectOutputString('Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory');
 
         $consumer = new ExampleConsumer;
