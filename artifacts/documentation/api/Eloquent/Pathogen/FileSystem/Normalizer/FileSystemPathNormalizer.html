@@ -40,7 +40,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method___construct">__construct</a>(<a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $posixNormalizer = null, <a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $windowsNormalizer = null)
+                    <a href="#method___construct">__construct</a>(<a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $unixNormalizer = null, <a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $windowsNormalizer = null)
                     <p>Construct a new file system path normalizer.</p>
                 </td>
                 <td></td>
@@ -50,8 +50,8 @@
                     <a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_posixNormalizer">posixNormalizer</a>()
-                    <p>Get the path normalizer used for Unix-style paths.</p>
+                    <a href="#method_unixNormalizer">unixNormalizer</a>()
+                    <p>Get the path normalizer used for Unix paths.</p>
                 </td>
                 <td></td>
             </tr>
@@ -71,7 +71,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_normalize">normalize</a>(<a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> $path)
-                    <p>Normalize the supplied path to it&#039;s most canonical form.</p>
+                    <p>Normalize the supplied path to its most canonical form.</p>
                 </td>
                 <td></td>
             </tr>
@@ -81,9 +81,9 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 33</div>
+        <div class="location">at line 34</div>
         <code>            public            
-    <strong>__construct</strong>(<a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $posixNormalizer = null, <a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $windowsNormalizer = null)</code>
+    <strong>__construct</strong>(<a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $unixNormalizer = null, <a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $windowsNormalizer = null)</code>
     </h3>
     <div class="details">
         <p>Construct a new file system path normalizer.</p>
@@ -94,8 +94,8 @@
                     <table>
                     <tr>
                 <td><a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
-                <td>$posixNormalizer</td>
-                <td>The path normalizer to use for Unix-style paths.</td>
+                <td>$unixNormalizer</td>
+                <td>The path normalizer to use for Unix paths.</td>
             </tr>
                     <tr>
                 <td><a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
@@ -110,13 +110,13 @@
                     </div>
     </div>
 
-                <h3 id="method_posixNormalizer">
-        <div class="location">at line 54</div>
+                <h3 id="method_unixNormalizer">
+        <div class="location">at line 56</div>
         <code>            public            <a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a>
-    <strong>posixNormalizer</strong>()</code>
+    <strong>unixNormalizer</strong>()</code>
     </h3>
     <div class="details">
-        <p>Get the path normalizer used for Unix-style paths.</p>
+        <p>Get the path normalizer used for Unix paths.</p>
         <p></p>
         <div class="tags">
             
@@ -125,7 +125,7 @@
                     <table>
         <tr>
             <td><a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
-            <td>The path normalizer used for Unix-style paths.</td>
+            <td>The path normalizer used for Unix paths.</td>
         </tr>
     </table>
 
@@ -135,7 +135,7 @@
     </div>
 
                 <h3 id="method_windowsNormalizer">
-        <div class="location">at line 65</div>
+        <div class="location">at line 67</div>
         <code>            public            <a href="../../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a>
     <strong>windowsNormalizer</strong>()</code>
     </h3>
@@ -159,12 +159,12 @@
     </div>
 
                 <h3 id="method_normalize">
-        <div class="location">at line 77</div>
+        <div class="location">at line 79</div>
         <code>            public            <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>normalize</strong>(<a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> $path)</code>
     </h3>
     <div class="details">
-        <p>Normalize the supplied path to it&#039;s most canonical form.</p>
+        <p>Normalize the supplied path to its most canonical form.</p>
         <p></p>
         <div class="tags">
                             <h4>Parameters</h4>

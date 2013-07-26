@@ -1,17 +1,17 @@
 
 
 Code Coverage Report 
-  2013-07-18 03:37:26
+  2013-07-26 15:21:10
 
  Summary: 
-  Classes: 100.00% (25/25)
-  Methods: 100.00% (121/121)
-  Lines:   100.00% (611/611)
+  Classes: 100.00% (35/35)
+  Methods: 100.00% (137/137)
+  Lines:   100.00% (644/644)
 
 \Eloquent\Pathogen::AbsolutePath
-  Methods: 100.00% ( 6/ 6)   Lines: 100.00% ( 45/ 45)
+  Methods: 100.00% ( 6/ 6)   Lines: 100.00% ( 42/ 42)
 \Eloquent\Pathogen::AbstractPath
-  Methods: 100.00% (37/37)   Lines: 100.00% (189/189)
+  Methods: 100.00% (39/39)   Lines: 100.00% (198/198)
 \Eloquent\Pathogen::RelativePath
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  9/  9)
 \Eloquent\Pathogen\Exception::AbstractInvalidPathAtomException
@@ -27,15 +27,25 @@ Code Coverage Report
 \Eloquent\Pathogen\Exception::PathAtomContainsSeparatorException
   Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  1/  1)
 \Eloquent\Pathogen\Factory::PathFactory
-  Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 36/ 36)
+  Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 32/ 32)
+\Eloquent\Pathogen\Factory\Consumer::PathFactoryTrait
+  Methods: 100.00% ( 3/ 3)   Lines: 100.00% (  7/  7)
+\Eloquent\Pathogen\FileSystem::AbstractAbsoluteFileSystemPath
+  Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  5/  5)
+\Eloquent\Pathogen\FileSystem::AbstractRelativeFileSystemPath
+  Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  5/  5)
 \Eloquent\Pathogen\FileSystem\Factory::AbstractFileSystemPathFactory
   Methods: 100.00% ( 8/ 8)   Lines: 100.00% ( 25/ 25)
 \Eloquent\Pathogen\FileSystem\Factory::FileSystemPathFactory
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  7/  7)
 \Eloquent\Pathogen\FileSystem\Factory::PlatformFileSystemPathFactory
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  5/  5)
+\Eloquent\Pathogen\FileSystem\Factory\Consumer::FileSystemPathFactoryTrait
+  Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  1/  1)
+\Eloquent\Pathogen\FileSystem\Factory\Consumer::PlatformFileSystemPathFactoryTrait
+  Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  1/  1)
 \Eloquent\Pathogen\FileSystem\Normalizer::FileSystemPathNormalizer
-  Methods: 100.00% ( 4/ 4)   Lines: 100.00% ( 14/ 14)
+  Methods: 100.00% ( 4/ 4)   Lines: 100.00% ( 15/ 15)
 \Eloquent\Pathogen\FileSystem\Resolver::WorkingDirectoryResolver
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 11/ 11)
 \Eloquent\Pathogen\Normalizer::PathNormalizer
@@ -45,6 +55,12 @@ Code Coverage Report
 \Eloquent\Pathogen\Resolver::NormalizingPathResolver
   Methods: 100.00% ( 4/ 4)   Lines: 100.00% ( 14/ 14)
 \Eloquent\Pathogen\Resolver::PathResolver
+  Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  3/  3)
+\Eloquent\Pathogen\Resolver\Consumer::NormalizingPathResolverTrait
+  Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  1/  1)
+\Eloquent\Pathogen\Resolver\Consumer::PathResolverTrait
+  Methods: 100.00% ( 3/ 3)   Lines: 100.00% (  7/  7)
+\Eloquent\Pathogen\Unix\Factory::UnixPathFactory
   Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  3/  3)
 \Eloquent\Pathogen\Windows::AbsoluteWindowsPath
   Methods: 100.00% (13/13)   Lines: 100.00% ( 70/ 70)
