@@ -16,6 +16,7 @@ use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\Windows\Normalizer\WindowsPathNormalizer;
 use Eloquent\Pathogen\Windows\WindowsPathInterface;
+use Eloquent\Pathogen\Unix\Factory\UnixPathFactory;
 
 /**
  * A path normalizer capable or normalizing any type of file system path.
@@ -35,7 +36,9 @@ class FileSystemPathNormalizer implements PathNormalizerInterface
         PathNormalizerInterface $windowsNormalizer = null
     ) {
         if (null === $unixNormalizer) {
-            $unixNormalizer = new PathNormalizer;
+            $unixNormalizer = new PathNormalizer(
+                new UnixPathFactory
+            );
         }
         if (null === $windowsNormalizer) {
             $windowsNormalizer = new WindowsPathNormalizer;
