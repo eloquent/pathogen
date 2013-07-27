@@ -1,6 +1,6 @@
 # Pathogen changelog
 
-### 0.2.0 (unreleased)
+### 0.2.0 (2013-07-27)
 
 * **[NEW]** All paths can now be normalized by calling `normalize()`, which
   takes an optional normalizer to use.
