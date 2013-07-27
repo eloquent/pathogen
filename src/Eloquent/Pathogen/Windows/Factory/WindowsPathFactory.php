@@ -56,6 +56,10 @@ class WindowsPathFactory extends PathFactory implements
      */
     public function create($path)
     {
+        if ('' === $path) {
+            $path = PathInterface::SELF_ATOM;
+        }
+
         $isAbsolute = false;
         $drive = null;
         $hasTrailingSeparator = false;

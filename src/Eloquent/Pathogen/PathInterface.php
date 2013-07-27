@@ -136,6 +136,112 @@ interface PathInterface
     public function hasExtension();
 
     /**
+     * Determine if this path contains a substring.
+     *
+     * @param string       $needle        The substring to search for.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     *
+     * @return boolean
+     */
+    public function contains($needle, $caseSensitive = null);
+
+    /**
+     * Determine if this path starts with a substring.
+     *
+     * @param string       $needle        The substring to search for.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     *
+     * @return boolean
+     */
+    public function startsWith($needle, $caseSensitive = null);
+
+    /**
+     * Determine if this path ends with a substring.
+     *
+     * @param string       $needle        The substring to search for.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     *
+     * @return boolean
+     */
+    public function endsWith($needle, $caseSensitive = null);
+
+    /**
+     * Determine if this path matches a wildcard pattern.
+     *
+     * @param string       $pattern       The pattern to check against.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     * @param integer|null $flags         Additional flags.
+     *
+     * @return boolean
+     */
+    public function matches($pattern, $caseSensitive = null, $flags = null);
+
+    /**
+     * Determine if this path matches a regular expression.
+     *
+     * @param string       $pattern  The pattern to check against.
+     * @param array|null   &$matches Populated with the pattern matches.
+     * @param integer|null $flags    Additional flags.
+     * @param integer|null $offset   Start searching from this byte offset.
+     *
+     * @return boolean
+     */
+    public function matchesRegex(
+        $pattern,
+        array &$matches = null,
+        $flags = null,
+        $offset = null
+    );
+
+    /**
+     * Determine if this path's name contains a substring.
+     *
+     * @param string       $needle        The substring to search for.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     *
+     * @return boolean
+     */
+    public function nameContains($needle, $caseSensitive = null);
+
+    /**
+     * Determine if this path's name starts with a substring.
+     *
+     * @param string       $needle        The substring to search for.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     *
+     * @return boolean
+     */
+    public function nameStartsWith($needle, $caseSensitive = null);
+
+    /**
+     * Determine if this path's name matches a wildcard pattern.
+     *
+     * @param string       $pattern       The pattern to check against.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     * @param integer|null $flags         Additional flags.
+     *
+     * @return boolean
+     */
+    public function nameMatches($pattern, $caseSensitive = null, $flags = null);
+
+    /**
+     * Determine if this path's name matches a regular expression.
+     *
+     * @param string       $pattern  The pattern to check against.
+     * @param array|null   &$matches Populated with the pattern matches.
+     * @param integer|null $flags    Additional flags.
+     * @param integer|null $offset   Start searching from this byte offset.
+     *
+     * @return boolean
+     */
+    public function nameMatchesRegex(
+        $pattern,
+        array &$matches = null,
+        $flags = null,
+        $offset = null
+    );
+
+    /**
      * Get the parent of this path a specified number of levels up.
      *
      * @param integer|null $numLevels The number of
