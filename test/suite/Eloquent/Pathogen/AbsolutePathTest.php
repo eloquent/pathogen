@@ -171,6 +171,156 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($expectedResult, $path->sliceNameAtoms($index, $length));
     }
 
+    public function containsData()
+    {
+        //                                       path                 needle       caseSensitive  expectedResult
+        return array(
+            'Empty'                     => array('/',                 '',          null,          true),
+            'Prefix'                    => array('/foo/bar/baz.qux',  '/FOO/BAR',  null,          true),
+            'Middle'                    => array('/foo/bar/baz.qux',  'BAR/BAZ',   null,          true),
+            'Suffix'                    => array('/foo/bar/baz.qux',  '/BAZ.QUX',  null,          true),
+            'Not found'                 => array('/foo/bar/baz.qux',  'DOOM',      null,          false),
+
+            'Empty case sensitive'      => array('/',                 '',          true,          true),
+            'Prefix case sensitive'     => array('/foo/bar/baz.qux',  '/foo/bar',  true,          true),
+            'Middle case sensitive'     => array('/foo/bar/baz.qux',  'bar/baz',   true,          true),
+            'Suffix case sensitive'     => array('/foo/bar/baz.qux',  '/baz.qux',  true,          true),
+            'Not found case sensitive'  => array('/foo/bar/baz.qux',  'FOO',       true,          false),
+        );
+    }
+
+    /**
+     * @dataProvider containsData
+     */
+    public function testContains($pathString, $needle, $caseSensitive, $expectedResult)
+    {
+        $this->assertSame(
+            $expectedResult,
+            $this->factory->create($pathString)->contains($needle, $caseSensitive)
+        );
+    }
+
+    public function startsWithData()
+    {
+        //                                       path                 needle       caseSensitive  expectedResult
+        return array(
+            'Empty'                     => array('/',                 '',          null,          true),
+            'Prefix'                    => array('/foo/bar/baz.qux',  '/FOO/BAR',  null,          true),
+            'Middle'                    => array('/foo/bar/baz.qux',  'BAR/BAZ',   null,          false),
+            'Suffix'                    => array('/foo/bar/baz.qux',  '/BAZ.QUX',  null,          false),
+            'Not found'                 => array('/foo/bar/baz.qux',  'DOOM',      null,          false),
+
+            'Empty case sensitive'      => array('/',                 '',          true,          true),
+            'Prefix case sensitive'     => array('/foo/bar/baz.qux',  '/foo/bar',  true,          true),
+            'Middle case sensitive'     => array('/foo/bar/baz.qux',  'bar/baz',   true,          false),
+            'Suffix case sensitive'     => array('/foo/bar/baz.qux',  '/baz.qux',  true,          false),
+            'Not found case sensitive'  => array('/foo/bar/baz.qux',  'FOO',       true,          false),
+        );
+    }
+
+    /**
+     * @dataProvider startsWithData
+     */
+    public function testStartsWith($pathString, $needle, $caseSensitive, $expectedResult)
+    {
+        $this->assertSame(
+            $expectedResult,
+            $this->factory->create($pathString)->startsWith($needle, $caseSensitive)
+        );
+    }
+
+    public function endsWithData()
+    {
+        //                                       path                 needle       caseSensitive  expectedResult
+        return array(
+            'Empty'                     => array('/',                 '',          null,          true),
+            'Prefix'                    => array('/foo/bar/baz.qux',  '/FOO/BAR',  null,          false),
+            'Middle'                    => array('/foo/bar/baz.qux',  'BAR/BAZ',   null,          false),
+            'Suffix'                    => array('/foo/bar/baz.qux',  '/BAZ.QUX',  null,          true),
+            'Not found'                 => array('/foo/bar/baz.qux',  'DOOM',      null,          false),
+
+            'Empty case sensitive'      => array('/',                 '',          true,          true),
+            'Prefix case sensitive'     => array('/foo/bar/baz.qux',  '/foo/bar',  true,          false),
+            'Middle case sensitive'     => array('/foo/bar/baz.qux',  'bar/baz',   true,          false),
+            'Suffix case sensitive'     => array('/foo/bar/baz.qux',  '/baz.qux',  true,          true),
+            'Not found case sensitive'  => array('/foo/bar/baz.qux',  'FOO',       true,          false),
+        );
+    }
+
+    /**
+     * @dataProvider endsWithData
+     */
+    public function testEndsWith($pathString, $needle, $caseSensitive, $expectedResult)
+    {
+        $this->assertSame(
+            $expectedResult,
+            $this->factory->create($pathString)->endsWith($needle, $caseSensitive)
+        );
+    }
+
+    public function matchesData()
+    {
+        //                                         path                 pattern        caseSensitive  flags          expectedResult
+        return array(
+            'Prefix'                      => array('/foo/bar/baz.qux',  '/FOO/BAR*',   null,          null,          true),
+            'Middle'                      => array('/foo/bar/baz.qux',  '*BAR/BAZ*',   null,          null,          true),
+            'Suffix'                      => array('/foo/bar/baz.qux',  '*/BAZ.QUX',   null,          null,          true),
+            'Surrounding'                 => array('/foo/bar/baz.qux',  '/FOO*.QUX',   null,          null,          true),
+            'Single character'            => array('/foo/bar/baz.qux',  '*B?R*',       null,          null,          true),
+            'Single character no match'   => array('/foo/bar/baz.qux',  '*F?X*',       null,          null,          false),
+            'Set'                         => array('/foo/bar/baz.qux',  '*BA[RZ]*',    null,          null,          true),
+            'Set no match'                => array('/foo/bar/baz.qux',  '*BA[X]*',     null,          null,          false),
+            'Negated set'                 => array('/foo/bar/baz.qux',  '*BA[!RX]*',   null,          null,          true),
+            'Negated set no match'        => array('/foo/bar/baz.qux',  '*BA[!RZ]*',   null,          null,          false),
+            'Range'                       => array('/foo/bar/baz.qux',  '*BA[A-R]*',   null,          null,          true),
+            'Range no match'              => array('/foo/bar/baz.qux',  '*BA[S-Y]*',   null,          null,          false),
+            'Negated range'               => array('/foo/bar/baz.qux',  '*BA[!S-Y]*',  null,          null,          true),
+            'Negated range no match'      => array('/foo/bar/baz.qux',  '*BA[!R-Z]*',  null,          null,          false),
+            'No partial match'            => array('/foo/bar/baz.qux',  'BAR',         null,          null,          false),
+            'Not found'                   => array('/foo/bar/baz.qux',  'DOOM',        null,          null,          false),
+
+            'Case sensitive'              => array('/foo/bar/baz.qux',  '*bar/baz*',   true,          null,          true),
+            'Case sensitive no match'     => array('/foo/bar/baz.qux',  '*FOO*',       true,          null,          false),
+            'Special flags'               => array('/foo/bar/baz.qux',  '/FOO/BAR/*',  false,         FNM_PATHNAME,  true),
+            'Special flags no match'      => array('/foo/bar/baz.qux',  '*FOO/BAR*',   false,         FNM_PATHNAME,  false),
+        );
+    }
+
+    /**
+     * @dataProvider matchesData
+     */
+    public function testMatches($pathString, $pattern, $caseSensitive, $flags, $expectedResult)
+    {
+        $this->assertSame(
+            $expectedResult,
+            $this->factory->create($pathString)->matches($pattern, $caseSensitive, $flags)
+        );
+    }
+
+    public function matchesRegexData()
+    {
+        //                                   path                 pattern              matches                                                flags                 offset  expectedResult
+        return array(
+            'Match'                 => array('/foo/bar/baz.qux',  '{.*(FOO)/BAR.*}i',  array('/foo/bar/baz.qux', 'foo'),                      null,                 null,   true),
+            'No match'              => array('/foo/bar/baz.qux',  '{.*DOOM.*}i',       array(),                                               null,                 null,   false),
+            'Special flags'         => array('/foo/bar/baz.qux',  '{.*(FOO)/BAR.*}i',  array(array('/foo/bar/baz.qux', 0), array('foo', 1)),  PREG_OFFSET_CAPTURE,  null,   true),
+            'Match with offset'     => array('/foo/bar/baz.qux',  '{FOO}i',            array('foo'),                                          null,                 1,      true),
+            'No match with offset'  => array('/foo/bar/baz.qux',  '{FOO}i',            array(),                                               null,                 2,      false),
+        );
+    }
+
+    /**
+     * @dataProvider matchesRegexData
+     */
+    public function testMatchesRegex($pathString, $pattern, $matches, $flags, $offset, $expectedResult)
+    {
+        $this->assertSame(
+            $expectedResult,
+            $this->factory->create($pathString)->matchesRegex($pattern, $actualMatches, $flags, $offset)
+        );
+        $this->assertSame($matches, $actualMatches);
+    }
+
     public function parentData()
     {
         //                             path         numLevels  parent

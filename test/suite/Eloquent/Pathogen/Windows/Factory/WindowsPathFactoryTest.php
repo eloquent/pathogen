@@ -59,13 +59,14 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
             'Absolute with whitespace atoms with drive'                      => array('C:/ foo bar / baz qux ',  'C',   array(' foo bar ', ' baz qux '),  true,       false),
             'Absolute with trailing separator with drive using backslashes'  => array('C:\\foo\\bar\\',          'C',   array('foo', 'bar'),              true,       true),
 
+            'Empty'                                                          => array('',                        null,  array('.'),                       false,      false),
             'Self'                                                           => array('.',                       null,  array('.'),                       false,      false),
             'Relative'                                                       => array('foo/bar',                 null,  array('foo', 'bar'),              false,      false),
             'Relative with trailing separator'                               => array('foo/bar/',                null,  array('foo', 'bar'),              false,      true),
             'Relative with empty atoms'                                      => array('foo//bar',                null,  array('foo', 'bar'),              false,      false),
             'Relative with empty atoms at end'                               => array('foo/bar//',               null,  array('foo', 'bar'),              false,      true),
             'Relative with whitespace atoms'                                 => array(' foo bar / baz qux ',     null,  array(' foo bar ', ' baz qux '),  false,      false),
-            // 'Relative with trailing separator using backslashes'             => array('foo\\bar\\',              null,  array('foo', 'bar'),              false,      true),
+            'Relative with trailing separator using backslashes'             => array('foo\\bar\\',              null,  array('foo', 'bar'),              false,      true),
         );
     }
 
