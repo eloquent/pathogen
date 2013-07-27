@@ -18,6 +18,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
+        "ext-mbstring": "*",
         "icecave/isolator": "~2"
     },
     "require-dev": {
