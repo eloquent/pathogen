@@ -30,6 +30,18 @@ class FunctionalTest extends PHPUnit_Framework_TestCase
         $_SERVER = $this->server;
     }
 
+    public function testConsumerTrait()
+    {
+        if (!defined('T_TRAIT')) {
+            $this->markTestSkipped('Requires trait support');
+        }
+
+        $this->expectOutputString('Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory');
+
+        $consumer = new ExampleConsumer;
+        echo get_class($consumer->pathFactory()); // outputs 'Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory'
+    }
+
     public function testResolveAgainstWorkingDirectory()
     {
         $_SERVER['argv'] = array('command', 'path/to/foo');

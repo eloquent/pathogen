@@ -14,7 +14,6 @@ namespace Eloquent\Pathogen\Windows\Factory;
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\Exception\InvalidPathStateException;
 use Eloquent\Pathogen\Factory\PathFactory;
-use Eloquent\Pathogen\Factory\PathFactoryInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\Windows\AbsoluteWindowsPath;
 use Eloquent\Pathogen\Windows\RelativeWindowsPath;
@@ -57,6 +56,10 @@ class WindowsPathFactory extends PathFactory implements
      */
     public function create($path)
     {
+        if ('' === $path) {
+            $path = PathInterface::SELF_ATOM;
+        }
+
         $isAbsolute = false;
         $drive = null;
         $hasTrailingSeparator = false;

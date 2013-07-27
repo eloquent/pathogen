@@ -16,6 +16,7 @@ use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\Windows\Normalizer\WindowsPathNormalizer;
 use Eloquent\Pathogen\Windows\WindowsPathInterface;
+use Eloquent\Pathogen\Unix\Factory\UnixPathFactory;
 
 /**
  * A path normalizer capable or normalizing any type of file system path.
@@ -25,35 +26,36 @@ class FileSystemPathNormalizer implements PathNormalizerInterface
     /**
      * Construct a new file system path normalizer.
      *
-     * @param PathNormalizerInterface|null $posixNormalizer The path normalizer
-     *     to use for Unix-style paths.
+     * @param PathNormalizerInterface|null $unixNormalizer The path normalizer
+     *     to use for Unix paths.
      * @param PathNormalizerInterface|null $windowsNormalizer The path
      *     normalizer to use for Windows paths.
      */
     public function __construct(
-        PathNormalizerInterface $posixNormalizer = null,
+        PathNormalizerInterface $unixNormalizer = null,
         PathNormalizerInterface $windowsNormalizer = null
     ) {
-        if (null === $posixNormalizer) {
-            $posixNormalizer = new PathNormalizer;
+        if (null === $unixNormalizer) {
+            $unixNormalizer = new PathNormalizer(
+                new UnixPathFactory
+            );
         }
         if (null === $windowsNormalizer) {
             $windowsNormalizer = new WindowsPathNormalizer;
         }
 
-        $this->posixNormalizer = $posixNormalizer;
+        $this->unixNormalizer = $unixNormalizer;
         $this->windowsNormalizer = $windowsNormalizer;
     }
 
     /**
-     * Get the path normalizer used for Unix-style paths.
+     * Get the path normalizer used for Unix paths.
      *
-     * @return PathNormalizerInterface The path normalizer used for Unix-style
-     *     paths.
+     * @return PathNormalizerInterface The path normalizer used for Unix paths.
      */
-    public function posixNormalizer()
+    public function unixNormalizer()
     {
-        return $this->posixNormalizer;
+        return $this->unixNormalizer;
     }
 
     /**
@@ -68,7 +70,7 @@ class FileSystemPathNormalizer implements PathNormalizerInterface
     }
 
     /**
-     * Normalize the supplied path to it's most canonical form.
+     * Normalize the supplied path to its most canonical form.
      *
      * @param PathInterface $path The path to normalize.
      *
@@ -80,9 +82,9 @@ class FileSystemPathNormalizer implements PathNormalizerInterface
             return $this->windowsNormalizer()->normalize($path);
         }
 
-        return $this->posixNormalizer()->normalize($path);
+        return $this->unixNormalizer()->normalize($path);
     }
 
-    private $posixNormalizer;
+    private $unixNormalizer;
     private $windowsNormalizer;
 }

@@ -11,11 +11,11 @@
 
 namespace Eloquent\Pathogen\Windows;
 
-use Eloquent\Pathogen\PathInterface;
+use Eloquent\Pathogen\FileSystem\FileSystemPathInterface;
 
 /**
  * The interface implemented by all Windows paths.
  */
-interface WindowsPathInterface extends PathInterface
+interface WindowsPathInterface extends FileSystemPathInterface
 {
 }

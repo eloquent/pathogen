@@ -243,14 +243,253 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
+     * Determine if this path contains a substring.
+     *
+     * @param string       $needle        The substring to search for.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     *
+     * @return boolean
+     */
+    public function contains($needle, $caseSensitive = null)
+    {
+        if ('' === $needle) {
+            return true;
+        }
+        if (null === $caseSensitive) {
+            $caseSensitive = false;
+        }
+
+        if ($caseSensitive) {
+            return false !== mb_strpos($this->string(), $needle);
+        }
+
+        return false !== mb_stripos($this->string(), $needle);
+    }
+
+    /**
+     * Determine if this path starts with a substring.
+     *
+     * @param string       $needle        The substring to search for.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     *
+     * @return boolean
+     */
+    public function startsWith($needle, $caseSensitive = null)
+    {
+        if ('' === $needle) {
+            return true;
+        }
+        if (null === $caseSensitive) {
+            $caseSensitive = false;
+        }
+
+        if ($caseSensitive) {
+            return 0 === mb_strpos($this->string(), $needle);
+        }
+
+        return 0 === mb_stripos($this->string(), $needle);
+    }
+
+    /**
+     * Determine if this path ends with a substring.
+     *
+     * @param string       $needle        The substring to search for.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     *
+     * @return boolean
+     */
+    public function endsWith($needle, $caseSensitive = null)
+    {
+        if ('' === $needle) {
+            return true;
+        }
+        if (null === $caseSensitive) {
+            $caseSensitive = false;
+        }
+
+        $end = mb_substr($this->string(), -mb_strlen($needle));
+
+        if ($caseSensitive) {
+            return $end === $needle;
+        }
+
+        return mb_strtolower($end) === mb_strtolower($needle);
+    }
+
+    /**
+     * Determine if this path matches a wildcard pattern.
+     *
+     * @param string       $pattern       The pattern to check against.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     * @param integer|null $flags         Additional flags.
+     *
+     * @return boolean
+     */
+    public function matches($pattern, $caseSensitive = null, $flags = null)
+    {
+        if (null === $caseSensitive) {
+            $caseSensitive = false;
+        }
+        if (null === $flags) {
+            $flags = 0;
+        }
+        if (!$caseSensitive) {
+            $flags = $flags | FNM_CASEFOLD;
+        }
+
+        return fnmatch($pattern, $this->string(), $flags);
+    }
+
+    /**
+     * Determine if this path matches a regular expression.
+     *
+     * @param string       $pattern  The pattern to check against.
+     * @param array|null   &$matches Populated with the pattern matches.
+     * @param integer|null $flags    Additional flags.
+     * @param integer|null $offset   Start searching from this byte offset.
+     *
+     * @return boolean
+     */
+    public function matchesRegex(
+        $pattern,
+        array &$matches = null,
+        $flags = null,
+        $offset = null
+    ) {
+        if (null === $flags) {
+            $flags = 0;
+        }
+        if (null === $offset) {
+            $offset = 0;
+        }
+
+        return 1 === preg_match(
+            $pattern,
+            $this->string(),
+            $matches,
+            $flags,
+            $offset
+        );
+    }
+
+    /**
+     * Determine if this path's name contains a substring.
+     *
+     * @param string       $needle        The substring to search for.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     *
+     * @return boolean
+     */
+    public function nameContains($needle, $caseSensitive = null)
+    {
+        if ('' === $needle) {
+            return true;
+        }
+        if (null === $caseSensitive) {
+            $caseSensitive = false;
+        }
+
+        if ($caseSensitive) {
+            return false !== mb_strpos($this->name(), $needle);
+        }
+
+        return false !== mb_stripos($this->name(), $needle);
+    }
+
+    /**
+     * Determine if this path's name starts with a substring.
+     *
+     * @param string       $needle        The substring to search for.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     *
+     * @return boolean
+     */
+    public function nameStartsWith($needle, $caseSensitive = null)
+    {
+        if ('' === $needle) {
+            return true;
+        }
+        if (null === $caseSensitive) {
+            $caseSensitive = false;
+        }
+
+        if ($caseSensitive) {
+            return 0 === mb_strpos($this->name(), $needle);
+        }
+
+        return 0 === mb_stripos($this->name(), $needle);
+    }
+
+    /**
+     * Determine if this path's name matches a wildcard pattern.
+     *
+     * @param string       $pattern       The pattern to check against.
+     * @param boolean|null $caseSensitive True if case sensitive.
+     * @param integer|null $flags         Additional flags.
+     *
+     * @return boolean
+     */
+    public function nameMatches($pattern, $caseSensitive = null, $flags = null)
+    {
+        if (null === $caseSensitive) {
+            $caseSensitive = false;
+        }
+        if (null === $flags) {
+            $flags = 0;
+        }
+        if (!$caseSensitive) {
+            $flags = $flags | FNM_CASEFOLD;
+        }
+
+        return fnmatch($pattern, $this->name(), $flags);
+    }
+
+    /**
+     * Determine if this path's name matches a regular expression.
+     *
+     * @param string       $pattern  The pattern to check against.
+     * @param array|null   &$matches Populated with the pattern matches.
+     * @param integer|null $flags    Additional flags.
+     * @param integer|null $offset   Start searching from this byte offset.
+     *
+     * @return boolean
+     */
+    public function nameMatchesRegex(
+        $pattern,
+        array &$matches = null,
+        $flags = null,
+        $offset = null
+    ) {
+        if (null === $flags) {
+            $flags = 0;
+        }
+        if (null === $offset) {
+            $offset = 0;
+        }
+
+        return 1 === preg_match(
+            $pattern,
+            $this->name(),
+            $matches,
+            $flags,
+            $offset
+        );
+    }
+
+    /**
      * Get the parent of this path a specified number of levels up.
      *
-     * @param integer|null $numLevels The number of levels up. Defaults to 1.
+     * @param integer|null $numLevels The number of
+     *     levels up. Defaults to 1.
+     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer
+     *     to use when determining the parent.
      *
      * @return PathInterface The parent of this path $numLevels up.
      */
-    public function parent($numLevels = null)
-    {
+    public function parent(
+        $numLevels = null,
+        Normalizer\PathNormalizerInterface $normalizer = null
+    ) {
         if (null === $numLevels) {
             $numLevels = 1;
         }
@@ -260,10 +499,16 @@ abstract class AbstractPath implements PathInterface
             array_fill(0, $numLevels, static::PARENT_ATOM)
         );
 
-        return $this->createPath(
+        $parent = $this->createPath(
             $atoms,
             $this instanceof AbsolutePathInterface
         );
+
+        if (null !== $normalizer) {
+            $parent = $parent->normalize($normalizer);
+        }
+
+        return $parent;
     }
 
     /**
@@ -659,6 +904,23 @@ abstract class AbstractPath implements PathInterface
         return $this->replaceName(implode(self::EXTENSION_SEPARATOR, $atoms));
     }
 
+    /**
+     * Normalize this path to its most canonical form.
+     *
+     * @param Normalizer\PathNormalizerInterface|null $normalizer
+     *
+     * @return PathInterface The normalized path.
+     */
+    public function normalize(
+        Normalizer\PathNormalizerInterface $normalizer = null
+    ) {
+        if (null === $normalizer) {
+            $normalizer = $this->createDefaultNormalizer();
+        }
+
+        return $normalizer->normalize($this);
+    }
+
     // Implementation details ==================================================
 
     /**
@@ -712,6 +974,14 @@ abstract class AbstractPath implements PathInterface
             $atoms,
             $hasTrailingSeparator
         );
+    }
+
+    /**
+     * @return Normalizer\PathNormalizerInterface
+     */
+    protected function createDefaultNormalizer()
+    {
+        return new Normalizer\PathNormalizer;
     }
 
     private $atoms;

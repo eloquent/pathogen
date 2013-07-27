@@ -11,13 +11,13 @@
 
 namespace Eloquent\Pathogen\Windows;
 
-use Eloquent\Pathogen\RelativePathInterface;
+use Eloquent\Pathogen\FileSystem\RelativeFileSystemPathInterface;
 
 /**
  * The interface implemented by relative Windows paths.
  */
 interface RelativeWindowsPathInterface extends
-    RelativePathInterface,
+    RelativeFileSystemPathInterface,
     WindowsPathInterface
 {
 }

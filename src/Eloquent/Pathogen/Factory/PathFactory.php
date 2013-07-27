@@ -89,15 +89,9 @@ class PathFactory implements PathFactoryInterface
         $hasTrailingSeparator = null
     ) {
         if ($isAbsolute) {
-            return new AbsolutePath(
-                $atoms,
-                $hasTrailingSeparator
-            );
+            return new AbsolutePath($atoms, $hasTrailingSeparator);
         }
 
-        return new RelativePath(
-            $atoms,
-            $hasTrailingSeparator
-        );
+        return new RelativePath($atoms, $hasTrailingSeparator);
     }
 }
