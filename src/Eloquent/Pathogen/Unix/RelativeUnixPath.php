@@ -19,4 +19,18 @@ use Eloquent\Pathogen\FileSystem\AbstractRelativeFileSystemPath;
 class RelativeUnixPath extends AbstractRelativeFileSystemPath implements
     RelativeUnixPathInterface
 {
+    /**
+     * @param mixed<string> $atoms
+     * @param boolean       $isAbsolute
+     * @param boolean|null  $hasTrailingSeparator
+     *
+     * @return PathInterface
+     */
+    protected function createPath(
+        $atoms,
+        $isAbsolute,
+        $hasTrailingSeparator = null
+    ) {
+        return new static($atoms, $hasTrailingSeparator);
+    }
 }
