@@ -1,5 +1,9 @@
 # Pathogen changelog
 
+### 0.2.1 (2013-07-29)
+
+* **[FIXED]** Unix paths now return Unix paths as results ([#25]).
+
 ### 0.2.0 (2013-07-27)
 
 * **[NEW]** All paths can now be normalized by calling `normalize()`, which
@@ -32,3 +36,4 @@
 [#20]: https://github.com/eloquent/pathogen/issues/20
 [#21]: https://github.com/eloquent/pathogen/issues/21
 [#22]: https://github.com/eloquent/pathogen/issues/22
+[#22]: https://github.com/eloquent/pathogen/issues/25
