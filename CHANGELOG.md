@@ -36,4 +36,4 @@
 [#20]: https://github.com/eloquent/pathogen/issues/20
 [#21]: https://github.com/eloquent/pathogen/issues/21
 [#22]: https://github.com/eloquent/pathogen/issues/22
-[#22]: https://github.com/eloquent/pathogen/issues/25
+[#25]: https://github.com/eloquent/pathogen/issues/25
