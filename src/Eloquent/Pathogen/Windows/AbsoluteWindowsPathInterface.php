@@ -11,13 +11,13 @@
 
 namespace Eloquent\Pathogen\Windows;
 
-use Eloquent\Pathogen\AbsolutePathInterface;
+use Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface;
 
 /**
  * The interface implemented by absolute Windows paths.
  */
 interface AbsoluteWindowsPathInterface extends
-    AbsolutePathInterface,
+    AbsoluteFileSystemPathInterface,
     WindowsPathInterface
 {
     /**

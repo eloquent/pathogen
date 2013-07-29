@@ -11,17 +11,17 @@
 
 namespace Eloquent\Pathogen\Windows;
 
-use Eloquent\Pathogen\AbsolutePath;
 use Eloquent\Pathogen\AbsolutePathInterface;
 use Eloquent\Pathogen\Exception\InvalidPathAtomCharacterException;
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException;
+use Eloquent\Pathogen\FileSystem\AbstractAbsoluteFileSystemPath;
 use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 
 /**
  * Represents an absolute Windows path.
  */
-class AbsoluteWindowsPath extends AbsolutePath implements
+class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
     AbsoluteWindowsPathInterface
 {
     /**
@@ -133,8 +133,8 @@ class AbsoluteWindowsPath extends AbsolutePath implements
         AbsolutePathInterface $path,
         PathNormalizerInterface $normalizer = null
     ) {
-        if (null == $normalizer) {
-            $normalizer = new Normalizer\WindowsPathNormalizer;
+        if (null === $normalizer) {
+            $normalizer = $this->createDefaultNormalizer();
         }
 
         if (!$this->driveSpecifiersMatch($this, $path)) {
@@ -157,8 +157,8 @@ class AbsoluteWindowsPath extends AbsolutePath implements
         AbsolutePathInterface $path,
         PathNormalizerInterface $normalizer = null
     ) {
-        if (null == $normalizer) {
-            $normalizer = new Normalizer\WindowsPathNormalizer;
+        if (null === $normalizer) {
+            $normalizer = $this->createDefaultNormalizer();
         }
 
         if (!$this->driveSpecifiersMatch($this, $path)) {
@@ -186,8 +186,8 @@ class AbsoluteWindowsPath extends AbsolutePath implements
         AbsolutePathInterface $path,
         PathNormalizerInterface $normalizer = null
     ) {
-        if (null == $normalizer) {
-            $normalizer = new Normalizer\WindowsPathNormalizer;
+        if (null === $normalizer) {
+            $normalizer = $this->createDefaultNormalizer();
         }
 
         $thisDrive = $this->normalizePathDriveSpecifier($this);
@@ -288,11 +288,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
         $drive,
         $hasTrailingSeparator = null
     ) {
-        return new static(
-            $atoms,
-            $drive,
-            $hasTrailingSeparator
-        );
+        return new static($atoms, $drive, $hasTrailingSeparator);
     }
 
     private $drive;

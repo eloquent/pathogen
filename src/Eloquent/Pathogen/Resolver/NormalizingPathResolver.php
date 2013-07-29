@@ -75,9 +75,9 @@ class NormalizingPathResolver implements PathResolverInterface
         AbsolutePathInterface $basePath,
         PathInterface $path
     ) {
-        return $this->normalizer()->normalize(
-            $this->resolver()->resolve($basePath, $path)
-        );
+        return $this->resolver()
+            ->resolve($basePath, $path)
+            ->normalize($this->normalizer());
     }
 
     private $normalizer;

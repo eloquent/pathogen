@@ -32,7 +32,7 @@ class FileSystemPathFactory extends AbstractFileSystemPathFactory
             return $this->windowsFactory()->create($path);
         }
 
-        return $this->posixFactory()->create($path);
+        return $this->unixFactory()->create($path);
     }
 
     /**
@@ -55,7 +55,7 @@ class FileSystemPathFactory extends AbstractFileSystemPathFactory
         $isAbsolute = null,
         $hasTrailingSeparator = null
     ) {
-        return $this->posixFactory()->createFromAtoms(
+        return $this->unixFactory()->createFromAtoms(
             $atoms,
             $isAbsolute,
             $hasTrailingSeparator

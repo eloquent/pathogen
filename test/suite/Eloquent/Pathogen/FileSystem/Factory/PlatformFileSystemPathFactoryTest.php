@@ -24,15 +24,15 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->posixFactory = Phake::partialMock(
-            '\Eloquent\Pathogen\Factory\PathFactory'
+        $this->unixFactory = Phake::partialMock(
+            '\Eloquent\Pathogen\Unix\Factory\UnixPathFactory'
         );
         $this->windowsFactory = Phake::partialMock(
             '\Eloquent\Pathogen\Windows\Factory\WindowsPathFactory'
         );
         $this->isolator = Phake::mock('Icecave\Isolator\Isolator');
         $this->factory = new PlatformFileSystemPathFactory(
-            $this->posixFactory,
+            $this->unixFactory,
             $this->windowsFactory,
             $this->isolator
         );
@@ -43,7 +43,7 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertSame($this->posixFactory, $this->factory->posixFactory());
+        $this->assertSame($this->unixFactory, $this->factory->unixFactory());
         $this->assertSame($this->windowsFactory, $this->factory->windowsFactory());
     }
 
@@ -52,8 +52,8 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
         $this->factory = new PlatformFileSystemPathFactory;
 
         $this->assertInstanceOf(
-            '\Eloquent\Pathogen\Factory\PathFactory',
-            $this->factory->posixFactory()
+            '\Eloquent\Pathogen\Unix\Factory\UnixPathFactory',
+            $this->factory->unixFactory()
         );
         $this->assertInstanceOf(
             '\Eloquent\Pathogen\Windows\Factory\WindowsPathFactory',
@@ -61,7 +61,7 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCreatePosix()
+    public function testCreateUnix()
     {
         Phake::when($this->isolator)
             ->defined('PHP_WINDOWS_VERSION_BUILD')
@@ -70,7 +70,7 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('/foo/bar', $path->string());
         $this->assertInstanceOf('\Eloquent\Pathogen\AbsolutePath', $path);
-        Phake::verify($this->posixFactory)->create('/foo/bar');
+        Phake::verify($this->unixFactory)->create('/foo/bar');
         Phake::verify($this->windowsFactory, Phake::never())->create(
             Phake::anyParameters()
         );
@@ -89,12 +89,12 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
             $path
         );
         Phake::verify($this->windowsFactory)->create('/foo/bar');
-        Phake::verify($this->posixFactory, Phake::never())->create(
+        Phake::verify($this->unixFactory, Phake::never())->create(
             Phake::anyParameters()
         );
     }
 
-    public function testCreateFromAtomsPosix()
+    public function testCreateFromAtomsUnix()
     {
         Phake::when($this->isolator)
             ->defined('PHP_WINDOWS_VERSION_BUILD')
@@ -103,7 +103,7 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('foo/bar', $path->string());
         $this->assertInstanceOf('\Eloquent\Pathogen\RelativePath', $path);
-        Phake::verify($this->posixFactory)->createFromAtoms(
+        Phake::verify($this->unixFactory)->createFromAtoms(
             array('foo', 'bar'),
             false,
             false
@@ -130,12 +130,12 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
             false,
             false
         );
-        Phake::verify($this->posixFactory, Phake::never())->createFromAtoms(
+        Phake::verify($this->unixFactory, Phake::never())->createFromAtoms(
             Phake::anyParameters()
         );
     }
 
-    public function testCreateWorkingDirectoryPathPosix()
+    public function testCreateWorkingDirectoryPathUnix()
     {
         Phake::when($this->isolator)
             ->defined('PHP_WINDOWS_VERSION_BUILD')
@@ -144,7 +144,7 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('/path/to/cwd', $path->string());
         $this->assertInstanceOf('\Eloquent\Pathogen\AbsolutePath', $path);
-        Phake::verify($this->posixFactory)->create('/path/to/cwd');
+        Phake::verify($this->unixFactory)->create('/path/to/cwd');
         Phake::verify($this->windowsFactory, Phake::never())->create(
             Phake::anyParameters()
         );
@@ -163,12 +163,12 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
             $path
         );
         Phake::verify($this->windowsFactory)->create('/path/to/cwd');
-        Phake::verify($this->posixFactory, Phake::never())->create(
+        Phake::verify($this->unixFactory, Phake::never())->create(
             Phake::anyParameters()
         );
     }
 
-    public function testCreateTemporaryDirectoryPathPosix()
+    public function testCreateTemporaryDirectoryPathUnix()
     {
         Phake::when($this->isolator)
             ->defined('PHP_WINDOWS_VERSION_BUILD')
@@ -177,7 +177,7 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('/path/to/tmp', $path->string());
         $this->assertInstanceOf('\Eloquent\Pathogen\AbsolutePath', $path);
-        Phake::verify($this->posixFactory)->create('/path/to/tmp');
+        Phake::verify($this->unixFactory)->create('/path/to/tmp');
         Phake::verify($this->windowsFactory, Phake::never())->create(
             Phake::anyParameters()
         );
@@ -196,12 +196,12 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
             $path
         );
         Phake::verify($this->windowsFactory)->create('/path/to/tmp');
-        Phake::verify($this->posixFactory, Phake::never())->create(
+        Phake::verify($this->unixFactory, Phake::never())->create(
             Phake::anyParameters()
         );
     }
 
-    public function testCreateTemporaryPathPosix()
+    public function testCreateTemporaryPathUnix()
     {
         Phake::when($this->isolator)->uniqid('', true)->thenReturn('unique-id');
         Phake::when($this->isolator)
@@ -211,7 +211,7 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('/path/to/tmp/unique-id', $path->string());
         $this->assertInstanceOf('\Eloquent\Pathogen\AbsolutePath', $path);
-        Phake::verify($this->posixFactory)->create('/path/to/tmp');
+        Phake::verify($this->unixFactory)->create('/path/to/tmp');
         Phake::verify($this->windowsFactory, Phake::never())->create(
             Phake::anyParameters()
         );
@@ -231,7 +231,7 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
             $path
         );
         Phake::verify($this->windowsFactory)->create('/path/to/tmp');
-        Phake::verify($this->posixFactory, Phake::never())->create(
+        Phake::verify($this->unixFactory, Phake::never())->create(
             Phake::anyParameters()
         );
     }
@@ -246,7 +246,7 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('/path/to/tmp/foo-unique-id', $path->string());
         $this->assertInstanceOf('\Eloquent\Pathogen\AbsolutePath', $path);
-        Phake::verify($this->posixFactory)->create('/path/to/tmp');
+        Phake::verify($this->unixFactory)->create('/path/to/tmp');
         Phake::verify($this->windowsFactory, Phake::never())->create(
             Phake::anyParameters()
         );

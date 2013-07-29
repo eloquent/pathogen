@@ -33,6 +33,8 @@ structures while providing a comprehensive API.
     - [File system paths](#file-system-paths)
     - [Immutability of paths](#immutability-of-paths)
     - [Windows path support](#windows-path-support)
+    - [Dependency consumer traits](#dependency-consumer-traits)
+        - [Available dependency consumer traits](#available-dependency-consumer-traits)
 - [Usage examples](#usage-examples)
     - [Resolving a user-provided path against the current working directory](#resolving-a-user-provided-path-against-the-current-working-directory)
     - [Determining whether one path exists inside another](#determining-whether-one-path-exists-inside-another)
@@ -234,14 +236,12 @@ required for some reason, this is left to the developer to handle:
 
 ```php
 use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory;
-use Eloquent\Pathogen\FileSystem\Normalizer\FileSystemPathNormalizer;
 
 $factory = new FileSystemPathFactory;
-$normalizer = new FileSystemPathNormalizer;
 
 $path = $factory->create('/path/./to/foo/../bar');
 
-$normalizedPath = $normalizer->normalize($path);
+$normalizedPath = $path->normalize();
 echo $normalizedPath->string(); // outputs '/path/to/bar'
 ```
 
@@ -298,6 +298,38 @@ $drive = $path->drive(); // returns a single-character string, or null
 
 It is worth noting that *Pathogen* does *not* support drive specifiers for
 relative Windows paths, only for absolute Windows paths.
+
+### Dependency consumer traits
+
+*Pathogen* provides some [traits] to make consuming its services extremely
+simple for systems code targeting PHP 5.4 and higher.
+
+The concept of a dependency consumer trait is simple. If a class requires, for
+example, a path factory, it can simply use a `PathFactoryTrait`. This gives the
+class `setPathFactory()` and `pathFactory()` methods for managing the path
+factory dependency.
+
+This example demonstrates how to use the file system path factory trait:
+
+```php
+use Eloquent\Pathogen\FileSystem\Factory\Consumer\FileSystemPathFactoryTrait;
+
+class ExampleConsumer
+{
+    use FileSystemPathFactoryTrait;
+}
+
+$consumer = new ExampleConsumer;
+echo get_class($consumer->pathFactory()); // outputs 'Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory'
+```
+
+#### Available dependency consumer traits
+
+- [PlatformFileSystemPathFactoryTrait]
+- [FileSystemPathFactoryTrait]
+- [PathFactoryTrait]
+- [PathResolverTrait]
+- [NormalizingPathResolverTrait]
 
 ## Usage examples
 
@@ -390,14 +422,20 @@ echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
 
 [AbsolutePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/AbsolutePathInterface.html
 [API documentation]: http://lqnt.co/pathogen/artifacts/documentation/api/
-[Build Status]: https://api.travis-ci.org/eloquent/pathogen.png
+[Build Status]: https://api.travis-ci.org/eloquent/pathogen.png?branch=master
 [Composer]: http://getcomposer.org/
 [eloquent/pathogen]: https://packagist.org/packages/eloquent/pathogen
 [FileSystemPathFactory]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/Factory/FileSystemPathFactory.html
+[FileSystemPathFactoryTrait]: src/Eloquent/Pathogen/FileSystem/Factory/Consumer/FileSystemPathFactoryTrait.php
 [Latest build]: http://travis-ci.org/eloquent/pathogen
+[NormalizingPathResolverTrait]: src/Eloquent/Pathogen/Resolver/Consumer/NormalizingPathResolverTrait.php
 [PathFactoryInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/Factory/PathFactoryInterface.html
+[PathFactoryTrait]: src/Eloquent/Pathogen/Factory/Consumer/PathFactoryTrait.php
 [PathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/PathInterface.html
+[PathResolverTrait]: src/Eloquent/Pathogen/Resolver/Consumer/PathResolverTrait.php
 [PlatformFileSystemPathFactory]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/Factory/PlatformFileSystemPathFactory.html
+[PlatformFileSystemPathFactoryTrait]: src/Eloquent/Pathogen/FileSystem/Factory/Consumer/PlatformFileSystemPathFactoryTrait.php
 [RelativePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/RelativePathInterface.html
 [Test coverage report]: http://lqnt.co/pathogen/artifacts/tests/coverage/
 [Test Coverage]: https://coveralls.io/repos/eloquent/pathogen/badge.png
+[traits]: http://php.net/traits
