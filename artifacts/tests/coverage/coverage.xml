@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1374922630">
-  <project timestamp="1374922630">
+<coverage generated="1375153523">
+  <project timestamp="1375153523">
     <package name="Eloquent\Pathogen">
       <file name="/home/travis/build/eloquent/pathogen/src/Eloquent/Pathogen/AbsolutePath.php">
         <class name="AbsolutePath" namespace="Eloquent\Pathogen">
@@ -59,7 +59,7 @@
       </file>
       <file name="/home/travis/build/eloquent/pathogen/src/Eloquent/Pathogen/AbstractPath.php">
         <class name="AbstractPath" namespace="Eloquent\Pathogen">
-          <metrics methods="48" coveredmethods="48" conditionals="0" coveredconditionals="0" statements="283" coveredstatements="283" elements="331" coveredelements="331"/>
+          <metrics methods="48" coveredmethods="48" conditionals="0" coveredconditionals="0" statements="279" coveredstatements="279" elements="327" coveredelements="327"/>
         </class>
         <line num="29" type="method" name="__construct" crap="2" count="2059"/>
         <line num="31" type="stmt" count="2059"/>
@@ -382,18 +382,14 @@
         <line num="949" type="stmt" count="1982"/>
         <line num="950" type="stmt" count="78"/>
         <line num="952" type="stmt" count="1976"/>
-        <line num="961" type="method" name="createPath" crap="2" count="515"/>
-        <line num="966" type="stmt" count="515"/>
-        <line num="967" type="stmt" count="266"/>
-        <line num="968" type="stmt" count="266"/>
-        <line num="970" type="stmt" count="266"/>
-        <line num="973" type="stmt" count="249"/>
-        <line num="974" type="stmt" count="249"/>
-        <line num="976" type="stmt" count="249"/>
-        <line num="982" type="method" name="createDefaultNormalizer" crap="1" count="28"/>
-        <line num="984" type="stmt" count="28"/>
-        <line num="990" type="stmt" count="0"/>
-        <metrics loc="989" ncloc="596" classes="1" methods="48" coveredmethods="48" conditionals="0" coveredconditionals="0" statements="283" coveredstatements="283" elements="331" coveredelements="331"/>
+        <line num="961" type="method" name="createPath" crap="2" count="260"/>
+        <line num="966" type="stmt" count="260"/>
+        <line num="967" type="stmt" count="135"/>
+        <line num="970" type="stmt" count="125"/>
+        <line num="976" type="method" name="createDefaultNormalizer" crap="1" count="28"/>
+        <line num="978" type="stmt" count="28"/>
+        <line num="984" type="stmt" count="0"/>
+        <metrics loc="983" ncloc="590" classes="1" methods="48" coveredmethods="48" conditionals="0" coveredconditionals="0" statements="279" coveredstatements="279" elements="327" coveredelements="327"/>
       </file>
       <file name="/home/travis/build/eloquent/pathogen/src/Eloquent/Pathogen/RelativePath.php">
         <class name="RelativePath" namespace="Eloquent\Pathogen">
@@ -942,17 +938,23 @@
     <package name="Eloquent\Pathogen\Unix">
       <file name="/home/travis/build/eloquent/pathogen/src/Eloquent/Pathogen/Unix/AbsoluteUnixPath.php">
         <class name="AbsoluteUnixPath" namespace="Eloquent\Pathogen\Unix">
-          <metrics methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
         </class>
-        <line num="23" type="stmt" count="0"/>
-        <metrics loc="22" ncloc="11" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        <line num="29" type="method" name="createPath" crap="2" count="136"/>
+        <line num="34" type="stmt" count="136"/>
+        <line num="35" type="stmt" count="127"/>
+        <line num="38" type="stmt" count="9"/>
+        <line num="41" type="stmt" count="0"/>
+        <metrics loc="40" ncloc="22" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
       </file>
       <file name="/home/travis/build/eloquent/pathogen/src/Eloquent/Pathogen/Unix/RelativeUnixPath.php">
         <class name="RelativeUnixPath" namespace="Eloquent\Pathogen\Unix">
-          <metrics methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
-        <line num="23" type="stmt" count="0"/>
-        <metrics loc="22" ncloc="11" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        <line num="29" type="method" name="createPath" crap="1" count="115"/>
+        <line num="34" type="stmt" count="115"/>
+        <line num="37" type="stmt" count="0"/>
+        <metrics loc="36" ncloc="18" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
     </package>
     <file name="/home/travis/build/eloquent/pathogen/src/Eloquent/Pathogen/Unix/AbsoluteUnixPathInterface.php">
@@ -983,7 +985,7 @@
     <package name="Eloquent\Pathogen\Windows">
       <file name="/home/travis/build/eloquent/pathogen/src/Eloquent/Pathogen/Windows/AbsoluteWindowsPath.php">
         <class name="AbsoluteWindowsPath" namespace="Eloquent\Pathogen\Windows">
-          <metrics methods="13" coveredmethods="13" conditionals="0" coveredconditionals="0" statements="70" coveredstatements="70" elements="83" coveredelements="83"/>
+          <metrics methods="13" coveredmethods="13" conditionals="0" coveredconditionals="0" statements="67" coveredstatements="67" elements="80" coveredelements="80"/>
         </class>
         <line num="41" type="method" name="__construct" crap="3" count="613"/>
         <line num="43" type="stmt" count="613"/>
@@ -1065,11 +1067,8 @@
         <line num="276" type="stmt" count="17"/>
         <line num="286" type="method" name="createPathWithDrive" crap="1" count="320"/>
         <line num="291" type="stmt" count="320"/>
-        <line num="292" type="stmt" count="320"/>
-        <line num="293" type="stmt" count="320"/>
-        <line num="295" type="stmt" count="320"/>
-        <line num="300" type="stmt" count="0"/>
-        <metrics loc="299" ncloc="180" classes="1" methods="13" coveredmethods="13" conditionals="0" coveredconditionals="0" statements="70" coveredstatements="70" elements="83" coveredelements="83"/>
+        <line num="296" type="stmt" count="0"/>
+        <metrics loc="295" ncloc="176" classes="1" methods="13" coveredmethods="13" conditionals="0" coveredconditionals="0" statements="67" coveredstatements="67" elements="80" coveredelements="80"/>
       </file>
       <file name="/home/travis/build/eloquent/pathogen/src/Eloquent/Pathogen/Windows/RelativeWindowsPath.php">
         <class name="RelativeWindowsPath" namespace="Eloquent\Pathogen\Windows">
@@ -1241,6 +1240,6 @@
       <line num="22" type="stmt" count="0"/>
       <metrics loc="21" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="54" loc="4585" ncloc="2378" classes="35" methods="146" coveredmethods="146" conditionals="0" coveredconditionals="0" statements="732" coveredstatements="732" elements="878" coveredelements="878"/>
+    <metrics files="54" loc="4607" ncloc="2386" classes="35" methods="148" coveredmethods="148" conditionals="0" coveredconditionals="0" statements="729" coveredstatements="729" elements="877" coveredelements="877"/>
   </project>
 </coverage>
