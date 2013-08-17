@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1375153523">
-  <project timestamp="1375153523">
+<coverage generated="1376727895">
+  <project timestamp="1376727895">
     <package name="Eloquent\Pathogen">
       <file name="/home/travis/build/eloquent/pathogen/src/Eloquent/Pathogen/AbsolutePath.php">
         <class name="AbsolutePath" namespace="Eloquent\Pathogen">
