@@ -302,7 +302,7 @@ relative Windows paths, only for absolute Windows paths.
 ### Dependency consumer traits
 
 *Pathogen* provides some [traits] to make consuming its services extremely
-simple for systems code targeting PHP 5.4 and higher.
+simple for code targeting PHP 5.4 and higher.
 
 The concept of a dependency consumer trait is simple. If a class requires, for
 example, a path factory, it can simply use a `PathFactoryTrait`. This gives the
