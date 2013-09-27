@@ -17,12 +17,12 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.3",
         "ext-mbstring": "*",
         "icecave/isolator": "~2"
     },
     "require-dev": {
-        "icecave/archer": "1.0.0-alpha.1"
+        "icecave/archer": "~1"
     },
     "autoload": {
         "psr-0": {

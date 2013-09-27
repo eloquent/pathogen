@@ -11,6 +11,7 @@
 
 namespace Eloquent\Pathogen\Windows\Factory;
 
+use Eloquent\Pathogen\AbstractPath;
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\Exception\InvalidPathStateException;
 use Eloquent\Pathogen\Factory\PathFactory;
@@ -27,8 +28,7 @@ class WindowsPathFactory extends PathFactory implements
     /**
      * Construct a new Windows path factory.
      *
-     * @param string $defaultDrive The default drive specifier to use when none
-     *     is specified, or null to leave the drive specifier empty.
+     * @param string $defaultDrive The default drive specifier to use when none is specified, or null to leave the drive specifier empty.
      */
     public function __construct($defaultDrive = null)
     {
@@ -57,7 +57,7 @@ class WindowsPathFactory extends PathFactory implements
     public function create($path)
     {
         if ('' === $path) {
-            $path = PathInterface::SELF_ATOM;
+            $path = AbstractPath::SELF_ATOM;
         }
 
         $isAbsolute = false;
@@ -109,12 +109,10 @@ class WindowsPathFactory extends PathFactory implements
      *
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $isAbsolute           True if the path is absolute.
-     * @param boolean|null  $hasTrailingSeparator True if the path has a
-     *     trailing separator.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
      * @return PathInterface                     The newly created path instance.
-     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms
-     *     are invalid.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
      */
     public function createFromAtoms(
         $atoms,
@@ -141,12 +139,10 @@ class WindowsPathFactory extends PathFactory implements
      * @param mixed<string> $atoms                The path atoms.
      * @param string|null   $drive                The drive specifier.
      * @param boolean|null  $isAbsolute           True if the path is absolute.
-     * @param boolean|null  $hasTrailingSeparator True if the path has a
-     *     trailing separator.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
      * @return PathInterface                     The newly created path instance.
-     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms
-     *     are invalid.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
      */
     public function createFromDriveAndAtoms(
         $atoms,

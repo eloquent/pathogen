@@ -12,6 +12,7 @@
 namespace Eloquent\Pathogen\Factory;
 
 use Eloquent\Pathogen\AbsolutePath;
+use Eloquent\Pathogen\AbstractPath;
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\RelativePath;
@@ -31,13 +32,13 @@ class PathFactory implements PathFactoryInterface
     public function create($path)
     {
         if ('' === $path) {
-            $path = PathInterface::SELF_ATOM;
+            $path = AbstractPath::SELF_ATOM;
         }
 
         $isAbsolute = false;
         $hasTrailingSeparator = false;
 
-        $atoms = explode(PathInterface::ATOM_SEPARATOR, $path);
+        $atoms = explode(AbstractPath::ATOM_SEPARATOR, $path);
         $numAtoms = count($atoms);
 
         if ($numAtoms > 1) {
@@ -76,12 +77,10 @@ class PathFactory implements PathFactoryInterface
      *
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $isAbsolute           True if the path is absolute.
-     * @param boolean|null  $hasTrailingSeparator True if the path has a
-     *     trailing separator.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
      * @return PathInterface                     The newly created path instance.
-     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms
-     *     are invalid.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
      */
     public function createFromAtoms(
         $atoms,

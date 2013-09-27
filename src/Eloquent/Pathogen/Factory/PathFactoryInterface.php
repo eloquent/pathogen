@@ -36,12 +36,10 @@ interface PathFactoryInterface
      *
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $isAbsolute           True if the path is absolute.
-     * @param boolean|null  $hasTrailingSeparator True if the path has a
-     *     trailing separator.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
      * @return PathInterface                     The newly created path instance.
-     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms
-     *     are invalid.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
      */
     public function createFromAtoms(
         $atoms,

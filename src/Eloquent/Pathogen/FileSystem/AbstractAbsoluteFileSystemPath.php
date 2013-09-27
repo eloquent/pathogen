@@ -25,10 +25,8 @@ abstract class AbstractAbsoluteFileSystemPath extends AbsolutePath implements
     /**
      * Get the parent of this path a specified number of levels up.
      *
-     * @param integer|null $numLevels The number of levels up.
-     *     Defaults to 1.
-     * @param PathNormalizerInterface|null $normalizer The normalizer to use
-     *     when determining the parent.
+     * @param integer|null                 $numLevels  The number of levels up. Defaults to 1.
+     * @param PathNormalizerInterface|null $normalizer The normalizer to use when determining the parent.
      *
      * @return PathInterface The parent of this path $numLevels up.
      */

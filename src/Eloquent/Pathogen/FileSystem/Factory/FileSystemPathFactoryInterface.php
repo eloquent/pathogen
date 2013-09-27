@@ -22,16 +22,14 @@ interface FileSystemPathFactoryInterface extends PathFactoryInterface
     /**
      * Create a path representing the current working directory.
      *
-     * @return AbsolutePathInterface A new path instance representing the
-     *     current working directory path.
+     * @return AbsolutePathInterface A new path instance representing the current working directory path.
      */
     public function createWorkingDirectoryPath();
 
     /**
      * Create a path representing the system temporary directory.
      *
-     * @return AbsolutePathInterface A new path instance representing the system
-     *     default temporary directory path.
+     * @return AbsolutePathInterface A new path instance representing the system default temporary directory path.
      */
     public function createTemporaryDirectoryPath();
 
@@ -44,8 +42,7 @@ interface FileSystemPathFactoryInterface extends PathFactoryInterface
      *
      * @param string|null $prefix A string to use as a prefix for the path name.
      *
-     * @return AbsolutePathInterface A new path instance representing the new
-     *     temporary path.
+     * @return AbsolutePathInterface A new path instance representing the new temporary path.
      */
     public function createTemporaryPath($prefix = null);
 }
