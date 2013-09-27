@@ -27,9 +27,47 @@
 
             <div class="description">
             <p>Represents an absolute Windows path.</p>
-            <p></p>
+            <p>
+</p>
         </div>
     
+            <h2>Constants</h2>
+
+            <table>
+                    <tr>
+                <td>ATOM_SEPARATOR</td>
+                <td class="last">
+                    <p><em>The character used to separate path atoms.</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>EXTENSION_SEPARATOR</td>
+                <td class="last">
+                    <p><em>The character used to separate path name atoms.</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>PARENT_ATOM</td>
+                <td class="last">
+                    <p><em>The atom used to represent 'parent'.</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>SELF_ATOM</td>
+                <td class="last">
+                    <p><em>The atom used to represent 'self'.</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+            </table>
+
     
     
             <h2>Methods</h2>
@@ -61,7 +99,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_drive">drive</a>()
-                    <p>Get this path&#039;s drive specifier.</p>
+                    <p>Get this path's drive specifier.</p>
                 </td>
                 <td></td>
             </tr>
@@ -131,13 +169,14 @@
         <h2>Details</h2>
 
                         <h3 id="method_parent">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/FileSystem/AbstractAbsoluteFileSystemPath.html#method_parent"><abbr title="Eloquent\Pathogen\FileSystem\AbstractAbsoluteFileSystemPath">AbstractAbsoluteFileSystemPath</abbr></a> at line 35</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/FileSystem/AbstractAbsoluteFileSystemPath.html#method_parent"><abbr title="Eloquent\Pathogen\FileSystem\AbstractAbsoluteFileSystemPath">AbstractAbsoluteFileSystemPath</abbr></a> at line 33</div>
         <code>            public            <abbr title="Eloquent\Pathogen\FileSystem\PathInterface">PathInterface</abbr>
     <strong>parent</strong>(integer|null $numLevels = null, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
     <div class="details">
         <p>Get the parent of this path a specified number of levels up.</p>
-        <p></p>
+        <p>
+</p>
         <div class="tags">
                             <h4>Parameters</h4>
 
@@ -170,13 +209,14 @@
     </div>
 
                 <h3 id="method___construct">
-        <div class="location">at line 41</div>
+        <div class="location">at line 37</div>
         <code>            public            
     <strong>__construct</strong>(<abbr title="Eloquent\Pathogen\Windows\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive, boolean|null $hasTrailingSeparator = null)</code>
     </h3>
     <div class="details">
         <p>Construct a new path instance.</p>
-        <p></p>
+        <p>
+</p>
         <div class="tags">
                             <h4>Parameters</h4>
 
@@ -218,13 +258,14 @@
     </div>
 
                 <h3 id="method_drive">
-        <div class="location">at line 60</div>
+        <div class="location">at line 55</div>
         <code>            public            string|null
     <strong>drive</strong>()</code>
     </h3>
     <div class="details">
-        <p>Get this path&#039;s drive specifier.</p>
-        <p></p>
+        <p>Get this path's drive specifier.</p>
+        <p>
+</p>
         <div class="tags">
             
                             <h4>Return Value</h4>
@@ -242,13 +283,14 @@
     </div>
 
                 <h3 id="method_hasDrive">
-        <div class="location">at line 70</div>
+        <div class="location">at line 65</div>
         <code>            public            boolean
     <strong>hasDrive</strong>()</code>
     </h3>
     <div class="details">
         <p>Determine whether this path has a drive specifier.</p>
-        <p></p>
+        <p>
+</p>
         <div class="tags">
             
                             <h4>Return Value</h4>
@@ -266,13 +308,14 @@
     </div>
 
                 <h3 id="method_joinDrive">
-        <div class="location">at line 84</div>
+        <div class="location">at line 77</div>
         <code>            public            string|null
     <strong>joinDrive</strong>($drive)</code>
     </h3>
     <div class="details">
         <p>Joins the supplied drive specifier to this path.</p>
-        <p></p>
+        <p>
+</p>
         <div class="tags">
                             <h4>Parameters</h4>
 
@@ -280,7 +323,8 @@
                     <tr>
                 <td></td>
                 <td>$drive</td>
-                <td></td>
+                <td>
+</td>
             </tr>
             </table>
 
@@ -300,13 +344,14 @@
     </div>
 
                 <h3 id="method_string">
-        <div class="location">at line 100</div>
+        <div class="location">at line 93</div>
         <code>            public            string
     <strong>string</strong>()</code>
     </h3>
     <div class="details">
         <p>Generate a string representation of this path.</p>
-        <p></p>
+        <p>
+</p>
         <div class="tags">
             
                             <h4>Return Value</h4>
@@ -324,13 +369,14 @@
     </div>
 
                 <h3 id="method_isParentOf">
-        <div class="location">at line 132</div>
+        <div class="location">at line 123</div>
         <code>            public            boolean
     <strong>isParentOf</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
     <div class="details">
         <p>Determine if this path is the direct parent of the supplied path.</p>
-        <p></p>
+        <p>
+</p>
         <div class="tags">
                             <h4>Parameters</h4>
 
@@ -363,13 +409,14 @@
     </div>
 
                 <h3 id="method_isAncestorOf">
-        <div class="location">at line 156</div>
+        <div class="location">at line 146</div>
         <code>            public            boolean
     <strong>isAncestorOf</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
     <div class="details">
         <p>Determine if this path is an ancestor of the supplied path.</p>
-        <p></p>
+        <p>
+</p>
         <div class="tags">
                             <h4>Parameters</h4>
 
@@ -402,14 +449,14 @@
     </div>
 
                 <h3 id="method_relativeTo">
-        <div class="location">at line 185</div>
+        <div class="location">at line 172</div>
         <code>            public            <abbr title="Eloquent\Pathogen\Windows\RelativePathInterface">RelativePathInterface</abbr>
     <strong>relativeTo</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $path, <a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
     <div class="details">
         <p>Determine the shortest path from the supplied path to this path.</p>
-        <p>For example, given path A equal to &#039;/foo/bar&#039;, and path B equal to<br />
- &#039;/foo/baz&#039;, A relative to B would be &#039;../bar&#039;.</p>
+        <p>For example, given path A equal to '/foo/bar', and path B equal to
+'/foo/baz', A relative to B would be '../bar'.</p>
         <div class="tags">
                             <h4>Parameters</h4>
 
