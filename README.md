@@ -2,8 +2,9 @@
 
 *General-purpose path library for PHP.*
 
-[![Build Status]][Latest build]
-[![Test Coverage]][Test coverage report]
+[![Build status]][Latest build]
+[![Test coverage]][Test coverage report]
+[![Uses semantic versioning]][SemVer]
 
 ## Installation and documentation
 
@@ -421,13 +422,8 @@ echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
 <!-- References -->
 
 [AbsolutePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/AbsolutePathInterface.html
-[API documentation]: http://lqnt.co/pathogen/artifacts/documentation/api/
-[Build Status]: https://api.travis-ci.org/eloquent/pathogen.png?branch=master
-[Composer]: http://getcomposer.org/
-[eloquent/pathogen]: https://packagist.org/packages/eloquent/pathogen
 [FileSystemPathFactory]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/Factory/FileSystemPathFactory.html
 [FileSystemPathFactoryTrait]: src/Eloquent/Pathogen/FileSystem/Factory/Consumer/FileSystemPathFactoryTrait.php
-[Latest build]: http://travis-ci.org/eloquent/pathogen
 [NormalizingPathResolverTrait]: src/Eloquent/Pathogen/Resolver/Consumer/NormalizingPathResolverTrait.php
 [PathFactoryInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/Factory/PathFactoryInterface.html
 [PathFactoryTrait]: src/Eloquent/Pathogen/Factory/Consumer/PathFactoryTrait.php
@@ -436,6 +432,13 @@ echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
 [PlatformFileSystemPathFactory]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/Factory/PlatformFileSystemPathFactory.html
 [PlatformFileSystemPathFactoryTrait]: src/Eloquent/Pathogen/FileSystem/Factory/Consumer/PlatformFileSystemPathFactoryTrait.php
 [RelativePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/RelativePathInterface.html
-[Test coverage report]: http://lqnt.co/pathogen/artifacts/tests/coverage/
-[Test Coverage]: https://coveralls.io/repos/eloquent/pathogen/badge.png
 [traits]: http://php.net/traits
+
+[Build status]: https://api.travis-ci.org/eloquent/pathogen.png?branch=master
+[Composer]: http://getcomposer.org/
+[eloquent/pathogen]: https://packagist.org/packages/eloquent/pathogen
+[Latest build]: https://travis-ci.org/eloquent/pathogen
+[SemVer]: http://semver.org/
+[Test coverage report]: https://coveralls.io/r/eloquent/pathogen
+[Test coverage]: https://coveralls.io/repos/eloquent/pathogen/badge.png?branch=master
+[Uses semantic versioning]: http://b.repl.ca/v1/semver-yes-brightgreen.png

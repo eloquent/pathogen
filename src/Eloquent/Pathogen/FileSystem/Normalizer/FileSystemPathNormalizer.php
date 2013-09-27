@@ -26,10 +26,8 @@ class FileSystemPathNormalizer implements PathNormalizerInterface
     /**
      * Construct a new file system path normalizer.
      *
-     * @param PathNormalizerInterface|null $unixNormalizer The path normalizer
-     *     to use for Unix paths.
-     * @param PathNormalizerInterface|null $windowsNormalizer The path
-     *     normalizer to use for Windows paths.
+     * @param PathNormalizerInterface|null $unixNormalizer    The path normalizer to use for Unix paths.
+     * @param PathNormalizerInterface|null $windowsNormalizer The path normalizer to use for Windows paths.
      */
     public function __construct(
         PathNormalizerInterface $unixNormalizer = null,
@@ -61,8 +59,7 @@ class FileSystemPathNormalizer implements PathNormalizerInterface
     /**
      * Get the path normalizer used for Windows paths.
      *
-     * @return PathNormalizerInterface The path normalizer used for Windows
-     *     paths.
+     * @return PathNormalizerInterface The path normalizer used for Windows paths.
      */
     public function windowsNormalizer()
     {

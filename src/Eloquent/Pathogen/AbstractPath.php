@@ -17,14 +17,32 @@ namespace Eloquent\Pathogen;
 abstract class AbstractPath implements PathInterface
 {
     /**
+     * The character used to separate path atoms.
+     */
+    const ATOM_SEPARATOR = '/';
+
+    /**
+     * The character used to separate path name atoms.
+     */
+    const EXTENSION_SEPARATOR = '.';
+
+    /**
+     * The atom used to represent 'parent'.
+     */
+    const PARENT_ATOM = '..';
+
+    /**
+     * The atom used to represent 'self'.
+     */
+    const SELF_ATOM = '.';
+
+    /**
      * Construct a new path instance.
      *
      * @param mixed<string> $atoms                The path atoms.
-     * @param boolean|null  $hasTrailingSeparator True if this path has a
-     *     trailing separator.
+     * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
      *
-     * @throws Exception\InvalidPathAtomExceptionInterface If any of the
-     *     supplied path atoms are invalid.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
      */
     public function __construct($atoms, $hasTrailingSeparator = null)
     {
@@ -57,8 +75,7 @@ abstract class AbstractPath implements PathInterface
      * @param integer      $index  The index of the first atom.
      * @param integer|null $length The maximum number of atoms.
      *
-     * @return array<integer,string> An array of strings representing the subset
-     *     of path atoms.
+     * @return array<integer,string> An array of strings representing the subset of path atoms.
      */
     public function sliceAtoms($index, $length = null)
     {
@@ -116,8 +133,7 @@ abstract class AbstractPath implements PathInterface
     /**
      * Get this path's name.
      *
-     * @return string The last path atom if one exists, otherwise an empty
-     *     string.
+     * @return string The last path atom if one exists, otherwise an empty string.
      */
     public function name()
     {
@@ -136,8 +152,7 @@ abstract class AbstractPath implements PathInterface
      *
      * For example, the path name 'foo.bar' has the atoms 'foo' and 'bar'.
      *
-     * @return array<integer,string> The atoms of this path's name as an array
-     *     of strings.
+     * @return array<integer,string> The atoms of this path's name as an array of strings.
      */
     public function nameAtoms()
     {
@@ -150,8 +165,7 @@ abstract class AbstractPath implements PathInterface
      * @param integer      $index  The index of the first atom.
      * @param integer|null $length The maximum number of atoms.
      *
-     * @return array<integer,string> An array of strings representing the subset
-     *     of path name atoms.
+     * @return array<integer,string> An array of strings representing the subset of path name atoms.
      */
     public function sliceNameAtoms($index, $length = null)
     {
@@ -166,8 +180,7 @@ abstract class AbstractPath implements PathInterface
     /**
      * Get this path's name, excluding the last extension.
      *
-     * @return string The last atom of this path, excluding the last extension.
-     *     If this path has no atoms, an empty string is returned.
+     * @return string The last atom of this path, excluding the last extension. If this path has no atoms, an empty string is returned.
      */
     public function nameWithoutExtension()
     {
@@ -184,8 +197,7 @@ abstract class AbstractPath implements PathInterface
     /**
      * Get this path's name, excluding all extensions.
      *
-     * @return string The last atom of this path, excluding any extensions. If
-     *     this path has no atoms, an empty string is returned.
+     * @return string The last atom of this path, excluding any extensions. If this path has no atoms, an empty string is returned.
      */
     public function namePrefix()
     {
@@ -197,9 +209,7 @@ abstract class AbstractPath implements PathInterface
     /**
      * Get all of this path's extensions.
      *
-     * @return string|null The extensions of this path's last atom. If the last
-     *     atom has no extensions, or this path has no atoms, this method will
-     *     return null.
+     * @return string|null The extensions of this path's last atom. If the last atom has no extensions, or this path has no atoms, this method will return null.
      */
     public function nameSuffix()
     {
@@ -216,9 +226,7 @@ abstract class AbstractPath implements PathInterface
     /**
      * Get this path's last extension.
      *
-     * @return string|null The last extension of this path's last atom. If the
-     *     last atom has no extensions, or this path has no atoms, this method
-     *     will return null.
+     * @return string|null The last extension of this path's last atom. If the last atom has no extensions, or this path has no atoms, this method will return null.
      */
     public function extension()
     {
@@ -479,10 +487,8 @@ abstract class AbstractPath implements PathInterface
     /**
      * Get the parent of this path a specified number of levels up.
      *
-     * @param integer|null $numLevels The number of
-     *     levels up. Defaults to 1.
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer
-     *     to use when determining the parent.
+     * @param integer|null                            $numLevels  The number of levels up. Defaults to 1.
+     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the parent.
      *
      * @return PathInterface The parent of this path $numLevels up.
      */
@@ -514,9 +520,7 @@ abstract class AbstractPath implements PathInterface
     /**
      * Strips the trailing slash from this path.
      *
-     * @return PathInterface A new path instance with the trailing slash removed
-     *     from this path. If this path has no trailing slash, the path is
-     *     returned unmodified.
+     * @return PathInterface A new path instance with the trailing slash removed from this path. If this path has no trailing slash, the path is returned unmodified.
      */
     public function stripTrailingSlash()
     {
@@ -533,9 +537,7 @@ abstract class AbstractPath implements PathInterface
     /**
      * Strips the last extension from this path.
      *
-     * @return PathInterface A new path instance with the last extension removed
-     *     from this path. If this path has no extensions, the path is returned
-     *     unmodified.
+     * @return PathInterface A new path instance with the last extension removed from this path. If this path has no extensions, the path is returned unmodified.
      */
     public function stripExtension()
     {
@@ -545,9 +547,7 @@ abstract class AbstractPath implements PathInterface
     /**
      * Strips all extensions from this path.
      *
-     * @return PathInterface A new path instance with all extensions removed
-     *     from this path. If this path has no extensions, the path is returned
-     *     unmodified.
+     * @return PathInterface A new path instance with all extensions removed from this path. If this path has no extensions, the path is returned unmodified.
      */
     public function stripNameSuffix()
     {
@@ -560,10 +560,8 @@ abstract class AbstractPath implements PathInterface
      * @param string     $atom            A path atom to append.
      * @param string,... $additionalAtoms Additional path atoms to append.
      *
-     * @return PathInterface A new path with the supplied atom(s) suffixed to
-     *     this path.
-     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms
-     *     are invalid.
+     * @return PathInterface                               A new path with the supplied atom(s) suffixed to this path.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms are invalid.
      */
     public function joinAtoms($atom)
     {
@@ -575,10 +573,8 @@ abstract class AbstractPath implements PathInterface
      *
      * @param mixed<string> $atoms The path atoms to append.
      *
-     * @return PathInterface A new path with the supplied sequence of atoms
-     *     suffixed to this path.
-     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms
-     *     are invalid.
+     * @return PathInterface                               A new path with the supplied sequence of atoms suffixed to this path.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms are invalid.
      */
     public function joinAtomSequence($atoms)
     {
@@ -595,11 +591,9 @@ abstract class AbstractPath implements PathInterface
     /**
      * Joins the supplied path to this path.
      *
-     * @param RelativePathInterface $path The path whose atoms should be joined
-     *     to this path.
+     * @param RelativePathInterface $path The path whose atoms should be joined to this path.
      *
-     * @return PathInterface A new path with the supplied path suffixed to this
-     *     path.
+     * @return PathInterface A new path with the supplied path suffixed to this path.
      */
     public function join(RelativePathInterface $path)
     {
@@ -630,10 +624,8 @@ abstract class AbstractPath implements PathInterface
      * @param string     $extension            An extension to append.
      * @param string,... $additionalExtensions Additional extensions to append.
      *
-     * @return PathInterface A new path instance with the supplied extensions
-     *     suffixed to this path.
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed
-     *     extensions cause the atom to be invalid.
+     * @return PathInterface                               A new path instance with the supplied extensions suffixed to this path.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
      */
     public function joinExtensions($extension)
     {
@@ -645,10 +637,8 @@ abstract class AbstractPath implements PathInterface
      *
      * @param mixed<string> $extensions
      *
-     * @return PathInterface A new path instance with the supplied extensions
-     *     suffixed to this path.
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed
-     *     extensions cause the atom to be invalid.
+     * @return PathInterface                               A new path instance with the supplied extensions suffixed to this path.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
      */
     public function joinExtensionSequence($extensions)
     {
@@ -674,10 +664,8 @@ abstract class AbstractPath implements PathInterface
      *
      * @param string $suffix The string to suffix to the path name.
      *
-     * @return PathInterface A new path instance with the supplied string
-     *     suffixed to the last path atom.
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffix causes
-     *     the atom to be invalid.
+     * @return PathInterface                               A new path instance with the supplied string suffixed to the last path atom.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the suffix causes the atom to be invalid.
      */
     public function suffixName($suffix)
     {
@@ -694,10 +682,8 @@ abstract class AbstractPath implements PathInterface
      *
      * @param string $prefix The string to prefix to the path name.
      *
-     * @return PathInterface A new path instance with the supplied string
-     *     prefixed to the last path atom.
-     * @throws Exception\InvalidPathAtomExceptionInterface If the prefix causes
-     *     the atom to be invalid.
+     * @return PathInterface                               A new path instance with the supplied string prefixed to the last path atom.
+     * @throws Exception\InvalidPathAtomExceptionInterface If the prefix causes the atom to be invalid.
      */
     public function prefixName($prefix)
     {
@@ -714,11 +700,9 @@ abstract class AbstractPath implements PathInterface
      *
      * @param integer       $index       The start index of the replacement.
      * @param mixed<string> $replacement The replacement atom sequence.
-     * @param integer|null  $length      The number of atoms to replace. If
-     *     $length is null, the entire remainder of the path will be replaced.
+     * @param integer|null  $length      The number of atoms to replace. If $length is null, the entire remainder of the path will be replaced.
      *
-     * @return PathInterface A new path instance that has a portion of this
-     *     path's atoms replaced with a different sequence of atoms.
+     * @return PathInterface A new path instance that has a portion of this path's atoms replaced with a different sequence of atoms.
      */
     public function replace($index, $replacement, $length = null)
     {
@@ -744,8 +728,7 @@ abstract class AbstractPath implements PathInterface
      *
      * @param string $name The new path name.
      *
-     * @return PathInterface A new path instance with the supplied name
-     *     replacing the existing one.
+     * @return PathInterface A new path instance with the supplied name replacing the existing one.
      */
     public function replaceName($name)
     {
@@ -773,9 +756,7 @@ abstract class AbstractPath implements PathInterface
      *
      * @param string $nameWithoutExtension The replacement string.
      *
-     * @return PathInterface A new path instance with the supplied name
-     *     replacing the portion of the existing name preceding the last
-     *     extension.
+     * @return PathInterface A new path instance with the supplied name replacing the portion of the existing name preceding the last extension.
      */
     public function replaceNameWithoutExtension($nameWithoutExtension)
     {
@@ -794,8 +775,7 @@ abstract class AbstractPath implements PathInterface
      *
      * @param string $namePrefix The replacement string.
      *
-     * @return PathInterface A new path instance with the supplied name prefix
-     *     replacing the existing one.
+     * @return PathInterface A new path instance with the supplied name prefix replacing the existing one.
      */
     public function replaceNamePrefix($namePrefix)
     {
@@ -805,11 +785,9 @@ abstract class AbstractPath implements PathInterface
     /**
      * Replace all of this path's extensions.
      *
-     * @param string|null $nameSuffix The replacement string, or null to remove
-     *     all extensions.
+     * @param string|null $nameSuffix The replacement string, or null to remove all extensions.
      *
-     * @return PathInterface A new path instance with the supplied name suffix
-     *     replacing the existing one.
+     * @return PathInterface A new path instance with the supplied name suffix replacing the existing one.
      */
     public function replaceNameSuffix($nameSuffix)
     {
@@ -839,11 +817,9 @@ abstract class AbstractPath implements PathInterface
     /**
      * Replace this path's last extension.
      *
-     * @param string|null $extension The replacement string, or null to remove
-     *     the last extension.
+     * @param string|null $extension The replacement string, or null to remove the last extension.
      *
-     * @return PathInterface A new path instance with the supplied extension
-     *     replacing the existing one.
+     * @return PathInterface A new path instance with the supplied extension replacing the existing one.
      */
     public function replaceExtension($extension)
     {
@@ -881,12 +857,9 @@ abstract class AbstractPath implements PathInterface
      *
      * @param integer       $index       The start index of the replacement.
      * @param mixed<string> $replacement The replacement name atom sequence.
-     * @param integer|null  $length      The number of atoms to replace. If
-     *     $length is null, the entire remainder of the path name will be
-     *     replaced.
+     * @param integer|null  $length      The number of atoms to replace. If $length is null, the entire remainder of the path name will be replaced.
      *
-     * @return PathInterface A new path instance that has a portion of this
-     *     name's atoms replaced with a different sequence of atoms.
+     * @return PathInterface A new path instance that has a portion of this name's atoms replaced with a different sequence of atoms.
      */
     public function replaceNameAtoms($index, $replacement, $length = null)
     {

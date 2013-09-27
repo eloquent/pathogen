@@ -26,11 +26,9 @@ abstract class AbstractFileSystemPathFactory implements
     /**
      * Construct a new file system path factory.
      *
-     * @param PathFactoryInterface|null $unixFactory The path factory to use
-     *     for Unix paths.
-     * @param PathFactoryInterface|null $windowsFactory The path factory to use
-     *     for Windows paths.
-     * @param Isolator|null $isolator The isolator to use.
+     * @param PathFactoryInterface|null $unixFactory    The path factory to use for Unix paths.
+     * @param PathFactoryInterface|null $windowsFactory The path factory to use for Windows paths.
+     * @param Isolator|null             $isolator       The isolator to use.
      */
     public function __construct(
         PathFactoryInterface $unixFactory = null,
@@ -72,8 +70,7 @@ abstract class AbstractFileSystemPathFactory implements
     /**
      * Create a path representing the current working directory.
      *
-     * @return AbsolutePathInterface A new path instance representing the
-     *     current working directory path.
+     * @return AbsolutePathInterface A new path instance representing the current working directory path.
      */
     public function createWorkingDirectoryPath()
     {
@@ -84,8 +81,7 @@ abstract class AbstractFileSystemPathFactory implements
     /**
      * Create a path representing the system temporary directory.
      *
-     * @return AbsolutePathInterface A new path instance representing the system
-     *     default temporary directory path.
+     * @return AbsolutePathInterface A new path instance representing the system default temporary directory path.
      */
     public function createTemporaryDirectoryPath()
     {
@@ -102,8 +98,7 @@ abstract class AbstractFileSystemPathFactory implements
      *
      * @param string|null $prefix A string to use as a prefix for the path name.
      *
-     * @return AbsolutePathInterface A new path instance representing the new
-     *     temporary path.
+     * @return AbsolutePathInterface A new path instance representing the new temporary path.
      */
     public function createTemporaryPath($prefix = null)
     {

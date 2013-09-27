@@ -27,16 +27,12 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
     /**
      * Construct a new path instance.
      *
-     * @param mixed<string> $atoms The path atoms.
-     * @param string|null   $drive The drive specifier, or null if the path has
-     *     no drive specifier.
-     * @param boolean|null $hasTrailingSeparator True if this path has a
-     *     trailing separator.
+     * @param mixed<string> $atoms                The path atoms.
+     * @param string|null   $drive                The drive specifier, or null if the path has no drive specifier.
+     * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
      *
-     * @throws Exception\InvalidDriveSpecifierException If the drive specifier
-     *     is invalid.
-     * @throws InvalidPathAtomExceptionInterface If any of the supplied path
-     *     atoms are invalid.
+     * @throws Exception\InvalidDriveSpecifierException If the drive specifier is invalid.
+     * @throws InvalidPathAtomExceptionInterface        If any of the supplied path atoms are invalid.
      */
     public function __construct($atoms, $drive, $hasTrailingSeparator = null)
     {
@@ -54,8 +50,7 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
     /**
      * Get this path's drive specifier.
      *
-     * @return string|null The drive specifier, or null if this path does not
-     *     have a drive specifier.
+     * @return string|null The drive specifier, or null if this path does not have a drive specifier.
      */
     public function drive()
     {
@@ -75,11 +70,9 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
     /**
      * Joins the supplied drive specifier to this path.
      *
-     * @return string|null $drive The drive specifier to use, or null to remove
-     *     the drive specifier.
+     * @return string|null $drive The drive specifier to use, or null to remove the drive specifier.
      *
-     * @return AbsoluteWindowsPathInterface A new path instance with the
-     *     supplied drive specifier joined to this path.
+     * @return AbsoluteWindowsPathInterface A new path instance with the supplied drive specifier joined to this path.
      */
     public function joinDrive($drive)
     {
@@ -123,11 +116,9 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
      * Determine if this path is the direct parent of the supplied path.
      *
      * @param AbsolutePathInterface        $path       The child path.
-     * @param PathNormalizerInterface|null $normalizer The normalizer to use
-     *     when determining the result.
+     * @param PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
      *
-     * @return boolean True if this path is the direct parent of the supplied
-     *     path.
+     * @return boolean True if this path is the direct parent of the supplied path.
      */
     public function isParentOf(
         AbsolutePathInterface $path,
@@ -148,8 +139,7 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
      * Determine if this path is an ancestor of the supplied path.
      *
      * @param AbsolutePathInterface        $path       The child path.
-     * @param PathNormalizerInterface|null $normalizer The normalizer to use
-     *     when determining the result.
+     * @param PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
      *
      * @return boolean True if this path is an ancestor of the supplied path.
      */
@@ -174,13 +164,10 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
      * For example, given path A equal to '/foo/bar', and path B equal to
      * '/foo/baz', A relative to B would be '../bar'.
      *
-     * @param AbsolutePathInterface $path The path that the generated path will
-     *     be relative to.
-     * @param PathNormalizerInterface|null $normalizer The normalizer to use
-     *     when determining the result.
+     * @param AbsolutePathInterface        $path       The path that the generated path will be relative to.
+     * @param PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
      *
-     * @return RelativePathInterface A relative path from the supplied path to
-     *     this path.
+     * @return RelativePathInterface A relative path from the supplied path to this path.
      */
     public function relativeTo(
         AbsolutePathInterface $path,

@@ -23,8 +23,7 @@ interface AbsoluteWindowsPathInterface extends
     /**
      * Get this path's drive specifier.
      *
-     * @return string|null The drive specifier, or null if this path does not
-     *     have a drive specifier.
+     * @return string|null The drive specifier, or null if this path does not have a drive specifier.
      */
     public function drive();
 
@@ -38,11 +37,9 @@ interface AbsoluteWindowsPathInterface extends
     /**
      * Joins the supplied drive specifier to this path.
      *
-     * @return string|null $drive The drive specifier to use, or null to remove
-     *     the drive specifier.
+     * @return string|null $drive The drive specifier to use, or null to remove the drive specifier.
      *
-     * @return AbsoluteWindowsPathInterface A new path instance with the
-     *     supplied drive specifier joined to this path.
+     * @return AbsoluteWindowsPathInterface A new path instance with the supplied drive specifier joined to this path.
      */
     public function joinDrive($drive);
 }
