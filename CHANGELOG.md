@@ -1,6 +1,6 @@
 # Pathogen changelog
 
-## 0.3.0 (unreleased)
+## 0.3.0 (2013-09-27)
 
 - **[BC BREAK]** Constants moved from path interface into implementation class,
   so that they can be overridden.
