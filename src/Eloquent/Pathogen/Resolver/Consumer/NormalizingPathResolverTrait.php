@@ -12,6 +12,7 @@
 namespace Eloquent\Pathogen\Resolver\Consumer;
 
 use Eloquent\Pathogen\Resolver\NormalizingPathResolver;
+use Eloquent\Pathogen\Resolver\PathResolverInterface;
 
 /**
  * A trait for classes that take a normalizing path resolver as a dependency.
@@ -21,7 +22,9 @@ trait NormalizingPathResolverTrait
     use PathResolverTrait;
 
     /**
-     * @return PathResolverInterface
+     * Create a new instance of the default path resolver.
+     *
+     * @return PathResolverInterface The new default path resolver instance.
      */
     protected function createDefaultPathResolver()
     {

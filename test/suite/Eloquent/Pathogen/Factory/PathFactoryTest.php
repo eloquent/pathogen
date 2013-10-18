@@ -71,4 +71,12 @@ class PathFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertSame($isAbsolute, !$path instanceof RelativePathInterface);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
+
+    public function testCreateFromAtomsDefaults()
+    {
+        $path = $this->factory->createFromAtoms(array());
+
+        $this->assertTrue($path instanceof AbsolutePathInterface);
+        $this->assertFalse($path->hasTrailingSeparator());
+    }
 }

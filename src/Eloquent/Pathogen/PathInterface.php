@@ -131,7 +131,7 @@ interface PathInterface
      * @param string       $needle        The substring to search for.
      * @param boolean|null $caseSensitive True if case sensitive.
      *
-     * @return boolean
+     * @return boolean True if this path contains the substring.
      */
     public function contains($needle, $caseSensitive = null);
 
@@ -141,7 +141,7 @@ interface PathInterface
      * @param string       $needle        The substring to search for.
      * @param boolean|null $caseSensitive True if case sensitive.
      *
-     * @return boolean
+     * @return boolean True if this path starts with the substring.
      */
     public function startsWith($needle, $caseSensitive = null);
 
@@ -151,7 +151,7 @@ interface PathInterface
      * @param string       $needle        The substring to search for.
      * @param boolean|null $caseSensitive True if case sensitive.
      *
-     * @return boolean
+     * @return boolean True if this path ends with the substring.
      */
     public function endsWith($needle, $caseSensitive = null);
 
@@ -162,7 +162,7 @@ interface PathInterface
      * @param boolean|null $caseSensitive True if case sensitive.
      * @param integer|null $flags         Additional flags.
      *
-     * @return boolean
+     * @return boolean True if this path matches the pattern.
      */
     public function matches($pattern, $caseSensitive = null, $flags = null);
 
@@ -174,7 +174,7 @@ interface PathInterface
      * @param integer|null $flags    Additional flags.
      * @param integer|null $offset   Start searching from this byte offset.
      *
-     * @return boolean
+     * @return boolean True if this path matches the pattern.
      */
     public function matchesRegex(
         $pattern,
@@ -189,7 +189,7 @@ interface PathInterface
      * @param string       $needle        The substring to search for.
      * @param boolean|null $caseSensitive True if case sensitive.
      *
-     * @return boolean
+     * @return boolean True if this path's name contains the substring.
      */
     public function nameContains($needle, $caseSensitive = null);
 
@@ -199,7 +199,7 @@ interface PathInterface
      * @param string       $needle        The substring to search for.
      * @param boolean|null $caseSensitive True if case sensitive.
      *
-     * @return boolean
+     * @return boolean True if this path's name starts with the substring.
      */
     public function nameStartsWith($needle, $caseSensitive = null);
 
@@ -210,7 +210,7 @@ interface PathInterface
      * @param boolean|null $caseSensitive True if case sensitive.
      * @param integer|null $flags         Additional flags.
      *
-     * @return boolean
+     * @return boolean True if this path's name matches the pattern.
      */
     public function nameMatches($pattern, $caseSensitive = null, $flags = null);
 
@@ -222,7 +222,7 @@ interface PathInterface
      * @param integer|null $flags    Additional flags.
      * @param integer|null $offset   Start searching from this byte offset.
      *
-     * @return boolean
+     * @return boolean True if this path's name matches the pattern.
      */
     public function nameMatchesRegex(
         $pattern,
@@ -316,7 +316,7 @@ interface PathInterface
     /**
      * Joins a sequence of extensions to this path.
      *
-     * @param mixed<string> $extensions
+     * @param mixed<string> $extensions The extensions to append.
      *
      * @return PathInterface                               A new path instance with the supplied extensions suffixed to this path.
      * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.

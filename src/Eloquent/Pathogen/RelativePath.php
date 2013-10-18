@@ -76,9 +76,17 @@ class RelativePath extends AbstractPath implements RelativePathInterface
     // Implementation details ==================================================
 
     /**
-     * @param mixed<string> $atoms
+     * Normalizes and validates a sequence of path atoms.
      *
-     * @return array<string>
+     * This method is called internally by the constructor upon instantiation.
+     * It can be overridden in child classes to change how path atoms are
+     * normalized and/or validated.
+     *
+     * @param mixed<string> $atoms The path atoms to normalize.
+     *
+     * @return array<string>                                The normalized path atoms.
+     * @throws Exception\EmptyPathAtomException             If any path atom is empty.
+     * @throws Exception\PathAtomContainsSeparatorException If any path atom contains a separator.
      */
     protected function normalizeAtoms($atoms)
     {

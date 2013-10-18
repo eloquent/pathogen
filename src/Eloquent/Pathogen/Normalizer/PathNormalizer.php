@@ -64,9 +64,11 @@ class PathNormalizer implements PathNormalizerInterface
     }
 
     /**
-     * @param AbsolutePathInterface $path
+     * Normalize the supplied absolute path.
      *
-     * @return AbsolutePathInterface
+     * @param AbsolutePathInterface $path The path to normalize.
+     *
+     * @return AbsolutePathInterface The normalized path.
      */
     protected function normalizeAbsolutePath(AbsolutePathInterface $path)
     {
@@ -78,9 +80,11 @@ class PathNormalizer implements PathNormalizerInterface
     }
 
     /**
-     * @param RelativePathInterface $path
+     * Normalize the supplied relative path.
      *
-     * @return RelativePathInterface
+     * @param RelativePathInterface $path The path to normalize.
+     *
+     * @return RelativePathInterface The normalized path.
      */
     protected function normalizeRelativePath(RelativePathInterface $path)
     {
@@ -92,9 +96,11 @@ class PathNormalizer implements PathNormalizerInterface
     }
 
     /**
-     * @param array<string> $atoms
+     * Normalize the supplied path atoms for an absolute path.
      *
-     * @return array<string>
+     * @param array<string> $atoms The path atoms to normalize.
+     *
+     * @return array<string> The normalized path atoms.
      */
     protected function normalizeAbsolutePathAtoms(array $atoms)
     {
@@ -111,9 +117,11 @@ class PathNormalizer implements PathNormalizerInterface
     }
 
     /**
-     * @param array<string> $atoms
+     * Normalize the supplied path atoms for a relative path.
      *
-     * @return array<string>
+     * @param array<string> $atoms The path atoms to normalize.
+     *
+     * @return array<string> The normalized path atoms.
      */
     protected function normalizeRelativePathAtoms(array $atoms)
     {

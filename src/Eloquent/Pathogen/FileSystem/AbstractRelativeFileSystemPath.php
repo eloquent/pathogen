@@ -44,7 +44,13 @@ abstract class AbstractRelativeFileSystemPath extends RelativePath implements
     // Implementation details ==================================================
 
     /**
-     * @return PathNormalizerInterface
+     * Creates a new instance of the default normalizer.
+     *
+     * This method is called internally every time a normalizer is required, but
+     * not explicitly supplied by calling code. It can be overridden in child
+     * classes to change the default normalization behaviour.
+     *
+     * @return PathNormalizerInterface The newly created normalizer.
      */
     protected function createDefaultNormalizer()
     {

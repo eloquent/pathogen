@@ -111,7 +111,9 @@ abstract class AbstractFileSystemPathFactory implements
     }
 
     /**
-     * @return Isolator
+     * Get the isolator.
+     *
+     * @return Isolator The isolator.
      */
     protected function isolator()
     {
@@ -119,7 +121,10 @@ abstract class AbstractFileSystemPathFactory implements
     }
 
     /**
-     * @return PathFactoryInterface
+     * Return the most appropriate path factory depending on the current
+     * platform.
+     *
+     * @return PathFactoryInterface The most appropriate path factory.
      */
     protected function factoryByPlatform()
     {

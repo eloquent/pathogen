@@ -22,7 +22,7 @@ trait PathResolverTrait
     /**
      * Set the path resolver.
      *
-     * @param PathResolverInterface $pathResolver
+     * @param PathResolverInterface $pathResolver The path resolver to use.
      */
     public function setPathResolver(PathResolverInterface $pathResolver)
     {
@@ -32,7 +32,7 @@ trait PathResolverTrait
     /**
      * Get the path resolver.
      *
-     * @return PathResolverInterface
+     * @return PathResolverInterface The path resolver.
      */
     public function pathResolver()
     {
@@ -44,7 +44,9 @@ trait PathResolverTrait
     }
 
     /**
-     * @return PathResolverInterface
+     * Create a new instance of the default path resolver.
+     *
+     * @return PathResolverInterface The new default path resolver instance.
      */
     protected function createDefaultPathResolver()
     {
