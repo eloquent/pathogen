@@ -12,6 +12,7 @@
 namespace Eloquent\Pathogen\FileSystem\Factory\Consumer;
 
 use Eloquent\Pathogen\Factory\Consumer\PathFactoryTrait;
+use Eloquent\Pathogen\Factory\PathFactoryInterface;
 use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory;
 
 /**
@@ -22,7 +23,9 @@ trait FileSystemPathFactoryTrait
     use PathFactoryTrait;
 
     /**
-     * @return PathFactoryInterface
+     * Create a new instance of the default path factory.
+     *
+     * @return PathFactoryInterface The new default path factory instance.
      */
     protected function createDefaultPathFactory()
     {

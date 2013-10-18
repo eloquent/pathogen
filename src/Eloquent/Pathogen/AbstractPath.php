@@ -256,7 +256,7 @@ abstract class AbstractPath implements PathInterface
      * @param string       $needle        The substring to search for.
      * @param boolean|null $caseSensitive True if case sensitive.
      *
-     * @return boolean
+     * @return boolean True if this path contains the substring.
      */
     public function contains($needle, $caseSensitive = null)
     {
@@ -280,7 +280,7 @@ abstract class AbstractPath implements PathInterface
      * @param string       $needle        The substring to search for.
      * @param boolean|null $caseSensitive True if case sensitive.
      *
-     * @return boolean
+     * @return boolean True if this path starts with the substring.
      */
     public function startsWith($needle, $caseSensitive = null)
     {
@@ -304,7 +304,7 @@ abstract class AbstractPath implements PathInterface
      * @param string       $needle        The substring to search for.
      * @param boolean|null $caseSensitive True if case sensitive.
      *
-     * @return boolean
+     * @return boolean True if this path ends with the substring.
      */
     public function endsWith($needle, $caseSensitive = null)
     {
@@ -331,7 +331,7 @@ abstract class AbstractPath implements PathInterface
      * @param boolean|null $caseSensitive True if case sensitive.
      * @param integer|null $flags         Additional flags.
      *
-     * @return boolean
+     * @return boolean True if this path matches the pattern.
      */
     public function matches($pattern, $caseSensitive = null, $flags = null)
     {
@@ -356,7 +356,7 @@ abstract class AbstractPath implements PathInterface
      * @param integer|null $flags    Additional flags.
      * @param integer|null $offset   Start searching from this byte offset.
      *
-     * @return boolean
+     * @return boolean True if this path matches the pattern.
      */
     public function matchesRegex(
         $pattern,
@@ -386,7 +386,7 @@ abstract class AbstractPath implements PathInterface
      * @param string       $needle        The substring to search for.
      * @param boolean|null $caseSensitive True if case sensitive.
      *
-     * @return boolean
+     * @return boolean True if this path's name contains the substring.
      */
     public function nameContains($needle, $caseSensitive = null)
     {
@@ -410,7 +410,7 @@ abstract class AbstractPath implements PathInterface
      * @param string       $needle        The substring to search for.
      * @param boolean|null $caseSensitive True if case sensitive.
      *
-     * @return boolean
+     * @return boolean True if this path's name starts with the substring.
      */
     public function nameStartsWith($needle, $caseSensitive = null)
     {
@@ -435,7 +435,7 @@ abstract class AbstractPath implements PathInterface
      * @param boolean|null $caseSensitive True if case sensitive.
      * @param integer|null $flags         Additional flags.
      *
-     * @return boolean
+     * @return boolean True if this path's name matches the pattern.
      */
     public function nameMatches($pattern, $caseSensitive = null, $flags = null)
     {
@@ -460,7 +460,7 @@ abstract class AbstractPath implements PathInterface
      * @param integer|null $flags    Additional flags.
      * @param integer|null $offset   Start searching from this byte offset.
      *
-     * @return boolean
+     * @return boolean True if this path's name matches the pattern.
      */
     public function nameMatchesRegex(
         $pattern,
@@ -601,9 +601,9 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
-     * Returns a new path instance with a trailing slash suffixed to this path.
+     * Adds a trailing slash to this path.
      *
-     * @return PathInterface
+     * @return PathInterface A new path instance with a trailing slash suffixed to this path.
      */
     public function joinTrailingSlash()
     {
@@ -635,7 +635,7 @@ abstract class AbstractPath implements PathInterface
     /**
      * Joins a sequence of extensions to this path.
      *
-     * @param mixed<string> $extensions
+     * @param mixed<string> $extensions The extensions to append.
      *
      * @return PathInterface                               A new path instance with the supplied extensions suffixed to this path.
      * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
@@ -897,9 +897,17 @@ abstract class AbstractPath implements PathInterface
     // Implementation details ==================================================
 
     /**
-     * @param mixed<string> $atoms
+     * Normalizes and validates a sequence of path atoms.
      *
-     * @return array<string>
+     * This method is called internally by the constructor upon instantiation.
+     * It can be overridden in child classes to change how path atoms are
+     * normalized and/or validated.
+     *
+     * @param mixed<string> $atoms The path atoms to normalize.
+     *
+     * @return array<string>                                The normalized path atoms.
+     * @throws Exception\EmptyPathAtomException             If any path atom is empty.
+     * @throws Exception\PathAtomContainsSeparatorException If any path atom contains a separator.
      */
     protected function normalizeAtoms($atoms)
     {
@@ -913,7 +921,16 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
-     * @param string $atom
+     * Validates a single path atom.
+     *
+     * This method is called internally by the constructor upon instantiation.
+     * It can be overridden in child classes to change how path atoms are
+     * validated.
+     *
+     * @param string $atom The atom to validate.
+     *
+     * @throws Exception\EmptyPathAtomException             If the path atom is empty.
+     * @throws Exception\PathAtomContainsSeparatorException If the path atom contains a separator.
      */
     protected function validateAtom($atom)
     {
@@ -925,11 +942,18 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
-     * @param mixed<string> $atoms
-     * @param boolean       $isAbsolute
-     * @param boolean|null  $hasTrailingSeparator
+     * Creates a new path instance of the most appropriate type.
      *
-     * @return PathInterface
+     * This method is called internally every time a new path instance is
+     * created as part of another method call. It can be overridden in child
+     * classes to change which classes are used when creating new path
+     * instances.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean       $isAbsolute           True if the new path should be absolute.
+     * @param boolean|null  $hasTrailingSeparator True if the new path should have a trailing separator.
+     *
+     * @return PathInterface The newly created path instance.
      */
     protected function createPath(
         $atoms,
@@ -944,7 +968,13 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
-     * @return Normalizer\PathNormalizerInterface
+     * Creates a new instance of the default normalizer.
+     *
+     * This method is called internally every time a normalizer is required, but
+     * not explicitly supplied by calling code. It can be overridden in child
+     * classes to change the default normalization behaviour.
+     *
+     * @return Normalizer\PathNormalizerInterface The newly created normalizer.
      */
     protected function createDefaultNormalizer()
     {

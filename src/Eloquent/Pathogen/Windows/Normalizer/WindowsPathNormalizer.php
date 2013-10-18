@@ -53,9 +53,11 @@ class WindowsPathNormalizer extends PathNormalizer
     }
 
     /**
-     * @param AbsoluteWindowsPathInterface $path
+     * Normalize an absolute Windows path.
      *
-     * @return AbsoluteWindowsPathInterface
+     * @param AbsoluteWindowsPathInterface $path The path to normalize.
+     *
+     * @return AbsoluteWindowsPathInterface The normalized path.
      */
     protected function normalizeAbsoluteWindowsPath(
         AbsoluteWindowsPathInterface $path
@@ -69,9 +71,11 @@ class WindowsPathNormalizer extends PathNormalizer
     }
 
     /**
-     * @param string|null $drive
+     * Normalize a Windows path drive specifier.
      *
-     * @return string|null
+     * @param string|null $drive The drive specifier to normalize.
+     *
+     * @return string|null The normalized drive specifier.
      */
     protected function normalizeDriveSpecifier($drive)
     {

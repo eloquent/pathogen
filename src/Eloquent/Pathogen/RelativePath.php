@@ -16,6 +16,39 @@ namespace Eloquent\Pathogen;
  */
 class RelativePath extends AbstractPath implements RelativePathInterface
 {
+    // Implementation of PathInterface =========================================
+
+    /**
+     * Get an absolute version of this path.
+     *
+     * If this path is relative, a new absolute path with equivalent atoms will
+     * be returned. Otherwise, this path will be retured unaltered.
+     *
+     * @return AbsolutePathInterface An absolute version of this path.
+     */
+    public function toAbsolute()
+    {
+        return $this->createPath(
+            $this->atoms(),
+            true,
+            $this->hasTrailingSeparator()
+        );
+    }
+
+    /**
+     * Get a relative version of this path.
+     *
+     * If this path is absolute, a new relative path with equivalent atoms will
+     * be returned. Otherwise, this path will be retured unaltered.
+     *
+     * @return RelativePathInterface        A relative version of this path.
+     * @throws Exception\EmptyPathException If this path has no atoms.
+     */
+    public function toRelative()
+    {
+        return $this;
+    }
+
     // Implementation of RelativePathInterface =================================
 
     /**
@@ -43,9 +76,17 @@ class RelativePath extends AbstractPath implements RelativePathInterface
     // Implementation details ==================================================
 
     /**
-     * @param mixed<string> $atoms
+     * Normalizes and validates a sequence of path atoms.
      *
-     * @return array<string>
+     * This method is called internally by the constructor upon instantiation.
+     * It can be overridden in child classes to change how path atoms are
+     * normalized and/or validated.
+     *
+     * @param mixed<string> $atoms The path atoms to normalize.
+     *
+     * @return array<string>                                The normalized path atoms.
+     * @throws Exception\EmptyPathAtomException             If any path atom is empty.
+     * @throws Exception\PathAtomContainsSeparatorException If any path atom contains a separator.
      */
     protected function normalizeAtoms($atoms)
     {

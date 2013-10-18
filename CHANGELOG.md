@@ -1,5 +1,9 @@
 # Pathogen changelog
 
+## 0.4.0 (2013-10-18)
+
+- **[NEW]** All paths now implement `toAbsolute()` and `toRelative()`.
+
 ## 0.3.0 (2013-09-27)
 
 - **[BC BREAK]** Constants moved from path interface into implementation class,

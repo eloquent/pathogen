@@ -192,7 +192,16 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
     // Implementation details ==================================================
 
     /**
-     * @param string $atom
+     * Validates a single path atom.
+     *
+     * This method is called internally by the constructor upon instantiation.
+     * It can be overridden in child classes to change how path atoms are
+     * validated.
+     *
+     * @param string $atom The atom to validate.
+     *
+     * @throws Exception\EmptyPathAtomException             If the path atom is empty.
+     * @throws Exception\PathAtomContainsSeparatorException If the path atom contains a separator.
      */
     protected function validateAtom($atom)
     {
@@ -206,9 +215,11 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
     }
 
     /**
-     * @param AbsolutePathInterface $path
+     * Get the normalized form of the drive specifier for the supplied path.
      *
-     * @return string|null
+     * @param AbsolutePathInterface $path The path.
+     *
+     * @return string|null The normalized drive specifier.
      */
     protected function normalizePathDriveSpecifier(AbsolutePathInterface $path)
     {
@@ -225,10 +236,12 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
     }
 
     /**
-     * @param AbsolutePathInterface $left
-     * @param AbsolutePathInterface $right
+     * Returns true if the path specifiers for the given paths match.
      *
-     * @return boolean
+     * @param AbsolutePathInterface $left  The first path.
+     * @param AbsolutePathInterface $right The second path.
+     *
+     * @return boolean True if the drive specifiers match.
      */
     protected function driveSpecifiersMatch(
         AbsolutePathInterface $left,
@@ -241,11 +254,18 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
     }
 
     /**
-     * @param mixed<string> $atoms
-     * @param boolean       $isAbsolute
-     * @param boolean|null  $hasTrailingSeparator
+     * Creates a new path instance of the most appropriate type.
      *
-     * @return PathInterface
+     * This method is called internally every time a new path instance is
+     * created as part of another method call. It can be overridden in child
+     * classes to change which classes are used when creating new path
+     * instances.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean       $isAbsolute           True if the new path should be absolute.
+     * @param boolean|null  $hasTrailingSeparator True if the new path should have a trailing separator.
+     *
+     * @return PathInterface The newly created path instance.
      */
     protected function createPath(
         $atoms,
@@ -264,18 +284,25 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
     }
 
     /**
-     * @param mixed<string> $atoms
-     * @param string|null   $drive
-     * @param boolean|null  $hasTrailingSeparator
+     * Create a new absolute Windows path with a drive specifier.
      *
-     * @return PathInterface
+     * This method is called internally every time a new path instance with a
+     * drive specifier is created as part of another method call. It can be
+     * overridden in child classes to change which classes are used when
+     * creating new path instances.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param string|null   $drive                The drive specifier.
+     * @param boolean|null  $hasTrailingSeparator True if the new path should have a trailing separator.
+     *
+     * @return AbsoluteWindowsPathInterface The newly created path instance.
      */
     protected function createPathWithDrive(
         $atoms,
         $drive,
         $hasTrailingSeparator = null
     ) {
-        return new static($atoms, $drive, $hasTrailingSeparator);
+        return new AbsoluteWindowsPath($atoms, $drive, $hasTrailingSeparator);
     }
 
     private $drive;

@@ -1016,6 +1016,41 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $path->replaceExtension('qux/');
     }
 
+    public function testToAbsolute()
+    {
+        $path = $this->factory->create('/path/to/foo');
+
+        $this->assertSame($path, $path->toAbsolute());
+    }
+
+    public function toRelativeData()
+    {
+        //                            path         expected
+        return array(
+            'Single atom'    => array('/foo',      'foo'),
+            'Multiple atoms' => array('/foo/bar',  'foo/bar'),
+            'Trailing slash' => array('/foo/bar/', 'foo/bar/'),
+        );
+    }
+
+    /**
+     * @dataProvider toRelativeData
+     */
+    public function testToRelative($pathString, $expected)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame($expected, $path->toRelative()->string());
+    }
+
+    public function testToRelativeFailureEmpty()
+    {
+        $path = $this->factory->create('/');
+
+        $this->setExpectedException(__NAMESPACE__ . '\Exception\EmptyPathException');
+        $path->toRelative();
+    }
+
     public function testNormalize()
     {
         $path = $this->factory->create('/foo/../bar');

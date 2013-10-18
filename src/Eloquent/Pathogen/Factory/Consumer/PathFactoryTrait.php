@@ -22,7 +22,7 @@ trait PathFactoryTrait
     /**
      * Set the path factory.
      *
-     * @param PathFactoryInterface $pathFactory
+     * @param PathFactoryInterface $pathFactory The path factory to use.
      */
     public function setPathFactory(PathFactoryInterface $pathFactory)
     {
@@ -32,7 +32,7 @@ trait PathFactoryTrait
     /**
      * Get the path factory.
      *
-     * @return PathFactoryInterface
+     * @return PathFactoryInterface The path factory.
      */
     public function pathFactory()
     {
@@ -44,7 +44,9 @@ trait PathFactoryTrait
     }
 
     /**
-     * @return PathFactoryInterface
+     * Create a new instance of the default path factory.
+     *
+     * @return PathFactoryInterface The new default path factory instance.
      */
     protected function createDefaultPathFactory()
     {

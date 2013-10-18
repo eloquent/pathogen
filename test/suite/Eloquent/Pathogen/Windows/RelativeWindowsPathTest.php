@@ -1145,6 +1145,33 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         $this->assertSame('foo.doom.splat.baz.qux', $result->string());
     }
 
+    public function toAbsoluteData()
+    {
+        //                            path        expected
+        return array(
+            'Single atom'    => array('foo',      '/foo'),
+            'Multiple atoms' => array('foo/bar',  '/foo/bar'),
+            'Trailing slash' => array('foo/bar/', '/foo/bar/'),
+        );
+    }
+
+    /**
+     * @dataProvider toAbsoluteData
+     */
+    public function testToAbsolute($pathString, $expected)
+    {
+        $path = $this->factory->create($pathString);
+
+        $this->assertSame($expected, $path->toAbsolute()->string());
+    }
+
+    public function testToRelative()
+    {
+        $path = $this->factory->create('path/to/foo');
+
+        $this->assertSame($path, $path->toRelative());
+    }
+
     public function testNormalize()
     {
         $path = $this->factory->create('foo/../bar');

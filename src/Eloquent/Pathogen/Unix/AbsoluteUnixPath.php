@@ -12,6 +12,7 @@
 namespace Eloquent\Pathogen\Unix;
 
 use Eloquent\Pathogen\FileSystem\AbstractAbsoluteFileSystemPath;
+use Eloquent\Pathogen\PathInterface;
 
 /**
  * Represents an absolute Unix path.
@@ -20,11 +21,18 @@ class AbsoluteUnixPath extends AbstractAbsoluteFileSystemPath implements
     AbsoluteUnixPathInterface
 {
     /**
-     * @param mixed<string> $atoms
-     * @param boolean       $isAbsolute
-     * @param boolean|null  $hasTrailingSeparator
+     * Creates a new path instance of the most appropriate type.
      *
-     * @return PathInterface
+     * This method is called internally every time a new path instance is
+     * created as part of another method call. It can be overridden in child
+     * classes to change which classes are used when creating new path
+     * instances.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean       $isAbsolute           True if the new path should be absolute.
+     * @param boolean|null  $hasTrailingSeparator True if the new path should have a trailing separator.
+     *
+     * @return PathInterface The newly created path instance.
      */
     protected function createPath(
         $atoms,
@@ -32,7 +40,7 @@ class AbsoluteUnixPath extends AbstractAbsoluteFileSystemPath implements
         $hasTrailingSeparator = null
     ) {
         if ($isAbsolute) {
-            return new static($atoms, $hasTrailingSeparator);
+            return new AbsoluteUnixPath($atoms, $hasTrailingSeparator);
         }
 
         return new RelativeUnixPath($atoms, $hasTrailingSeparator);
