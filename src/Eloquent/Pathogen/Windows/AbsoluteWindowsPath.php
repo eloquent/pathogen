@@ -275,7 +275,7 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
         $drive,
         $hasTrailingSeparator = null
     ) {
-        return new static($atoms, $drive, $hasTrailingSeparator);
+        return new AbsoluteWindowsPath($atoms, $drive, $hasTrailingSeparator);
     }
 
     private $drive;

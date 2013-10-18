@@ -32,7 +32,7 @@ class AbsoluteUnixPath extends AbstractAbsoluteFileSystemPath implements
         $hasTrailingSeparator = null
     ) {
         if ($isAbsolute) {
-            return new static($atoms, $hasTrailingSeparator);
+            return new AbsoluteUnixPath($atoms, $hasTrailingSeparator);
         }
 
         return new RelativeUnixPath($atoms, $hasTrailingSeparator);

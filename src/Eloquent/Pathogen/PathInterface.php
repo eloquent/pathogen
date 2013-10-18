@@ -412,6 +412,27 @@ interface PathInterface
     public function replaceNameAtoms($index, $replacement, $length = null);
 
     /**
+     * Get an absolute version of this path.
+     *
+     * If this path is relative, a new absolute path with equivalent atoms will
+     * be returned. Otherwise, this path will be retured unaltered.
+     *
+     * @return AbsolutePathInterface An absolute version of this path.
+     */
+    public function toAbsolute();
+
+    /**
+     * Get a relative version of this path.
+     *
+     * If this path is absolute, a new relative path with equivalent atoms will
+     * be returned. Otherwise, this path will be retured unaltered.
+     *
+     * @return RelativePathInterface        A relative version of this path.
+     * @throws Exception\EmptyPathException If this path has no atoms.
+     */
+    public function toRelative();
+
+    /**
      * Normalize this path to its most canonical form.
      *
      * @param Normalizer\PathNormalizerInterface|null $normalizer

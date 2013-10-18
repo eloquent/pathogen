@@ -47,6 +47,10 @@ class RelativeWindowsPath extends AbstractRelativeFileSystemPath implements
         $isAbsolute,
         $hasTrailingSeparator = null
     ) {
-        return new static($atoms, $hasTrailingSeparator);
+        if ($isAbsolute) {
+            return new AbsoluteWindowsPath($atoms, null, $hasTrailingSeparator);
+        }
+
+        return new RelativeWindowsPath($atoms, $hasTrailingSeparator);
     }
 }

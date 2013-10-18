@@ -42,6 +42,37 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         return parent::joinTrailingSlash();
     }
 
+    /**
+     * Get an absolute version of this path.
+     *
+     * If this path is relative, a new absolute path with equivalent atoms will
+     * be returned. Otherwise, this path will be retured unaltered.
+     *
+     * @return AbsolutePathInterface An absolute version of this path.
+     */
+    public function toAbsolute()
+    {
+        return $this;
+    }
+
+    /**
+     * Get a relative version of this path.
+     *
+     * If this path is absolute, a new relative path with equivalent atoms will
+     * be returned. Otherwise, this path will be retured unaltered.
+     *
+     * @return RelativePathInterface        A relative version of this path.
+     * @throws Exception\EmptyPathException If this path has no atoms.
+     */
+    public function toRelative()
+    {
+        return $this->createPath(
+            $this->atoms(),
+            false,
+            $this->hasTrailingSeparator()
+        );
+    }
+
     // Implementation of AbsolutePathInterface =================================
 
     /**
