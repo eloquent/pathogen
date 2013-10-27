@@ -22,7 +22,7 @@ final class InvalidDriveSpecifierException extends Exception
      * Constructs a new invalid drive specifier exception.
      *
      * @param string         $drive    The invalid drive specifier.
-     * @param Exception|null $previous The previous exception, if available.
+     * @param Exception|null $previous The cause, if available.
      */
     public function __construct($drive, Exception $previous = null)
     {

@@ -23,7 +23,7 @@ final class DriveMismatchException extends Exception
      *
      * @param string         $leftDrive  The left-hand drive specifier.
      * @param string         $rightDrive The right-hand drive specifier.
-     * @param Exception|null $previous   The previous exception, if available.
+     * @param Exception|null $previous   The cause, if available.
      */
     public function __construct(
         $leftDrive,
