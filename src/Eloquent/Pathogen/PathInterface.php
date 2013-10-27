@@ -27,6 +27,26 @@ interface PathInterface
     public function atoms();
 
     /**
+     * Get a single path atom by index.
+     *
+     * @param integer $index The index to search for.
+     *
+     * @return string                               The path atom.
+     * @throws Exception\UndefinedPathAtomException If the index does not exist in this path's atoms.
+     */
+    public function atomAt($index);
+
+    /**
+     * Get a single path atom by index.
+     *
+     * @param integer $index   The index to search for.
+     * @param mixed   $default The default value to return if no atom is defined for the supplied index.
+     *
+     * @return mixed The path atom, or $default if no atom is defined for the supplied index.
+     */
+    public function atomAtDefault($index, $default = null);
+
+    /**
      * Get a subset of the atoms of this path.
      *
      * @param integer      $index  The index of the first atom.

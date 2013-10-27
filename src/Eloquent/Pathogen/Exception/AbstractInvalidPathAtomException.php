@@ -24,7 +24,7 @@ abstract class AbstractInvalidPathAtomException extends Exception
      * Construct a new invalid path atom exception.
      *
      * @param string         $atom     The invalid path atom.
-     * @param Exception|null $previous The previous exception, if available.
+     * @param Exception|null $previous The cause, if available.
      */
     public function __construct($atom, Exception $previous = null)
     {

@@ -12,18 +12,17 @@
 namespace Eloquent\Pathogen\Exception;
 
 use Exception;
-use LogicException;
 
 /**
  * An attempt was made to construct a new path in an invalid state.
  */
-final class InvalidPathStateException extends LogicException
+final class InvalidPathStateException extends Exception
 {
     /**
      * Construct a new invalid path state exception.
      *
      * @param string         $reason   The reason message.
-     * @param Exception|null $previous The previous exception, if available.
+     * @param Exception|null $previous The cause, if available.
      */
     public function __construct($reason, Exception $previous = null)
     {

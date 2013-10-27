@@ -70,6 +70,42 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
+     * Get a single path atom by index.
+     *
+     * @param integer $index The index to search for.
+     *
+     * @return string                               The path atom.
+     * @throws Exception\UndefinedPathAtomException If the index does not exist in this path's atoms.
+     */
+    public function atomAt($index)
+    {
+        $atom = $this->atomAtDefault($index);
+        if (null === $atom) {
+            throw new Exception\UndefinedPathAtomException($index);
+        }
+
+        return $atom;
+    }
+
+    /**
+     * Get a single path atom by index.
+     *
+     * @param integer $index   The index to search for.
+     * @param mixed   $default The default value to return if no atom is defined for the supplied index.
+     *
+     * @return mixed The path atom, or $default if no atom is defined for the supplied index.
+     */
+    public function atomAtDefault($index, $default = null)
+    {
+        $atoms = $this->atoms();
+        if (array_key_exists($index, $atoms)) {
+            return $atoms[$index];
+        }
+
+        return $default;
+    }
+
+    /**
      * Get a subset of the atoms of this path.
      *
      * @param integer      $index  The index of the first atom.

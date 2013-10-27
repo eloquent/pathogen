@@ -21,7 +21,7 @@ final class EmptyPathAtomException extends AbstractInvalidPathAtomException
     /**
      * Construct a new empty path atom exception.
      *
-     * @param Exception|null $previous The previous exception, if available.
+     * @param Exception|null $previous The cause, if available.
      */
     public function __construct(Exception $previous = null)
     {

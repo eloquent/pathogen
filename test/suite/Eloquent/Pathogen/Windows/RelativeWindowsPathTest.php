@@ -135,6 +135,32 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         new RelativeWindowsPath(array());
     }
 
+    public function testAtomAt()
+    {
+        $path = $this->factory->create('foo/bar');
+
+        $this->assertSame('foo', $path->atomAt(0));
+        $this->assertSame('bar', $path->atomAt(1));
+    }
+
+    public function testAtomAtFailure()
+    {
+        $path = $this->factory->create('foo/bar');
+
+        $this->setExpectedException('Eloquent\Pathogen\Exception\UndefinedPathAtomException');
+        $path->atomAt(2);
+    }
+
+    public function testAtomAtDefault()
+    {
+        $path = $this->factory->create('foo/bar');
+
+        $this->assertSame('foo', $path->atomAtDefault(0, 'baz'));
+        $this->assertSame('bar', $path->atomAtDefault(1, 'baz'));
+        $this->assertSame('baz', $path->atomAtDefault(2, 'baz'));
+        $this->assertNull($path->atomAtDefault(2));
+    }
+
     public function sliceAtomsData()
     {
         //                                  path                index  length  expectedResult
