@@ -1,8 +1,16 @@
 # Pathogen changelog
 
+## 0.5.0 (2013-10-28)
+
+- **[NEW]** All paths now implement `atomAt()` and `atomAtDefault()` ([#28]).
+
+[#28]: https://github.com/eloquent/pathogen/issues/28
+
 ## 0.4.0 (2013-10-18)
 
-- **[NEW]** All paths now implement `toAbsolute()` and `toRelative()`.
+- **[NEW]** All paths now implement `toAbsolute()` and `toRelative()` ([#27]).
+
+[#27]: https://github.com/eloquent/pathogen/issues/27
 
 ## 0.3.0 (2013-09-27)
 
