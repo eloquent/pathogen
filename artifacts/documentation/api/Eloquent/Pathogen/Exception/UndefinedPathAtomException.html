@@ -3,29 +3,29 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="robots" content="index, follow, all" />
-        <title>Eloquent\Pathogen\Windows\Exception\InvalidDriveSpecifierException | Pathogen API</title>
-                    <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css">
+        <title>Eloquent\Pathogen\Exception\UndefinedPathAtomException | Pathogen API</title>
+                    <link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
                             </head>
         <body id="class">
             <div class="header">
         <ul>
-            <li><a href="../../../../classes.html">Classes</a></li>
-                            <li><a href="../../../../namespaces.html">Namespaces</a></li>
-                        <li><a href="../../../../interfaces.html">Interfaces</a></li>
-            <li><a href="../../../../doc-index.html">Index</a></li>
+            <li><a href="../../../classes.html">Classes</a></li>
+                            <li><a href="../../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../../doc-index.html">Index</a></li>
             
         </ul>
 
         <div id="title">Pathogen API</div>
 
             <div class="type">Class</div>
-    <h1><a href="../../../../Eloquent/Pathogen/Windows/Exception.html">Eloquent\Pathogen\Windows\Exception</a>\InvalidDriveSpecifierException</h1>
+    <h1><a href="../../../Eloquent/Pathogen/Exception.html">Eloquent\Pathogen\Exception</a>\UndefinedPathAtomException</h1>
     </div>
         <div class="content">
-                <p>class    <strong>InvalidDriveSpecifierException</strong>        extends <a href="http://php.net/Exception"><abbr title="Exception">Exception</abbr></a></p>
+                <p>class    <strong>UndefinedPathAtomException</strong>        extends <a href="http://php.net/Exception"><abbr title="Exception">Exception</abbr></a></p>
 
             <div class="description">
-            <p>The provided drive specifier is invalid.</p>
+            <p>An undefined path atom was requested.</p>
             <p>
 </p>
         </div>
@@ -40,8 +40,8 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method___construct">__construct</a>(string $drive, <a href="http://php.net/Exception"><abbr title="Exception">Exception</abbr></a> $previous = null)
-                    <p>Constructs a new invalid drive specifier exception.</p>
+                    <a href="#method___construct">__construct</a>(integer $index, <a href="http://php.net/Exception"><abbr title="Exception">Exception</abbr></a> $previous = null)
+                    <p>Construct a new undefined path atom exception.</p>
                 </td>
                 <td></td>
             </tr>
@@ -50,8 +50,8 @@
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_drive">drive</a>()
-                    <p>Get the invalid drive specifier.</p>
+                    <a href="#method_index">index</a>()
+                    <p>Get the requested atom index.</p>
                 </td>
                 <td></td>
             </tr>
@@ -63,10 +63,10 @@
                         <h3 id="method___construct">
         <div class="location">at line 27</div>
         <code>            public            
-    <strong>__construct</strong>(string $drive, <a href="http://php.net/Exception"><abbr title="Exception">Exception</abbr></a> $previous = null)</code>
+    <strong>__construct</strong>(integer $index, <a href="http://php.net/Exception"><abbr title="Exception">Exception</abbr></a> $previous = null)</code>
     </h3>
     <div class="details">
-        <p>Constructs a new invalid drive specifier exception.</p>
+        <p>Construct a new undefined path atom exception.</p>
         <p>
 </p>
         <div class="tags">
@@ -74,9 +74,9 @@
 
                     <table>
                     <tr>
-                <td>string</td>
-                <td>$drive</td>
-                <td>The invalid drive specifier.</td>
+                <td>integer</td>
+                <td>$index</td>
+                <td>The requested atom index.</td>
             </tr>
                     <tr>
                 <td><a href="http://php.net/Exception"><abbr title="Exception">Exception</abbr></a></td>
@@ -91,13 +91,13 @@
                     </div>
     </div>
 
-                <h3 id="method_drive">
-        <div class="location">at line 43</div>
+                <h3 id="method_index">
+        <div class="location">at line 46</div>
         <code>            public            string
-    <strong>drive</strong>()</code>
+    <strong>index</strong>()</code>
     </h3>
     <div class="details">
-        <p>Get the invalid drive specifier.</p>
+        <p>Get the requested atom index.</p>
         <p>
 </p>
         <div class="tags">
@@ -107,7 +107,7 @@
                     <table>
         <tr>
             <td>string</td>
-            <td>The invalid drive specifier.</td>
+            <td>The requested index.</td>
         </tr>
     </table>
 
