@@ -98,6 +98,10 @@ abstract class AbstractPath implements PathInterface
     public function atomAtDefault($index, $default = null)
     {
         $atoms = $this->atoms();
+        if ($index < 0) {
+            $index = count($atoms) + $index;
+        }
+
         if (array_key_exists($index, $atoms)) {
             return $atoms[$index];
         }

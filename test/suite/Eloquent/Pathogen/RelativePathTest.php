@@ -95,6 +95,8 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('foo', $path->atomAt(0));
         $this->assertSame('bar', $path->atomAt(1));
+        $this->assertSame('bar', $path->atomAt(-1));
+        $this->assertSame('foo', $path->atomAt(-2));
     }
 
     public function testAtomAtFailure()
@@ -112,6 +114,9 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame('foo', $path->atomAtDefault(0, 'baz'));
         $this->assertSame('bar', $path->atomAtDefault(1, 'baz'));
         $this->assertSame('baz', $path->atomAtDefault(2, 'baz'));
+        $this->assertSame('bar', $path->atomAtDefault(-1, 'baz'));
+        $this->assertSame('foo', $path->atomAtDefault(-2, 'baz'));
+        $this->assertSame('baz', $path->atomAtDefault(-3, 'baz'));
         $this->assertNull($path->atomAtDefault(2));
     }
 
