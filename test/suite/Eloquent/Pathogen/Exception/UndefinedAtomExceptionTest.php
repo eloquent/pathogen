@@ -14,15 +14,15 @@ namespace Eloquent\Pathogen\Exception;
 use Exception;
 use PHPUnit_Framework_TestCase;
 
-class UndefinedPathAtomExceptionTest extends PHPUnit_Framework_TestCase
+class UndefinedAtomExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testException()
     {
         $previous = new Exception;
-        $exception = new UndefinedPathAtomException(111, $previous);
+        $exception = new UndefinedAtomException(111, $previous);
 
         $this->assertSame(111, $exception->index());
-        $this->assertSame('No path atom defined for index 111.', $exception->getMessage());
+        $this->assertSame('No atom defined for index 111.', $exception->getMessage());
         $this->assertSame(0, $exception->getCode());
         $this->assertSame($previous, $exception->getPrevious());
     }

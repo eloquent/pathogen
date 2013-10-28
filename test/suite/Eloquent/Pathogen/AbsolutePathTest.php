@@ -95,7 +95,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
     {
         $path = $this->factory->create('/foo/bar');
 
-        $this->setExpectedException(__NAMESPACE__ . '\Exception\UndefinedPathAtomException');
+        $this->setExpectedException(__NAMESPACE__ . '\Exception\UndefinedAtomException');
         $path->atomAt(2);
     }
 
@@ -181,6 +181,37 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $path = $this->factory->create($pathString);
 
         $this->assertSame($nameAtoms, $path->nameAtoms());
+    }
+
+    public function testNameAtomAt()
+    {
+        $path = $this->factory->create('/foo.bar');
+
+        $this->assertSame('foo', $path->nameAtomAt(0));
+        $this->assertSame('bar', $path->nameAtomAt(1));
+        $this->assertSame('bar', $path->nameAtomAt(-1));
+        $this->assertSame('foo', $path->nameAtomAt(-2));
+    }
+
+    public function testNameAtomAtFailure()
+    {
+        $path = $this->factory->create('/foo.bar');
+
+        $this->setExpectedException(__NAMESPACE__ . '\Exception\UndefinedAtomException');
+        $path->nameAtomAt(2);
+    }
+
+    public function testNameAtomAtDefault()
+    {
+        $path = $this->factory->create('/foo.bar');
+
+        $this->assertSame('foo', $path->nameAtomAtDefault(0, 'baz'));
+        $this->assertSame('bar', $path->nameAtomAtDefault(1, 'baz'));
+        $this->assertSame('baz', $path->nameAtomAtDefault(2, 'baz'));
+        $this->assertSame('bar', $path->nameAtomAtDefault(-1, 'baz'));
+        $this->assertSame('foo', $path->nameAtomAtDefault(-2, 'baz'));
+        $this->assertSame('baz', $path->nameAtomAtDefault(-3, 'baz'));
+        $this->assertNull($path->nameAtomAtDefault(2));
     }
 
     public function sliceNameAtomsData()

@@ -14,12 +14,12 @@ namespace Eloquent\Pathogen\Exception;
 use Exception;
 
 /**
- * An undefined path atom was requested.
+ * An undefined atom was requested.
  */
-final class UndefinedPathAtomException extends Exception
+final class UndefinedAtomException extends Exception
 {
     /**
-     * Construct a new undefined path atom exception.
+     * Construct a new undefined atom exception.
      *
      * @param integer        $index    The requested atom index.
      * @param Exception|null $previous The cause, if available.
@@ -30,7 +30,7 @@ final class UndefinedPathAtomException extends Exception
 
         parent::__construct(
             sprintf(
-                'No path atom defined for index %s.',
+                'No atom defined for index %s.',
                 var_export($index, true)
             ),
             0,

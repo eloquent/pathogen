@@ -74,21 +74,22 @@ abstract class AbstractPath implements PathInterface
      *
      * @param integer $index The index to search for.
      *
-     * @return string                               The path atom.
-     * @throws Exception\UndefinedPathAtomException If the index does not exist in this path's atoms.
+     * @return string                           The path atom.
+     * @throws Exception\UndefinedAtomException If the index does not exist in this path's atoms.
      */
     public function atomAt($index)
     {
         $atom = $this->atomAtDefault($index);
         if (null === $atom) {
-            throw new Exception\UndefinedPathAtomException($index);
+            throw new Exception\UndefinedAtomException($index);
         }
 
         return $atom;
     }
 
     /**
-     * Get a single path atom by index.
+     * Get a single path atom by index, falling back to a default if the index
+     * is undefined.
      *
      * @param integer $index   The index to search for.
      * @param mixed   $default The default value to return if no atom is defined for the supplied index.
@@ -197,6 +198,47 @@ abstract class AbstractPath implements PathInterface
     public function nameAtoms()
     {
         return explode(static::EXTENSION_SEPARATOR, $this->name());
+    }
+
+    /**
+     * Get a single path name atom by index.
+     *
+     * @param integer $index The index to search for.
+     *
+     * @return string                           The path name atom.
+     * @throws Exception\UndefinedAtomException If the index does not exist in this path's name atoms.
+     */
+    public function nameAtomAt($index)
+    {
+        $atom = $this->nameAtomAtDefault($index);
+        if (null === $atom) {
+            throw new Exception\UndefinedAtomException($index);
+        }
+
+        return $atom;
+    }
+
+    /**
+     * Get a single path name atom by index, falling back to a default if the
+     * index is undefined.
+     *
+     * @param integer $index   The index to search for.
+     * @param mixed   $default The default value to return if no atom is defined for the supplied index.
+     *
+     * @return mixed The path name atom, or $default if no atom is defined for the supplied index.
+     */
+    public function nameAtomAtDefault($index, $default = null)
+    {
+        $atoms = $this->nameAtoms();
+        if ($index < 0) {
+            $index = count($atoms) + $index;
+        }
+
+        if (array_key_exists($index, $atoms)) {
+            return $atoms[$index];
+        }
+
+        return $default;
     }
 
     /**
