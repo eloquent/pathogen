@@ -434,6 +434,7 @@ echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
 [RelativePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/RelativePathInterface.html
 [traits]: http://php.net/traits
 
+[API documentation]: http://lqnt.co/pathogen/artifacts/documentation/api/
 [Build status]: https://api.travis-ci.org/eloquent/pathogen.png?branch=master
 [Composer]: http://getcomposer.org/
 [eloquent/pathogen]: https://packagist.org/packages/eloquent/pathogen
