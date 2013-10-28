@@ -109,7 +109,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_atomAtDefault">atomAtDefault</a>(integer $index, mixed $default = null)
-                    <p>Get a single path atom by index.</p>
+                    <p>Get a single path atom by index, falling back to a default if the index is undefined.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/AbstractPath.html#method_atomAtDefault"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a></small></td>
             </tr>
@@ -182,6 +182,26 @@
                     <p>Get this path's name atoms.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_nameAtomAt">nameAtomAt</a>(integer $index)
+                    <p>Get a single path name atom by index.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameAtomAt"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    mixed
+                </td>
+                <td class="last">
+                    <a href="#method_nameAtomAtDefault">nameAtomAtDefault</a>(integer $index, mixed $default = null)
+                    <p>Get a single path name atom by index, falling back to a default if the index is undefined.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameAtomAtDefault"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -667,7 +687,7 @@
 
                     <table>
                     <tr>
-                <td><abbr title="Exception\UndefinedPathAtomException">UndefinedPathAtomException</abbr></td>
+                <td><abbr title="Exception\UndefinedAtomException">UndefinedAtomException</abbr></td>
                 <td>If the index does not exist in this path's atoms.</td>
             </tr>
             </table>
@@ -677,12 +697,12 @@
     </div>
 
                 <h3 id="method_atomAtDefault">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_atomAtDefault"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 98</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_atomAtDefault"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 99</div>
         <code>            public            mixed
     <strong>atomAtDefault</strong>(integer $index, mixed $default = null)</code>
     </h3>
     <div class="details">
-        <p>Get a single path atom by index.</p>
+        <p>Get a single path atom by index, falling back to a default if the index is undefined.</p>
         <p>
 </p>
         <div class="tags">
@@ -717,7 +737,7 @@
     </div>
 
                 <h3 id="method_sliceAtoms">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_sliceAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 120</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_sliceAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 121</div>
         <code>            public            <abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr>
     <strong>sliceAtoms</strong>(integer $index, integer|null $length = null)</code>
     </h3>
@@ -757,7 +777,7 @@
     </div>
 
                 <h3 id="method_hasAtoms">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_hasAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 135</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_hasAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 136</div>
         <code>            public            boolean
     <strong>hasAtoms</strong>()</code>
     </h3>
@@ -782,7 +802,7 @@
     </div>
 
                 <h3 id="method_hasTrailingSeparator">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_hasTrailingSeparator"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 145</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_hasTrailingSeparator"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 146</div>
         <code>            public            boolean
     <strong>hasTrailingSeparator</strong>()</code>
     </h3>
@@ -807,7 +827,7 @@
     </div>
 
                 <h3 id="method_string">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_string"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 155</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_string"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 156</div>
         <code>            public            string
     <strong>string</strong>()</code>
     </h3>
@@ -832,7 +852,7 @@
     </div>
 
                 <h3 id="method___toString">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method___toString"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 168</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method___toString"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 169</div>
         <code>            public            string
     <strong>__toString</strong>()</code>
     </h3>
@@ -857,7 +877,7 @@
     </div>
 
                 <h3 id="method_name">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_name"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 178</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_name"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 179</div>
         <code>            public            string
     <strong>name</strong>()</code>
     </h3>
@@ -882,7 +902,7 @@
     </div>
 
                 <h3 id="method_nameAtoms">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 197</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 198</div>
         <code>            public            <abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr>
     <strong>nameAtoms</strong>()</code>
     </h3>
@@ -905,8 +925,92 @@
                     </div>
     </div>
 
+                <h3 id="method_nameAtomAt">
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameAtomAt"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 211</div>
+        <code>            public            string
+    <strong>nameAtomAt</strong>(integer $index)</code>
+    </h3>
+    <div class="details">
+        <p>Get a single path name atom by index.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>integer</td>
+                <td>$index</td>
+                <td>The index to search for.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The path name atom.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Exception\UndefinedAtomException">UndefinedAtomException</abbr></td>
+                <td>If the index does not exist in this path's name atoms.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_nameAtomAtDefault">
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameAtomAtDefault"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 230</div>
+        <code>            public            mixed
+    <strong>nameAtomAtDefault</strong>(integer $index, mixed $default = null)</code>
+    </h3>
+    <div class="details">
+        <p>Get a single path name atom by index, falling back to a default if the index is undefined.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>integer</td>
+                <td>$index</td>
+                <td>The index to search for.</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$default</td>
+                <td>The default value to return if no atom is defined for the supplied index.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>mixed</td>
+            <td>The path name atom, or $default if no atom is defined for the supplied index.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_sliceNameAtoms">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_sliceNameAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 210</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_sliceNameAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 252</div>
         <code>            public            <abbr title="Eloquent\Pathogen\array&lt;integer,string&gt;">array&lt;integer,string&gt;</abbr>
     <strong>sliceNameAtoms</strong>(integer $index, integer|null $length = null)</code>
     </h3>
@@ -946,7 +1050,7 @@
     </div>
 
                 <h3 id="method_nameWithoutExtension">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameWithoutExtension"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 225</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameWithoutExtension"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 267</div>
         <code>            public            string
     <strong>nameWithoutExtension</strong>()</code>
     </h3>
@@ -971,7 +1075,7 @@
     </div>
 
                 <h3 id="method_namePrefix">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_namePrefix"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 242</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_namePrefix"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 284</div>
         <code>            public            string
     <strong>namePrefix</strong>()</code>
     </h3>
@@ -996,7 +1100,7 @@
     </div>
 
                 <h3 id="method_nameSuffix">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameSuffix"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 254</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameSuffix"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 296</div>
         <code>            public            string|null
     <strong>nameSuffix</strong>()</code>
     </h3>
@@ -1021,7 +1125,7 @@
     </div>
 
                 <h3 id="method_extension">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_extension"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 271</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_extension"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 313</div>
         <code>            public            string|null
     <strong>extension</strong>()</code>
     </h3>
@@ -1046,7 +1150,7 @@
     </div>
 
                 <h3 id="method_hasExtension">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_hasExtension"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 288</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_hasExtension"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 330</div>
         <code>            public            boolean
     <strong>hasExtension</strong>()</code>
     </h3>
@@ -1071,7 +1175,7 @@
     </div>
 
                 <h3 id="method_contains">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_contains"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 301</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_contains"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 343</div>
         <code>            public            boolean
     <strong>contains</strong>(string $needle, boolean|null $caseSensitive = null)</code>
     </h3>
@@ -1111,7 +1215,7 @@
     </div>
 
                 <h3 id="method_startsWith">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_startsWith"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 325</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_startsWith"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 367</div>
         <code>            public            boolean
     <strong>startsWith</strong>(string $needle, boolean|null $caseSensitive = null)</code>
     </h3>
@@ -1151,7 +1255,7 @@
     </div>
 
                 <h3 id="method_endsWith">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_endsWith"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 349</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_endsWith"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 391</div>
         <code>            public            boolean
     <strong>endsWith</strong>(string $needle, boolean|null $caseSensitive = null)</code>
     </h3>
@@ -1191,7 +1295,7 @@
     </div>
 
                 <h3 id="method_matches">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_matches"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 376</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_matches"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 418</div>
         <code>            public            boolean
     <strong>matches</strong>(string $pattern, boolean|null $caseSensitive = null, integer|null $flags = null)</code>
     </h3>
@@ -1236,7 +1340,7 @@
     </div>
 
                 <h3 id="method_matchesRegex">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_matchesRegex"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 401</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_matchesRegex"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 443</div>
         <code>            public            boolean
     <strong>matchesRegex</strong>(string $pattern, array $matches = null, integer|null $flags = null, integer|null $offset = null)</code>
     </h3>
@@ -1286,7 +1390,7 @@
     </div>
 
                 <h3 id="method_nameContains">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameContains"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 431</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameContains"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 473</div>
         <code>            public            boolean
     <strong>nameContains</strong>(string $needle, boolean|null $caseSensitive = null)</code>
     </h3>
@@ -1326,7 +1430,7 @@
     </div>
 
                 <h3 id="method_nameStartsWith">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameStartsWith"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 455</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameStartsWith"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 497</div>
         <code>            public            boolean
     <strong>nameStartsWith</strong>(string $needle, boolean|null $caseSensitive = null)</code>
     </h3>
@@ -1366,7 +1470,7 @@
     </div>
 
                 <h3 id="method_nameMatches">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameMatches"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 480</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameMatches"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 522</div>
         <code>            public            boolean
     <strong>nameMatches</strong>(string $pattern, boolean|null $caseSensitive = null, integer|null $flags = null)</code>
     </h3>
@@ -1411,7 +1515,7 @@
     </div>
 
                 <h3 id="method_nameMatchesRegex">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameMatchesRegex"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 505</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_nameMatchesRegex"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 547</div>
         <code>            public            boolean
     <strong>nameMatchesRegex</strong>(string $pattern, array $matches = null, integer|null $flags = null, integer|null $offset = null)</code>
     </h3>
@@ -1461,7 +1565,7 @@
     </div>
 
                 <h3 id="method_parent">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_parent"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 535</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_parent"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 577</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>parent</strong>(integer|null $numLevels = null, <a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
@@ -1501,7 +1605,7 @@
     </div>
 
                 <h3 id="method_stripTrailingSlash">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_stripTrailingSlash"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 565</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_stripTrailingSlash"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 607</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>stripTrailingSlash</strong>()</code>
     </h3>
@@ -1526,7 +1630,7 @@
     </div>
 
                 <h3 id="method_stripExtension">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_stripExtension"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 582</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_stripExtension"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 624</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>stripExtension</strong>()</code>
     </h3>
@@ -1551,7 +1655,7 @@
     </div>
 
                 <h3 id="method_stripNameSuffix">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_stripNameSuffix"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 592</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_stripNameSuffix"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 634</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>stripNameSuffix</strong>()</code>
     </h3>
@@ -1576,7 +1680,7 @@
     </div>
 
                 <h3 id="method_joinAtoms">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_joinAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 606</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_joinAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 648</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinAtoms</strong>($atom)</code>
     </h3>
@@ -1621,7 +1725,7 @@
     </div>
 
                 <h3 id="method_joinAtomSequence">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_joinAtomSequence"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 619</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_joinAtomSequence"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 661</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinAtomSequence</strong>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms)</code>
     </h3>
@@ -1665,7 +1769,7 @@
     </div>
 
                 <h3 id="method_join">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_join"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 638</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_join"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 680</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>join</strong>(<a href="../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> $path)</code>
     </h3>
@@ -1700,7 +1804,7 @@
     </div>
 
                 <h3 id="method_joinTrailingSlash">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_joinTrailingSlash"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 648</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_joinTrailingSlash"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 690</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinTrailingSlash</strong>()</code>
     </h3>
@@ -1725,7 +1829,7 @@
     </div>
 
                 <h3 id="method_joinExtensions">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_joinExtensions"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 670</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_joinExtensions"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 712</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinExtensions</strong>($extension)</code>
     </h3>
@@ -1770,7 +1874,7 @@
     </div>
 
                 <h3 id="method_joinExtensionSequence">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_joinExtensionSequence"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 683</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_joinExtensionSequence"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 725</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinExtensionSequence</strong>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $extensions)</code>
     </h3>
@@ -1814,7 +1918,7 @@
     </div>
 
                 <h3 id="method_suffixName">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_suffixName"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 710</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_suffixName"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 752</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>suffixName</strong>(string $suffix)</code>
     </h3>
@@ -1858,7 +1962,7 @@
     </div>
 
                 <h3 id="method_prefixName">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_prefixName"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 728</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_prefixName"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 770</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>prefixName</strong>(string $prefix)</code>
     </h3>
@@ -1902,7 +2006,7 @@
     </div>
 
                 <h3 id="method_replace">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replace"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 747</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replace"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 789</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replace</strong>(integer $index, <abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $replacement, integer|null $length = null)</code>
     </h3>
@@ -1947,7 +2051,7 @@
     </div>
 
                 <h3 id="method_replaceName">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replaceName"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 773</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replaceName"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 815</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceName</strong>(string $name)</code>
     </h3>
@@ -1982,7 +2086,7 @@
     </div>
 
                 <h3 id="method_replaceNameWithoutExtension">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replaceNameWithoutExtension"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 801</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replaceNameWithoutExtension"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 843</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceNameWithoutExtension</strong>(string $nameWithoutExtension)</code>
     </h3>
@@ -2017,7 +2121,7 @@
     </div>
 
                 <h3 id="method_replaceNamePrefix">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replaceNamePrefix"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 820</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replaceNamePrefix"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 862</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceNamePrefix</strong>(string $namePrefix)</code>
     </h3>
@@ -2052,7 +2156,7 @@
     </div>
 
                 <h3 id="method_replaceNameSuffix">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replaceNameSuffix"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 832</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replaceNameSuffix"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 874</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceNameSuffix</strong>(string|null $nameSuffix)</code>
     </h3>
@@ -2087,7 +2191,7 @@
     </div>
 
                 <h3 id="method_replaceExtension">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replaceExtension"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 864</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replaceExtension"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 906</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceExtension</strong>(string|null $extension)</code>
     </h3>
@@ -2122,7 +2226,7 @@
     </div>
 
                 <h3 id="method_replaceNameAtoms">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replaceNameAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 904</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_replaceNameAtoms"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 946</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceNameAtoms</strong>(integer $index, <abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $replacement, integer|null $length = null)</code>
     </h3>
@@ -2167,7 +2271,7 @@
     </div>
 
                 <h3 id="method_normalize">
-        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_normalize"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 927</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/AbstractPath.html#method_normalize"><abbr title="Eloquent\Pathogen\AbstractPath">AbstractPath</abbr></a> at line 969</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>normalize</strong>(<a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
     </h3>
