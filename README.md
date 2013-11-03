@@ -169,12 +169,57 @@ a single separator with no atoms (`/`).
 The 'self' path is considered to point to the 'current' path, and is represented
 as a single self atom (`.`).
 
-### Path factories
+### Creating paths
+
+#### Static factory methods
+
+The easiest way to create a *Pathogen* path is via the use of static factory
+methods. To use this method effectively, simply choose the most appropriate
+class for the type of path:
+
+```php
+use Eloquent\Pathogen\AbsolutePath;
+use Eloquent\Pathogen\FileSystem\FileSystemPath;
+use Eloquent\Pathogen\Path;
+use Eloquent\Pathogen\RelativePath;
+use Eloquent\Pathogen\Unix\UnixPath;
+use Eloquent\Pathogen\Windows\AbsoluteWindowsPath;
+use Eloquent\Pathogen\Windows\WindowsPath;
+
+$path = Path::fromString('/path/to/foo'); // absolute path
+$path = Path::fromString('bar/baz');      // relative path
+
+$path = AbsolutePath::fromString('/path/to/foo'); // only creates absolute paths
+$path = RelativePath::fromString('bar/baz');      // only creates relative paths
+
+$path = FileSystemPath::fromString('/path/to/foo');   // Unix path
+$path = FileSystemPath::fromString('C:\path\to\foo'); // Windows path
+
+$path = UnixPath::fromString('/path/to/foo');      // only creates Unix paths
+$path = WindowsPath::fromString('C:\path\to\foo'); // only creates Windows paths
+
+$path = AbsoluteWindowsPath::fromString('C:\path\to\foo'); // only creates absolute Windows paths
+```
+
+In addition to the `fromString()` method, there are other factory methods, some
+common to all paths, others more specialized:
+
+```php
+use Eloquent\Pathogen\Path;
+use Eloquent\Pathogen\Windows\AbsoluteWindowsPath;
+
+// Equivalent to '/path/to/foo'
+$path = Path::fromAtoms(array('path', 'to', 'foo'));
+
+// Equivalent to 'C:\path\to\foo'
+$path = AbsoluteWindowsPath::fromDriveAndAtoms(array('path', 'to', 'foo'), 'C');
+```
+
+#### Path factory objects
 
 *Pathogen* provides factory classes for creating paths. All path factories
 implement [PathFactoryInterface] which allows a path to be created from various
-kinds of input. This is the typical way in which path instances are created,
-although the path classes *can* be constructed directly if desired.
+kinds of input.
 
 A simple example of path factory usage is as follows:
 
@@ -198,20 +243,41 @@ For example, consider a current path of `/path/to/foo`. A relative path of
 an absolute path of `/path/to/qux` will not change after resolution, as it is
 already an absolute path.
 
-Path resolution is achieved by passing a path through a path resolver, like so:
+#### Resolution methods
+
+The simplest way to achieve path resolution with *Pathogen* is to use the
+most appropriate method on a path:
 
 ```php
-use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory;
+use Eloquent\Pathogen\FileSystem\FileSystemPath;
+
+$basePath = FileSystemPath::fromString('/path/to/foo');
+$relativePath = FileSystemPath::fromString('bar/baz');
+$absolutePath = FileSystemPath::fromString('/path/to/qux');
+
+echo $basePath->resolve($relativePath); // outputs '/path/to/foo/bar/baz'
+echo $basePath->resolve($absolutePath); // outputs '/path/to/qux'
+
+echo $relativePath->resolveAgainst($basePath); // outputs '/path/to/foo/bar/baz'
+```
+
+#### Resolver objects
+
+Path resolvers are also a standalone concept in *Pathogen*. A simple example of
+their usage follows:
+
+```php
+use Eloquent\Pathogen\FileSystem\FileSystemPath;
 use Eloquent\Pathogen\Resolver\PathResolver;
 
-$factory = new FileSystemPathFactory;
 $resolver = new PathResolver;
 
-$basePath = $factory->create('/path/to/foo');
-$path = $factory->create('bar/baz');
+$basePath = FileSystemPath::fromString('/path/to/foo');
+$relativePath = FileSystemPath::fromString('bar/baz');
+$absolutePath = FileSystemPath::fromString('/path/to/qux');
 
-$finalPath = $resolver->resolve($basePath, $path);
-echo $finalPath->string(); // outputs '/path/to/foo/bar/baz'
+echo $resolver->resolve($basePath, $relativePath); // outputs '/path/to/foo/bar/baz'
+echo $resolver->resolve($basePath, $absolutePath); // outputs '/path/to/qux'
 ```
 
 ### Path normalization
@@ -233,17 +299,34 @@ path (`/`).
 
 Normalization typically never takes place in *Pathogen* unless it is required
 for a calculation, or done manually through the API. If a normalized path is
-required for some reason, this is left to the developer to handle:
+required for some reason, this is left to the developer to handle.
+
+#### Normalize method
+
+The simplest way to normalize a path is to use the `normalize()` method:
 
 ```php
-use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory;
+use Eloquent\Pathogen\FileSystem\FileSystemPath;
 
-$factory = new FileSystemPathFactory;
+$path = FileSystemPath::fromString('/path/./to/foo/../bar');
 
-$path = $factory->create('/path/./to/foo/../bar');
+echo $path->normalize(); // outputs '/path/to/bar'
+```
 
-$normalizedPath = $path->normalize();
-echo $normalizedPath->string(); // outputs '/path/to/bar'
+#### Normalizer objects
+
+Path normalizers are also a standalone concept in *Pathogen*. A simple example
+of their usage follows:
+
+```php
+use Eloquent\Pathogen\FileSystem\FileSystemPath;
+use Eloquent\Pathogen\FileSystem\Normalizer\FileSystemPathNormalizer;
+
+$normalizer = new FileSystemPathNormalizer;
+
+$path = FileSystemPath::fromString('/path/./to/foo/../bar');
+
+echo $normalizer->normalize($path); // outputs '/path/to/bar'
 ```
 
 ### File system paths
@@ -253,30 +336,32 @@ agnostic* way. There are two approaches supported by *Pathogen*, which can be
 applied depending on the situation.
 
 The first approach is to inspect the path string and create an appropriate path
-instance based upon a 'best guess'. This is handled by the
-[FileSystemPathFactory]:
+instance based upon a 'best guess'. This is handled by the [FileSystemPath]
+class:
 
 ```php
-use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory;
+use Eloquent\Pathogen\FileSystem\FileSystemPath;
 
-$factory = new FileSystemPathFactory;
-
-$pathFoo = $factory->create('/path/to/foo'); // creates a unix-style path
-$pathBar = $factory->create('C:/path/to/bar'); // creates a windows path
+$pathFoo = FileSystemPath::fromString('/path/to/foo');   // creates a Unix-style path
+$pathBar = FileSystemPath::fromString('C:/path/to/bar'); // creates a Windows path
 ```
 
 The second approach is to create paths based upon the current platform the code
 is running under. That is, when running under Linux or Unix, create unix-style
 paths, and when running under Windows, create windows paths. This is handled by
-the [PlatformFileSystemPathFactory]:
+the [PlatformFileSystemPath]:
 
 ```php
-use Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory;
+use Eloquent\Pathogen\FileSystem\PlatformFileSystemPath;
 
-$factory = new PlatformFileSystemPathFactory;
-
-$path = $factory->create('/path/to/foo'); // creates a path to match the current platform
+// creates a path to match the current platform
+$path = PlatformFileSystemPath::fromString('/path/to/foo');
 ```
+
+Note that [FileSystemPath] and [PlatformFileSystemPath] are only utility classes
+with static methods. The actual path class used will depend on the input. If it
+is necessary to type hint for a file system path, [FileSystemPathInterface] or
+one of its more specialized child interfaces should be used instead.
 
 ### Immutability of paths
 
@@ -337,44 +422,37 @@ echo get_class($consumer->pathFactory()); // outputs 'Eloquent\Pathogen\FileSyst
 ### Resolving a user-provided path against the current working directory
 
 ```php
-use Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory;
-use Eloquent\Pathogen\FileSystem\Resolver\WorkingDirectoryResolver;
+use Eloquent\Pathogen\FileSystem\PlatformFileSystemPath;
 
-$pathFactory = new PlatformFileSystemPathFactory;
-$pathResolver = new WorkingDirectoryResolver;
+$workingDirectoryPath = PlatformFileSystemPath::workingDirectoryPath();
 
-$path = $pathResolver->resolve(
-    $pathFactory->create($_SERVER['argv'][1])
+$path = $workingDirectoryPath->resolve(
+    PlatformFileSystemPath::fromString($_SERVER['argv'][1])
 );
 ```
 
 ### Resolving a path against another arbitrary path
 
 ```php
-use Eloquent\Pathogen\Factory\PathFactory;
-use Eloquent\Pathogen\Resolver\NormalizingPathResolver;
+use Eloquent\Pathogen\Path;
 
-$pathFactory = new PathFactory;
-$pathResolver = new NormalizingPathResolver;
+$basePath = Path::fromString('/path/to/base');
+$path = Path::fromString('../child');
 
-$basePath = $pathFactory->create('/path/to/base');
-$path = $pathFactory->create('../child');
+$resolvedPath = $basePath->resolve($path);
 
-$resolvedPath = $pathResolver->resolve($basePath, $path);
-
-echo $resolvedPath->string(); // outputs '/path/to/child'
+echo $resolvedPath->string();              // outputs '/path/to/base/../child'
+echo $resolvedPath->string()->normalize(); // outputs '/path/to/child'
 ```
 
 ### Determining whether one path exists inside another
 
 ```php
-use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\Path;
 
-$pathFactory = new PathFactory;
-
-$basePath = $pathFactory->create('/path/to/foo');
-$pathA = $pathFactory->create('/path/to/foo/bar');
-$pathB = $pathFactory->create('/path/to/somewhere/else');
+$basePath = Path::fromString('/path/to/foo');
+$pathA = Path::fromString('/path/to/foo/bar');
+$pathB = Path::fromString('/path/to/somewhere/else');
 
 var_dump($basePath->isAncestorOf($pathA)); // outputs 'bool(true)'
 var_dump($basePath->isAncestorOf($pathB)); // outputs 'bool(false)'
@@ -383,11 +461,9 @@ var_dump($basePath->isAncestorOf($pathB)); // outputs 'bool(false)'
 ### Appending an extension to a path
 
 ```php
-use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\Path;
 
-$pathFactory = new PathFactory;
-
-$path = $pathFactory->create('/path/to/foo.bar');
+$path = Path::fromString('/path/to/foo.bar');
 $pathWithExtension = $path->joinExtensions('baz');
 
 echo $pathWithExtension->string(); // outputs '/path/to/foo.bar.baz'
@@ -396,11 +472,9 @@ echo $pathWithExtension->string(); // outputs '/path/to/foo.bar.baz'
 ### Replacing a path's extension
 
 ```php
-use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\Path;
 
-$pathFactory = new PathFactory;
-
-$path = $pathFactory->create('/path/to/foo.bar');
+$path = Path::fromString('/path/to/foo.bar');
 $pathWithNewExtension = $path->replaceExtension('baz');
 
 echo $pathWithNewExtension->string(); // outputs '/path/to/foo.baz'
@@ -409,11 +483,9 @@ echo $pathWithNewExtension->string(); // outputs '/path/to/foo.baz'
 ### Replacing a section of a path
 
 ```php
-use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\Path;
 
-$pathFactory = new PathFactory;
-
-$path = $pathFactory->create('/path/to/foo/bar');
+$path = Path::fromString('/path/to/foo/bar');
 $pathWithReplacement = $path->replace(1, array('for', 'baz'), 2);
 
 echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
@@ -422,14 +494,15 @@ echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
 <!-- References -->
 
 [AbsolutePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/AbsolutePathInterface.html
-[FileSystemPathFactory]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/Factory/FileSystemPathFactory.html
+[FileSystemPath]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/FileSystemPath.html
 [FileSystemPathFactoryTrait]: src/Eloquent/Pathogen/FileSystem/Factory/Consumer/FileSystemPathFactoryTrait.php
+[FileSystemPathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/FileSystemPathInterface.html
 [NormalizingPathResolverTrait]: src/Eloquent/Pathogen/Resolver/Consumer/NormalizingPathResolverTrait.php
 [PathFactoryInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/Factory/PathFactoryInterface.html
 [PathFactoryTrait]: src/Eloquent/Pathogen/Factory/Consumer/PathFactoryTrait.php
 [PathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/PathInterface.html
 [PathResolverTrait]: src/Eloquent/Pathogen/Resolver/Consumer/PathResolverTrait.php
-[PlatformFileSystemPathFactory]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/Factory/PlatformFileSystemPathFactory.html
+[PlatformFileSystemPath]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/PlatformFileSystemPath.html
 [PlatformFileSystemPathFactoryTrait]: src/Eloquent/Pathogen/FileSystem/Factory/Consumer/PlatformFileSystemPathFactoryTrait.php
 [RelativePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/RelativePathInterface.html
 [traits]: http://php.net/traits

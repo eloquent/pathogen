@@ -25,7 +25,12 @@ class PlatformFileSystemPathTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->isolator = Phake::mock(Isolator::className());
-        $this->factory = new Factory\PlatformFileSystemPathFactory(null, null, $this->isolator);
+        $this->factory = Phake::partialMock(
+            __NAMESPACE__ . '\Factory\PlatformFileSystemPathFactory',
+            null,
+            null,
+            $this->isolator
+        );
         Liberator::liberateClass(__NAMESPACE__ . '\Factory\PlatformFileSystemPathFactory')->instance = $this->factory;
 
         Phake::when($this->isolator)->defined('PHP_WINDOWS_VERSION_BUILD')->thenReturn(true);
@@ -104,5 +109,29 @@ class PlatformFileSystemPathTest extends PHPUnit_Framework_TestCase
             $this->assertTrue($path instanceof RelativeWindowsPath);
         }
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
+    }
+
+    public function testWorkingDirectoryPath()
+    {
+        $path = PlatformFileSystemPath::fromString('foo');
+        Phake::when($this->factory)->createWorkingDirectoryPath()->thenReturn($path);
+
+        $this->assertSame($path, PlatformFileSystemPath::workingDirectoryPath());
+    }
+
+    public function testTemporaryDirectoryPath()
+    {
+        $path = PlatformFileSystemPath::fromString('foo');
+        Phake::when($this->factory)->createTemporaryDirectoryPath()->thenReturn($path);
+
+        $this->assertSame($path, PlatformFileSystemPath::temporaryDirectoryPath());
+    }
+
+    public function testTemporaryPath()
+    {
+        $path = PlatformFileSystemPath::fromString('foo');
+        Phake::when($this->factory)->createTemporaryPath('bar')->thenReturn($path);
+
+        $this->assertSame($path, PlatformFileSystemPath::temporaryPath('bar'));
     }
 }
