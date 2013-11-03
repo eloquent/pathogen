@@ -9,34 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\Windows\Factory;
+namespace Eloquent\Pathogen\Windows;
 
-use Eloquent\Liberator\Liberator;
-use Eloquent\Pathogen\Windows\AbsoluteWindowsPath;
-use Eloquent\Pathogen\Windows\RelativeWindowsPath;
 use PHPUnit_Framework_TestCase;
 
-class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
+class WindowsPathTest extends PHPUnit_Framework_TestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->factory = new WindowsPathFactory('X');
-    }
-
-    public function testConstructor()
-    {
-        $this->assertSame('X', $this->factory->defaultDrive());
-    }
-
-    public function testConstructorDefaults()
-    {
-        $this->factory = new WindowsPathFactory;
-
-        $this->assertNull($this->factory->defaultDrive());
-    }
-
     public function createData()
     {
         //                                                                            path                       drive  atoms                             isAbsolute  hasTrailingSeparator
@@ -74,9 +52,9 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider createData
      */
-    public function testCreate($pathString, $drive, array $atoms, $isAbsolute, $hasTrailingSeparator)
+    public function testFromString($pathString, $drive, array $atoms, $isAbsolute, $hasTrailingSeparator)
     {
-        $path = $this->factory->create($pathString);
+        $path = WindowsPath::fromString($pathString);
 
         $this->assertSame($atoms, $path->atoms());
         $this->assertSame($isAbsolute, $path instanceof AbsoluteWindowsPath);
@@ -92,20 +70,20 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateFromAtoms($pathString, $drive, array $atoms, $isAbsolute, $hasTrailingSeparator)
     {
-        $path = $this->factory->createFromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
+        $path = WindowsPath::fromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
 
         $this->assertSame($atoms, $path->atoms());
         $this->assertSame($isAbsolute, $path instanceof AbsoluteWindowsPath);
         $this->assertSame($isAbsolute, !$path instanceof RelativeWindowsPath);
         if ($isAbsolute) {
-            $this->assertSame('X', $path->drive());
+            $this->assertNull($path->drive());
         }
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 
     public function testCreateFromAtomsDefaults()
     {
-        $path = $this->factory->createFromAtoms(array());
+        $path = WindowsPath::fromAtoms(array());
 
         $this->assertTrue($path instanceof AbsoluteWindowsPath);
         $this->assertFalse($path->hasTrailingSeparator());
@@ -116,7 +94,7 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateFromDriveAndAtoms($pathString, $drive, array $atoms, $isAbsolute, $hasTrailingSeparator)
     {
-        $path = $this->factory->createFromDriveAndAtoms($atoms, $drive, $isAbsolute, $hasTrailingSeparator);
+        $path = WindowsPath::fromDriveAndAtoms($atoms, $drive, $isAbsolute, $hasTrailingSeparator);
 
         $this->assertSame($atoms, $path->atoms());
         $this->assertSame($isAbsolute, $path instanceof AbsoluteWindowsPath);
@@ -133,16 +111,6 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
             'Eloquent\Pathogen\Exception\InvalidPathStateException',
             "Path cannot be relative and have a drive specifier."
         );
-        $this->factory->createFromDriveAndAtoms(array(), 'C', false);
-    }
-
-    public function testInstance()
-    {
-        $class = Liberator::liberateClass(__NAMESPACE__ . '\WindowsPathFactory');
-        $class->instance = null;
-        $actual = WindowsPathFactory::instance();
-
-        $this->assertInstanceOf(__NAMESPACE__ . '\WindowsPathFactory', $actual);
-        $this->assertSame($actual, WindowsPathFactory::instance());
+        WindowsPath::fromDriveAndAtoms(array(), 'C', false);
     }
 }

@@ -24,6 +24,35 @@ class RelativeWindowsPath extends RelativePath implements
     RelativeFileSystemPathInterface,
     RelativeWindowsPathInterface
 {
+    /**
+     * Creates a new path instance from a set of path atoms and a drive
+     * specifier.
+     *
+     * Unless otherwise specified, created paths will be absolute, and have no
+     * trailing separator.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param string|null   $drive                The drive specifier.
+     * @param boolean|null  $isAbsolute           True if the path is absolute.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
+     *
+     * @return WindowsPathInterface              The newly created path instance.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
+     */
+    public static function fromDriveAndAtoms(
+        $atoms,
+        $drive,
+        $isAbsolute = null,
+        $hasTrailingSeparator = null
+    ) {
+        return static::factory()->createFromDriveAndAtoms(
+            $atoms,
+            $drive,
+            $isAbsolute,
+            $hasTrailingSeparator
+        );
+    }
+
     // Implementation of PathInterface =========================================
 
     /**
@@ -90,11 +119,7 @@ class RelativeWindowsPath extends RelativePath implements
             );
         }
 
-        return static::factory()->createFromAtoms(
-            $atoms,
-            false,
-            $hasTrailingSeparator
-        );
+        return static::fromAtoms($atoms, false, $hasTrailingSeparator);
     }
 
     /**
@@ -116,7 +141,7 @@ class RelativeWindowsPath extends RelativePath implements
         $drive,
         $hasTrailingSeparator = null
     ) {
-        return static::factory()->createFromDriveAndAtoms(
+        return static::fromDriveAndAtoms(
             $atoms,
             $drive,
             true,
@@ -127,7 +152,7 @@ class RelativeWindowsPath extends RelativePath implements
     /**
      * Get the most appropriate path factory for this type of path.
      *
-     * @return PathFactoryInterface The path factory.
+     * @return Factory\WindowsPathFactoryInterface The path factory.
      */
     protected static function factory()
     {

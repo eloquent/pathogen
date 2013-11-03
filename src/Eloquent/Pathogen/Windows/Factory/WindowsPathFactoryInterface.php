@@ -13,7 +13,6 @@ namespace Eloquent\Pathogen\Windows\Factory;
 
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\Factory\PathFactoryInterface;
-use Eloquent\Pathogen\PathInterface;
 
 /**
  * The interface implemented by path factories that create Windows paths.
@@ -32,7 +31,7 @@ interface WindowsPathFactoryInterface extends PathFactoryInterface
      * @param boolean|null  $isAbsolute           True if the path is absolute.
      * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
-     * @return PathInterface                     The newly created path instance.
+     * @return WindowsPathInterface              The newly created path instance.
      * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
      */
     public function createFromDriveAndAtoms(

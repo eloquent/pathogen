@@ -9,34 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\Windows\Factory;
+namespace Eloquent\Pathogen\FileSystem;
 
-use Eloquent\Liberator\Liberator;
+use Eloquent\Pathogen\Unix\AbsoluteUnixPath;
+use Eloquent\Pathogen\Unix\RelativeUnixPath;
 use Eloquent\Pathogen\Windows\AbsoluteWindowsPath;
-use Eloquent\Pathogen\Windows\RelativeWindowsPath;
 use PHPUnit_Framework_TestCase;
 
-class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
+class FileSystemPathTest extends PHPUnit_Framework_TestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->factory = new WindowsPathFactory('X');
-    }
-
-    public function testConstructor()
-    {
-        $this->assertSame('X', $this->factory->defaultDrive());
-    }
-
-    public function testConstructorDefaults()
-    {
-        $this->factory = new WindowsPathFactory;
-
-        $this->assertNull($this->factory->defaultDrive());
-    }
-
     public function createData()
     {
         //                                                                            path                       drive  atoms                             isAbsolute  hasTrailingSeparator
@@ -48,7 +29,6 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
             'Absolute with empty atoms at start'                             => array('//foo',                   null,  array('foo'),                     true,       false),
             'Absolute with empty atoms at end'                               => array('/foo//',                  null,  array('foo'),                     true,       true),
             'Absolute with whitespace atoms'                                 => array('/ foo bar / baz qux ',    null,  array(' foo bar ', ' baz qux '),  true,       false),
-            'Absolute with trailing separator using backslashes'             => array('\\foo\\bar\\',            null,  array('foo', 'bar'),              true,       true),
 
             'Root with drive'                                                => array('C:/',                     'C',   array(),                          true,       false),
             'Root with drive and no trailing slash'                          => array('C:',                      'C',   array(),                          true,       false),
@@ -67,23 +47,27 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
             'Relative with empty atoms'                                      => array('foo//bar',                null,  array('foo', 'bar'),              false,      false),
             'Relative with empty atoms at end'                               => array('foo/bar//',               null,  array('foo', 'bar'),              false,      true),
             'Relative with whitespace atoms'                                 => array(' foo bar / baz qux ',     null,  array(' foo bar ', ' baz qux '),  false,      false),
-            'Relative with trailing separator using backslashes'             => array('foo\\bar\\',              null,  array('foo', 'bar'),              false,      true),
+
+            'Absolute backslashes not interpreted as separators'             => array('\\foo\\bar\\',            null,  array('\\foo\\bar\\'),            false,      false),
+            'Relative backslashes not interpreted as separators'             => array('foo\\bar\\',              null,  array('foo\\bar\\'),              false,      false),
         );
     }
 
     /**
      * @dataProvider createData
      */
-    public function testCreate($pathString, $drive, array $atoms, $isAbsolute, $hasTrailingSeparator)
+    public function testFromString($pathString, $drive, array $atoms, $isAbsolute, $hasTrailingSeparator)
     {
-        $path = $this->factory->create($pathString);
+        $path = FileSystemPath::fromString($pathString);
 
         $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsoluteWindowsPath);
-        $this->assertSame($isAbsolute, !$path instanceof RelativeWindowsPath);
-        if ($isAbsolute) {
+        if (null === $drive) {
+            $this->assertSame($isAbsolute, $path instanceof AbsoluteUnixPath);
+        } else {
+            $this->assertSame($isAbsolute, $path instanceof AbsoluteWindowsPath);
             $this->assertSame($drive, $path->drive());
         }
+        $this->assertSame($isAbsolute, !$path instanceof RelativeUnixPath);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 
@@ -92,57 +76,19 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateFromAtoms($pathString, $drive, array $atoms, $isAbsolute, $hasTrailingSeparator)
     {
-        $path = $this->factory->createFromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
+        $path = FileSystemPath::fromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
 
         $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsoluteWindowsPath);
-        $this->assertSame($isAbsolute, !$path instanceof RelativeWindowsPath);
-        if ($isAbsolute) {
-            $this->assertSame('X', $path->drive());
-        }
+        $this->assertSame($isAbsolute, $path instanceof AbsoluteUnixPath);
+        $this->assertSame($isAbsolute, !$path instanceof RelativeUnixPath);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 
     public function testCreateFromAtomsDefaults()
     {
-        $path = $this->factory->createFromAtoms(array());
+        $path = FileSystemPath::fromAtoms(array());
 
-        $this->assertTrue($path instanceof AbsoluteWindowsPath);
+        $this->assertTrue($path instanceof AbsoluteUnixPath);
         $this->assertFalse($path->hasTrailingSeparator());
-    }
-
-    /**
-     * @dataProvider createData
-     */
-    public function testCreateFromDriveAndAtoms($pathString, $drive, array $atoms, $isAbsolute, $hasTrailingSeparator)
-    {
-        $path = $this->factory->createFromDriveAndAtoms($atoms, $drive, $isAbsolute, $hasTrailingSeparator);
-
-        $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsoluteWindowsPath);
-        $this->assertSame($isAbsolute, !$path instanceof RelativeWindowsPath);
-        if ($isAbsolute) {
-            $this->assertSame($drive, $path->drive());
-        }
-        $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
-    }
-
-    public function testCreateFromDriveAndAtomsFailureRelativeWithDrive()
-    {
-        $this->setExpectedException(
-            'Eloquent\Pathogen\Exception\InvalidPathStateException',
-            "Path cannot be relative and have a drive specifier."
-        );
-        $this->factory->createFromDriveAndAtoms(array(), 'C', false);
-    }
-
-    public function testInstance()
-    {
-        $class = Liberator::liberateClass(__NAMESPACE__ . '\WindowsPathFactory');
-        $class->instance = null;
-        $actual = WindowsPathFactory::instance();
-
-        $this->assertInstanceOf(__NAMESPACE__ . '\WindowsPathFactory', $actual);
-        $this->assertSame($actual, WindowsPathFactory::instance());
     }
 }

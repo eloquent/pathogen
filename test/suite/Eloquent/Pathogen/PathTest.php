@@ -9,22 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\Unix\Factory;
+namespace Eloquent\Pathogen;
 
-use Eloquent\Liberator\Liberator;
-use Eloquent\Pathogen\Unix\AbsoluteUnixPath;
-use Eloquent\Pathogen\Unix\RelativeUnixPath;
 use PHPUnit_Framework_TestCase;
 
-class UnixPathFactoryTest extends PHPUnit_Framework_TestCase
+class PathTest extends PHPUnit_Framework_TestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->factory = new UnixPathFactory;
-    }
-
     public function createData()
     {
         //                                                 path                     atoms                             isAbsolute  hasTrailingSeparator
@@ -50,13 +40,13 @@ class UnixPathFactoryTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider createData
      */
-    public function testCreate($pathString, array $atoms, $isAbsolute, $hasTrailingSeparator)
+    public function testFromString($pathString, array $atoms, $isAbsolute, $hasTrailingSeparator)
     {
-        $path = $this->factory->create($pathString);
+        $path = Path::fromString($pathString);
 
         $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsoluteUnixPath);
-        $this->assertSame($isAbsolute, !$path instanceof RelativeUnixPath);
+        $this->assertSame($isAbsolute, $path instanceof AbsolutePath);
+        $this->assertSame($isAbsolute, !$path instanceof RelativePath);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 
@@ -65,29 +55,19 @@ class UnixPathFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateFromAtoms($pathString, array $atoms, $isAbsolute, $hasTrailingSeparator)
     {
-        $path = $this->factory->createFromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
+        $path = Path::fromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
 
         $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsoluteUnixPath);
-        $this->assertSame($isAbsolute, !$path instanceof RelativeUnixPath);
+        $this->assertSame($isAbsolute, $path instanceof AbsolutePath);
+        $this->assertSame($isAbsolute, !$path instanceof RelativePath);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 
     public function testCreateFromAtomsDefaults()
     {
-        $path = $this->factory->createFromAtoms(array());
+        $path = Path::fromAtoms(array());
 
-        $this->assertTrue($path instanceof AbsoluteUnixPath);
+        $this->assertTrue($path instanceof AbsolutePath);
         $this->assertFalse($path->hasTrailingSeparator());
-    }
-
-    public function testInstance()
-    {
-        $class = Liberator::liberateClass(__NAMESPACE__ . '\UnixPathFactory');
-        $class->instance = null;
-        $actual = UnixPathFactory::instance();
-
-        $this->assertInstanceOf(__NAMESPACE__ . '\UnixPathFactory', $actual);
-        $this->assertSame($actual, UnixPathFactory::instance());
     }
 }
