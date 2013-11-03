@@ -11,8 +11,9 @@
 
 namespace Eloquent\Pathogen\Windows\Normalizer;
 
-use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\Normalizer\PathNormalizer;
+use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
+use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\Windows\AbsoluteWindowsPathInterface;
 use Eloquent\Pathogen\Windows\Factory\WindowsPathFactory;
 use Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryInterface;
@@ -23,6 +24,20 @@ use Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryInterface;
 class WindowsPathNormalizer extends PathNormalizer
 {
     /**
+     * Get a static instance of this path normalizer.
+     *
+     * @return PathNormalizerInterface The static path normalizer.
+     */
+    public static function instance()
+    {
+        if (null === static::$instance) {
+            static::$instance = new static;
+        }
+
+        return static::$instance;
+    }
+
+    /**
      * Construct a new Windows path normalizer.
      *
      * @param WindowsPathFactoryInterface|null $factory The path factory to use.
@@ -30,7 +45,7 @@ class WindowsPathNormalizer extends PathNormalizer
     public function __construct(WindowsPathFactoryInterface $factory = null)
     {
         if (null === $factory) {
-            $factory = new WindowsPathFactory;
+            $factory = WindowsPathFactory::instance();
         }
 
         parent::__construct($factory);
@@ -85,4 +100,6 @@ class WindowsPathNormalizer extends PathNormalizer
 
         return strtoupper($drive);
     }
+
+    private static $instance;
 }

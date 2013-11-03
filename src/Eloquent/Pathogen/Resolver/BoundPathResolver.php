@@ -30,7 +30,7 @@ class BoundPathResolver implements BoundPathResolverInterface
         PathResolverInterface $resolver = null
     ) {
         if (null === $resolver) {
-            $resolver = new PathResolver;
+            $resolver = PathResolver::instance();
         }
 
         $this->basePath = $basePath;

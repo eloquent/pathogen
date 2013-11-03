@@ -29,6 +29,6 @@ trait FileSystemPathFactoryTrait
      */
     protected function createDefaultPathFactory()
     {
-        return new FileSystemPathFactory;
+        return FileSystemPathFactory::instance();
     }
 }

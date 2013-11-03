@@ -11,8 +11,8 @@
 
 namespace Eloquent\Pathogen\FileSystem\Factory;
 
-use Eloquent\Pathogen\AbsolutePathInterface;
 use Eloquent\Pathogen\Factory\PathFactoryInterface;
+use Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface;
 use Eloquent\Pathogen\Unix\Factory\UnixPathFactory;
 use Eloquent\Pathogen\Windows\Factory\WindowsPathFactory;
 use Icecave\Isolator\Isolator;
@@ -36,10 +36,10 @@ abstract class AbstractFileSystemPathFactory implements
         Isolator $isolator = null
     ) {
         if (null === $unixFactory) {
-            $unixFactory = new UnixPathFactory;
+            $unixFactory = UnixPathFactory::instance();
         }
         if (null === $windowsFactory) {
-            $windowsFactory = new WindowsPathFactory;
+            $windowsFactory = WindowsPathFactory::instance();
         }
 
         $this->unixFactory = $unixFactory;
@@ -70,7 +70,7 @@ abstract class AbstractFileSystemPathFactory implements
     /**
      * Create a path representing the current working directory.
      *
-     * @return AbsolutePathInterface A new path instance representing the current working directory path.
+     * @return AbsoluteFileSystemPathInterface A new path instance representing the current working directory path.
      */
     public function createWorkingDirectoryPath()
     {
@@ -81,7 +81,7 @@ abstract class AbstractFileSystemPathFactory implements
     /**
      * Create a path representing the system temporary directory.
      *
-     * @return AbsolutePathInterface A new path instance representing the system default temporary directory path.
+     * @return AbsoluteFileSystemPathInterface A new path instance representing the system default temporary directory path.
      */
     public function createTemporaryDirectoryPath()
     {
@@ -98,7 +98,7 @@ abstract class AbstractFileSystemPathFactory implements
      *
      * @param string|null $prefix A string to use as a prefix for the path name.
      *
-     * @return AbsolutePathInterface A new path instance representing the new temporary path.
+     * @return AbsoluteFileSystemPathInterface A new path instance representing the new temporary path.
      */
     public function createTemporaryPath($prefix = null)
     {

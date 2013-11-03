@@ -9,29 +9,39 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\FileSystem\Factory;
+namespace Eloquent\Pathogen\FileSystem;
 
-use Eloquent\Pathogen\Factory\PathFactoryInterface;
-use Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface;
+use Eloquent\Pathogen\Path;
 
 /**
- * The interface implemented by path factories that deal with file system paths.
+ * A static utility class for constructing file system paths.
+ *
+ * This class utilizes a path factory that produces file system paths whose type
+ * correlates to the platform on which the code is running.
+ *
+ * Do not use this class in type hints; use FileSystemPathInterface instead.
  */
-interface FileSystemPathFactoryInterface extends PathFactoryInterface
+abstract class PlatformFileSystemPath extends Path
 {
     /**
      * Create a path representing the current working directory.
      *
      * @return AbsoluteFileSystemPathInterface A new path instance representing the current working directory path.
      */
-    public function createWorkingDirectoryPath();
+    public static function workingDirectoryPath()
+    {
+        return static::factory()->createWorkingDirectoryPath();
+    }
 
     /**
      * Create a path representing the system temporary directory.
      *
      * @return AbsoluteFileSystemPathInterface A new path instance representing the system default temporary directory path.
      */
-    public function createTemporaryDirectoryPath();
+    public static function temporaryDirectoryPath()
+    {
+        return static::factory()->createTemporaryDirectoryPath();
+    }
 
     /**
      * Create a path representing a suitable for use as the location for a new
@@ -44,5 +54,18 @@ interface FileSystemPathFactoryInterface extends PathFactoryInterface
      *
      * @return AbsoluteFileSystemPathInterface A new path instance representing the new temporary path.
      */
-    public function createTemporaryPath($prefix = null);
+    public static function temporaryPath($prefix = null)
+    {
+        return static::factory()->createTemporaryPath($prefix);
+    }
+
+    /**
+     * Get the most appropriate path factory for this type of path.
+     *
+     * @return Factory\FileSystemPathFactoryInterface The path factory.
+     */
+    protected static function factory()
+    {
+        return Factory\PlatformFileSystemPathFactory::instance();
+    }
 }

@@ -16,6 +16,45 @@ namespace Eloquent\Pathogen;
  */
 class AbsolutePath extends AbstractPath implements AbsolutePathInterface
 {
+    /**
+     * Creates a new absolute path from its string representation.
+     *
+     * @param string $path The string representation of the absolute path.
+     *
+     * @return AbsolutePathInterface              The newly created absolute path.
+     * @throws Exception\NonAbsolutePathException If the supplied string represents a non-absolute path.
+     */
+    public static function fromString($path)
+    {
+        $pathObject = static::factory()->create($path);
+        if (!$pathObject instanceof AbsolutePathInterface) {
+            throw new Exception\NonAbsolutePathException($pathObject);
+        }
+
+        return $pathObject;
+    }
+
+    /**
+     * Creates a new absolute path from a set of path atoms.
+     *
+     * Unless otherwise specified, created paths will have no trailing
+     * separator.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
+     *
+     * @return AbsolutePathInterface                       The newly created absolute path.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
+     */
+    public static function fromAtoms($atoms, $hasTrailingSeparator = null)
+    {
+        return static::factory()->createFromAtoms(
+            $atoms,
+            true,
+            $hasTrailingSeparator
+        );
+    }
+
     // Implementation of PathInterface =========================================
 
     /**
@@ -80,58 +119,40 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      *
      * The root path is an absolute path with no atoms.
      *
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
-     *
      * @return boolean True if this path is the root path.
      */
-    public function isRoot(
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        return !$this->normalize($normalizer)->hasAtoms();
+    public function isRoot()
+    {
+        return !$this->normalize()->hasAtoms();
     }
 
     /**
      * Determine if this path is the direct parent of the supplied path.
      *
-     * @param AbsolutePathInterface                   $path       The child path.
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
+     * @param AbsolutePathInterface $path The child path.
      *
      * @return boolean True if this path is the direct parent of the supplied path.
      */
-    public function isParentOf(
-        AbsolutePathInterface $path,
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        if (null === $normalizer) {
-            $normalizer = $this->createDefaultNormalizer();
-        }
-
-        return
-            $path->hasAtoms() &&
-            $this->normalize($normalizer)->atoms() ===
-                $path->parent()->normalize($normalizer)->atoms();
+    public function isParentOf(AbsolutePathInterface $path)
+    {
+        return $path->hasAtoms() &&
+            $this->normalize()->atoms() ===
+                $path->parent()->normalize()->atoms();
     }
 
     /**
      * Determine if this path is an ancestor of the supplied path.
      *
-     * @param AbsolutePathInterface                   $path       The child path.
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
+     * @param AbsolutePathInterface $path The child path.
      *
      * @return boolean True if this path is an ancestor of the supplied path.
      */
-    public function isAncestorOf(
-        AbsolutePathInterface $path,
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        if (null === $normalizer) {
-            $normalizer = $this->createDefaultNormalizer();
-        }
-
-        $parentAtoms = $this->normalize($normalizer)->atoms();
+    public function isAncestorOf(AbsolutePathInterface $path)
+    {
+        $parentAtoms = $this->normalize()->atoms();
 
         return $parentAtoms === array_slice(
-            $path->normalize($normalizer)->atoms(),
+            $path->normalize()->atoms(),
             0,
             count($parentAtoms)
         );
@@ -143,21 +164,14 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      * For example, given path A equal to '/foo/bar', and path B equal to
      * '/foo/baz', A relative to B would be '../bar'.
      *
-     * @param AbsolutePathInterface                   $path       The path that the generated path will be relative to.
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
+     * @param AbsolutePathInterface $path The path that the generated path will be relative to.
      *
      * @return RelativePathInterface A relative path from the supplied path to this path.
      */
-    public function relativeTo(
-        AbsolutePathInterface $path,
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        if (null === $normalizer) {
-            $normalizer = $this->createDefaultNormalizer();
-        }
-
-        $parentAtoms = $path->normalize($normalizer)->atoms();
-        $childAtoms = $this->normalize($normalizer)->atoms();
+    public function relativeTo(AbsolutePathInterface $path)
+    {
+        $parentAtoms = $path->normalize()->atoms();
+        $childAtoms = $this->normalize()->atoms();
 
         if ($childAtoms === $parentAtoms) {
             $diffAtoms = array(static::SELF_ATOM);
@@ -182,5 +196,17 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         }
 
         return $this->createPath($diffAtoms, false);
+    }
+
+    /**
+     * Resolve the supplied path against this path.
+     *
+     * @param PathInterface $path The path to resolve.
+     *
+     * @return AbsolutePathInterface The resolved path.
+     */
+    public function resolve(PathInterface $path)
+    {
+        return static::resolver()->resolve($this, $path);
     }
 }

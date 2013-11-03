@@ -12,12 +12,10 @@
 namespace Eloquent\Pathogen\Unix;
 
 use ArrayIterator;
-use Phake;
 use PHPUnit_Framework_TestCase;
 
 /**
  * @covers \Eloquent\Pathogen\Unix\AbsoluteUnixPath
- * @covers \Eloquent\Pathogen\FileSystem\AbstractAbsoluteFileSystemPath
  * @covers \Eloquent\Pathogen\AbsolutePath
  * @covers \Eloquent\Pathogen\AbstractPath
  */
@@ -1123,16 +1121,6 @@ class AbsoluteUnixPathTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($normalizedPath, $path->normalize());
     }
 
-    public function testNormalizeCustomNormalizer()
-    {
-        $path = $this->factory->create('/foo/../bar');
-        $normalizedPath = $this->factory->create('/bar');
-        $normalizer = Phake::mock('Eloquent\Pathogen\Normalizer\PathNormalizerInterface');
-        Phake::when($normalizer)->normalize($path)->thenReturn($normalizedPath);
-
-        $this->assertSame($normalizedPath, $path->normalize($normalizer));
-    }
-
     // tests for AbsolutePathInterface implementation ==========================
 
     public function rootData()
@@ -1226,6 +1214,62 @@ class AbsoluteUnixPathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($expectedResultString, $result->string());
     }
 
+    public function resolveAbsolutePathData()
+    {
+        //                                                    basePath             path             expectedResult
+        return array(
+            'Root against single atom'                => array('/',                '/foo',          '/foo'),
+            'Single atom against single atom'         => array('/foo',             '/bar',          '/bar'),
+            'Multiple atoms against single atom'      => array('/foo/bar',         '/baz',          '/baz'),
+            'Multiple atoms against multiple atoms'   => array('/foo/../../bar',   '/baz/../qux',   '/baz/../qux'),
+        );
+    }
+
+    /**
+     * @dataProvider resolveAbsolutePathData
+     */
+    public function testResolveAbsolutePaths($basePathString, $pathString, $expectedResult)
+    {
+        $basePath = $this->factory->create($basePathString);
+        $path = $this->factory->create($pathString);
+        $resolved = $basePath->resolve($path);
+
+        $this->assertSame($expectedResult, $resolved->string());
+    }
+
+    public function resolveRelativePathData()
+    {
+        //                                                                                        basePath      path         expectedResult
+        return array(
+            'Root against single atom'                                                   => array('/',          'foo',       '/foo'),
+            'Single atom against single atom'                                            => array('/foo',       'bar',       '/foo/bar'),
+            'Multiple atoms against single atom'                                         => array('/foo/bar',   'baz',       '/foo/bar/baz'),
+            'Multiple atoms with slash against single atoms'                             => array('/foo/bar/',  'baz',       '/foo/bar/baz'),
+            'Multiple atoms against multiple atoms'                                      => array('/foo/bar',   'baz/qux',   '/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms'                           => array('/foo/bar/',  'baz/qux',   '/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms with slash'                => array('/foo/bar/',  'baz/qux/',  '/foo/bar/baz/qux'),
+            'Root against parent atom'                                                   => array('/',          '..',        '/..'),
+            'Single atom against parent atom'                                            => array('/foo',       '..',        '/foo/..'),
+            'Single atom with slash against parent atom'                                 => array('/foo/',      '..',        '/foo/..'),
+            'Single atom with slash against parent atom with slash'                      => array('/foo/',      '../',       '/foo/..'),
+            'Multiple atoms against parent and single atom'                              => array('/foo/bar',   '../baz',    '/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom'              => array('/foo/bar/',  '../baz',    '/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom with slash'   => array('/foo/bar/',  '../baz/',   '/foo/bar/../baz'),
+        );
+    }
+
+    /**
+     * @dataProvider resolveRelativePathData
+     */
+    public function testResolveRelativePaths($basePathString, $pathString, $expectedResult)
+    {
+        $basePath = $this->factory->create($basePathString);
+        $path = $this->factory->create($pathString);
+        $resolved = $basePath->resolve($path);
+
+        $this->assertSame($expectedResult, $resolved->string());
+    }
+
     public function replaceNameAtomsData()
     {
         //                                              path                 offset  replacement              length  expectedResult
@@ -1257,5 +1301,51 @@ class AbsoluteUnixPathTest extends PHPUnit_Framework_TestCase
         $result = $path->replaceNameAtoms(1, new ArrayIterator(array('doom', 'splat')), 1);
 
         $this->assertSame('/foo.doom.splat.baz.qux', $result->string());
+    }
+
+    // Static methods ==========================================================
+
+    public function createData()
+    {
+        //                                                 path                     atoms                             hasTrailingSeparator
+        return array(
+            'Root'                                => array('/',                     array(),                          false),
+            'Absolute'                            => array('/foo/bar',              array('foo', 'bar'),              false),
+            'Absolute with trailing separator'    => array('/foo/bar/',             array('foo', 'bar'),              true),
+            'Absolute with empty atoms'           => array('/foo//bar',             array('foo', 'bar'),              false),
+            'Absolute with empty atoms at start'  => array('//foo',                 array('foo'),                     false),
+            'Absolute with empty atoms at end'    => array('/foo//',                array('foo'),                     true),
+            'Absolute with whitespace atoms'      => array('/ foo bar / baz qux ',  array(' foo bar ', ' baz qux '),  false),
+        );
+    }
+
+    /**
+     * @dataProvider createData
+     */
+    public function testFromString($pathString, array $atoms, $hasTrailingSeparator)
+    {
+        $path = AbsoluteUnixPath::fromString($pathString);
+
+        $this->assertSame($atoms, $path->atoms());
+        $this->assertTrue($path instanceof AbsoluteUnixPath);
+        $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
+    }
+
+    public function testFromStringFailureRelative()
+    {
+        $this->setExpectedException('Eloquent\Pathogen\Exception\NonAbsolutePathException');
+        AbsoluteUnixPath::fromString('foo');
+    }
+
+    /**
+     * @dataProvider createData
+     */
+    public function testCreateFromAtoms($pathString, array $atoms, $hasTrailingSeparator)
+    {
+        $path = AbsoluteUnixPath::fromAtoms($atoms, $hasTrailingSeparator);
+
+        $this->assertSame($atoms, $path->atoms());
+        $this->assertTrue($path instanceof AbsoluteUnixPath);
+        $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 }

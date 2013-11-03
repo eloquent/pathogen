@@ -9,15 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\Windows\Factory;
+namespace Eloquent\Pathogen\Windows;
 
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
-use Eloquent\Pathogen\Factory\PathFactoryInterface;
+use Eloquent\Pathogen\Path;
 
 /**
- * The interface implemented by path factories that create Windows paths.
+ * A static utility class for constructing Windows paths.
+ *
+ * Do not use this class in type hints; use WindowsPathInterface instead.
  */
-interface WindowsPathFactoryInterface extends PathFactoryInterface
+abstract class WindowsPath extends Path
 {
     /**
      * Creates a new path instance from a set of path atoms and a drive
@@ -34,10 +36,27 @@ interface WindowsPathFactoryInterface extends PathFactoryInterface
      * @return WindowsPathInterface              The newly created path instance.
      * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
      */
-    public function createFromDriveAndAtoms(
+    public static function fromDriveAndAtoms(
         $atoms,
         $drive,
         $isAbsolute = null,
         $hasTrailingSeparator = null
-    );
+    ) {
+        return static::factory()->createFromDriveAndAtoms(
+            $atoms,
+            $drive,
+            $isAbsolute,
+            $hasTrailingSeparator
+        );
+    }
+
+    /**
+     * Get the most appropriate path factory for this type of path.
+     *
+     * @return Factory\WindowsPathFactoryInterface The path factory.
+     */
+    protected static function factory()
+    {
+        return Factory\WindowsPathFactory::instance();
+    }
 }

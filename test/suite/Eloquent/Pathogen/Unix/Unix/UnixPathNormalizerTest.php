@@ -9,20 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\Normalizer;
+namespace Eloquent\Pathogen\Unix\Normalizer;
 
 use Eloquent\Liberator\Liberator;
-use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\Unix\Factory\UnixPathFactory;
 use PHPUnit_Framework_TestCase;
 
-class PathNormalizerTest extends PHPUnit_Framework_TestCase
+class UnixPathNormalizerTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
         parent::setUp();
 
-        $this->factory = new PathFactory;
-        $this->normalizer = new PathNormalizer($this->factory);
+        $this->factory = new UnixPathFactory;
+        $this->normalizer = new UnixPathNormalizer($this->factory);
     }
 
     public function testConstructor()
@@ -32,7 +32,7 @@ class PathNormalizerTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorDefaults()
     {
-        $this->normalizer = new PathNormalizer;
+        $this->normalizer = new UnixPathNormalizer;
 
         $this->assertEquals($this->factory, $this->normalizer->factory());
     }
@@ -123,11 +123,11 @@ class PathNormalizerTest extends PHPUnit_Framework_TestCase
 
     public function testInstance()
     {
-        $class = Liberator::liberateClass(__NAMESPACE__ . '\PathNormalizer');
+        $class = Liberator::liberateClass(__NAMESPACE__ . '\UnixPathNormalizer');
         $class->instance = null;
-        $actual = PathNormalizer::instance();
+        $actual = UnixPathNormalizer::instance();
 
-        $this->assertInstanceOf(__NAMESPACE__ . '\PathNormalizer', $actual);
-        $this->assertSame($actual, PathNormalizer::instance());
+        $this->assertInstanceOf(__NAMESPACE__ . '\UnixPathNormalizer', $actual);
+        $this->assertSame($actual, UnixPathNormalizer::instance());
     }
 }

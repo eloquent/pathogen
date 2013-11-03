@@ -30,6 +30,6 @@ trait PlatformFileSystemPathFactoryTrait
      */
     protected function createDefaultPathFactory()
     {
-        return new PlatformFileSystemPathFactory;
+        return PlatformFileSystemPathFactory::instance();
     }
 }

@@ -9,32 +9,38 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\Windows\Factory;
+namespace Eloquent\Pathogen\FileSystem;
 
 use Eloquent\Liberator\Liberator;
 use Eloquent\Pathogen\Windows\AbsoluteWindowsPath;
 use Eloquent\Pathogen\Windows\RelativeWindowsPath;
+use Icecave\Isolator\Isolator;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
-class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
+class PlatformFileSystemPathTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
         parent::setUp();
 
-        $this->factory = new WindowsPathFactory('X');
+        $this->isolator = Phake::mock(Isolator::className());
+        $this->factory = Phake::partialMock(
+            __NAMESPACE__ . '\Factory\PlatformFileSystemPathFactory',
+            null,
+            null,
+            $this->isolator
+        );
+        Liberator::liberateClass(__NAMESPACE__ . '\Factory\PlatformFileSystemPathFactory')->instance = $this->factory;
+
+        Phake::when($this->isolator)->defined('PHP_WINDOWS_VERSION_BUILD')->thenReturn(true);
     }
 
-    public function testConstructor()
+    protected function tearDown()
     {
-        $this->assertSame('X', $this->factory->defaultDrive());
-    }
+        Liberator::liberateClass(__NAMESPACE__ . '\Factory\PlatformFileSystemPathFactory')->instance = null;
 
-    public function testConstructorDefaults()
-    {
-        $this->factory = new WindowsPathFactory;
-
-        $this->assertNull($this->factory->defaultDrive());
+        parent::tearDown();
     }
 
     public function createData()
@@ -74,15 +80,16 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider createData
      */
-    public function testCreate($pathString, $drive, array $atoms, $isAbsolute, $hasTrailingSeparator)
+    public function testFromString($pathString, $drive, array $atoms, $isAbsolute, $hasTrailingSeparator)
     {
-        $path = $this->factory->create($pathString);
+        $path = PlatformFileSystemPath::fromString($pathString);
 
         $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsoluteWindowsPath);
-        $this->assertSame($isAbsolute, !$path instanceof RelativeWindowsPath);
         if ($isAbsolute) {
+            $this->assertTrue($path instanceof AbsoluteWindowsPath);
             $this->assertSame($drive, $path->drive());
+        } else {
+            $this->assertTrue($path instanceof RelativeWindowsPath);
         }
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
@@ -92,57 +99,39 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateFromAtoms($pathString, $drive, array $atoms, $isAbsolute, $hasTrailingSeparator)
     {
-        $path = $this->factory->createFromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
+        $path = PlatformFileSystemPath::fromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
 
         $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsoluteWindowsPath);
-        $this->assertSame($isAbsolute, !$path instanceof RelativeWindowsPath);
         if ($isAbsolute) {
-            $this->assertSame('X', $path->drive());
+            $this->assertTrue($path instanceof AbsoluteWindowsPath);
+            $this->assertNull($path->drive());
+        } else {
+            $this->assertTrue($path instanceof RelativeWindowsPath);
         }
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 
-    public function testCreateFromAtomsDefaults()
+    public function testWorkingDirectoryPath()
     {
-        $path = $this->factory->createFromAtoms(array());
+        $path = PlatformFileSystemPath::fromString('foo');
+        Phake::when($this->factory)->createWorkingDirectoryPath()->thenReturn($path);
 
-        $this->assertTrue($path instanceof AbsoluteWindowsPath);
-        $this->assertFalse($path->hasTrailingSeparator());
+        $this->assertSame($path, PlatformFileSystemPath::workingDirectoryPath());
     }
 
-    /**
-     * @dataProvider createData
-     */
-    public function testCreateFromDriveAndAtoms($pathString, $drive, array $atoms, $isAbsolute, $hasTrailingSeparator)
+    public function testTemporaryDirectoryPath()
     {
-        $path = $this->factory->createFromDriveAndAtoms($atoms, $drive, $isAbsolute, $hasTrailingSeparator);
+        $path = PlatformFileSystemPath::fromString('foo');
+        Phake::when($this->factory)->createTemporaryDirectoryPath()->thenReturn($path);
 
-        $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsoluteWindowsPath);
-        $this->assertSame($isAbsolute, !$path instanceof RelativeWindowsPath);
-        if ($isAbsolute) {
-            $this->assertSame($drive, $path->drive());
-        }
-        $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
+        $this->assertSame($path, PlatformFileSystemPath::temporaryDirectoryPath());
     }
 
-    public function testCreateFromDriveAndAtomsFailureRelativeWithDrive()
+    public function testTemporaryPath()
     {
-        $this->setExpectedException(
-            'Eloquent\Pathogen\Exception\InvalidPathStateException',
-            "Path cannot be relative and have a drive specifier."
-        );
-        $this->factory->createFromDriveAndAtoms(array(), 'C', false);
-    }
+        $path = PlatformFileSystemPath::fromString('foo');
+        Phake::when($this->factory)->createTemporaryPath('bar')->thenReturn($path);
 
-    public function testInstance()
-    {
-        $class = Liberator::liberateClass(__NAMESPACE__ . '\WindowsPathFactory');
-        $class->instance = null;
-        $actual = WindowsPathFactory::instance();
-
-        $this->assertInstanceOf(__NAMESPACE__ . '\WindowsPathFactory', $actual);
-        $this->assertSame($actual, WindowsPathFactory::instance());
+        $this->assertSame($path, PlatformFileSystemPath::temporaryPath('bar'));
     }
 }

@@ -11,8 +11,9 @@
 
 namespace Eloquent\Pathogen\Unix\Factory;
 
-use Eloquent\Pathogen\Unix\AbsoluteUnixPathInterface;
-use Eloquent\Pathogen\Unix\RelativeUnixPathInterface;
+use Eloquent\Liberator\Liberator;
+use Eloquent\Pathogen\Unix\AbsoluteUnixPath;
+use Eloquent\Pathogen\Unix\RelativeUnixPath;
 use PHPUnit_Framework_TestCase;
 
 class UnixPathFactoryTest extends PHPUnit_Framework_TestCase
@@ -54,8 +55,8 @@ class UnixPathFactoryTest extends PHPUnit_Framework_TestCase
         $path = $this->factory->create($pathString);
 
         $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsoluteUnixPathInterface);
-        $this->assertSame($isAbsolute, !$path instanceof RelativeUnixPathInterface);
+        $this->assertSame($isAbsolute, $path instanceof AbsoluteUnixPath);
+        $this->assertSame($isAbsolute, !$path instanceof RelativeUnixPath);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 
@@ -67,8 +68,26 @@ class UnixPathFactoryTest extends PHPUnit_Framework_TestCase
         $path = $this->factory->createFromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
 
         $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsoluteUnixPathInterface);
-        $this->assertSame($isAbsolute, !$path instanceof RelativeUnixPathInterface);
+        $this->assertSame($isAbsolute, $path instanceof AbsoluteUnixPath);
+        $this->assertSame($isAbsolute, !$path instanceof RelativeUnixPath);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
+    }
+
+    public function testCreateFromAtomsDefaults()
+    {
+        $path = $this->factory->createFromAtoms(array());
+
+        $this->assertTrue($path instanceof AbsoluteUnixPath);
+        $this->assertFalse($path->hasTrailingSeparator());
+    }
+
+    public function testInstance()
+    {
+        $class = Liberator::liberateClass(__NAMESPACE__ . '\UnixPathFactory');
+        $class->instance = null;
+        $actual = UnixPathFactory::instance();
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\UnixPathFactory', $actual);
+        $this->assertSame($actual, UnixPathFactory::instance());
     }
 }

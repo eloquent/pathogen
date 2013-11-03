@@ -20,6 +20,20 @@ use Eloquent\Pathogen\PathInterface;
 class PathResolver implements PathResolverInterface
 {
     /**
+     * Get a static instance of this path resolver.
+     *
+     * @return PathResolverInterface The static path resolver.
+     */
+    public static function instance()
+    {
+        if (null === static::$instance) {
+            static::$instance = new static;
+        }
+
+        return static::$instance;
+    }
+
+    /**
      * Resolve a path against a given base path.
      *
      * @param AbsolutePathInterface $basePath The base path.
@@ -37,4 +51,6 @@ class PathResolver implements PathResolverInterface
 
         return $basePath->join($path);
     }
+
+    private static $instance;
 }

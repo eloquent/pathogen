@@ -11,6 +11,7 @@
 
 namespace Eloquent\Pathogen\Resolver;
 
+use Eloquent\Liberator\Liberator;
 use Eloquent\Pathogen\Factory\PathFactory;
 use PHPUnit_Framework_TestCase;
 
@@ -78,5 +79,15 @@ class PathResolverTest extends PHPUnit_Framework_TestCase
         $resolved = $this->resolver->resolve($basePath, $path);
 
         $this->assertSame($expectedResult, $resolved->string());
+    }
+
+    public function testInstance()
+    {
+        $class = Liberator::liberateClass(__NAMESPACE__ . '\PathResolver');
+        $class->instance = null;
+        $actual = PathResolver::instance();
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\PathResolver', $actual);
+        $this->assertSame($actual, PathResolver::instance());
     }
 }

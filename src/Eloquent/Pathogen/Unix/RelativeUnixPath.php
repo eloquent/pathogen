@@ -11,38 +11,52 @@
 
 namespace Eloquent\Pathogen\Unix;
 
-use Eloquent\Pathogen\FileSystem\AbstractRelativeFileSystemPath;
+use Eloquent\Pathogen\Factory\PathFactoryInterface;
+use Eloquent\Pathogen\FileSystem\RelativeFileSystemPathInterface;
+use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 use Eloquent\Pathogen\PathInterface;
+use Eloquent\Pathogen\RelativePath;
 
 /**
  * Represents a relative Unix path.
  */
-class RelativeUnixPath extends AbstractRelativeFileSystemPath implements
+class RelativeUnixPath extends RelativePath implements
+    RelativeFileSystemPathInterface,
     RelativeUnixPathInterface
 {
-    /**
-     * Creates a new path instance of the most appropriate type.
-     *
-     * This method is called internally every time a new path instance is
-     * created as part of another method call. It can be overridden in child
-     * classes to change which classes are used when creating new path
-     * instances.
-     *
-     * @param mixed<string> $atoms                The path atoms.
-     * @param boolean       $isAbsolute           True if the new path should be absolute.
-     * @param boolean|null  $hasTrailingSeparator True if the new path should have a trailing separator.
-     *
-     * @return PathInterface The newly created path instance.
-     */
-    protected function createPath(
-        $atoms,
-        $isAbsolute,
-        $hasTrailingSeparator = null
-    ) {
-        if ($isAbsolute) {
-            return new AbsoluteUnixPath($atoms, $hasTrailingSeparator);
-        }
+    // Implementation of PathInterface =========================================
 
-        return new RelativeUnixPath($atoms, $hasTrailingSeparator);
+    /**
+     * Get the parent of this path a specified number of levels up.
+     *
+     * @param integer|null $numLevels The number of levels up. Defaults to 1.
+     *
+     * @return PathInterface The parent of this path $numLevels up.
+     */
+    public function parent($numLevels = null)
+    {
+        return parent::parent($numLevels)->normalize();
+    }
+
+    // Implementation details ==================================================
+
+    /**
+     * Get the most appropriate path factory for this type of path.
+     *
+     * @return PathFactoryInterface The path factory.
+     */
+    protected static function factory()
+    {
+        return Factory\UnixPathFactory::instance();
+    }
+
+    /**
+     * Get the most appropriate path normalizer for this type of path.
+     *
+     * @return PathNormalizerInterface The path normalizer.
+     */
+    protected static function normalizer()
+    {
+        return Normalizer\UnixPathNormalizer::instance();
     }
 }

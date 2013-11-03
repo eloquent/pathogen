@@ -23,6 +23,20 @@ use Eloquent\Pathogen\Unix\RelativeUnixPath;
 class UnixPathFactory extends PathFactory
 {
     /**
+     * Get a static instance of this path factory.
+     *
+     * @return PathFactoryInterface The static path factory.
+     */
+    public static function instance()
+    {
+        if (null === static::$instance) {
+            static::$instance = new static;
+        }
+
+        return static::$instance;
+    }
+
+    /**
      * Creates a new path instance from a set of path atoms.
      *
      * Unless otherwise specified, created paths will be absolute, and have no
@@ -40,10 +54,15 @@ class UnixPathFactory extends PathFactory
         $isAbsolute = null,
         $hasTrailingSeparator = null
     ) {
+        if (null === $isAbsolute) {
+            $isAbsolute = true;
+        }
         if ($isAbsolute) {
             return new AbsoluteUnixPath($atoms, $hasTrailingSeparator);
         }
 
         return new RelativeUnixPath($atoms, $hasTrailingSeparator);
     }
+
+    private static $instance;
 }

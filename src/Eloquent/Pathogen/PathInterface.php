@@ -276,15 +276,11 @@ interface PathInterface
     /**
      * Get the parent of this path a specified number of levels up.
      *
-     * @param integer|null                            $numLevels  The number of levels up. Defaults to 1.
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the parent.
+     * @param integer|null $numLevels The number of levels up. Defaults to 1.
      *
      * @return PathInterface The parent of this path $numLevels up.
      */
-    public function parent(
-        $numLevels = null,
-        Normalizer\PathNormalizerInterface $normalizer = null
-    );
+    public function parent($numLevels = null);
 
     /**
      * Strips the trailing slash from this path.
@@ -477,11 +473,7 @@ interface PathInterface
     /**
      * Normalize this path to its most canonical form.
      *
-     * @param Normalizer\PathNormalizerInterface|null $normalizer
-     *
      * @return PathInterface The normalized path.
      */
-    public function normalize(
-        Normalizer\PathNormalizerInterface $normalizer = null
-    );
+    public function normalize();
 }

@@ -50,7 +50,7 @@ trait PathResolverTrait
      */
     protected function createDefaultPathResolver()
     {
-        return new PathResolver;
+        return PathResolver::instance();
     }
 
     private $pathResolver;

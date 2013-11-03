@@ -24,6 +24,20 @@ use Eloquent\Pathogen\RelativePathInterface;
 class PathNormalizer implements PathNormalizerInterface
 {
     /**
+     * Get a static instance of this path normalizer.
+     *
+     * @return PathNormalizerInterface The static path normalizer.
+     */
+    public static function instance()
+    {
+        if (null === static::$instance) {
+            static::$instance = new static;
+        }
+
+        return static::$instance;
+    }
+
+    /**
      * Construct a new path normalizer.
      *
      * @param PathFactoryInterface|null $factory The path factory to use.
@@ -31,7 +45,7 @@ class PathNormalizer implements PathNormalizerInterface
     public function __construct(PathFactoryInterface $factory = null)
     {
         if (null === $factory) {
-            $factory = new PathFactory;
+            $factory = PathFactory::instance();
         }
 
         $this->factory = $factory;
@@ -152,5 +166,6 @@ class PathNormalizer implements PathNormalizerInterface
         return $resultingAtoms;
     }
 
+    private static $instance;
     private $factory;
 }

@@ -16,6 +16,45 @@ namespace Eloquent\Pathogen;
  */
 class RelativePath extends AbstractPath implements RelativePathInterface
 {
+    /**
+     * Creates a new relative path instance from its string representation.
+     *
+     * @param string $path The string representation of the relative path.
+     *
+     * @return RelativePathInterface              The newly created relative path instance.
+     * @throws Exception\NonRelativePathException If the supplied string represents a non-relative path.
+     */
+    public static function fromString($path)
+    {
+        $pathObject = static::factory()->create($path);
+        if (!$pathObject instanceof RelativePathInterface) {
+            throw new Exception\NonRelativePathException($pathObject);
+        }
+
+        return $pathObject;
+    }
+
+    /**
+     * Creates a new relative path from a set of path atoms.
+     *
+     * Unless otherwise specified, created paths will have no trailing
+     * separator.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
+     *
+     * @return RelativePathInterface                       The newly created relative path.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
+     */
+    public static function fromAtoms($atoms, $hasTrailingSeparator = null)
+    {
+        return static::factory()->createFromAtoms(
+            $atoms,
+            false,
+            $hasTrailingSeparator
+        );
+    }
+
     // Implementation of PathInterface =========================================
 
     /**
@@ -57,20 +96,25 @@ class RelativePath extends AbstractPath implements RelativePathInterface
      * The self path is a relative path with a single self atom (i.e. a dot
      * '.').
      *
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
-     *
      * @return boolean True if this path is the self path.
      */
-    public function isSelf(
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        if (null === $normalizer) {
-            $normalizer = $this->createDefaultNormalizer();
-        }
-
-        $atoms = $this->normalize($normalizer)->atoms();
+    public function isSelf()
+    {
+        $atoms = $this->normalize()->atoms();
 
         return 1 === count($atoms) && static::SELF_ATOM === $atoms[0];
+    }
+
+    /**
+     * Resolve this path against the supplied path.
+     *
+     * @param AbsolutePathInterface $basePath The path to resolve against.
+     *
+     * @return AbsolutePathInterface The resolved path.
+     */
+    public function resolveAgainst(AbsolutePathInterface $basePath)
+    {
+        return static::resolver()->resolve($basePath, $this);
     }
 
     // Implementation details ==================================================

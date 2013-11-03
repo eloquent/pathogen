@@ -9,30 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloquent\Pathogen\FileSystem\Factory;
-
-use Eloquent\Pathogen\PathInterface;
+namespace Eloquent\Pathogen;
 
 /**
- * A path factory that produces file system paths whose type correlates to the
- * platform on which the code is running.
+ * A static utility class for constructing generic paths.
+ *
+ * Do not use this class in type hints; use PathInterface instead.
  */
-class PlatformFileSystemPathFactory extends AbstractFileSystemPathFactory
+abstract class Path
 {
-    /**
-     * Get a static instance of this path factory.
-     *
-     * @return FileSystemPathFactoryInterface The static path factory.
-     */
-    public static function instance()
-    {
-        if (null === static::$instance) {
-            static::$instance = new static;
-        }
-
-        return static::$instance;
-    }
-
     /**
      * Creates a new path instance from its string representation.
      *
@@ -40,9 +25,9 @@ class PlatformFileSystemPathFactory extends AbstractFileSystemPathFactory
      *
      * @return PathInterface The newly created path instance.
      */
-    public function create($path)
+    public static function fromString($path)
     {
-        return $this->factoryByPlatform()->create($path);
+        return static::factory()->create($path);
     }
 
     /**
@@ -55,20 +40,28 @@ class PlatformFileSystemPathFactory extends AbstractFileSystemPathFactory
      * @param boolean|null  $isAbsolute           True if the path is absolute.
      * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
-     * @return PathInterface                     The newly created path instance.
-     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
+     * @return PathInterface                               The newly created path instance.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
      */
-    public function createFromAtoms(
+    public static function fromAtoms(
         $atoms,
         $isAbsolute = null,
         $hasTrailingSeparator = null
     ) {
-        return $this->factoryByPlatform()->createFromAtoms(
+        return static::factory()->createFromAtoms(
             $atoms,
             $isAbsolute,
             $hasTrailingSeparator
         );
     }
 
-    private static $instance;
+    /**
+     * Get the most appropriate path factory for this type of path.
+     *
+     * @return Factory\PathFactoryInterface The path factory.
+     */
+    protected static function factory()
+    {
+        return Factory\PathFactory::instance();
+    }
 }
