@@ -1042,11 +1042,21 @@ abstract class AbstractPath implements PathInterface
         $isAbsolute,
         $hasTrailingSeparator = null
     ) {
-        if ($isAbsolute) {
-            return new AbsolutePath($atoms, $hasTrailingSeparator);
-        }
+        return static::factory()->createFromAtoms(
+            $atoms,
+            $isAbsolute,
+            $hasTrailingSeparator
+        );
+    }
 
-        return new RelativePath($atoms, $hasTrailingSeparator);
+    /**
+     * Get the most appropriate path factory for this type of path.
+     *
+     * @return Factory\PathFactoryInterface The path factory.
+     */
+    protected static function factory()
+    {
+        return Factory\PathFactory::instance();
     }
 
     /**

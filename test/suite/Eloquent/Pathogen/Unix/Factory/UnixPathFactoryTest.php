@@ -11,6 +11,7 @@
 
 namespace Eloquent\Pathogen\Unix\Factory;
 
+use Eloquent\Liberator\Liberator;
 use Eloquent\Pathogen\Unix\AbsoluteUnixPathInterface;
 use Eloquent\Pathogen\Unix\RelativeUnixPathInterface;
 use PHPUnit_Framework_TestCase;
@@ -70,5 +71,15 @@ class UnixPathFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertSame($isAbsolute, $path instanceof AbsoluteUnixPathInterface);
         $this->assertSame($isAbsolute, !$path instanceof RelativeUnixPathInterface);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
+    }
+
+    public function testInstance()
+    {
+        $class = Liberator::liberateClass(__NAMESPACE__ . '\UnixPathFactory');
+        $class->instance = null;
+        $actual = UnixPathFactory::instance();
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\UnixPathFactory', $actual);
+        $this->assertSame($actual, UnixPathFactory::instance());
     }
 }

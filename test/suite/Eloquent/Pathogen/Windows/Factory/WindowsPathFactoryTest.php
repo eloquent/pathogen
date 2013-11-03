@@ -11,6 +11,7 @@
 
 namespace Eloquent\Pathogen\Windows\Factory;
 
+use Eloquent\Liberator\Liberator;
 use Eloquent\Pathogen\RelativePathInterface;
 use Eloquent\Pathogen\Windows\AbsoluteWindowsPathInterface;
 use PHPUnit_Framework_TestCase;
@@ -125,5 +126,15 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
             "Path cannot be relative and have a drive specifier."
         );
         $this->factory->createFromDriveAndAtoms(array(), 'C', false);
+    }
+
+    public function testInstance()
+    {
+        $class = Liberator::liberateClass(__NAMESPACE__ . '\WindowsPathFactory');
+        $class->instance = null;
+        $actual = WindowsPathFactory::instance();
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\WindowsPathFactory', $actual);
+        $this->assertSame($actual, WindowsPathFactory::instance());
     }
 }

@@ -22,7 +22,8 @@
         "icecave/isolator": "~2"
     },
     "require-dev": {
-        "icecave/archer": "~1"
+        "icecave/archer": "~1",
+        "eloquent/liberator": "~1"
     },
     "autoload": {
         "psr-0": {

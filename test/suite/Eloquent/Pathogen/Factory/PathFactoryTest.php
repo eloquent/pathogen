@@ -11,6 +11,7 @@
 
 namespace Eloquent\Pathogen\Factory;
 
+use Eloquent\Liberator\Liberator;
 use Eloquent\Pathogen\AbsolutePathInterface;
 use Eloquent\Pathogen\RelativePathInterface;
 use PHPUnit_Framework_TestCase;
@@ -78,5 +79,15 @@ class PathFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue($path instanceof AbsolutePathInterface);
         $this->assertFalse($path->hasTrailingSeparator());
+    }
+
+    public function testInstance()
+    {
+        $class = Liberator::liberateClass(__NAMESPACE__ . '\PathFactory');
+        $class->instance = null;
+        $actual = PathFactory::instance();
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\PathFactory', $actual);
+        $this->assertSame($actual, PathFactory::instance());
     }
 }

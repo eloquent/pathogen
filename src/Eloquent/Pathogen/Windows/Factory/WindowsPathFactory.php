@@ -26,6 +26,20 @@ class WindowsPathFactory extends PathFactory implements
     WindowsPathFactoryInterface
 {
     /**
+     * Get a static instance of this path factory.
+     *
+     * @return PathFactoryInterface The static path factory.
+     */
+    public static function instance()
+    {
+        if (null === static::$instance) {
+            static::$instance = new static;
+        }
+
+        return static::$instance;
+    }
+
+    /**
      * Construct a new Windows path factory.
      *
      * @param string $defaultDrive The default drive specifier to use when none is specified, or null to leave the drive specifier empty.
@@ -167,5 +181,6 @@ class WindowsPathFactory extends PathFactory implements
         return new RelativeWindowsPath($atoms, $hasTrailingSeparator);
     }
 
+    private static $instance;
     private $defaultDrive;
 }

@@ -23,6 +23,20 @@ use Eloquent\Pathogen\RelativePath;
 class PathFactory implements PathFactoryInterface
 {
     /**
+     * Get a static instance of this path factory.
+     *
+     * @return PathFactoryInterface The static path factory.
+     */
+    public static function instance()
+    {
+        if (null === static::$instance) {
+            static::$instance = new static;
+        }
+
+        return static::$instance;
+    }
+
+    /**
      * Creates a new path instance from its string representation.
      *
      * @param string $path The string representation of the path.
@@ -96,4 +110,6 @@ class PathFactory implements PathFactoryInterface
 
         return new RelativePath($atoms, $hasTrailingSeparator);
     }
+
+    private static $instance;
 }

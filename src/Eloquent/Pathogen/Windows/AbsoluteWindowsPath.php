@@ -280,7 +280,11 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
             );
         }
 
-        return new RelativeWindowsPath($atoms, $hasTrailingSeparator);
+        return static::factory()->createFromAtoms(
+            $atoms,
+            false,
+            $hasTrailingSeparator
+        );
     }
 
     /**
@@ -302,7 +306,22 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
         $drive,
         $hasTrailingSeparator = null
     ) {
-        return new AbsoluteWindowsPath($atoms, $drive, $hasTrailingSeparator);
+        return static::factory()->createFromDriveAndAtoms(
+            $atoms,
+            $drive,
+            true,
+            $hasTrailingSeparator
+        );
+    }
+
+    /**
+     * Get the most appropriate path factory for this type of path.
+     *
+     * @return PathFactoryInterface The path factory.
+     */
+    protected static function factory()
+    {
+        return Factory\WindowsPathFactory::instance();
     }
 
     private $drive;
