@@ -448,7 +448,7 @@ $path = Path::fromString('../child');
 $resolvedPath = $basePath->resolve($path);
 
 echo $resolvedPath->string();              // outputs '/path/to/base/../child'
-echo $resolvedPath->string()->normalize(); // outputs '/path/to/child'
+echo $resolvedPath->normalize()->string(); // outputs '/path/to/child'
 ```
 
 ### Determining whether one path exists inside another
