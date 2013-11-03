@@ -12,51 +12,15 @@
 namespace Eloquent\Pathogen\Windows;
 
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
+use Eloquent\Pathogen\Path;
 
 /**
  * A static utility class for constructing Windows paths.
  *
  * Do not use this class in type hints; use WindowsPathInterface instead.
  */
-abstract class WindowsPath
+abstract class WindowsPath extends Path
 {
-    /**
-     * Creates a new path instance from its string representation.
-     *
-     * @param string $path The string representation of the path.
-     *
-     * @return WindowsPathInterface The newly created path instance.
-     */
-    public static function fromString($path)
-    {
-        return static::factory()->create($path);
-    }
-
-    /**
-     * Creates a new path instance from a set of path atoms.
-     *
-     * Unless otherwise specified, created paths will be absolute, and have no
-     * trailing separator.
-     *
-     * @param mixed<string> $atoms                The path atoms.
-     * @param boolean|null  $isAbsolute           True if the path is absolute.
-     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
-     *
-     * @return WindowsPathInterface              The newly created path instance.
-     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
-     */
-    public static function fromAtoms(
-        $atoms,
-        $isAbsolute = null,
-        $hasTrailingSeparator = null
-    ) {
-        return static::factory()->createFromAtoms(
-            $atoms,
-            $isAbsolute,
-            $hasTrailingSeparator
-        );
-    }
-
     /**
      * Creates a new path instance from a set of path atoms and a drive
      * specifier.

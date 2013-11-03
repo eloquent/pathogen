@@ -17,13 +17,12 @@ use Eloquent\Pathogen\Path;
 /**
  * A static utility class for constructing file system paths.
  *
- * This class utilizes a path factory that produces file system paths by
- * inspecting the supplied string, and determining the most suitable path type
- * to use.
+ * This class utilizes a path factory that produces file system paths whose type
+ * correlates to the platform on which the code is running.
  *
  * Do not use this class in type hints; use FileSystemPathInterface instead.
  */
-abstract class FileSystemPath extends Path
+abstract class PlatformFileSystemPath extends Path
 {
     /**
      * Get the most appropriate path factory for this type of path.
@@ -32,6 +31,6 @@ abstract class FileSystemPath extends Path
      */
     protected static function factory()
     {
-        return Factory\FileSystemPathFactory::instance();
+        return Factory\PlatformFileSystemPathFactory::instance();
     }
 }

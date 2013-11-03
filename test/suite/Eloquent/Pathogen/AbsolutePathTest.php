@@ -1306,57 +1306,45 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function createData()
     {
-        //                                                 path                     atoms                             isAbsolute  hasTrailingSeparator
+        //                                                 path                     atoms                             hasTrailingSeparator
         return array(
-            'Root'                                => array('/',                     array(),                          true,       false),
-            'Absolute'                            => array('/foo/bar',              array('foo', 'bar'),              true,       false),
-            'Absolute with trailing separator'    => array('/foo/bar/',             array('foo', 'bar'),              true,       true),
-            'Absolute with empty atoms'           => array('/foo//bar',             array('foo', 'bar'),              true,       false),
-            'Absolute with empty atoms at start'  => array('//foo',                 array('foo'),                     true,       false),
-            'Absolute with empty atoms at end'    => array('/foo//',                array('foo'),                     true,       true),
-            'Absolute with whitespace atoms'      => array('/ foo bar / baz qux ',  array(' foo bar ', ' baz qux '),  true,       false),
-
-            'Empty'                               => array('',                      array('.'),                       false,      false),
-            'Self'                                => array('.',                     array('.'),                       false,      false),
-            'Relative'                            => array('foo/bar',               array('foo', 'bar'),              false,      false),
-            'Relative with trailing separator'    => array('foo/bar/',              array('foo', 'bar'),              false,      true),
-            'Relative with empty atoms'           => array('foo//bar',              array('foo', 'bar'),              false,      false),
-            'Relative with empty atoms at end'    => array('foo/bar//',             array('foo', 'bar'),              false,      true),
-            'Relative with whitespace atoms'      => array(' foo bar / baz qux ',   array(' foo bar ', ' baz qux '),  false,      false),
+            'Root'                                => array('/',                     array(),                          false),
+            'Absolute'                            => array('/foo/bar',              array('foo', 'bar'),              false),
+            'Absolute with trailing separator'    => array('/foo/bar/',             array('foo', 'bar'),              true),
+            'Absolute with empty atoms'           => array('/foo//bar',             array('foo', 'bar'),              false),
+            'Absolute with empty atoms at start'  => array('//foo',                 array('foo'),                     false),
+            'Absolute with empty atoms at end'    => array('/foo//',                array('foo'),                     true),
+            'Absolute with whitespace atoms'      => array('/ foo bar / baz qux ',  array(' foo bar ', ' baz qux '),  false),
         );
     }
 
     /**
      * @dataProvider createData
      */
-    public function testFromString($pathString, array $atoms, $isAbsolute, $hasTrailingSeparator)
+    public function testFromString($pathString, array $atoms, $hasTrailingSeparator)
     {
         $path = AbsolutePath::fromString($pathString);
 
         $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsolutePath);
-        $this->assertSame($isAbsolute, !$path instanceof RelativePath);
+        $this->assertTrue($path instanceof AbsolutePath);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
+    }
+
+    public function testFromStringFailureRelative()
+    {
+        $this->setExpectedException(__NAMESPACE__ . '\Exception\NonAbsolutePathException');
+        AbsolutePath::fromString('foo');
     }
 
     /**
      * @dataProvider createData
      */
-    public function testCreateFromAtoms($pathString, array $atoms, $isAbsolute, $hasTrailingSeparator)
+    public function testCreateFromAtoms($pathString, array $atoms, $hasTrailingSeparator)
     {
-        $path = AbsolutePath::fromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
+        $path = AbsolutePath::fromAtoms($atoms, $hasTrailingSeparator);
 
         $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsolutePath);
-        $this->assertSame($isAbsolute, !$path instanceof RelativePath);
-        $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
-    }
-
-    public function testCreateFromAtomsDefaults()
-    {
-        $path = AbsolutePath::fromAtoms(array());
-
         $this->assertTrue($path instanceof AbsolutePath);
-        $this->assertFalse($path->hasTrailingSeparator());
+        $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 }

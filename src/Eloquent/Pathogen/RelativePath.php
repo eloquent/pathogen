@@ -16,6 +16,45 @@ namespace Eloquent\Pathogen;
  */
 class RelativePath extends AbstractPath implements RelativePathInterface
 {
+    /**
+     * Creates a new relative path instance from its string representation.
+     *
+     * @param string $path The string representation of the relative path.
+     *
+     * @return RelativePathInterface              The newly created relative path instance.
+     * @throws Exception\NonRelativePathException If the supplied string represents a non-relative path.
+     */
+    public static function fromString($path)
+    {
+        $pathObject = static::factory()->create($path);
+        if (!$pathObject instanceof RelativePathInterface) {
+            throw new Exception\NonRelativePathException($pathObject);
+        }
+
+        return $pathObject;
+    }
+
+    /**
+     * Creates a new relative path from a set of path atoms.
+     *
+     * Unless otherwise specified, created paths will have no trailing
+     * separator.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
+     *
+     * @return RelativePathInterface                       The newly created relative path.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
+     */
+    public static function fromAtoms($atoms, $hasTrailingSeparator = null)
+    {
+        return static::factory()->createFromAtoms(
+            $atoms,
+            false,
+            $hasTrailingSeparator
+        );
+    }
+
     // Implementation of PathInterface =========================================
 
     /**

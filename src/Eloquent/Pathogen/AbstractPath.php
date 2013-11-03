@@ -37,43 +37,6 @@ abstract class AbstractPath implements PathInterface
     const SELF_ATOM = '.';
 
     /**
-     * Creates a new path instance from its string representation.
-     *
-     * @param string $path The string representation of the path.
-     *
-     * @return PathInterface The newly created path instance.
-     */
-    public static function fromString($path)
-    {
-        return static::factory()->create($path);
-    }
-
-    /**
-     * Creates a new path instance from a set of path atoms.
-     *
-     * Unless otherwise specified, created paths will be absolute, and have no
-     * trailing separator.
-     *
-     * @param mixed<string> $atoms                The path atoms.
-     * @param boolean|null  $isAbsolute           True if the path is absolute.
-     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
-     *
-     * @return PathInterface                     The newly created path instance.
-     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
-     */
-    public static function fromAtoms(
-        $atoms,
-        $isAbsolute = null,
-        $hasTrailingSeparator = null
-    ) {
-        return static::factory()->createFromAtoms(
-            $atoms,
-            $isAbsolute,
-            $hasTrailingSeparator
-        );
-    }
-
-    /**
      * Construct a new path instance.
      *
      * @param mixed<string> $atoms                The path atoms.
@@ -1065,7 +1028,11 @@ abstract class AbstractPath implements PathInterface
         $isAbsolute,
         $hasTrailingSeparator = null
     ) {
-        return static::fromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
+        return static::factory()->createFromAtoms(
+            $atoms,
+            $isAbsolute,
+            $hasTrailingSeparator
+        );
     }
 
     /**

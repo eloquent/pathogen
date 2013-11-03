@@ -11,53 +11,16 @@
 
 namespace Eloquent\Pathogen\Unix;
 
-use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\Factory\PathFactoryInterface;
+use Eloquent\Pathogen\Path;
 
 /**
  * A static utility class for constructing Unix paths.
  *
  * Do not use this class in type hints; use UnixPathInterface instead.
  */
-abstract class UnixPath
+abstract class UnixPath extends Path
 {
-    /**
-     * Creates a new path instance from its string representation.
-     *
-     * @param string $path The string representation of the path.
-     *
-     * @return UnixPathInterface The newly created path instance.
-     */
-    public static function fromString($path)
-    {
-        return static::factory()->create($path);
-    }
-
-    /**
-     * Creates a new path instance from a set of path atoms.
-     *
-     * Unless otherwise specified, created paths will be absolute, and have no
-     * trailing separator.
-     *
-     * @param mixed<string> $atoms                The path atoms.
-     * @param boolean|null  $isAbsolute           True if the path is absolute.
-     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
-     *
-     * @return UnixPathInterface                 The newly created path instance.
-     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
-     */
-    public static function fromAtoms(
-        $atoms,
-        $isAbsolute = null,
-        $hasTrailingSeparator = null
-    ) {
-        return static::factory()->createFromAtoms(
-            $atoms,
-            $isAbsolute,
-            $hasTrailingSeparator
-        );
-    }
-
     /**
      * Get the most appropriate path factory for this type of path.
      *

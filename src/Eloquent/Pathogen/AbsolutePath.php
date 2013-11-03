@@ -16,6 +16,45 @@ namespace Eloquent\Pathogen;
  */
 class AbsolutePath extends AbstractPath implements AbsolutePathInterface
 {
+    /**
+     * Creates a new absolute path from its string representation.
+     *
+     * @param string $path The string representation of the absolute path.
+     *
+     * @return AbsolutePathInterface              The newly created absolute path.
+     * @throws Exception\NonAbsolutePathException If the supplied string represents a non-absolute path.
+     */
+    public static function fromString($path)
+    {
+        $pathObject = static::factory()->create($path);
+        if (!$pathObject instanceof AbsolutePathInterface) {
+            throw new Exception\NonAbsolutePathException($pathObject);
+        }
+
+        return $pathObject;
+    }
+
+    /**
+     * Creates a new absolute path from a set of path atoms.
+     *
+     * Unless otherwise specified, created paths will have no trailing
+     * separator.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
+     *
+     * @return AbsolutePathInterface                       The newly created absolute path.
+     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
+     */
+    public static function fromAtoms($atoms, $hasTrailingSeparator = null)
+    {
+        return static::factory()->createFromAtoms(
+            $atoms,
+            true,
+            $hasTrailingSeparator
+        );
+    }
+
     // Implementation of PathInterface =========================================
 
     /**
