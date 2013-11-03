@@ -1657,6 +1657,82 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
         $child->relativeTo($parent);
     }
 
+    public function resolveAbsolutePathData()
+    {
+        //                                                               basePath             path             expectedResult
+        return array(
+            'Root against single atom'                           => array('/',                '/foo',          '/foo'),
+            'Single atom against single atom'                    => array('/foo',             '/bar',          '/bar'),
+            'Multiple atoms against single atom'                 => array('/foo/bar',         '/baz',          '/baz'),
+            'Multiple atoms against multiple atoms'              => array('/foo/../../bar',   '/baz/../qux',   '/baz/../qux'),
+
+            'Root against single atom with drive'                => array('C:/',              'D:/foo',        'D:/foo'),
+            'Single atom against single atom with drive'         => array('C:/foo',           'D:/bar',        'D:/bar'),
+            'Multiple atoms against single atom with drive'      => array('C:/foo/bar',       'D:/baz',        'D:/baz'),
+            'Multiple atoms against multiple atoms with drive'   => array('C:/foo/../../bar', 'D:/baz/../qux', 'D:/baz/../qux'),
+        );
+    }
+
+    /**
+     * @dataProvider resolveAbsolutePathData
+     */
+    public function testResolveAbsolutePaths($basePathString, $pathString, $expectedResult)
+    {
+        $basePath = $this->factory->create($basePathString);
+        $path = $this->factory->create($pathString);
+        $resolved = $basePath->resolve($path);
+
+        $this->assertSame($expectedResult, $resolved->string());
+    }
+
+    public function resolveRelativePathData()
+    {
+        //                                                                                                   basePath       path        expectedResult
+        return array(
+            'Root against single atom'                                                              => array('/',           'foo',      '/foo'),
+            'Single atom against single atom'                                                       => array('/foo',        'bar',      '/foo/bar'),
+            'Multiple atoms against single atom'                                                    => array('/foo/bar',    'baz',      '/foo/bar/baz'),
+            'Multiple atoms with slash against single atoms'                                        => array('/foo/bar/',   'baz',      '/foo/bar/baz'),
+            'Multiple atoms against multiple atoms'                                                 => array('/foo/bar',    'baz/qux',  '/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms'                                      => array('/foo/bar/',   'baz/qux',  '/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms with slash'                           => array('/foo/bar/',   'baz/qux/', '/foo/bar/baz/qux'),
+            'Root against parent atom'                                                              => array('/',           '..',       '/..'),
+            'Single atom against parent atom'                                                       => array('/foo',        '..',       '/foo/..'),
+            'Single atom with slash against parent atom'                                            => array('/foo/',       '..',       '/foo/..'),
+            'Single atom with slash against parent atom with slash'                                 => array('/foo/',       '../',      '/foo/..'),
+            'Multiple atoms against parent and single atom'                                         => array('/foo/bar',    '../baz',   '/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom'                         => array('/foo/bar/',   '../baz',   '/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom with slash'              => array('/foo/bar/',   '../baz/',  '/foo/bar/../baz'),
+
+            'Root against single atom with drive'                                                   => array('C:/',         'foo',      'C:/foo'),
+            'Single atom against single atom with drive'                                            => array('C:/foo',      'bar',      'C:/foo/bar'),
+            'Multiple atoms against single atom with drive'                                         => array('C:/foo/bar',  'baz',      'C:/foo/bar/baz'),
+            'Multiple atoms with slash against single atoms with drive'                             => array('C:/foo/bar/', 'baz',      'C:/foo/bar/baz'),
+            'Multiple atoms against multiple atoms with drive'                                      => array('C:/foo/bar',  'baz/qux',  'C:/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms with drive'                           => array('C:/foo/bar/', 'baz/qux',  'C:/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms with slash with drive'                => array('C:/foo/bar/', 'baz/qux/', 'C:/foo/bar/baz/qux'),
+            'Root against parent atom with drive'                                                   => array('C:/',         '..',       'C:/..'),
+            'Single atom against parent atom with drive'                                            => array('C:/foo',      '..',       'C:/foo/..'),
+            'Single atom with slash against parent atom with drive'                                 => array('C:/foo/',     '..',       'C:/foo/..'),
+            'Single atom with slash against parent atom with slash with drive'                      => array('C:/foo/',     '../',      'C:/foo/..'),
+            'Multiple atoms against parent and single atom with drive'                              => array('C:/foo/bar',  '../baz',   'C:/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom with drive'              => array('C:/foo/bar/', '../baz',   'C:/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom with slash with drive'   => array('C:/foo/bar/', '../baz/',  'C:/foo/bar/../baz'),
+        );
+    }
+
+    /**
+     * @dataProvider resolveRelativePathData
+     */
+    public function testResolveRelativePaths($basePathString, $pathString, $expectedResult)
+    {
+        $basePath = $this->factory->create($basePathString);
+        $path = $this->factory->create($pathString);
+        $resolved = $basePath->resolve($path);
+
+        $this->assertSame($expectedResult, $resolved->string());
+    }
+
     public function replaceNameAtomsData()
     {
         //                                                        path                    offset  replacement              length  expectedResult

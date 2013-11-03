@@ -66,6 +66,18 @@ class RelativePath extends AbstractPath implements RelativePathInterface
         return 1 === count($atoms) && static::SELF_ATOM === $atoms[0];
     }
 
+    /**
+     * Resolve this path against the supplied path.
+     *
+     * @param AbsolutePathInterface $basePath The path to resolve against.
+     *
+     * @return AbsolutePathInterface The resolved path.
+     */
+    public function resolveAgainst(AbsolutePathInterface $basePath)
+    {
+        return static::resolver()->resolve($basePath, $this);
+    }
+
     // Implementation details ==================================================
 
     /**

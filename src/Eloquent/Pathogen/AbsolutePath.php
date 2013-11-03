@@ -158,4 +158,16 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
 
         return $this->createPath($diffAtoms, false);
     }
+
+    /**
+     * Resolve the supplied path against this path.
+     *
+     * @param PathInterface $path The path to resolve.
+     *
+     * @return AbsolutePathInterface The resolved path.
+     */
+    public function resolve(PathInterface $path)
+    {
+        return static::resolver()->resolve($this, $path);
+    }
 }

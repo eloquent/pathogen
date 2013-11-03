@@ -1213,6 +1213,62 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($expectedResultString, $result->string());
     }
 
+    public function resolveAbsolutePathData()
+    {
+        //                                                    basePath             path             expectedResult
+        return array(
+            'Root against single atom'                => array('/',                '/foo',          '/foo'),
+            'Single atom against single atom'         => array('/foo',             '/bar',          '/bar'),
+            'Multiple atoms against single atom'      => array('/foo/bar',         '/baz',          '/baz'),
+            'Multiple atoms against multiple atoms'   => array('/foo/../../bar',   '/baz/../qux',   '/baz/../qux'),
+        );
+    }
+
+    /**
+     * @dataProvider resolveAbsolutePathData
+     */
+    public function testResolveAbsolutePaths($basePathString, $pathString, $expectedResult)
+    {
+        $basePath = $this->factory->create($basePathString);
+        $path = $this->factory->create($pathString);
+        $resolved = $basePath->resolve($path);
+
+        $this->assertSame($expectedResult, $resolved->string());
+    }
+
+    public function resolveRelativePathData()
+    {
+        //                                                                                        basePath      path         expectedResult
+        return array(
+            'Root against single atom'                                                   => array('/',          'foo',       '/foo'),
+            'Single atom against single atom'                                            => array('/foo',       'bar',       '/foo/bar'),
+            'Multiple atoms against single atom'                                         => array('/foo/bar',   'baz',       '/foo/bar/baz'),
+            'Multiple atoms with slash against single atoms'                             => array('/foo/bar/',  'baz',       '/foo/bar/baz'),
+            'Multiple atoms against multiple atoms'                                      => array('/foo/bar',   'baz/qux',   '/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms'                           => array('/foo/bar/',  'baz/qux',   '/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms with slash'                => array('/foo/bar/',  'baz/qux/',  '/foo/bar/baz/qux'),
+            'Root against parent atom'                                                   => array('/',          '..',        '/..'),
+            'Single atom against parent atom'                                            => array('/foo',       '..',        '/foo/..'),
+            'Single atom with slash against parent atom'                                 => array('/foo/',      '..',        '/foo/..'),
+            'Single atom with slash against parent atom with slash'                      => array('/foo/',      '../',       '/foo/..'),
+            'Multiple atoms against parent and single atom'                              => array('/foo/bar',   '../baz',    '/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom'              => array('/foo/bar/',  '../baz',    '/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom with slash'   => array('/foo/bar/',  '../baz/',   '/foo/bar/../baz'),
+        );
+    }
+
+    /**
+     * @dataProvider resolveRelativePathData
+     */
+    public function testResolveRelativePaths($basePathString, $pathString, $expectedResult)
+    {
+        $basePath = $this->factory->create($basePathString);
+        $path = $this->factory->create($pathString);
+        $resolved = $basePath->resolve($path);
+
+        $this->assertSame($expectedResult, $resolved->string());
+    }
+
     public function replaceNameAtomsData()
     {
         //                                              path                 offset  replacement              length  expectedResult

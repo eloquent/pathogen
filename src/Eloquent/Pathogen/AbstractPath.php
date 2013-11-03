@@ -1055,6 +1055,16 @@ abstract class AbstractPath implements PathInterface
         return Normalizer\PathNormalizer::instance();
     }
 
+    /**
+     * Get the most appropriate path resolver for this type of path.
+     *
+     * @return Normalizer\PathResolverInterface The path resolver.
+     */
+    protected static function resolver()
+    {
+        return Resolver\PathResolver::instance();
+    }
+
     private $atoms;
     private $hasTrailingSeparator;
 }
