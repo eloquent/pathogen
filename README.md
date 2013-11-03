@@ -28,9 +28,15 @@ structures while providing a comprehensive API.
         - [Trailing separators](#trailing separators)
     - [Absolute and relative paths](#absolute-and-relative-paths)
     - [Special paths](#special-paths)
-    - [Path factories](#path-factories)
+    - [Creating paths](#creating-paths)
+        - [Static factory methods](#static-factory-methods)
+        - [Factory objects](#factory-objects)
     - [Path resolution](#path-resolution)
+        - [Resolution methods](#resolution-methods)
+        - [Resolver objects](#resolver-objects)
     - [Path normalization](#path-normalization)
+        - [Normalize method](#normalize-method)
+        - [Normalizer objects](#normalizer-objects)
     - [File system paths](#file-system-paths)
     - [Immutability of paths](#immutability-of-paths)
     - [Windows path support](#windows-path-support)
@@ -215,7 +221,7 @@ $path = Path::fromAtoms(array('path', 'to', 'foo'));
 $path = AbsoluteWindowsPath::fromDriveAndAtoms(array('path', 'to', 'foo'), 'C');
 ```
 
-#### Path factory objects
+#### Factory objects
 
 *Pathogen* provides factory classes for creating paths. All path factories
 implement [PathFactoryInterface] which allows a path to be created from various
