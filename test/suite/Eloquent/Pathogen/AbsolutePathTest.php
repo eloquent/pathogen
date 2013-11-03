@@ -12,7 +12,6 @@
 namespace Eloquent\Pathogen;
 
 use ArrayIterator;
-use Phake;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -1119,16 +1118,6 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $normalizedPath = $this->factory->create('/bar');
 
         $this->assertEquals($normalizedPath, $path->normalize());
-    }
-
-    public function testNormalizeCustomNormalizer()
-    {
-        $path = $this->factory->create('/foo/../bar');
-        $normalizedPath = $this->factory->create('/bar');
-        $normalizer = Phake::mock('Eloquent\Pathogen\Normalizer\PathNormalizerInterface');
-        Phake::when($normalizer)->normalize($path)->thenReturn($normalizedPath);
-
-        $this->assertSame($normalizedPath, $path->normalize($normalizer));
     }
 
     // tests for AbsolutePathInterface implementation ==========================

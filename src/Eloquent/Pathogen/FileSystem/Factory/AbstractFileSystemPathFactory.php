@@ -36,10 +36,10 @@ abstract class AbstractFileSystemPathFactory implements
         Isolator $isolator = null
     ) {
         if (null === $unixFactory) {
-            $unixFactory = new UnixPathFactory;
+            $unixFactory = UnixPathFactory::instance();
         }
         if (null === $windowsFactory) {
-            $windowsFactory = new WindowsPathFactory;
+            $windowsFactory = WindowsPathFactory::instance();
         }
 
         $this->unixFactory = $unixFactory;

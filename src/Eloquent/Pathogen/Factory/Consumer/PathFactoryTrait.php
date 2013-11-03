@@ -50,7 +50,7 @@ trait PathFactoryTrait
      */
     protected function createDefaultPathFactory()
     {
-        return new PathFactory;
+        return PathFactory::instance();
     }
 
     private $pathFactory;

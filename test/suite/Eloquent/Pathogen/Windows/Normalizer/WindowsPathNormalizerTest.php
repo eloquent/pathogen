@@ -11,6 +11,7 @@
 
 namespace Eloquent\Pathogen\Windows\Normalizer;
 
+use Eloquent\Liberator\Liberator;
 use Eloquent\Pathogen\Windows\Factory\WindowsPathFactory;
 use PHPUnit_Framework_TestCase;
 
@@ -21,7 +22,19 @@ class WindowsPathNormalizerTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->factory = new WindowsPathFactory;
+        $this->normalizer = new WindowsPathNormalizer($this->factory);
+    }
+
+    public function testConstructor()
+    {
+        $this->assertSame($this->factory, $this->normalizer->factory());
+    }
+
+    public function testConstructorDefaults()
+    {
         $this->normalizer = new WindowsPathNormalizer;
+
+        $this->assertEquals($this->factory, $this->normalizer->factory());
     }
 
     public function normalizeAbsolutePathData()
@@ -125,5 +138,15 @@ class WindowsPathNormalizerTest extends PHPUnit_Framework_TestCase
         $normalized = $this->normalizer->normalize($path);
 
         $this->assertSame($expectedResult, $normalized->string());
+    }
+
+    public function testInstance()
+    {
+        $class = Liberator::liberateClass(__NAMESPACE__ . '\WindowsPathNormalizer');
+        $class->instance = null;
+        $actual = WindowsPathNormalizer::instance();
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\WindowsPathNormalizer', $actual);
+        $this->assertSame($actual, WindowsPathNormalizer::instance());
     }
 }

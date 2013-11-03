@@ -11,18 +11,31 @@
 
 namespace Eloquent\Pathogen\FileSystem\Normalizer;
 
-use Eloquent\Pathogen\Normalizer\PathNormalizer;
 use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 use Eloquent\Pathogen\PathInterface;
+use Eloquent\Pathogen\Unix\Normalizer\UnixPathNormalizer;
 use Eloquent\Pathogen\Windows\Normalizer\WindowsPathNormalizer;
 use Eloquent\Pathogen\Windows\WindowsPathInterface;
-use Eloquent\Pathogen\Unix\Factory\UnixPathFactory;
 
 /**
  * A path normalizer capable or normalizing any type of file system path.
  */
 class FileSystemPathNormalizer implements PathNormalizerInterface
 {
+    /**
+     * Get a static instance of this path normalizer.
+     *
+     * @return PathNormalizerInterface The static path normalizer.
+     */
+    public static function instance()
+    {
+        if (null === static::$instance) {
+            static::$instance = new static;
+        }
+
+        return static::$instance;
+    }
+
     /**
      * Construct a new file system path normalizer.
      *
@@ -34,12 +47,10 @@ class FileSystemPathNormalizer implements PathNormalizerInterface
         PathNormalizerInterface $windowsNormalizer = null
     ) {
         if (null === $unixNormalizer) {
-            $unixNormalizer = new PathNormalizer(
-                new UnixPathFactory
-            );
+            $unixNormalizer = UnixPathNormalizer::instance();
         }
         if (null === $windowsNormalizer) {
-            $windowsNormalizer = new WindowsPathNormalizer;
+            $windowsNormalizer = WindowsPathNormalizer::instance();
         }
 
         $this->unixNormalizer = $unixNormalizer;
@@ -82,6 +93,7 @@ class FileSystemPathNormalizer implements PathNormalizerInterface
         return $this->unixNormalizer()->normalize($path);
     }
 
+    private static $instance;
     private $unixNormalizer;
     private $windowsNormalizer;
 }

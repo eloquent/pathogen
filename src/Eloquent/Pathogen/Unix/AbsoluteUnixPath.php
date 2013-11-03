@@ -11,15 +11,35 @@
 
 namespace Eloquent\Pathogen\Unix;
 
+use Eloquent\Pathogen\AbsolutePath;
 use Eloquent\Pathogen\Factory\PathFactoryInterface;
-use Eloquent\Pathogen\FileSystem\AbstractAbsoluteFileSystemPath;
+use Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface;
+use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
+use Eloquent\Pathogen\PathInterface;
 
 /**
  * Represents an absolute Unix path.
  */
-class AbsoluteUnixPath extends AbstractAbsoluteFileSystemPath implements
+class AbsoluteUnixPath extends AbsolutePath implements
+    AbsoluteFileSystemPathInterface,
     AbsoluteUnixPathInterface
 {
+    // Implementation of PathInterface =========================================
+
+    /**
+     * Get the parent of this path a specified number of levels up.
+     *
+     * @param integer|null $numLevels The number of levels up. Defaults to 1.
+     *
+     * @return PathInterface The parent of this path $numLevels up.
+     */
+    public function parent($numLevels = null)
+    {
+        return parent::parent($numLevels)->normalize();
+    }
+
+    // Implementation details ==================================================
+
     /**
      * Get the most appropriate path factory for this type of path.
      *
@@ -28,5 +48,15 @@ class AbsoluteUnixPath extends AbstractAbsoluteFileSystemPath implements
     protected static function factory()
     {
         return Factory\UnixPathFactory::instance();
+    }
+
+    /**
+     * Get the most appropriate path normalizer for this type of path.
+     *
+     * @return PathNormalizerInterface The path normalizer.
+     */
+    protected static function normalizer()
+    {
+        return Normalizer\UnixPathNormalizer::instance();
     }
 }

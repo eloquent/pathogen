@@ -569,15 +569,12 @@ abstract class AbstractPath implements PathInterface
     /**
      * Get the parent of this path a specified number of levels up.
      *
-     * @param integer|null                            $numLevels  The number of levels up. Defaults to 1.
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the parent.
+     * @param integer|null $numLevels The number of levels up. Defaults to 1.
      *
      * @return PathInterface The parent of this path $numLevels up.
      */
-    public function parent(
-        $numLevels = null,
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
+    public function parent($numLevels = null)
+    {
         if (null === $numLevels) {
             $numLevels = 1;
         }
@@ -591,10 +588,6 @@ abstract class AbstractPath implements PathInterface
             $atoms,
             $this instanceof AbsolutePathInterface
         );
-
-        if (null !== $normalizer) {
-            $parent = $parent->normalize($normalizer);
-        }
 
         return $parent;
     }
@@ -962,18 +955,11 @@ abstract class AbstractPath implements PathInterface
     /**
      * Normalize this path to its most canonical form.
      *
-     * @param Normalizer\PathNormalizerInterface|null $normalizer
-     *
      * @return PathInterface The normalized path.
      */
-    public function normalize(
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        if (null === $normalizer) {
-            $normalizer = $this->createDefaultNormalizer();
-        }
-
-        return $normalizer->normalize($this);
+    public function normalize()
+    {
+        return static::normalizer()->normalize($this);
     }
 
     // Implementation details ==================================================
@@ -1060,17 +1046,13 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
-     * Creates a new instance of the default normalizer.
+     * Get the most appropriate path normalizer for this type of path.
      *
-     * This method is called internally every time a normalizer is required, but
-     * not explicitly supplied by calling code. It can be overridden in child
-     * classes to change the default normalization behaviour.
-     *
-     * @return Normalizer\PathNormalizerInterface The newly created normalizer.
+     * @return Normalizer\PathNormalizerInterface The path normalizer.
      */
-    protected function createDefaultNormalizer()
+    protected static function normalizer()
     {
-        return new Normalizer\PathNormalizer;
+        return Normalizer\PathNormalizer::instance();
     }
 
     private $atoms;

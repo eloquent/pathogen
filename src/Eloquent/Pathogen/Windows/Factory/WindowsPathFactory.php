@@ -28,7 +28,7 @@ class WindowsPathFactory extends PathFactory implements
     /**
      * Get a static instance of this path factory.
      *
-     * @return PathFactoryInterface The static path factory.
+     * @return WindowsPathFactoryInterface The static path factory.
      */
     public static function instance()
     {

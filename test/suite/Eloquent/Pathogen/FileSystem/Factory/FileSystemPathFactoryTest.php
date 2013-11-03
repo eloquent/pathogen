@@ -11,8 +11,9 @@
 
 namespace Eloquent\Pathogen\FileSystem\Factory;
 
-use Phake;
+use Eloquent\Liberator\Liberator;
 use PHPUnit_Framework_TestCase;
+use Phake;
 
 /**
  * @covers \Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory
@@ -218,5 +219,15 @@ class FileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
         Phake::verify($this->windowsFactory, Phake::never())->create(
             Phake::anyParameters()
         );
+    }
+
+    public function testInstance()
+    {
+        $class = Liberator::liberateClass(__NAMESPACE__ . '\FileSystemPathFactory');
+        $class->instance = null;
+        $actual = FileSystemPathFactory::instance();
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\FileSystemPathFactory', $actual);
+        $this->assertSame($actual, FileSystemPathFactory::instance());
     }
 }

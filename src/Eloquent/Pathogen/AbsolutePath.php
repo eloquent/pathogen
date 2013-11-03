@@ -80,58 +80,40 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      *
      * The root path is an absolute path with no atoms.
      *
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
-     *
      * @return boolean True if this path is the root path.
      */
-    public function isRoot(
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        return !$this->normalize($normalizer)->hasAtoms();
+    public function isRoot()
+    {
+        return !$this->normalize()->hasAtoms();
     }
 
     /**
      * Determine if this path is the direct parent of the supplied path.
      *
-     * @param AbsolutePathInterface                   $path       The child path.
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
+     * @param AbsolutePathInterface $path The child path.
      *
      * @return boolean True if this path is the direct parent of the supplied path.
      */
-    public function isParentOf(
-        AbsolutePathInterface $path,
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        if (null === $normalizer) {
-            $normalizer = $this->createDefaultNormalizer();
-        }
-
-        return
-            $path->hasAtoms() &&
-            $this->normalize($normalizer)->atoms() ===
-                $path->parent()->normalize($normalizer)->atoms();
+    public function isParentOf(AbsolutePathInterface $path)
+    {
+        return $path->hasAtoms() &&
+            $this->normalize()->atoms() ===
+                $path->parent()->normalize()->atoms();
     }
 
     /**
      * Determine if this path is an ancestor of the supplied path.
      *
-     * @param AbsolutePathInterface                   $path       The child path.
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
+     * @param AbsolutePathInterface $path The child path.
      *
      * @return boolean True if this path is an ancestor of the supplied path.
      */
-    public function isAncestorOf(
-        AbsolutePathInterface $path,
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        if (null === $normalizer) {
-            $normalizer = $this->createDefaultNormalizer();
-        }
-
-        $parentAtoms = $this->normalize($normalizer)->atoms();
+    public function isAncestorOf(AbsolutePathInterface $path)
+    {
+        $parentAtoms = $this->normalize()->atoms();
 
         return $parentAtoms === array_slice(
-            $path->normalize($normalizer)->atoms(),
+            $path->normalize()->atoms(),
             0,
             count($parentAtoms)
         );
@@ -143,21 +125,14 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      * For example, given path A equal to '/foo/bar', and path B equal to
      * '/foo/baz', A relative to B would be '../bar'.
      *
-     * @param AbsolutePathInterface                   $path       The path that the generated path will be relative to.
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
+     * @param AbsolutePathInterface $path The path that the generated path will be relative to.
      *
      * @return RelativePathInterface A relative path from the supplied path to this path.
      */
-    public function relativeTo(
-        AbsolutePathInterface $path,
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        if (null === $normalizer) {
-            $normalizer = $this->createDefaultNormalizer();
-        }
-
-        $parentAtoms = $path->normalize($normalizer)->atoms();
-        $childAtoms = $this->normalize($normalizer)->atoms();
+    public function relativeTo(AbsolutePathInterface $path)
+    {
+        $parentAtoms = $path->normalize()->atoms();
+        $childAtoms = $this->normalize()->atoms();
 
         if ($childAtoms === $parentAtoms) {
             $diffAtoms = array(static::SELF_ATOM);

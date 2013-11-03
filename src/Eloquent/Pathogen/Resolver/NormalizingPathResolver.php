@@ -33,7 +33,7 @@ class NormalizingPathResolver implements PathResolverInterface
         PathResolverInterface $resolver = null
     ) {
         if (null === $normalizer) {
-            $normalizer = new PathNormalizer;
+            $normalizer = PathNormalizer::instance();
         }
         if (null === $resolver) {
             $resolver = new PathResolver;

@@ -36,7 +36,7 @@ class WorkingDirectoryResolver extends BoundPathResolver
         FileSystemPathFactoryInterface $factory = null
     ) {
         if (null === $factory) {
-            $factory = new PlatformFileSystemPathFactory;
+            $factory = PlatformFileSystemPathFactory::instance();
         }
 
         $this->factory = $factory;

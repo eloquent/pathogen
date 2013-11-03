@@ -11,17 +11,20 @@
 
 namespace Eloquent\Pathogen\Windows;
 
+use Eloquent\Pathogen\AbsolutePath;
 use Eloquent\Pathogen\AbsolutePathInterface;
 use Eloquent\Pathogen\Exception\InvalidPathAtomCharacterException;
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException;
-use Eloquent\Pathogen\FileSystem\AbstractAbsoluteFileSystemPath;
+use Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface;
 use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
+use Eloquent\Pathogen\PathInterface;
 
 /**
  * Represents an absolute Windows path.
  */
-class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
+class AbsoluteWindowsPath extends AbsolutePath implements
+    AbsoluteFileSystemPathInterface,
     AbsoluteWindowsPathInterface
 {
     /**
@@ -110,52 +113,50 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
         ;
     }
 
+    /**
+     * Get the parent of this path a specified number of levels up.
+     *
+     * @param integer|null $numLevels The number of levels up. Defaults to 1.
+     *
+     * @return PathInterface The parent of this path $numLevels up.
+     */
+    public function parent($numLevels = null)
+    {
+        return parent::parent($numLevels)->normalize();
+    }
+
     // Implementation of AbsolutePathInterface =================================
 
     /**
      * Determine if this path is the direct parent of the supplied path.
      *
-     * @param AbsolutePathInterface        $path       The child path.
-     * @param PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
+     * @param AbsolutePathInterface $path The child path.
      *
      * @return boolean True if this path is the direct parent of the supplied path.
      */
-    public function isParentOf(
-        AbsolutePathInterface $path,
-        PathNormalizerInterface $normalizer = null
-    ) {
-        if (null === $normalizer) {
-            $normalizer = $this->createDefaultNormalizer();
-        }
-
+    public function isParentOf(AbsolutePathInterface $path)
+    {
         if (!$this->driveSpecifiersMatch($this, $path)) {
             return false;
         }
 
-        return parent::isParentOf($path, $normalizer);
+        return parent::isParentOf($path);
     }
 
     /**
      * Determine if this path is an ancestor of the supplied path.
      *
-     * @param AbsolutePathInterface        $path       The child path.
-     * @param PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
+     * @param AbsolutePathInterface $path The child path.
      *
      * @return boolean True if this path is an ancestor of the supplied path.
      */
-    public function isAncestorOf(
-        AbsolutePathInterface $path,
-        PathNormalizerInterface $normalizer = null
-    ) {
-        if (null === $normalizer) {
-            $normalizer = $this->createDefaultNormalizer();
-        }
-
+    public function isAncestorOf(AbsolutePathInterface $path)
+    {
         if (!$this->driveSpecifiersMatch($this, $path)) {
             return false;
         }
 
-        return parent::isAncestorOf($path, $normalizer);
+        return parent::isAncestorOf($path);
     }
 
     /**
@@ -164,19 +165,12 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
      * For example, given path A equal to '/foo/bar', and path B equal to
      * '/foo/baz', A relative to B would be '../bar'.
      *
-     * @param AbsolutePathInterface        $path       The path that the generated path will be relative to.
-     * @param PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
+     * @param AbsolutePathInterface $path The path that the generated path will be relative to.
      *
      * @return RelativePathInterface A relative path from the supplied path to this path.
      */
-    public function relativeTo(
-        AbsolutePathInterface $path,
-        PathNormalizerInterface $normalizer = null
-    ) {
-        if (null === $normalizer) {
-            $normalizer = $this->createDefaultNormalizer();
-        }
-
+    public function relativeTo(AbsolutePathInterface $path)
+    {
         $thisDrive = $this->normalizePathDriveSpecifier($this);
         $pathDrive = $this->normalizePathDriveSpecifier($path);
         if ($thisDrive !== $pathDrive) {
@@ -186,7 +180,7 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
             );
         }
 
-        return parent::relativeTo($path, $normalizer);
+        return parent::relativeTo($path);
     }
 
     // Implementation details ==================================================
@@ -322,6 +316,16 @@ class AbsoluteWindowsPath extends AbstractAbsoluteFileSystemPath implements
     protected static function factory()
     {
         return Factory\WindowsPathFactory::instance();
+    }
+
+    /**
+     * Get the most appropriate path normalizer for this type of path.
+     *
+     * @return PathNormalizerInterface The path normalizer.
+     */
+    protected static function normalizer()
+    {
+        return Normalizer\WindowsPathNormalizer::instance();
     }
 
     private $drive;

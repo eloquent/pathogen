@@ -11,9 +11,10 @@
 
 namespace Eloquent\Pathogen\FileSystem\Normalizer;
 
+use Eloquent\Liberator\Liberator;
 use Eloquent\Pathogen\AbsolutePath;
 use Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory;
-use Eloquent\Pathogen\Normalizer\PathNormalizer;
+use Eloquent\Pathogen\Unix\Normalizer\UnixPathNormalizer;
 use Eloquent\Pathogen\Windows\Normalizer\WindowsPathNormalizer;
 use PHPUnit_Framework_TestCase;
 
@@ -25,7 +26,7 @@ class FileSystemPathNormalizerTest extends PHPUnit_Framework_TestCase
 
         $this->factory = new FileSystemPathFactory;
 
-        $this->unixNormalizer = new PathNormalizer;
+        $this->unixNormalizer = new UnixPathNormalizer;
         $this->windowsNormalizer = new WindowsPathNormalizer;
         $this->normalizer = new FileSystemPathNormalizer(
             $this->unixNormalizer,
@@ -44,7 +45,7 @@ class FileSystemPathNormalizerTest extends PHPUnit_Framework_TestCase
         $this->normalizer = new FileSystemPathNormalizer;
 
         $this->assertInstanceOf(
-            '\Eloquent\Pathogen\Normalizer\PathNormalizer',
+            '\Eloquent\Pathogen\Unix\Normalizer\UnixPathNormalizer',
             $this->normalizer->unixNormalizer()
         );
         $this->assertInstanceOf(
@@ -75,5 +76,15 @@ class FileSystemPathNormalizerTest extends PHPUnit_Framework_TestCase
             'Eloquent\Pathogen\Windows\AbsoluteWindowsPath',
             $normalizedPath
         );
+    }
+
+    public function testInstance()
+    {
+        $class = Liberator::liberateClass(__NAMESPACE__ . '\FileSystemPathNormalizer');
+        $class->instance = null;
+        $actual = FileSystemPathNormalizer::instance();
+
+        $this->assertInstanceOf(__NAMESPACE__ . '\FileSystemPathNormalizer', $actual);
+        $this->assertSame($actual, FileSystemPathNormalizer::instance());
     }
 }

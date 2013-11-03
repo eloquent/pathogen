@@ -57,18 +57,11 @@ class RelativePath extends AbstractPath implements RelativePathInterface
      * The self path is a relative path with a single self atom (i.e. a dot
      * '.').
      *
-     * @param Normalizer\PathNormalizerInterface|null $normalizer The normalizer to use when determining the result.
-     *
      * @return boolean True if this path is the self path.
      */
-    public function isSelf(
-        Normalizer\PathNormalizerInterface $normalizer = null
-    ) {
-        if (null === $normalizer) {
-            $normalizer = $this->createDefaultNormalizer();
-        }
-
-        $atoms = $this->normalize($normalizer)->atoms();
+    public function isSelf()
+    {
+        $atoms = $this->normalize()->atoms();
 
         return 1 === count($atoms) && static::SELF_ATOM === $atoms[0];
     }
