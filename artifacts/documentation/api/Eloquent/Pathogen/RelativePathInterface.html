@@ -311,7 +311,7 @@
                     <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_parent">parent</a>(integer|null $numLevels = null, <a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
+                    <a href="#method_parent">parent</a>(integer|null $numLevels = null)
                     <p>Get the parent of this path a specified number of levels up.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_parent"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
@@ -521,7 +521,7 @@
                     <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_normalize">normalize</a>(<a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
+                    <a href="#method_normalize">normalize</a>()
                     <p>Normalize this path to its most canonical form.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../Eloquent/Pathogen/PathInterface.html#method_normalize"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></small></td>
@@ -531,8 +531,18 @@
                     boolean
                 </td>
                 <td class="last">
-                    <a href="#method_isSelf">isSelf</a>(<a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
+                    <a href="#method_isSelf">isSelf</a>()
                     <p>Determine whether this path is the self path.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_resolveAgainst">resolveAgainst</a>(<a href="../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath)
+                    <p>Resolve this path against the supplied path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -1478,9 +1488,9 @@
     </div>
 
                 <h3 id="method_parent">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_parent"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 284</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_parent"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 283</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
-    <strong>parent</strong>(integer|null $numLevels = null, <a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
+    <strong>parent</strong>(integer|null $numLevels = null)</code>
     </h3>
     <div class="details">
         <p>Get the parent of this path a specified number of levels up.</p>
@@ -1494,11 +1504,6 @@
                 <td>integer|null</td>
                 <td>$numLevels</td>
                 <td>The number of levels up. Defaults to 1.</td>
-            </tr>
-                    <tr>
-                <td><a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
-                <td>$normalizer</td>
-                <td>The normalizer to use when determining the parent.</td>
             </tr>
             </table>
 
@@ -1518,7 +1523,7 @@
     </div>
 
                 <h3 id="method_stripTrailingSlash">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_stripTrailingSlash"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 294</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_stripTrailingSlash"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 290</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>stripTrailingSlash</strong>()</code>
     </h3>
@@ -1543,7 +1548,7 @@
     </div>
 
                 <h3 id="method_stripExtension">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_stripExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 301</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_stripExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 297</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>stripExtension</strong>()</code>
     </h3>
@@ -1568,7 +1573,7 @@
     </div>
 
                 <h3 id="method_stripNameSuffix">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_stripNameSuffix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 308</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_stripNameSuffix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 304</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>stripNameSuffix</strong>()</code>
     </h3>
@@ -1593,7 +1598,7 @@
     </div>
 
                 <h3 id="method_joinAtoms">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinAtoms"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 319</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinAtoms"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 315</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinAtoms</strong>($atom)</code>
     </h3>
@@ -1638,7 +1643,7 @@
     </div>
 
                 <h3 id="method_joinAtomSequence">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinAtomSequence"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 329</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinAtomSequence"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 325</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinAtomSequence</strong>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms)</code>
     </h3>
@@ -1682,7 +1687,7 @@
     </div>
 
                 <h3 id="method_join">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_join"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 338</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_join"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 334</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>join</strong>(<a href="../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> $path)</code>
     </h3>
@@ -1717,7 +1722,7 @@
     </div>
 
                 <h3 id="method_joinTrailingSlash">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinTrailingSlash"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 345</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinTrailingSlash"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 341</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinTrailingSlash</strong>()</code>
     </h3>
@@ -1742,7 +1747,7 @@
     </div>
 
                 <h3 id="method_joinExtensions">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinExtensions"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 356</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinExtensions"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 352</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinExtensions</strong>($extension)</code>
     </h3>
@@ -1787,7 +1792,7 @@
     </div>
 
                 <h3 id="method_joinExtensionSequence">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinExtensionSequence"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 366</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_joinExtensionSequence"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 362</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>joinExtensionSequence</strong>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $extensions)</code>
     </h3>
@@ -1831,7 +1836,7 @@
     </div>
 
                 <h3 id="method_suffixName">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_suffixName"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 376</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_suffixName"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 372</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>suffixName</strong>(string $suffix)</code>
     </h3>
@@ -1875,7 +1880,7 @@
     </div>
 
                 <h3 id="method_prefixName">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_prefixName"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 386</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_prefixName"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 382</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>prefixName</strong>(string $prefix)</code>
     </h3>
@@ -1919,7 +1924,7 @@
     </div>
 
                 <h3 id="method_replace">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replace"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 397</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replace"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 393</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replace</strong>(integer $index, <abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $replacement, integer|null $length = null)</code>
     </h3>
@@ -1964,7 +1969,7 @@
     </div>
 
                 <h3 id="method_replaceName">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceName"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 406</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceName"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 402</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceName</strong>(string $name)</code>
     </h3>
@@ -1999,7 +2004,7 @@
     </div>
 
                 <h3 id="method_replaceNameWithoutExtension">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNameWithoutExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 415</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNameWithoutExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 411</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceNameWithoutExtension</strong>(string $nameWithoutExtension)</code>
     </h3>
@@ -2034,7 +2039,7 @@
     </div>
 
                 <h3 id="method_replaceNamePrefix">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNamePrefix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 424</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNamePrefix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 420</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceNamePrefix</strong>(string $namePrefix)</code>
     </h3>
@@ -2069,7 +2074,7 @@
     </div>
 
                 <h3 id="method_replaceNameSuffix">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNameSuffix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 433</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNameSuffix"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 429</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceNameSuffix</strong>(string|null $nameSuffix)</code>
     </h3>
@@ -2104,7 +2109,7 @@
     </div>
 
                 <h3 id="method_replaceExtension">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 442</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceExtension"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 438</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceExtension</strong>(string|null $extension)</code>
     </h3>
@@ -2139,7 +2144,7 @@
     </div>
 
                 <h3 id="method_replaceNameAtoms">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNameAtoms"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 454</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_replaceNameAtoms"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 450</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>replaceNameAtoms</strong>(integer $index, <abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $replacement, integer|null $length = null)</code>
     </h3>
@@ -2184,7 +2189,7 @@
     </div>
 
                 <h3 id="method_toAbsolute">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_toAbsolute"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 464</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_toAbsolute"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 460</div>
         <code>            public            <a href="../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
     <strong>toAbsolute</strong>()</code>
     </h3>
@@ -2209,7 +2214,7 @@ be returned. Otherwise, this path will be retured unaltered.</p>
     </div>
 
                 <h3 id="method_toRelative">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_toRelative"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 475</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_toRelative"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 471</div>
         <code>            public            <a href="../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a>
     <strong>toRelative</strong>()</code>
     </h3>
@@ -2243,26 +2248,15 @@ be returned. Otherwise, this path will be retured unaltered.</p>
     </div>
 
                 <h3 id="method_normalize">
-        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_normalize"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 484</div>
+        <div class="location">in <a href="../../Eloquent/Pathogen/PathInterface.html#method_normalize"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> at line 478</div>
         <code>            public            <a href="../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
-    <strong>normalize</strong>(<a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
+    <strong>normalize</strong>()</code>
     </h3>
     <div class="details">
         <p>Normalize this path to its most canonical form.</p>
         <p>
 </p>
         <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td><a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
-                <td>$normalizer</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
             
                             <h4>Return Value</h4>
 
@@ -2279,22 +2273,47 @@ be returned. Otherwise, this path will be retured unaltered.</p>
     </div>
 
                 <h3 id="method_isSelf">
-        <div class="location">at line 29</div>
+        <div class="location">at line 27</div>
         <code>            public            boolean
-    <strong>isSelf</strong>(<a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
+    <strong>isSelf</strong>()</code>
     </h3>
     <div class="details">
         <p>Determine whether this path is the self path.</p>
         <p>The self path is a relative path with a single self atom (i.e. a dot
 '.').</p>
         <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if this path is the self path.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_resolveAgainst">
+        <div class="location">at line 36</div>
+        <code>            public            <a href="../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+    <strong>resolveAgainst</strong>(<a href="../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath)</code>
+    </h3>
+    <div class="details">
+        <p>Resolve this path against the supplied path.</p>
+        <p>
+</p>
+        <div class="tags">
                             <h4>Parameters</h4>
 
                     <table>
                     <tr>
-                <td><a href="../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
-                <td>$normalizer</td>
-                <td>The normalizer to use when determining the result.</td>
+                <td><a href="../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
+                <td>$basePath</td>
+                <td>The path to resolve against.</td>
             </tr>
             </table>
 
@@ -2303,8 +2322,8 @@ be returned. Otherwise, this path will be retured unaltered.</p>
 
                     <table>
         <tr>
-            <td>boolean</td>
-            <td>True if this path is the self path.</td>
+            <td><a href="../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
+            <td>The resolved path.</td>
         </tr>
     </table>
 

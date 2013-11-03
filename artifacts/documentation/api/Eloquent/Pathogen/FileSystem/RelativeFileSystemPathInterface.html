@@ -41,10 +41,20 @@
                     boolean
                 </td>
                 <td class="last">
-                    <a href="#method_isSelf">isSelf</a>(<a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)
+                    <a href="#method_isSelf">isSelf</a>()
                     <p>Determine whether this path is the self path.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/RelativePathInterface.html#method_isSelf"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_resolveAgainst">resolveAgainst</a>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath)
+                    <p>Resolve this path against the supplied path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/RelativePathInterface.html#method_resolveAgainst"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a></small></td>
             </tr>
             </table>
 
@@ -52,22 +62,47 @@
         <h2>Details</h2>
 
                         <h3 id="method_isSelf">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePathInterface.html#method_isSelf"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> at line 29</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePathInterface.html#method_isSelf"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> at line 27</div>
         <code>            public            boolean
-    <strong>isSelf</strong>(<a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a> $normalizer = null)</code>
+    <strong>isSelf</strong>()</code>
     </h3>
     <div class="details">
         <p>Determine whether this path is the self path.</p>
         <p>The self path is a relative path with a single self atom (i.e. a dot
 '.').</p>
         <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if this path is the self path.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_resolveAgainst">
+        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePathInterface.html#method_resolveAgainst"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> at line 36</div>
+        <code>            public            <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+    <strong>resolveAgainst</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath)</code>
+    </h3>
+    <div class="details">
+        <p>Resolve this path against the supplied path.</p>
+        <p>
+</p>
+        <div class="tags">
                             <h4>Parameters</h4>
 
                     <table>
                     <tr>
-                <td><a href="../../../Eloquent/Pathogen/Normalizer/PathNormalizerInterface.html"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizerInterface">PathNormalizerInterface</abbr></a></td>
-                <td>$normalizer</td>
-                <td>The normalizer to use when determining the result.</td>
+                <td><a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
+                <td>$basePath</td>
+                <td>The path to resolve against.</td>
             </tr>
             </table>
 
@@ -76,8 +111,8 @@
 
                     <table>
         <tr>
-            <td>boolean</td>
-            <td>True if this path is the self path.</td>
+            <td><a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
+            <td>The resolved path.</td>
         </tr>
     </table>
 

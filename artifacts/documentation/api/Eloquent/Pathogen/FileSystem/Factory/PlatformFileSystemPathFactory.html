@@ -67,7 +67,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    <a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+                    <a href="../../../../Eloquent/Pathogen/FileSystem/AbsoluteFileSystemPathInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface">AbsoluteFileSystemPathInterface</abbr></a>
                 </td>
                 <td class="last">
                     <a href="#method_createWorkingDirectoryPath">createWorkingDirectoryPath</a>()
@@ -77,7 +77,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    <a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+                    <a href="../../../../Eloquent/Pathogen/FileSystem/AbsoluteFileSystemPathInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface">AbsoluteFileSystemPathInterface</abbr></a>
                 </td>
                 <td class="last">
                     <a href="#method_createTemporaryDirectoryPath">createTemporaryDirectoryPath</a>()
@@ -87,13 +87,23 @@
             </tr>
                     <tr>
                 <td class="type">
-                    <a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+                    <a href="../../../../Eloquent/Pathogen/FileSystem/AbsoluteFileSystemPathInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface">AbsoluteFileSystemPathInterface</abbr></a>
                 </td>
                 <td class="last">
                     <a href="#method_createTemporaryPath">createTemporaryPath</a>(string|null $prefix = null)
                     <p>Create a path representing a suitable for use as the location for a new temporary file or directory.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../../../Eloquent/Pathogen/FileSystem/Factory/AbstractFileSystemPathFactory.html#method_createTemporaryPath"><abbr title="Eloquent\Pathogen\FileSystem\Factory\AbstractFileSystemPathFactory">AbstractFileSystemPathFactory</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;<a href="../../../../Eloquent/Pathogen/FileSystem/Factory/FileSystemPathFactoryInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactoryInterface">FileSystemPathFactoryInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_instance">instance</a>()
+                    <p>Get a static instance of this path factory.</p>
+                </td>
+                <td></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -208,7 +218,7 @@
 
                 <h3 id="method_createWorkingDirectoryPath">
         <div class="location">in <a href="../../../../Eloquent/Pathogen/FileSystem/Factory/AbstractFileSystemPathFactory.html#method_createWorkingDirectoryPath"><abbr title="Eloquent\Pathogen\FileSystem\Factory\AbstractFileSystemPathFactory">AbstractFileSystemPathFactory</abbr></a> at line 75</div>
-        <code>            public            <a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+        <code>            public            <a href="../../../../Eloquent/Pathogen/FileSystem/AbsoluteFileSystemPathInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface">AbsoluteFileSystemPathInterface</abbr></a>
     <strong>createWorkingDirectoryPath</strong>()</code>
     </h3>
     <div class="details">
@@ -221,7 +231,7 @@
 
                     <table>
         <tr>
-            <td><a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
+            <td><a href="../../../../Eloquent/Pathogen/FileSystem/AbsoluteFileSystemPathInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface">AbsoluteFileSystemPathInterface</abbr></a></td>
             <td>A new path instance representing the current working directory path.</td>
         </tr>
     </table>
@@ -233,7 +243,7 @@
 
                 <h3 id="method_createTemporaryDirectoryPath">
         <div class="location">in <a href="../../../../Eloquent/Pathogen/FileSystem/Factory/AbstractFileSystemPathFactory.html#method_createTemporaryDirectoryPath"><abbr title="Eloquent\Pathogen\FileSystem\Factory\AbstractFileSystemPathFactory">AbstractFileSystemPathFactory</abbr></a> at line 86</div>
-        <code>            public            <a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+        <code>            public            <a href="../../../../Eloquent/Pathogen/FileSystem/AbsoluteFileSystemPathInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface">AbsoluteFileSystemPathInterface</abbr></a>
     <strong>createTemporaryDirectoryPath</strong>()</code>
     </h3>
     <div class="details">
@@ -246,7 +256,7 @@
 
                     <table>
         <tr>
-            <td><a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
+            <td><a href="../../../../Eloquent/Pathogen/FileSystem/AbsoluteFileSystemPathInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface">AbsoluteFileSystemPathInterface</abbr></a></td>
             <td>A new path instance representing the system default temporary directory path.</td>
         </tr>
     </table>
@@ -258,7 +268,7 @@
 
                 <h3 id="method_createTemporaryPath">
         <div class="location">in <a href="../../../../Eloquent/Pathogen/FileSystem/Factory/AbstractFileSystemPathFactory.html#method_createTemporaryPath"><abbr title="Eloquent\Pathogen\FileSystem\Factory\AbstractFileSystemPathFactory">AbstractFileSystemPathFactory</abbr></a> at line 103</div>
-        <code>            public            <a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+        <code>            public            <a href="../../../../Eloquent/Pathogen/FileSystem/AbsoluteFileSystemPathInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface">AbsoluteFileSystemPathInterface</abbr></a>
     <strong>createTemporaryPath</strong>(string|null $prefix = null)</code>
     </h3>
     <div class="details">
@@ -281,7 +291,7 @@ unlikely.</p>
 
                     <table>
         <tr>
-            <td><a href="../../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
+            <td><a href="../../../../Eloquent/Pathogen/FileSystem/AbsoluteFileSystemPathInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface">AbsoluteFileSystemPathInterface</abbr></a></td>
             <td>A new path instance representing the new temporary path.</td>
         </tr>
     </table>
@@ -291,8 +301,33 @@ unlikely.</p>
                     </div>
     </div>
 
+                <h3 id="method_instance">
+        <div class="location">at line 27</div>
+        <code>        static    public            <a href="../../../../Eloquent/Pathogen/FileSystem/Factory/FileSystemPathFactoryInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactoryInterface">FileSystemPathFactoryInterface</abbr></a>
+    <strong>instance</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get a static instance of this path factory.</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../../../Eloquent/Pathogen/FileSystem/Factory/FileSystemPathFactoryInterface.html"><abbr title="Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactoryInterface">FileSystemPathFactoryInterface</abbr></a></td>
+            <td>The static path factory.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_create">
-        <div class="location">at line 29</div>
+        <div class="location">at line 43</div>
         <code>            public            <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>create</strong>(string $path)</code>
     </h3>
@@ -327,7 +362,7 @@ unlikely.</p>
     </div>
 
                 <h3 id="method_createFromAtoms">
-        <div class="location">at line 47</div>
+        <div class="location">at line 61</div>
         <code>            public            <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>createFromAtoms</strong>(<abbr title="Eloquent\Pathogen\FileSystem\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, boolean|null $isAbsolute = null, boolean|null $hasTrailingSeparator = null)</code>
     </h3>

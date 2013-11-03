@@ -38,6 +38,16 @@
             <table>
                     <tr>
                 <td class="type">
+                    static&nbsp;<a href="../../../../Eloquent/Pathogen/Windows/Factory/WindowsPathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryInterface">WindowsPathFactoryInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_instance">instance</a>()
+                    <p>Get a static instance of this path factory.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
                     <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
                 </td>
                 <td class="last">
@@ -61,7 +71,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method___construct">__construct</a>(string $defaultDrive = null)
+                    <a href="#method___construct">__construct</a>(string|null $defaultDrive = null)
                     <p>Construct a new Windows path factory.</p>
                 </td>
                 <td></td>
@@ -78,7 +88,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+                    <abbr title="Eloquent\Pathogen\Windows\Factory\WindowsPathInterface">WindowsPathInterface</abbr>
                 </td>
                 <td class="last">
                     <a href="#method_createFromDriveAndAtoms">createFromDriveAndAtoms</a>(<abbr title="Eloquent\Pathogen\Windows\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive, boolean|null $isAbsolute = null, boolean|null $hasTrailingSeparator = null)
@@ -91,8 +101,33 @@
 
         <h2>Details</h2>
 
-                        <h3 id="method_create">
-        <div class="location">at line 57</div>
+                        <h3 id="method_instance">
+        <div class="location">at line 33</div>
+        <code>        static    public            <a href="../../../../Eloquent/Pathogen/Windows/Factory/WindowsPathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryInterface">WindowsPathFactoryInterface</abbr></a>
+    <strong>instance</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get a static instance of this path factory.</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../../../Eloquent/Pathogen/Windows/Factory/WindowsPathFactoryInterface.html"><abbr title="Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryInterface">WindowsPathFactoryInterface</abbr></a></td>
+            <td>The static path factory.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_create">
+        <div class="location">at line 71</div>
         <code>            public            <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>create</strong>(string $path)</code>
     </h3>
@@ -127,7 +162,7 @@
     </div>
 
                 <h3 id="method_createFromAtoms">
-        <div class="location">at line 117</div>
+        <div class="location">at line 131</div>
         <code>            public            <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>createFromAtoms</strong>(<abbr title="Eloquent\Pathogen\Windows\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, boolean|null $isAbsolute = null, boolean|null $hasTrailingSeparator = null)</code>
     </h3>
@@ -181,9 +216,9 @@ trailing separator.</p>
     </div>
 
                 <h3 id="method___construct">
-        <div class="location">at line 33</div>
+        <div class="location">at line 47</div>
         <code>            public            
-    <strong>__construct</strong>(string $defaultDrive = null)</code>
+    <strong>__construct</strong>(string|null $defaultDrive = null)</code>
     </h3>
     <div class="details">
         <p>Construct a new Windows path factory.</p>
@@ -194,7 +229,7 @@ trailing separator.</p>
 
                     <table>
                     <tr>
-                <td>string</td>
+                <td>string|null</td>
                 <td>$defaultDrive</td>
                 <td>The default drive specifier to use when none is specified, or null to leave the drive specifier empty.</td>
             </tr>
@@ -207,7 +242,7 @@ trailing separator.</p>
     </div>
 
                 <h3 id="method_defaultDrive">
-        <div class="location">at line 43</div>
+        <div class="location">at line 57</div>
         <code>            public            string|null
     <strong>defaultDrive</strong>()</code>
     </h3>
@@ -232,8 +267,8 @@ trailing separator.</p>
     </div>
 
                 <h3 id="method_createFromDriveAndAtoms">
-        <div class="location">at line 147</div>
-        <code>            public            <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+        <div class="location">at line 161</div>
+        <code>            public            <abbr title="Eloquent\Pathogen\Windows\Factory\WindowsPathInterface">WindowsPathInterface</abbr>
     <strong>createFromDriveAndAtoms</strong>(<abbr title="Eloquent\Pathogen\Windows\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive, boolean|null $isAbsolute = null, boolean|null $hasTrailingSeparator = null)</code>
     </h3>
     <div class="details">
@@ -271,7 +306,7 @@ trailing separator.</p>
 
                     <table>
         <tr>
-            <td><a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
+            <td><abbr title="Eloquent\Pathogen\Windows\Factory\WindowsPathInterface">WindowsPathInterface</abbr></td>
             <td>The newly created path instance.</td>
         </tr>
     </table>
