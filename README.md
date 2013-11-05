@@ -428,12 +428,13 @@ echo get_class($consumer->pathFactory()); // outputs 'Eloquent\Pathogen\FileSyst
 ### Resolving a user-provided path against the current working directory
 
 ```php
-use Eloquent\Pathogen\FileSystem\PlatformFileSystemPath;
+use Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory;
 
-$workingDirectoryPath = PlatformFileSystemPath::workingDirectoryPath();
+$factory = new PlatformFileSystemPathFactory;
+$workingDirectoryPath = $factory->createWorkingDirectoryPath();
 
 $path = $workingDirectoryPath->resolve(
-    PlatformFileSystemPath::fromString($_SERVER['argv'][1])
+    $factory->create($_SERVER['argv'][1])
 );
 ```
 

@@ -11,10 +11,7 @@
 
 use Eloquent\Pathogen\Factory\PathFactory;
 use Eloquent\Pathogen\FileSystem\Factory\PlatformFileSystemPathFactory;
-use Eloquent\Pathogen\FileSystem\PlatformFileSystemPath;
-use Eloquent\Pathogen\FileSystem\Resolver\WorkingDirectoryResolver;
 use Eloquent\Pathogen\Path;
-use Eloquent\Pathogen\Resolver\NormalizingPathResolver;
 
 class FunctionalTest extends PHPUnit_Framework_TestCase
 {
@@ -48,10 +45,11 @@ class FunctionalTest extends PHPUnit_Framework_TestCase
     {
         $_SERVER['argv'] = array('command', 'path/to/foo');
 
-        $workingDirectoryPath = PlatformFileSystemPath::workingDirectoryPath();
+        $factory = new PlatformFileSystemPathFactory;
+        $workingDirectoryPath = $factory->createWorkingDirectoryPath();
 
         $path = $workingDirectoryPath->resolve(
-            PlatformFileSystemPath::fromString($_SERVER['argv'][1])
+            $factory->create($_SERVER['argv'][1])
         );
 
         $this->assertSame(getcwd() . '/path/to/foo', $path->string());

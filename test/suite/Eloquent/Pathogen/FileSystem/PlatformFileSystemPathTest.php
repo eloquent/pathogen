@@ -110,28 +110,4 @@ class PlatformFileSystemPathTest extends PHPUnit_Framework_TestCase
         }
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
-
-    public function testWorkingDirectoryPath()
-    {
-        $path = PlatformFileSystemPath::fromString('foo');
-        Phake::when($this->factory)->createWorkingDirectoryPath()->thenReturn($path);
-
-        $this->assertSame($path, PlatformFileSystemPath::workingDirectoryPath());
-    }
-
-    public function testTemporaryDirectoryPath()
-    {
-        $path = PlatformFileSystemPath::fromString('foo');
-        Phake::when($this->factory)->createTemporaryDirectoryPath()->thenReturn($path);
-
-        $this->assertSame($path, PlatformFileSystemPath::temporaryDirectoryPath());
-    }
-
-    public function testTemporaryPath()
-    {
-        $path = PlatformFileSystemPath::fromString('foo');
-        Phake::when($this->factory)->createTemporaryPath('bar')->thenReturn($path);
-
-        $this->assertSame($path, PlatformFileSystemPath::temporaryPath('bar'));
-    }
 }
