@@ -13,12 +13,14 @@ namespace Eloquent\Pathogen\Windows;
 
 use Eloquent\Pathogen\AbsolutePath;
 use Eloquent\Pathogen\AbsolutePathInterface;
+use Eloquent\Pathogen\Exception\EmptyPathException;
 use Eloquent\Pathogen\Exception\InvalidPathAtomCharacterException;
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException;
 use Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface;
 use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 use Eloquent\Pathogen\PathInterface;
+use Eloquent\Pathogen\Resolver\PathResolverInterface;
 
 /**
  * Represents an absolute Windows path.
@@ -28,28 +30,26 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     AbsoluteWindowsPathInterface
 {
     /**
-     * Creates a new path instance from a set of path atoms and a drive
+     * Creates a new absolute Windows path from a set of path atoms and a drive
      * specifier.
      *
-     * Unless otherwise specified, created paths will be absolute, and have no
-     * trailing separator.
-     *
+     * @param string        $drive                The drive specifier.
      * @param mixed<string> $atoms                The path atoms.
-     * @param string|null   $drive                The drive specifier.
      * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
      * @return AbsoluteWindowsPathInterface      The newly created path instance.
      * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
      */
     public static function fromDriveAndAtoms(
-        $atoms,
         $drive,
+        $atoms,
         $hasTrailingSeparator = null
     ) {
         return static::factory()->createFromDriveAndAtoms(
             $atoms,
             $drive,
             true,
+            false,
             $hasTrailingSeparator
         );
     }
@@ -58,7 +58,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      * Construct a new path instance.
      *
      * @param mixed<string> $atoms                The path atoms.
-     * @param string|null   $drive                The drive specifier, or null if the path has no drive specifier.
+     * @param string        $drive                The drive specifier, or null if the path has no drive specifier.
      * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
      *
      * @throws Exception\InvalidDriveSpecifierException If the drive specifier is invalid.
@@ -66,7 +66,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      */
     public function __construct($atoms, $drive, $hasTrailingSeparator = null)
     {
-        if (null !== $drive && !preg_match('/^[a-zA-Z]$/', $drive)) {
+        if (!preg_match('/^[a-zA-Z]$/', $drive)) {
             throw new Exception\InvalidDriveSpecifierException($drive);
         }
 
@@ -75,10 +75,13 @@ class AbsoluteWindowsPath extends AbsolutePath implements
         $this->drive = $drive;
     }
 
-    // Implementation of AbsoluteWindowsPathInterface ==========================
+    // Implementation of WindowsPathInterface ==================================
 
     /**
      * Get this path's drive specifier.
+     *
+     * Absolute Windows paths always have a drive specifier, and will never
+     * return null for this method.
      *
      * @return string|null The drive specifier, or null if this path does not have a drive specifier.
      */
@@ -90,11 +93,33 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     /**
      * Determine whether this path has a drive specifier.
      *
+     * Absolute Windows paths always have a drive specifier, and will always
+     * return true for this method.
+     *
      * @return boolean True is this path has a drive specifier.
      */
     public function hasDrive()
     {
-        return null !== $this->drive();
+        return true;
+    }
+
+    /**
+     * Returns true if this path's drive specifier is equal to the supplied
+     * drive specifier.
+     *
+     * This method is not case sensitive.
+     *
+     * @param string|null $drive The driver specifier to compare to.
+     *
+     * @return boolean True if the drive specifiers are equal.
+     */
+    public function isDriveEqualTo($drive)
+    {
+        if (null === $drive) {
+            return !$this->hasDrive();
+        }
+
+        return strtoupper($drive)
     }
 
     /**
@@ -102,54 +127,27 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      *
      * @return string|null $drive The drive specifier to use, or null to remove the drive specifier.
      *
-     * @return AbsoluteWindowsPathInterface A new path instance with the supplied drive specifier joined to this path.
+     * @return WindowsPathInterface A new path instance with the supplied drive specifier joined to this path.
      */
     public function joinDrive($drive)
     {
-        return $this->createPathWithDrive(
-            $this->atoms(),
-            $drive,
-            false
-        );
-    }
-
-    // Implementation of PathInterface =========================================
-
-    /**
-     * Generate a string representation of this path.
-     *
-     * @return string A string representation of this path.
-     */
-    public function string()
-    {
-        $drive = $this->drive();
-        if (null !== $drive) {
-            return
-                $drive .
-                ':' .
-                static::ATOM_SEPARATOR .
-                implode(static::ATOM_SEPARATOR, $this->atoms()) .
-                ($this->hasTrailingSeparator() ? static::ATOM_SEPARATOR : '')
-            ;
+        if (null === $drive) {
+            return $this->createPathFromDriveAndAtoms(
+                $this->atoms(),
+                null,
+                false,
+                true,
+                $this->hasTrailingSeparator()
+            );
         }
 
-        return
-            static::ATOM_SEPARATOR .
-            implode(static::ATOM_SEPARATOR, $this->atoms()) .
-            ($this->hasTrailingSeparator() ? static::ATOM_SEPARATOR : '')
-        ;
-    }
-
-    /**
-     * Get the parent of this path a specified number of levels up.
-     *
-     * @param integer|null $numLevels The number of levels up. Defaults to 1.
-     *
-     * @return PathInterface The parent of this path $numLevels up.
-     */
-    public function parent($numLevels = null)
-    {
-        return parent::parent($numLevels)->normalize();
+        return $this->createPathFromDriveAndAtoms(
+            $this->atoms(),
+            $drive,
+            true,
+            false,
+            $this->hasTrailingSeparator()
+        );
     }
 
     // Implementation of AbsolutePathInterface =================================
@@ -163,7 +161,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      */
     public function isParentOf(AbsolutePathInterface $path)
     {
-        if (!$this->driveSpecifiersMatch($this, $path)) {
+        if (!$this->pathDriveSpecifiersMatch($this, $path)) {
             return false;
         }
 
@@ -179,7 +177,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      */
     public function isAncestorOf(AbsolutePathInterface $path)
     {
-        if (!$this->driveSpecifiersMatch($this, $path)) {
+        if (!$this->pathDriveSpecifiersMatch($this, $path)) {
             return false;
         }
 
@@ -198,16 +196,60 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      */
     public function relativeTo(AbsolutePathInterface $path)
     {
-        $thisDrive = $this->normalizePathDriveSpecifier($this);
-        $pathDrive = $this->normalizePathDriveSpecifier($path);
-        if ($thisDrive !== $pathDrive) {
-            throw new Exception\DriveMismatchException(
-                $thisDrive,
-                $pathDrive
-            );
+        if (!$this->pathDriveSpecifiersMatch($this, $path)) {
+            return $this->toRelative();
         }
 
         return parent::relativeTo($path);
+    }
+
+    // Implementation of PathInterface =========================================
+
+    /**
+     * Generate a string representation of this path.
+     *
+     * @return string A string representation of this path.
+     */
+    public function string()
+    {
+        return
+            $this->drive() .
+            ':' .
+            static::ATOM_SEPARATOR .
+            implode(static::ATOM_SEPARATOR, $this->atoms()) .
+            ($this->hasTrailingSeparator() ? static::ATOM_SEPARATOR : '');
+    }
+
+    /**
+     * Get the parent of this path a specified number of levels up.
+     *
+     * @param integer|null $numLevels The number of levels up. Defaults to 1.
+     *
+     * @return PathInterface The parent of this path $numLevels up.
+     */
+    public function parent($numLevels = null)
+    {
+        return parent::parent($numLevels)->normalize();
+    }
+
+    /**
+     * Get a relative version of this path.
+     *
+     * If this path is absolute, a new relative path with equivalent atoms will
+     * be returned. Otherwise, this path will be retured unaltered.
+     *
+     * @return RelativePathInterface A relative version of this path.
+     * @throws EmptyPathException    If this path has no atoms.
+     */
+    public function toRelative()
+    {
+        return $this->createPathFromDriveAndAtoms(
+            $this->atoms(),
+            $this->drive(),
+            false,
+            true,
+            $this->hasTrailingSeparator()
+        );
     }
 
     // Implementation details ==================================================
@@ -221,8 +263,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      *
      * @param string $atom The atom to validate.
      *
-     * @throws Exception\EmptyPathAtomException             If the path atom is empty.
-     * @throws Exception\PathAtomContainsSeparatorException If the path atom contains a separator.
+     * @throws InvalidPathAtomExceptionInterface If an invalid path atom is encountered.
      */
     protected function validateAtom($atom)
     {
@@ -236,21 +277,47 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     }
 
     /**
-     * Get the normalized form of the drive specifier for the supplied path.
+     * Get the normalized form of the supplied drive specifier.
      *
-     * @param AbsolutePathInterface $path The path.
+     * @param string|null $drive The drive specifier to normalize.
      *
      * @return string|null The normalized drive specifier.
      */
-    protected function normalizePathDriveSpecifier(AbsolutePathInterface $path)
+    protected function normalizeDriveSpecifier($drive)
     {
-        if ($path instanceof AbsoluteWindowsPathInterface) {
-            $drive = $path->drive();
-            if (null !== $drive) {
-                $drive = strtoupper($drive);
-            }
+        if (null === $drive) {
+            return null;
+        }
 
-            return $drive;
+        return strtoupper($drive);
+    }
+
+    /**
+     * Returns true if the supplied path specifiers match.
+     *
+     * @param string|null $left  The first specifier.
+     * @param string|null $right The second specifier.
+     *
+     * @return boolean True if the drive specifiers match.
+     */
+    protected function driveSpecifiersMatch($left, $right)
+    {
+        return $this->normalizeDriveSpecifier($left) ===
+            $this->normalizeDriveSpecifier($right);
+    }
+
+    /**
+     * Get the the drive specifier of the supplied path, returning null if the
+     * path is a non-Windows path.
+     *
+     * @param PathInterface $path The path.
+     *
+     * @return string|null The drive specifier.
+     */
+    protected function pathDriveSpecifier(PathInterface $path)
+    {
+        if ($path instanceof WindowsPathInterface) {
+            return $path->drive();
         }
 
         return null;
@@ -264,14 +331,14 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      *
      * @return boolean True if the drive specifiers match.
      */
-    protected function driveSpecifiersMatch(
+    protected function pathDriveSpecifiersMatch(
         AbsolutePathInterface $left,
         AbsolutePathInterface $right
     ) {
-        $leftDrive = $this->normalizePathDriveSpecifier($left);
-        $rightDrive = $this->normalizePathDriveSpecifier($right);
-
-        return $leftDrive === $rightDrive;
+        return $this->driveSpecifiersMatch(
+            $this->pathDriveSpecifier($left),
+            $this->pathDriveSpecifier($right)
+        );
     }
 
     /**
@@ -294,43 +361,49 @@ class AbsoluteWindowsPath extends AbsolutePath implements
         $hasTrailingSeparator = null
     ) {
         if ($isAbsolute) {
-            return $this->createPathWithDrive(
+            return $this->createPathFromDriveAndAtoms(
                 $atoms,
                 $this->drive(),
+                true,
+                false,
                 $hasTrailingSeparator
             );
         }
 
-        return static::factory()->createFromAtoms(
+        return $this->createPathFromDriveAndAtoms(
             $atoms,
+            $this->drive(),
+            false,
             false,
             $hasTrailingSeparator
         );
     }
 
     /**
-     * Create a new absolute Windows path with a drive specifier.
-     *
-     * This method is called internally every time a new path instance with a
-     * drive specifier is created as part of another method call. It can be
-     * overridden in child classes to change which classes are used when
-     * creating new path instances.
+     * Creates a new path instance of the most appropriate type from a set of
+     * path atoms and a drive specifier.
      *
      * @param mixed<string> $atoms                The path atoms.
      * @param string|null   $drive                The drive specifier.
-     * @param boolean|null  $hasTrailingSeparator True if the new path should have a trailing separator.
+     * @param boolean|null  $isAbsolute           True if the path is absolute.
+     * @param boolean|null  $isAnchored           True if the path is anchored to the drive root.
+     * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
-     * @return AbsoluteWindowsPathInterface The newly created path instance.
+     * @return WindowsPathInterface              The newly created path instance.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
      */
-    protected function createPathWithDrive(
+    protected function createPathFromDriveAndAtoms(
         $atoms,
         $drive,
+        $isAbsolute = null,
+        $isAnchored = null,
         $hasTrailingSeparator = null
     ) {
         return static::factory()->createFromDriveAndAtoms(
             $atoms,
             $drive,
-            true,
+            $isAbsolute,
+            $isAnchored,
             $hasTrailingSeparator
         );
     }
@@ -353,6 +426,16 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     protected static function normalizer()
     {
         return Normalizer\WindowsPathNormalizer::instance();
+    }
+
+    /**
+     * Get the most appropriate path resolver for this type of path.
+     *
+     * @return PathResolverInterface The path resolver.
+     */
+    protected static function resolver()
+    {
+        return Resolver\WindowsPathResolver::instance();
     }
 
     private $drive;

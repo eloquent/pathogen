@@ -39,26 +39,6 @@ class WindowsPathFactory extends PathFactory implements
         return static::$instance;
     }
 
-    /**
-     * Construct a new Windows path factory.
-     *
-     * @param string|null $defaultDrive The default drive specifier to use when none is specified, or null to leave the drive specifier empty.
-     */
-    public function __construct($defaultDrive = null)
-    {
-        $this->defaultDrive = $defaultDrive;
-    }
-
-    /**
-     * Get the default drive specifier.
-     *
-     * @return string|null The default drive specifier.
-     */
-    public function defaultDrive()
-    {
-        return $this->defaultDrive;
-    }
-
     // Implementation of PathFactoryInterface ==================================
 
     /**
@@ -74,21 +54,27 @@ class WindowsPathFactory extends PathFactory implements
             $path = AbstractPath::SELF_ATOM;
         }
 
-        $isAbsolute = false;
+        $isAnchored = false;
         $drive = null;
         $hasTrailingSeparator = false;
 
-        $atoms = preg_split('~[/\\\\]~', $path);
-        if (preg_match('/^([a-zA-Z]):$/', $atoms[0], $matches)) {
-            $isAbsolute = true;
+        $atoms = preg_split('{[/\\\\]}', $path);
+
+        if (preg_match('{^([a-zA-Z]):}', $atoms[0], $matches)) {
             $drive = $matches[1];
-            array_shift($atoms);
+
+            if (strlen($atoms[0])> 2) {
+                $atoms[0] = substr($atoms[0], 2);
+            } else {
+                array_shift($atoms);
+            }
         }
+
         $numAtoms = count($atoms);
 
         if ($numAtoms > 1) {
             if ('' === $atoms[0]) {
-                $isAbsolute = true;
+                $isAnchored = true;
                 array_shift($atoms);
                 --$numAtoms;
             }
@@ -110,7 +96,8 @@ class WindowsPathFactory extends PathFactory implements
         return $this->createFromDriveAndAtoms(
             $atoms,
             $drive,
-            $isAbsolute,
+            !$isAnchored && null !== $drive,
+            $isAnchored,
             $hasTrailingSeparator
         );
     }
@@ -118,25 +105,31 @@ class WindowsPathFactory extends PathFactory implements
     /**
      * Creates a new path instance from a set of path atoms.
      *
-     * Unless otherwise specified, created paths will be absolute, and have no
-     * trailing separator.
-     *
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $isAbsolute           True if the path is absolute.
      * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
      * @return PathInterface                     The newly created path instance.
      * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
+     * @throws InvalidPathStateException         If the supplied arguments would produce an invalid path.
      */
     public function createFromAtoms(
         $atoms,
         $isAbsolute = null,
         $hasTrailingSeparator = null
     ) {
+        if (false !== $isAbsolute) {
+            throw new InvalidPathStateException(
+                'Cannot create an absolute Windows path without a drive ' .
+                    'specifier.'
+            );
+        }
+
         return $this->createFromDriveAndAtoms(
             $atoms,
-            $isAbsolute ? $this->defaultDrive() : null,
-            $isAbsolute,
+            null,
+            false,
+            false,
             $hasTrailingSeparator
         );
     }
@@ -147,41 +140,50 @@ class WindowsPathFactory extends PathFactory implements
      * Creates a new path instance from a set of path atoms and a drive
      * specifier.
      *
-     * Unless otherwise specified, created paths will be absolute, and have no
-     * trailing separator.
-     *
      * @param mixed<string> $atoms                The path atoms.
      * @param string|null   $drive                The drive specifier.
      * @param boolean|null  $isAbsolute           True if the path is absolute.
+     * @param boolean|null  $isAnchored           True if the path is anchored to the drive root.
      * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
      * @return WindowsPathInterface              The newly created path instance.
      * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
+     * @throws InvalidPathStateException         If the supplied arguments would produce an invalid path.
      */
     public function createFromDriveAndAtoms(
         $atoms,
-        $drive,
+        $drive = null,
         $isAbsolute = null,
+        $isAnchored = null,
         $hasTrailingSeparator = null
     ) {
-        if (null === $isAbsolute) {
-            $isAbsolute = true;
+        if (null === $isAnchored) {
+            $isAnchored = false;
         }
-        if (!$isAbsolute && null !== $drive) {
+        if (null === $isAbsolute) {
+            $isAbsolute = null !== $drive && !$isAnchored;
+        }
+
+        if ($isAbsolute && $isAnchored) {
             throw new InvalidPathStateException(
-                "Path cannot be relative and have a drive specifier."
+                'Absolute Windows paths cannot anchored.'
             );
         }
 
         if ($isAbsolute) {
             return new AbsoluteWindowsPath(
-                $atoms,
                 $drive,
+                $atoms,
                 $hasTrailingSeparator
             );
         }
 
-        return new RelativeWindowsPath($atoms, $hasTrailingSeparator);
+        return new RelativeWindowsPath(
+            $atoms,
+            $drive,
+            $isAnchored,
+            $hasTrailingSeparator
+        );
     }
 
     private static $instance;

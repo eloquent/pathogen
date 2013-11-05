@@ -157,8 +157,7 @@ abstract class AbstractPath implements PathInterface
     {
         return
             implode(static::ATOM_SEPARATOR, $this->atoms()) .
-            ($this->hasTrailingSeparator() ? static::ATOM_SEPARATOR : '')
-        ;
+            ($this->hasTrailingSeparator() ? static::ATOM_SEPARATOR : '');
     }
 
     /**
@@ -997,8 +996,7 @@ abstract class AbstractPath implements PathInterface
      *
      * @param string $atom The atom to validate.
      *
-     * @throws Exception\EmptyPathAtomException             If the path atom is empty.
-     * @throws Exception\PathAtomContainsSeparatorException If the path atom contains a separator.
+     * @throws Exception\InvalidPathAtomExceptionInterface If an invalid path atom is encountered.
      */
     protected function validateAtom($atom)
     {
@@ -1058,7 +1056,7 @@ abstract class AbstractPath implements PathInterface
     /**
      * Get the most appropriate path resolver for this type of path.
      *
-     * @return Normalizer\PathResolverInterface The path resolver.
+     * @return Resolver\PathResolverInterface The path resolver.
      */
     protected static function resolver()
     {

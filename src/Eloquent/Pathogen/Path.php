@@ -33,9 +33,6 @@ abstract class Path
     /**
      * Creates a new path instance from a set of path atoms.
      *
-     * Unless otherwise specified, created paths will be absolute, and have no
-     * trailing separator.
-     *
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $isAbsolute           True if the path is absolute.
      * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.

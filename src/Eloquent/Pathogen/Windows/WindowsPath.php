@@ -25,27 +25,27 @@ abstract class WindowsPath extends Path
      * Creates a new path instance from a set of path atoms and a drive
      * specifier.
      *
-     * Unless otherwise specified, created paths will be absolute, and have no
-     * trailing separator.
-     *
      * @param mixed<string> $atoms                The path atoms.
      * @param string|null   $drive                The drive specifier.
      * @param boolean|null  $isAbsolute           True if the path is absolute.
+     * @param boolean|null  $isAnchored           True if the path is anchored to the drive root.
      * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
      * @return WindowsPathInterface              The newly created path instance.
      * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
      */
-    public static function fromDriveAndAtoms(
+    public static function createFromDriveAndAtoms(
         $atoms,
         $drive,
         $isAbsolute = null,
+        $isAnchored = null,
         $hasTrailingSeparator = null
     ) {
         return static::factory()->createFromDriveAndAtoms(
             $atoms,
             $drive,
             $isAbsolute,
+            $isAnchored,
             $hasTrailingSeparator
         );
     }

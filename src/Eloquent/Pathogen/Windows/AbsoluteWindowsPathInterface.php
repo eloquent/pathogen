@@ -20,26 +20,4 @@ interface AbsoluteWindowsPathInterface extends
     AbsoluteFileSystemPathInterface,
     WindowsPathInterface
 {
-    /**
-     * Get this path's drive specifier.
-     *
-     * @return string|null The drive specifier, or null if this path does not have a drive specifier.
-     */
-    public function drive();
-
-    /**
-     * Determine whether this path has a drive specifier.
-     *
-     * @return boolean True is this path has a drive specifier.
-     */
-    public function hasDrive();
-
-    /**
-     * Joins the supplied drive specifier to this path.
-     *
-     * @return string|null $drive The drive specifier to use, or null to remove the drive specifier.
-     *
-     * @return AbsoluteWindowsPathInterface A new path instance with the supplied drive specifier joined to this path.
-     */
-    public function joinDrive($drive);
 }
