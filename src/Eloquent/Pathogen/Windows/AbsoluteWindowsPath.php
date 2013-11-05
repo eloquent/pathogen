@@ -57,16 +57,16 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     /**
      * Construct a new path instance.
      *
-     * @param mixed<string> $atoms                The path atoms.
      * @param string        $drive                The drive specifier, or null if the path has no drive specifier.
+     * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
      *
      * @throws Exception\InvalidDriveSpecifierException If the drive specifier is invalid.
      * @throws InvalidPathAtomExceptionInterface        If any of the supplied path atoms are invalid.
      */
-    public function __construct($atoms, $drive, $hasTrailingSeparator = null)
+    public function __construct($drive, $atoms, $hasTrailingSeparator = null)
     {
-        if (!preg_match('/^[a-zA-Z]$/', $drive)) {
+        if (!preg_match('{^[a-zA-Z]$}', $drive)) {
             throw new Exception\InvalidDriveSpecifierException($drive);
         }
 
@@ -113,13 +113,9 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      *
      * @return boolean True if the drive specifiers are equal.
      */
-    public function isDriveEqualTo($drive)
+    public function matchesDrive($drive)
     {
-        if (null === $drive) {
-            return !$this->hasDrive();
-        }
-
-        return strtoupper($drive)
+        return $this->driveSpecifiersMatch($this->drive(), $drive);
     }
 
     /**

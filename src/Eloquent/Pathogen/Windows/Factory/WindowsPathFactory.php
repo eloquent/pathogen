@@ -80,7 +80,7 @@ class WindowsPathFactory extends PathFactory implements
             }
 
             if ('' === $atoms[$numAtoms - 1]) {
-                $hasTrailingSeparator = !$isAbsolute || $numAtoms > 1;
+                $hasTrailingSeparator = null === $drive || $numAtoms > 1;
                 array_pop($atoms);
                 --$numAtoms;
             }

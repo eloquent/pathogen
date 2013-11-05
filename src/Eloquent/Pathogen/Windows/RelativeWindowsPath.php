@@ -76,10 +76,10 @@ class RelativeWindowsPath extends RelativePath implements
             $hasTrailingSeparator = false;
         }
 
-        $this->atoms = $this->normalizeAtoms($atoms);
+        parent::__construct($atoms, $hasTrailingSeparator);
+
         $this->drive = $drive;
         $this->isAnchored = $isAnchored;
-        $this->hasTrailingSeparator = $hasTrailingSeparator;
     }
 
     // Implementation of WindowsPathInterface ==================================
@@ -108,6 +108,25 @@ class RelativeWindowsPath extends RelativePath implements
     public function hasDrive()
     {
         return null !== $this->drive();
+    }
+
+    /**
+     * Returns true if this path's drive specifier is equal to the supplied
+     * drive specifier.
+     *
+     * This method is not case sensitive.
+     *
+     * @param string|null $drive The driver specifier to compare to.
+     *
+     * @return boolean True if the drive specifiers are equal.
+     */
+    public function matchesDrive($drive)
+    {
+        if (null === $drive) {
+            return !$this->hasDrive();
+        }
+
+        return $this->driveSpecifiersMatch($this->drive(), $drive);
     }
 
     /**
@@ -183,6 +202,7 @@ class RelativeWindowsPath extends RelativePath implements
     {
         return
             ($this->hasDrive() ? $this->drive() . ':' : '') .
+            ($this->isAnchored() ? static::ATOM_SEPARATOR : '') .
             implode(static::ATOM_SEPARATOR, $this->atoms()) .
             ($this->hasTrailingSeparator() ? static::ATOM_SEPARATOR : '');
     }
@@ -248,6 +268,36 @@ class RelativeWindowsPath extends RelativePath implements
         } elseif (preg_match('/([\x00-\x1F<>:"|?*])/', $atom, $matches)) {
             throw new InvalidPathAtomCharacterException($atom, $matches[1]);
         }
+    }
+
+    /**
+     * Get the normalized form of the supplied drive specifier.
+     *
+     * @param string|null $drive The drive specifier to normalize.
+     *
+     * @return string|null The normalized drive specifier.
+     */
+    protected function normalizeDriveSpecifier($drive)
+    {
+        if (null === $drive) {
+            return null;
+        }
+
+        return strtoupper($drive);
+    }
+
+    /**
+     * Returns true if the supplied path specifiers match.
+     *
+     * @param string|null $left  The first specifier.
+     * @param string|null $right The second specifier.
+     *
+     * @return boolean True if the drive specifiers match.
+     */
+    protected function driveSpecifiersMatch($left, $right)
+    {
+        return $this->normalizeDriveSpecifier($left) ===
+            $this->normalizeDriveSpecifier($right);
     }
 
     /**

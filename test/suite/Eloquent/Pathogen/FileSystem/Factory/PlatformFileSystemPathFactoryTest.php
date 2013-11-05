@@ -86,7 +86,7 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('/foo/bar', $path->string());
         $this->assertInstanceOf(
-            'Eloquent\Pathogen\Windows\AbsoluteWindowsPath',
+            'Eloquent\Pathogen\Windows\RelativeWindowsPath',
             $path
         );
         Phake::verify($this->windowsFactory)->create('/foo/bar');
@@ -156,14 +156,15 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
         Phake::when($this->isolator)
             ->defined('PHP_WINDOWS_VERSION_BUILD')
             ->thenReturn(true);
+        Phake::when($this->isolator)->getcwd()->thenReturn('C:/path/to/cwd');
         $path = $this->factory->createWorkingDirectoryPath();
 
-        $this->assertSame('/path/to/cwd', $path->string());
+        $this->assertSame('C:/path/to/cwd', $path->string());
         $this->assertInstanceOf(
             'Eloquent\Pathogen\Windows\AbsoluteWindowsPath',
             $path
         );
-        Phake::verify($this->windowsFactory)->create('/path/to/cwd');
+        Phake::verify($this->windowsFactory)->create('C:/path/to/cwd');
         Phake::verify($this->unixFactory, Phake::never())->create(
             Phake::anyParameters()
         );
@@ -189,14 +190,15 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
         Phake::when($this->isolator)
             ->defined('PHP_WINDOWS_VERSION_BUILD')
             ->thenReturn(true);
+        Phake::when($this->isolator)->sys_get_temp_dir()->thenReturn('C:/path/to/tmp');
         $path = $this->factory->createTemporaryDirectoryPath();
 
-        $this->assertSame('/path/to/tmp', $path->string());
+        $this->assertSame('C:/path/to/tmp', $path->string());
         $this->assertInstanceOf(
             'Eloquent\Pathogen\Windows\AbsoluteWindowsPath',
             $path
         );
-        Phake::verify($this->windowsFactory)->create('/path/to/tmp');
+        Phake::verify($this->windowsFactory)->create('C:/path/to/tmp');
         Phake::verify($this->unixFactory, Phake::never())->create(
             Phake::anyParameters()
         );
@@ -224,14 +226,15 @@ class PlatformFileSystemPathFactoryTest extends PHPUnit_Framework_TestCase
         Phake::when($this->isolator)
             ->defined('PHP_WINDOWS_VERSION_BUILD')
             ->thenReturn(true);
+        Phake::when($this->isolator)->sys_get_temp_dir()->thenReturn('C:/path/to/tmp');
         $path = $this->factory->createTemporaryPath();
 
-        $this->assertSame('/path/to/tmp/unique-id', $path->string());
+        $this->assertSame('C:/path/to/tmp/unique-id', $path->string());
         $this->assertInstanceOf(
             'Eloquent\Pathogen\Windows\AbsoluteWindowsPath',
             $path
         );
-        Phake::verify($this->windowsFactory)->create('/path/to/tmp');
+        Phake::verify($this->windowsFactory)->create('C:/path/to/tmp');
         Phake::verify($this->unixFactory, Phake::never())->create(
             Phake::anyParameters()
         );
