@@ -12,8 +12,8 @@
 namespace Eloquent\Pathogen\Factory;
 
 use Eloquent\Liberator\Liberator;
-use Eloquent\Pathogen\AbsolutePathInterface;
-use Eloquent\Pathogen\RelativePathInterface;
+use Eloquent\Pathogen\AbsolutePath;
+use Eloquent\Pathogen\RelativePath;
 use PHPUnit_Framework_TestCase;
 
 class PathFactoryTest extends PHPUnit_Framework_TestCase
@@ -55,8 +55,8 @@ class PathFactoryTest extends PHPUnit_Framework_TestCase
         $path = $this->factory->create($pathString);
 
         $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsolutePathInterface);
-        $this->assertSame($isAbsolute, !$path instanceof RelativePathInterface);
+        $this->assertSame($isAbsolute, $path instanceof AbsolutePath);
+        $this->assertSame($isAbsolute, !$path instanceof RelativePath);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 
@@ -68,8 +68,8 @@ class PathFactoryTest extends PHPUnit_Framework_TestCase
         $path = $this->factory->createFromAtoms($atoms, $isAbsolute, $hasTrailingSeparator);
 
         $this->assertSame($atoms, $path->atoms());
-        $this->assertSame($isAbsolute, $path instanceof AbsolutePathInterface);
-        $this->assertSame($isAbsolute, !$path instanceof RelativePathInterface);
+        $this->assertSame($isAbsolute, $path instanceof AbsolutePath);
+        $this->assertSame($isAbsolute, !$path instanceof RelativePath);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 
@@ -77,7 +77,7 @@ class PathFactoryTest extends PHPUnit_Framework_TestCase
     {
         $path = $this->factory->createFromAtoms(array());
 
-        $this->assertTrue($path instanceof AbsolutePathInterface);
+        $this->assertTrue($path instanceof AbsolutePath);
         $this->assertFalse($path->hasTrailingSeparator());
     }
 
