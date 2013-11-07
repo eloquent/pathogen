@@ -75,9 +75,9 @@ class UnixPathFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testCreateFromAtomsDefaults()
     {
-        $path = $this->factory->createFromAtoms(array());
+        $path = $this->factory->createFromAtoms(array('.'));
 
-        $this->assertTrue($path instanceof AbsoluteUnixPath);
+        $this->assertTrue($path instanceof RelativeUnixPath);
         $this->assertFalse($path->hasTrailingSeparator());
     }
 

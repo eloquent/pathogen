@@ -50,23 +50,23 @@ class WindowsPathFactory extends PathFactory implements
      */
     public function create($path)
     {
-        if ('' === $path) {
-            $path = AbstractPath::SELF_ATOM;
-        }
-
-        $isAnchored = false;
         $drive = null;
+        $isAbsolute = false;
+        $isAnchored = false;
         $hasTrailingSeparator = false;
 
-        $atoms = preg_split('{[/\\\\]}', $path);
+        if ('' === $path) {
+            $atoms = array(AbstractPath::SELF_ATOM);
+        } else {
+            $atoms = preg_split('{[/\\\\]}', $path);
+        }
 
         if (preg_match('{^([a-zA-Z]):}', $atoms[0], $matches)) {
             $drive = $matches[1];
 
-            if (strlen($atoms[0])> 2) {
-                $atoms[0] = substr($atoms[0], 2);
-            } else {
-                array_shift($atoms);
+            $atoms[0] = substr($atoms[0], 2);
+            if (false === $atoms[0]) {
+                $atoms[0] = '';
             }
         }
 
@@ -74,13 +74,22 @@ class WindowsPathFactory extends PathFactory implements
 
         if ($numAtoms > 1) {
             if ('' === $atoms[0]) {
-                $isAnchored = true;
+                if (null === $drive) {
+                    $isAnchored = true;
+                } else {
+                    $isAbsolute = true;
+                }
+
                 array_shift($atoms);
                 --$numAtoms;
             }
+        } else {
+            $isAbsolute = null !== $drive && '' === $atoms[0];
+        }
 
+        if ($numAtoms > 1) {
             if ('' === $atoms[$numAtoms - 1]) {
-                $hasTrailingSeparator = null === $drive || $numAtoms > 1;
+                $hasTrailingSeparator = true;
                 array_pop($atoms);
                 --$numAtoms;
             }
@@ -89,14 +98,13 @@ class WindowsPathFactory extends PathFactory implements
         foreach ($atoms as $index => $atom) {
             if ('' === $atom) {
                 array_splice($atoms, $index, 1);
-                --$numAtoms;
             }
         }
 
         return $this->createFromDriveAndAtoms(
             $atoms,
             $drive,
-            !$isAnchored && null !== $drive,
+            $isAbsolute,
             $isAnchored,
             $hasTrailingSeparator
         );
@@ -118,17 +126,10 @@ class WindowsPathFactory extends PathFactory implements
         $isAbsolute = null,
         $hasTrailingSeparator = null
     ) {
-        if (false !== $isAbsolute) {
-            throw new InvalidPathStateException(
-                'Cannot create an absolute Windows path without a drive ' .
-                    'specifier.'
-            );
-        }
-
         return $this->createFromDriveAndAtoms(
             $atoms,
             null,
-            false,
+            $isAbsolute,
             false,
             $hasTrailingSeparator
         );
@@ -166,7 +167,7 @@ class WindowsPathFactory extends PathFactory implements
 
         if ($isAbsolute && $isAnchored) {
             throw new InvalidPathStateException(
-                'Absolute Windows paths cannot anchored.'
+                'Absolute Windows paths cannot be anchored.'
             );
         }
 

@@ -54,8 +54,9 @@ class UnixPathFactory extends PathFactory
         $hasTrailingSeparator = null
     ) {
         if (null === $isAbsolute) {
-            $isAbsolute = true;
+            $isAbsolute = false;
         }
+
         if ($isAbsolute) {
             return new AbsoluteUnixPath($atoms, $hasTrailingSeparator);
         }

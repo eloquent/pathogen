@@ -75,9 +75,9 @@ class PathFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testCreateFromAtomsDefaults()
     {
-        $path = $this->factory->createFromAtoms(array());
+        $path = $this->factory->createFromAtoms(array('.'));
 
-        $this->assertTrue($path instanceof AbsolutePath);
+        $this->assertTrue($path instanceof RelativePath);
         $this->assertFalse($path->hasTrailingSeparator());
     }
 

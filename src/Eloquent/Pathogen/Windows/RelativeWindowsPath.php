@@ -11,6 +11,8 @@
 
 namespace Eloquent\Pathogen\Windows;
 
+use Eloquent\Pathogen\Exception\EmptyPathAtomException;
+use Eloquent\Pathogen\Exception\EmptyPathException;
 use Eloquent\Pathogen\Exception\InvalidPathAtomCharacterException;
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\Exception\InvalidPathStateException;
@@ -61,7 +63,8 @@ class RelativeWindowsPath extends RelativePath implements
      * @param boolean|null  $isAnchored           True if this path is anchored to the drive root.
      * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
      *
-     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
+     * @throws EmptyPathException                If the path atoms are empty, and the path is not anchored.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
      */
     public function __construct(
         $atoms,
@@ -74,6 +77,10 @@ class RelativeWindowsPath extends RelativePath implements
         }
         if (null === $hasTrailingSeparator) {
             $hasTrailingSeparator = false;
+        }
+
+        if (!$isAnchored && count($atoms) < 1) {
+            throw new EmptyPathException;
         }
 
         parent::__construct($atoms, $hasTrailingSeparator);
@@ -247,6 +254,30 @@ class RelativeWindowsPath extends RelativePath implements
     }
 
     // Implementation details ==================================================
+
+    /**
+     * Normalizes and validates a sequence of path atoms.
+     *
+     * This method is called internally by the constructor upon instantiation.
+     * It can be overridden in child classes to change how path atoms are
+     * normalized and/or validated.
+     *
+     * @param mixed<string> $atoms The path atoms to normalize.
+     *
+     * @return array<string>                      The normalized path atoms.
+     * @throws EmptyPathAtomException             If any path atom is empty.
+     * @throws PathAtomContainsSeparatorException If any path atom contains a separator.
+     */
+    protected function normalizeAtoms($atoms)
+    {
+        $normalizedAtoms = array();
+        foreach ($atoms as $atom) {
+            $this->validateAtom($atom);
+            $normalizedAtoms[] = $atom;
+        }
+
+        return $normalizedAtoms;
+    }
 
     /**
      * Validates a single path atom.
