@@ -20,7 +20,9 @@ use Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException;
 use Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface;
 use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 use Eloquent\Pathogen\PathInterface;
+use Eloquent\Pathogen\RelativePathInterface;
 use Eloquent\Pathogen\Resolver\PathResolverInterface;
+use Eloquent\Pathogen\Windows\RelativeWindowsPathInterface;
 
 /**
  * Represents an absolute Windows path.
@@ -229,6 +231,35 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     }
 
     /**
+     * Joins the supplied path to this path.
+     *
+     * @param RelativePathInterface $path The path whose atoms should be joined to this path.
+     *
+     * @return PathInterface                    A new path with the supplied path suffixed to this path.
+     * @throws Exception\DriveMismatchException If the supplied path has a drive that does not match this path's drive.
+     */
+    public function join(RelativePathInterface $path)
+    {
+        if ($path instanceof RelativeWindowsPathInterface) {
+            if (
+                $path->hasDrive() &&
+                !$this->pathDriveSpecifiersMatch($this, $path)
+            ) {
+                throw new Exception\DriveMismatchException(
+                    $this->drive(),
+                    $path->drive()
+                );
+            }
+
+            if ($path->isAnchored()) {
+                return $path->joinDrive($this->drive());
+            }
+        }
+
+        return parent::join($path);
+    }
+
+    /**
      * Get a relative version of this path.
      *
      * If this path is absolute, a new relative path with equivalent atoms will
@@ -243,7 +274,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
             $this->atoms(),
             $this->drive(),
             false,
-            true,
+            false,
             $this->hasTrailingSeparator()
         );
     }
@@ -322,14 +353,14 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     /**
      * Returns true if the path specifiers for the given paths match.
      *
-     * @param AbsolutePathInterface $left  The first path.
-     * @param AbsolutePathInterface $right The second path.
+     * @param PathInterface $left  The first path.
+     * @param PathInterface $right The second path.
      *
      * @return boolean True if the drive specifiers match.
      */
     protected function pathDriveSpecifiersMatch(
-        AbsolutePathInterface $left,
-        AbsolutePathInterface $right
+        PathInterface $left,
+        PathInterface $right
     ) {
         return $this->driveSpecifiersMatch(
             $this->pathDriveSpecifier($left),

@@ -54,7 +54,7 @@ class RelativeUnixPathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($atoms, $path->atoms());
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
         $this->assertSame($expectedPathString, $path->string());
-        $this->assertSame($expectedPathString, strval($path->string()));
+        $this->assertSame($expectedPathString, strval($path));
     }
 
     public function testConstructorDefaults()
