@@ -121,6 +121,21 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     }
 
     /**
+     * Returns true if this path's drive specifier matches the supplied drive
+     * specifier, or if either drive specifier is null.
+     *
+     * This method is not case sensitive.
+     *
+     * @param string|null $drive The driver specifier to compare to.
+     *
+     * @return boolean True if the drive specifiers match, or either drive specifier is null.
+     */
+    public function matchesDriveOrNull($drive)
+    {
+        return null === $drive || $this->matchesDrive($drive);
+    }
+
+    /**
      * Joins the supplied drive specifier to this path.
      *
      * @return string|null $drive The drive specifier to use, or null to remove the drive specifier.
@@ -159,7 +174,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      */
     public function isParentOf(AbsolutePathInterface $path)
     {
-        if (!$this->pathDriveSpecifiersMatch($this, $path)) {
+        if (!$this->matchesDriveOrNull($this->pathDriveSpecifier($path))) {
             return false;
         }
 
@@ -175,7 +190,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      */
     public function isAncestorOf(AbsolutePathInterface $path)
     {
-        if (!$this->pathDriveSpecifiersMatch($this, $path)) {
+        if (!$this->matchesDriveOrNull($this->pathDriveSpecifier($path))) {
             return false;
         }
 
@@ -194,7 +209,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      */
     public function relativeTo(AbsolutePathInterface $path)
     {
-        if (!$this->pathDriveSpecifiersMatch($this, $path)) {
+        if (!$this->matchesDriveOrNull($this->pathDriveSpecifier($path))) {
             return $this->toRelative();
         }
 
@@ -241,10 +256,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     public function join(RelativePathInterface $path)
     {
         if ($path instanceof RelativeWindowsPathInterface) {
-            if (
-                $path->hasDrive() &&
-                !$this->pathDriveSpecifiersMatch($this, $path)
-            ) {
+            if (!$this->matchesDriveOrNull($this->pathDriveSpecifier($path))) {
                 throw new Exception\DriveMismatchException(
                     $this->drive(),
                     $path->drive()
@@ -351,24 +363,6 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     }
 
     /**
-     * Returns true if the path specifiers for the given paths match.
-     *
-     * @param PathInterface $left  The first path.
-     * @param PathInterface $right The second path.
-     *
-     * @return boolean True if the drive specifiers match.
-     */
-    protected function pathDriveSpecifiersMatch(
-        PathInterface $left,
-        PathInterface $right
-    ) {
-        return $this->driveSpecifiersMatch(
-            $this->pathDriveSpecifier($left),
-            $this->pathDriveSpecifier($right)
-        );
-    }
-
-    /**
      * Creates a new path instance of the most appropriate type.
      *
      * This method is called internally every time a new path instance is
@@ -399,7 +393,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
 
         return $this->createPathFromDriveAndAtoms(
             $atoms,
-            $this->drive(),
+            null,
             false,
             false,
             $hasTrailingSeparator

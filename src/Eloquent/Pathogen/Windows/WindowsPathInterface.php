@@ -51,6 +51,18 @@ interface WindowsPathInterface extends FileSystemPathInterface
     public function matchesDrive($drive);
 
     /**
+     * Returns true if this path's drive specifier matches the supplied drive
+     * specifier, or if either drive specifier is null.
+     *
+     * This method is not case sensitive.
+     *
+     * @param string|null $drive The driver specifier to compare to.
+     *
+     * @return boolean True if the drive specifiers match, or either drive specifier is null.
+     */
+    public function matchesDriveOrNull($drive);
+
+    /**
      * Joins the supplied drive specifier to this path.
      *
      * @return string|null $drive The drive specifier to use, or null to remove the drive specifier.

@@ -129,11 +129,24 @@ class RelativeWindowsPath extends RelativePath implements
      */
     public function matchesDrive($drive)
     {
-        if (null === $drive) {
-            return !$this->hasDrive();
-        }
-
         return $this->driveSpecifiersMatch($this->drive(), $drive);
+    }
+
+    /**
+     * Returns true if this path's drive specifier matches the supplied drive
+     * specifier, or if either drive specifier is null.
+     *
+     * This method is not case sensitive.
+     *
+     * @param string|null $drive The driver specifier to compare to.
+     *
+     * @return boolean True if the drive specifiers match, or either drive specifier is null.
+     */
+    public function matchesDriveOrNull($drive)
+    {
+        return null === $drive ||
+            !$this->hasDrive() ||
+            $this->driveSpecifiersMatch($this->drive(), $drive);
     }
 
     /**
@@ -329,6 +342,23 @@ class RelativeWindowsPath extends RelativePath implements
     {
         return $this->normalizeDriveSpecifier($left) ===
             $this->normalizeDriveSpecifier($right);
+    }
+
+    /**
+     * Get the the drive specifier of the supplied path, returning null if the
+     * path is a non-Windows path.
+     *
+     * @param PathInterface $path The path.
+     *
+     * @return string|null The drive specifier.
+     */
+    protected function pathDriveSpecifier(PathInterface $path)
+    {
+        if ($path instanceof WindowsPathInterface) {
+            return $path->drive();
+        }
+
+        return null;
     }
 
     /**
