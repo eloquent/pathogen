@@ -65,9 +65,9 @@ class PathTest extends PHPUnit_Framework_TestCase
 
     public function testCreateFromAtomsDefaults()
     {
-        $path = Path::fromAtoms(array());
+        $path = Path::fromAtoms(array('foo'));
 
-        $this->assertTrue($path instanceof AbsolutePath);
+        $this->assertTrue($path instanceof RelativePath);
         $this->assertFalse($path->hasTrailingSeparator());
     }
 }

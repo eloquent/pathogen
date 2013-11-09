@@ -17,6 +17,7 @@ use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\Windows\AbsoluteWindowsPathInterface;
 use Eloquent\Pathogen\Windows\Factory\WindowsPathFactory;
 use Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryInterface;
+use Eloquent\Pathogen\Windows\RelativeWindowsPathInterface;
 
 /**
  * A path normalizer suitable for normalizing Windows paths.
@@ -64,7 +65,7 @@ class WindowsPathNormalizer extends PathNormalizer
             return $this->normalizeAbsoluteWindowsPath($path);
         }
 
-        return parent::normalize($path);
+        return $this->normalizeRelativeWindowsPath($path);
     }
 
     /**
@@ -81,6 +82,32 @@ class WindowsPathNormalizer extends PathNormalizer
             $this->normalizeAbsolutePathAtoms($path->atoms()),
             $this->normalizeDriveSpecifier($path->drive()),
             true,
+            false,
+            false
+        );
+    }
+
+    /**
+     * Normalize a relative Windows path.
+     *
+     * @param RelativeWindowsPathInterface $path The path to normalize.
+     *
+     * @return RelativeWindowsPathInterface The normalized path.
+     */
+    protected function normalizeRelativeWindowsPath(
+        RelativeWindowsPathInterface $path
+    ) {
+        if ($path->isAnchored()) {
+            $atoms = $this->normalizeAbsolutePathAtoms($path->atoms());
+        } else {
+            $atoms = $this->normalizeRelativePathAtoms($path->atoms());
+        }
+
+        return $this->factory()->createFromDriveAndAtoms(
+            $atoms,
+            $this->normalizeDriveSpecifier($path->drive()),
+            false,
+            $path->isAnchored(),
             false
         );
     }

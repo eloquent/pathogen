@@ -85,7 +85,7 @@ class RelativeWindowsPath extends RelativePath implements
         }
 
         if (null !== $drive) {
-            $this->validateDrive($drive);
+            $this->validateDriveSpecifier($drive);
         }
 
         parent::__construct($atoms, $hasTrailingSeparator);
@@ -340,7 +340,7 @@ class RelativeWindowsPath extends RelativePath implements
      *
      * @throws Exception\InvalidDriveSpecifierException If the drive specifier is invalid.
      */
-    protected function validateDrive($drive)
+    protected function validateDriveSpecifier($drive)
     {
         if (!preg_match('{^[a-zA-Z]$}', $drive)) {
             throw new Exception\InvalidDriveSpecifierException($drive);

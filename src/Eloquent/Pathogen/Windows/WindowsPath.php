@@ -36,7 +36,7 @@ abstract class WindowsPath extends Path
      */
     public static function fromDriveAndAtoms(
         $atoms,
-        $drive,
+        $drive = null,
         $isAbsolute = null,
         $isAnchored = null,
         $hasTrailingSeparator = null

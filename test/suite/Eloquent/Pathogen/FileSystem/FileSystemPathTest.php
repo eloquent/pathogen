@@ -14,6 +14,7 @@ namespace Eloquent\Pathogen\FileSystem;
 use Eloquent\Pathogen\Unix\AbsoluteUnixPath;
 use Eloquent\Pathogen\Unix\RelativeUnixPath;
 use Eloquent\Pathogen\Windows\AbsoluteWindowsPath;
+use Eloquent\Pathogen\Windows\RelativeWindowsPath;
 use PHPUnit_Framework_TestCase;
 
 class FileSystemPathTest extends PHPUnit_Framework_TestCase
@@ -48,7 +49,14 @@ class FileSystemPathTest extends PHPUnit_Framework_TestCase
             'Relative with empty atoms at end'                               => array('foo/bar//',               null,  array('foo', 'bar'),              false,      true),
             'Relative with whitespace atoms'                                 => array(' foo bar / baz qux ',     null,  array(' foo bar ', ' baz qux '),  false,      false),
 
-            'Absolute backslashes not interpreted as separators'             => array('\\foo\\bar\\',            null,  array('\\foo\\bar\\'),            false,      false),
+            'Self with drive'                                                => array('C:.',                     'C',   array('.'),                       false,      false),
+            'Relative with drive'                                            => array('C:foo/bar',               'C',   array('foo', 'bar'),              false,      false),
+            'Relative with trailing separator with drive'                    => array('C:foo/bar/',              'C',   array('foo', 'bar'),              false,      true),
+            'Relative with empty atoms with drive'                           => array('C:foo//bar',              'C',   array('foo', 'bar'),              false,      false),
+            'Relative with empty atoms at end with drive'                    => array('C:foo/bar//',             'C',   array('foo', 'bar'),              false,      true),
+            'Relative with whitespace atoms with drive'                      => array('C: foo bar / baz qux ',   'C',   array(' foo bar ', ' baz qux '),  false,      false),
+
+            'Anchored backslashes not interpreted as separators'             => array('\\foo\\bar\\',            null,  array('\\foo\\bar\\'),            false,      false),
             'Relative backslashes not interpreted as separators'             => array('foo\\bar\\',              null,  array('foo\\bar\\'),              false,      false),
         );
     }
@@ -63,11 +71,12 @@ class FileSystemPathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($atoms, $path->atoms());
         if (null === $drive) {
             $this->assertSame($isAbsolute, $path instanceof AbsoluteUnixPath);
+            $this->assertSame($isAbsolute, !$path instanceof RelativeUnixPath);
         } else {
             $this->assertSame($isAbsolute, $path instanceof AbsoluteWindowsPath);
+            $this->assertSame($isAbsolute, !$path instanceof RelativeWindowsPath);
             $this->assertSame($drive, $path->drive());
         }
-        $this->assertSame($isAbsolute, !$path instanceof RelativeUnixPath);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 
@@ -82,13 +91,5 @@ class FileSystemPathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($isAbsolute, $path instanceof AbsoluteUnixPath);
         $this->assertSame($isAbsolute, !$path instanceof RelativeUnixPath);
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
-    }
-
-    public function testCreateFromAtomsDefaults()
-    {
-        $path = FileSystemPath::fromAtoms(array());
-
-        $this->assertTrue($path instanceof AbsoluteUnixPath);
-        $this->assertFalse($path->hasTrailingSeparator());
     }
 }
