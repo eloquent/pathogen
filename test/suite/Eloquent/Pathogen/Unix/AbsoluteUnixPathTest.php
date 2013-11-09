@@ -509,11 +509,11 @@ class AbsoluteUnixPathTest extends PHPUnit_Framework_TestCase
     {
         //                             path            numLevels  parent
         return array(
-            'Root'            => array('/',             null,     '/'),
-            'Single atom'     => array('/foo',          null,     '/'),
-            'Multiple atoms'  => array('/foo/bar',      null,     '/foo'),
-            'Up one level'    => array('/foo/bar/baz',  1,        '/foo/bar'),
-            'Up two levels'   => array('/foo/bar/baz',  2,        '/foo'),
+            'Root'            => array('/',             null,     '/..'),
+            'Single atom'     => array('/foo',          null,     '/foo/..'),
+            'Multiple atoms'  => array('/foo/bar',      null,     '/foo/bar/..'),
+            'Up one level'    => array('/foo/bar/baz',  1,        '/foo/bar/baz/..'),
+            'Up two levels'   => array('/foo/bar/baz',  2,        '/foo/bar/baz/../..'),
         );
     }
 

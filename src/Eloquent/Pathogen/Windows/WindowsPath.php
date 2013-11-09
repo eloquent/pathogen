@@ -34,7 +34,7 @@ abstract class WindowsPath extends Path
      * @return WindowsPathInterface              The newly created path instance.
      * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
      */
-    public static function createFromDriveAndAtoms(
+    public static function fromDriveAndAtoms(
         $atoms,
         $drive,
         $isAbsolute = null,

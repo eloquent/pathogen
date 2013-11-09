@@ -20,6 +20,7 @@ use Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException;
 use Eloquent\Pathogen\FileSystem\RelativeFileSystemPathInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\RelativePath;
+use Eloquent\Pathogen\RelativePathInterface;
 
 /**
  * Represents a relative Windows path.
@@ -40,7 +41,7 @@ class RelativeWindowsPath extends RelativePath implements
      * @return WindowsPathInterface              The newly created path instance.
      * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
      */
-    public static function createFromDriveAndAtoms(
+    public static function fromDriveAndAtoms(
         $atoms,
         $drive = null,
         $isAnchored = null,
@@ -81,6 +82,10 @@ class RelativeWindowsPath extends RelativePath implements
 
         if (!$isAnchored && count($atoms) < 1) {
             throw new EmptyPathException;
+        }
+
+        if (null !== $drive) {
+            $this->validateDrive($drive);
         }
 
         parent::__construct($atoms, $hasTrailingSeparator);
@@ -208,7 +213,7 @@ class RelativeWindowsPath extends RelativePath implements
      */
     public function isSelf()
     {
-        return !$this->hasDrive() && parent::isSelf();
+        return !$this->isAnchored() && !$this->hasDrive() && parent::isSelf();
     }
 
     // Implementation of PathInterface =========================================
@@ -228,15 +233,29 @@ class RelativeWindowsPath extends RelativePath implements
     }
 
     /**
-     * Get the parent of this path a specified number of levels up.
+     * Joins the supplied path to this path.
      *
-     * @param integer|null $numLevels The number of levels up. Defaults to 1.
+     * @param RelativePathInterface $path The path whose atoms should be joined to this path.
      *
-     * @return PathInterface The parent of this path $numLevels up.
+     * @return PathInterface                    A new path with the supplied path suffixed to this path.
+     * @throws Exception\DriveMismatchException If the supplied path has a drive that does not match this path's drive.
      */
-    public function parent($numLevels = null)
+    public function join(RelativePathInterface $path)
     {
-        return parent::parent($numLevels)->normalize();
+        if ($path instanceof RelativeWindowsPathInterface) {
+            if (!$this->matchesDriveOrNull($this->pathDriveSpecifier($path))) {
+                throw new Exception\DriveMismatchException(
+                    $this->drive(),
+                    $path->drive()
+                );
+            }
+
+            if ($path->isAnchored()) {
+                return $path->joinDrive($this->drive());
+            }
+        }
+
+        return parent::join($path);
     }
 
     /**
@@ -311,6 +330,20 @@ class RelativeWindowsPath extends RelativePath implements
             throw new PathAtomContainsSeparatorException($atom);
         } elseif (preg_match('/([\x00-\x1F<>:"|?*])/', $atom, $matches)) {
             throw new InvalidPathAtomCharacterException($atom, $matches[1]);
+        }
+    }
+
+    /**
+     * Validates the suppled drive specifier.
+     *
+     * @param string $drive The drive specifier to validate.
+     *
+     * @throws Exception\InvalidDriveSpecifierException If the drive specifier is invalid.
+     */
+    protected function validateDrive($drive)
+    {
+        if (!preg_match('{^[a-zA-Z]$}', $drive)) {
+            throw new Exception\InvalidDriveSpecifierException($drive);
         }
     }
 

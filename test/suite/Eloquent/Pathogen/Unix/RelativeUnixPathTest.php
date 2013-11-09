@@ -516,11 +516,11 @@ class RelativeUnixPathTest extends PHPUnit_Framework_TestCase
     {
         //                             path        numLevels  parent
         return array(
-            'Self'            => array('.',        null,      '..'),
-            'Single atom'     => array('foo',      null,      '.'),
-            'Multiple atoms'  => array('foo/bar',  null,      'foo'),
-            'Up one level'    => array('foo',      1,         '.'),
-            'Up two levels'   => array('foo',      2,         '..'),
+            'Self'            => array('.',        null,      './..'),
+            'Single atom'     => array('foo',      null,      'foo/..'),
+            'Multiple atoms'  => array('foo/bar',  null,      'foo/bar/..'),
+            'Up one level'    => array('foo',      1,         'foo/..'),
+            'Up two levels'   => array('foo',      2,         'foo/../..'),
         );
     }
 

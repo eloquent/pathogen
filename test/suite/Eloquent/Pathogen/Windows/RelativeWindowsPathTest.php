@@ -28,49 +28,37 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         $this->factory = new Factory\WindowsPathFactory;
     }
 
-    public function invalidPathAtomCharacterData()
-    {
-        $characters = array_merge(
-            range(chr(0), chr(31)),
-            array('<', '>', ':', '"', '|', '?', '*')
-        );
-
-        $data = array();
-        foreach ($characters as $character) {
-            $name = sprintf(
-                'Invalid path atom character (ASCII %d)',
-                ord($character)
-            );
-            $data[$name] = array($character);
-        }
-
-        return $data;
-    }
-
-    // tests for PathInterface implementation ==================================
-
     public function pathData()
     {
-        //                             path                     atoms                             expectedPathString      hasTrailingSeparator
+        //                                        path                     atoms                             drive expectedPathString       hasTrailingSeparator
         return array(
-            'Self'            => array('.',                    array('.'),                        '.',                    false),
-            'Single atom'     => array('foo',                  array('foo'),                      'foo',                  false),
-            'Trailing slash'  => array('foo/',                 array('foo'),                      'foo/',                 true),
-            'Multiple atoms'  => array('foo/bar',              array('foo', 'bar'),               'foo/bar',              false),
-            'Parent atom'     => array('foo/../bar',           array('foo', '..', 'bar'),         'foo/../bar',           false),
-            'Self atom'       => array('foo/./bar',            array('foo', '.', 'bar'),          'foo/./bar',            false),
-            'Whitespace'      => array(' foo bar / baz qux ',  array(' foo bar ', ' baz qux '),   ' foo bar / baz qux ',  false),
+            'Self'                       => array('.',                    array('.'),                        null, '.',                     false),
+            'Single atom'                => array('foo',                  array('foo'),                      null, 'foo',                   false),
+            'Trailing slash'             => array('foo/',                 array('foo'),                      null, 'foo/',                  true),
+            'Multiple atoms'             => array('foo/bar',              array('foo', 'bar'),               null, 'foo/bar',               false),
+            'Parent atom'                => array('foo/../bar',           array('foo', '..', 'bar'),         null, 'foo/../bar',            false),
+            'Self atom'                  => array('foo/./bar',            array('foo', '.', 'bar'),          null, 'foo/./bar',             false),
+            'Whitespace'                 => array(' foo bar / baz qux ',  array(' foo bar ', ' baz qux '),   null, ' foo bar / baz qux ',   false),
+
+            'Self with drive'            => array('C:.',                    array('.'),                      'C',  'C:.',                   false),
+            'Single atom with drive'     => array('C:foo',                  array('foo'),                    'C',  'C:foo',                 false),
+            'Trailing slash with drive'  => array('C:foo/',                 array('foo'),                    'C',  'C:foo/',                true),
+            'Multiple atoms with drive'  => array('C:foo/bar',              array('foo', 'bar'),             'C',  'C:foo/bar',             false),
+            'Parent atom with drive'     => array('C:foo/../bar',           array('foo', '..', 'bar'),       'C',  'C:foo/../bar',          false),
+            'Self atom with drive'       => array('C:foo/./bar',            array('foo', '.', 'bar'),        'C',  'C:foo/./bar',           false),
+            'Whitespace with drive'      => array('C: foo bar / baz qux ',  array(' foo bar ', ' baz qux '), 'C',  'C: foo bar / baz qux ', false),
         );
     }
 
     /**
      * @dataProvider pathData
      */
-    public function testConstructor($pathString, array $atoms, $expectedPathString, $hasTrailingSeparator)
+    public function testConstructor($pathString, array $atoms, $drive, $expectedPathString, $hasTrailingSeparator)
     {
         $path = $this->factory->create($pathString);
 
         $this->assertSame($atoms, $path->atoms());
+        $this->assertSame($drive, $path->drive());
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
         $this->assertSame($expectedPathString, $path->string());
         $this->assertSame($expectedPathString, strval($path));
@@ -101,6 +89,25 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         new RelativeWindowsPath(array('foo\bar'));
     }
 
+    public function invalidPathAtomCharacterData()
+    {
+        $characters = array_merge(
+            range(chr(0), chr(31)),
+            array('<', '>', ':', '"', '|', '?', '*')
+        );
+
+        $data = array();
+        foreach ($characters as $character) {
+            $name = sprintf(
+                'Invalid path atom character (ASCII %d)',
+                ord($character)
+            );
+            $data[$name] = array($character);
+        }
+
+        return $data;
+    }
+
     /**
      * @dataProvider invalidPathAtomCharacterData
      */
@@ -114,7 +121,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
                 var_export($character, true)
             )
         );
-        new RelativeWindowsPath(array(sprintf('foo%sbar', $character)), null);
+        new RelativeWindowsPath(array(sprintf('foo%sbar', $character)));
     }
 
     public function testConstructorFailureEmptyAtom()
@@ -133,9 +140,110 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         new RelativeWindowsPath(array());
     }
 
+    public function testConstructorFailureInvalidDriveSpecifierCharacter()
+    {
+        $this->setExpectedException(
+            __NAMESPACE__ . '\Exception\InvalidDriveSpecifierException'
+        );
+        new RelativeWindowsPath(array('foo'), '$');
+    }
+
+    public function testConstructorFailureInvalidDriveSpecifierEmpty()
+    {
+        $this->setExpectedException(
+            __NAMESPACE__ . '\Exception\InvalidDriveSpecifierException'
+        );
+        new RelativeWindowsPath(array('foo'), '');
+    }
+
+    public function testConstructorFailureInvalidDriveSpecifierLength()
+    {
+        $this->setExpectedException(
+            __NAMESPACE__ . '\Exception\InvalidDriveSpecifierException'
+        );
+        new RelativeWindowsPath(array('foo'), 'CC');
+    }
+
+    // Implementation of WindowsPathInterface ==================================
+
+    public function testMatchesDrive()
+    {
+        $withDrive = $this->factory->create('C:foo/bar');
+        $noDrive = $this->factory->create('foo/bar');
+
+        $this->assertTrue($withDrive->matchesDrive('C'));
+        $this->assertTrue($withDrive->matchesDrive('c'));
+        $this->assertFalse($withDrive->matchesDrive('X'));
+        $this->assertFalse($withDrive->matchesDrive(null));
+
+        $this->assertFalse($noDrive->matchesDrive('C'));
+        $this->assertFalse($noDrive->matchesDrive('c'));
+        $this->assertFalse($noDrive->matchesDrive('X'));
+        $this->assertTrue($noDrive->matchesDrive(null));
+    }
+
+    public function testMatchesDriveOrNull()
+    {
+        $withDrive = $this->factory->create('C:foo/bar');
+        $noDrive = $this->factory->create('foo/bar');
+
+        $this->assertTrue($withDrive->matchesDriveOrNull('C'));
+        $this->assertTrue($withDrive->matchesDriveOrNull('c'));
+        $this->assertFalse($withDrive->matchesDriveOrNull('X'));
+        $this->assertTrue($withDrive->matchesDriveOrNull(null));
+
+        $this->assertTrue($noDrive->matchesDriveOrNull('C'));
+        $this->assertTrue($noDrive->matchesDriveOrNull('c'));
+        $this->assertTrue($noDrive->matchesDriveOrNull('X'));
+        $this->assertTrue($noDrive->matchesDriveOrNull(null));
+    }
+
+    public function testJoinDrive()
+    {
+        $path = $this->factory->create('C:foo/bar');
+        $joinedToDrive = $path->joinDrive('X');
+        $joinedToNull = $path->joinDrive(null);
+
+        $anchoredPath = $this->factory->create('/foo/bar');
+        $anchoredJoinedToDrive = $anchoredPath->joinDrive('X');
+        $anchoredJoinedToNull = $anchoredPath->joinDrive(null);
+
+        $this->assertTrue($joinedToDrive instanceof RelativeWindowsPath);
+        $this->assertSame('X:foo/bar', $joinedToDrive->string());
+        $this->assertTrue($joinedToNull instanceof RelativeWindowsPath);
+        $this->assertSame('foo/bar', $joinedToNull->string());
+
+        $this->assertTrue($anchoredJoinedToDrive instanceof AbsoluteWindowsPath);
+        $this->assertSame('X:/foo/bar', $anchoredJoinedToDrive->string());
+        $this->assertTrue($anchoredJoinedToNull instanceof RelativeWindowsPath);
+        $this->assertSame('/foo/bar', $anchoredJoinedToNull->string());
+    }
+
+    // tests for PathInterface implementation ==================================
+
     public function testAtomAt()
     {
         $path = $this->factory->create('foo/bar');
+
+        $this->assertSame('foo', $path->atomAt(0));
+        $this->assertSame('bar', $path->atomAt(1));
+        $this->assertSame('bar', $path->atomAt(-1));
+        $this->assertSame('foo', $path->atomAt(-2));
+    }
+
+    public function testAtomAtWithDrive()
+    {
+        $path = $this->factory->create('C:foo/bar');
+
+        $this->assertSame('foo', $path->atomAt(0));
+        $this->assertSame('bar', $path->atomAt(1));
+        $this->assertSame('bar', $path->atomAt(-1));
+        $this->assertSame('foo', $path->atomAt(-2));
+    }
+
+    public function testAtomAtAnchored()
+    {
+        $path = $this->factory->create('/foo/bar');
 
         $this->assertSame('foo', $path->atomAt(0));
         $this->assertSame('bar', $path->atomAt(1));
@@ -154,6 +262,32 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
     public function testAtomAtDefault()
     {
         $path = $this->factory->create('foo/bar');
+
+        $this->assertSame('foo', $path->atomAtDefault(0, 'baz'));
+        $this->assertSame('bar', $path->atomAtDefault(1, 'baz'));
+        $this->assertSame('baz', $path->atomAtDefault(2, 'baz'));
+        $this->assertSame('bar', $path->atomAtDefault(-1, 'baz'));
+        $this->assertSame('foo', $path->atomAtDefault(-2, 'baz'));
+        $this->assertSame('baz', $path->atomAtDefault(-3, 'baz'));
+        $this->assertNull($path->atomAtDefault(2));
+    }
+
+    public function testAtomAtDefaultWithDrive()
+    {
+        $path = $this->factory->create('C:foo/bar');
+
+        $this->assertSame('foo', $path->atomAtDefault(0, 'baz'));
+        $this->assertSame('bar', $path->atomAtDefault(1, 'baz'));
+        $this->assertSame('baz', $path->atomAtDefault(2, 'baz'));
+        $this->assertSame('bar', $path->atomAtDefault(-1, 'baz'));
+        $this->assertSame('foo', $path->atomAtDefault(-2, 'baz'));
+        $this->assertSame('baz', $path->atomAtDefault(-3, 'baz'));
+        $this->assertNull($path->atomAtDefault(2));
+    }
+
+    public function testAtomAtDefaultAnchored()
+    {
+        $path = $this->factory->create('/foo/bar');
 
         $this->assertSame('foo', $path->atomAtDefault(0, 'baz'));
         $this->assertSame('bar', $path->atomAtDefault(1, 'baz'));
@@ -286,19 +420,43 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function containsData()
     {
-        //                                       path                needle       caseSensitive  expectedResult
+        //                                                  path                 needle         caseSensitive  expectedResult
         return array(
-            'Empty'                     => array('.',                '',          null,          true),
-            'Prefix'                    => array('foo/bar/baz.qux',  'FOO/BAR',   null,          true),
-            'Middle'                    => array('foo/bar/baz.qux',  'BAR/BAZ',   null,          true),
-            'Suffix'                    => array('foo/bar/baz.qux',  '/BAZ.QUX',  null,          true),
-            'Not found'                 => array('foo/bar/baz.qux',  'DOOM',      null,          false),
+            'Self'                                 => array('.',                 '',            null,          true),
+            'Prefix'                               => array('foo/bar/baz.qux',   'FOO/BAR',     null,          true),
+            'Middle'                               => array('foo/bar/baz.qux',   'BAR/BAZ',     null,          true),
+            'Suffix'                               => array('foo/bar/baz.qux',   '/BAZ.QUX',    null,          true),
+            'Not found'                            => array('foo/bar/baz.qux',   'DOOM',        null,          false),
 
-            'Empty case sensitive'      => array('.',                '',          true,          true),
-            'Prefix case sensitive'     => array('foo/bar/baz.qux',  'foo/bar',   true,          true),
-            'Middle case sensitive'     => array('foo/bar/baz.qux',  'bar/baz',   true,          true),
-            'Suffix case sensitive'     => array('foo/bar/baz.qux',  '/baz.qux',  true,          true),
-            'Not found case sensitive'  => array('foo/bar/baz.qux',  'FOO',       true,          false),
+            'Self case sensitive'                  => array('.',                 '',            true,          true),
+            'Prefix case sensitive'                => array('foo/bar/baz.qux',   'foo/bar',     true,          true),
+            'Middle case sensitive'                => array('foo/bar/baz.qux',   'bar/baz',     true,          true),
+            'Suffix case sensitive'                => array('foo/bar/baz.qux',   '/baz.qux',    true,          true),
+            'Not found case sensitive'             => array('foo/bar/baz.qux',   'FOO',         true,          false),
+
+            'Self with drive'                      => array('C:.',               '',            null,          true),
+            'Prefix with drive'                    => array('C:foo/bar/baz.qux', 'c:FOO/BAR',   null,          true),
+            'Middle with drive'                    => array('C:foo/bar/baz.qux', 'BAR/BAZ',     null,          true),
+            'Suffix with drive'                    => array('C:foo/bar/baz.qux', '/BAZ.QUX',    null,          true),
+            'Not found with drive'                 => array('C:foo/bar/baz.qux', 'DOOM',        null,          false),
+
+            'Self case sensitive with drive'       => array('C:.',               '',            true,          true),
+            'Prefix case sensitive with drive'     => array('C:foo/bar/baz.qux', 'C:foo/bar',   true,          true),
+            'Middle case sensitive with drive'     => array('C:foo/bar/baz.qux', 'bar/baz',     true,          true),
+            'Suffix case sensitive with drive'     => array('C:foo/bar/baz.qux', '/baz.qux',    true,          true),
+            'Not found case sensitive with drive'  => array('C:foo/bar/baz.qux', 'FOO',         true,          false),
+
+            'Self anchored'                        => array('/.',                '',            null,          true),
+            'Prefix anchored'                      => array('/foo/bar/baz.qux',  '/FOO/BAR',    null,          true),
+            'Middle anchored'                      => array('/foo/bar/baz.qux',  'BAR/BAZ',     null,          true),
+            'Suffix anchored'                      => array('/foo/bar/baz.qux',  '/BAZ.QUX',    null,          true),
+            'Not found anchored'                   => array('/foo/bar/baz.qux',  'DOOM',        null,          false),
+
+            'Self case sensitive anchored'         => array('/.',                '',            true,          true),
+            'Prefix case sensitive anchored'       => array('/foo/bar/baz.qux',  '/foo/bar',    true,          true),
+            'Middle case sensitive anchored'       => array('/foo/bar/baz.qux',  'bar/baz',     true,          true),
+            'Suffix case sensitive anchored'       => array('/foo/bar/baz.qux',  '/baz.qux',    true,          true),
+            'Not found case sensitive anchored'    => array('/foo/bar/baz.qux',  'FOO',         true,          false),
         );
     }
 
@@ -315,19 +473,43 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function startsWithData()
     {
-        //                                       path                needle       caseSensitive  expectedResult
+        //                                                  path                 needle       caseSensitive  expectedResult
         return array(
-            'Empty'                     => array('.',                '',          null,          true),
-            'Prefix'                    => array('foo/bar/baz.qux',  'FOO/BAR',   null,          true),
-            'Middle'                    => array('foo/bar/baz.qux',  'BAR/BAZ',   null,          false),
-            'Suffix'                    => array('foo/bar/baz.qux',  '/BAZ.QUX',  null,          false),
-            'Not found'                 => array('foo/bar/baz.qux',  'DOOM',      null,          false),
+            'Self'                                 => array('.',                 '',          null,          true),
+            'Prefix'                               => array('foo/bar/baz.qux',   'FOO/BAR',   null,          true),
+            'Middle'                               => array('foo/bar/baz.qux',   'BAR/BAZ',   null,          false),
+            'Suffix'                               => array('foo/bar/baz.qux',   '/BAZ.QUX',  null,          false),
+            'Not found'                            => array('foo/bar/baz.qux',   'DOOM',      null,          false),
 
-            'Empty case sensitive'      => array('.',                '',          true,          true),
-            'Prefix case sensitive'     => array('foo/bar/baz.qux',  'foo/bar',   true,          true),
-            'Middle case sensitive'     => array('foo/bar/baz.qux',  'bar/baz',   true,          false),
-            'Suffix case sensitive'     => array('foo/bar/baz.qux',  '/baz.qux',  true,          false),
-            'Not found case sensitive'  => array('foo/bar/baz.qux',  'FOO',       true,          false),
+            'Self case sensitive'                  => array('.',                 '',          true,          true),
+            'Prefix case sensitive'                => array('foo/bar/baz.qux',   'foo/bar',   true,          true),
+            'Middle case sensitive'                => array('foo/bar/baz.qux',   'bar/baz',   true,          false),
+            'Suffix case sensitive'                => array('foo/bar/baz.qux',   '/baz.qux',  true,          false),
+            'Not found case sensitive'             => array('foo/bar/baz.qux',   'FOO',       true,          false),
+
+            'Self with drive'                      => array('C:.',               '',          null,          true),
+            'Prefix with drive'                    => array('C:foo/bar/baz.qux', 'c:FOO/BAR', null,          true),
+            'Middle with drive'                    => array('C:foo/bar/baz.qux', 'BAR/BAZ',   null,          false),
+            'Suffix with drive'                    => array('C:foo/bar/baz.qux', '/BAZ.QUX',  null,          false),
+            'Not found with drive'                 => array('C:foo/bar/baz.qux', 'DOOM',      null,          false),
+
+            'Self case sensitive with drive'       => array('C:.',               '',          true,          true),
+            'Prefix case sensitive with drive'     => array('C:foo/bar/baz.qux', 'C:foo/bar', true,          true),
+            'Middle case sensitive with drive'     => array('C:foo/bar/baz.qux', 'bar/baz',   true,          false),
+            'Suffix case sensitive with drive'     => array('C:foo/bar/baz.qux', '/baz.qux',  true,          false),
+            'Not found case sensitive with drive'  => array('C:foo/bar/baz.qux', 'FOO',       true,          false),
+
+            'Self anchored'                        => array('/.',                '',          null,          true),
+            'Prefix anchored'                      => array('/foo/bar/baz.qux',  '/FOO/BAR',  null,          true),
+            'Middle anchored'                      => array('/foo/bar/baz.qux',  'BAR/BAZ',   null,          false),
+            'Suffix anchored'                      => array('/foo/bar/baz.qux',  '/BAZ.QUX',  null,          false),
+            'Not found anchored'                   => array('/foo/bar/baz.qux',  'DOOM',      null,          false),
+
+            'Self case sensitive anchored'         => array('/.',                '',          true,          true),
+            'Prefix case sensitive anchored'       => array('/foo/bar/baz.qux',  '/foo/bar',  true,          true),
+            'Middle case sensitive anchored'       => array('/foo/bar/baz.qux',  'bar/baz',   true,          false),
+            'Suffix case sensitive anchored'       => array('/foo/bar/baz.qux',  '/baz.qux',  true,          false),
+            'Not found case sensitive anchored'    => array('/foo/bar/baz.qux',  'FOO',       true,          false),
         );
     }
 
@@ -344,19 +526,43 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function endsWithData()
     {
-        //                                       path                needle       caseSensitive  expectedResult
+        //                                                  path                 needle       caseSensitive  expectedResult
         return array(
-            'Empty'                     => array('.',                '',          null,          true),
-            'Prefix'                    => array('foo/bar/baz.qux',  'FOO/BAR',   null,          false),
-            'Middle'                    => array('foo/bar/baz.qux',  'BAR/BAZ',   null,          false),
-            'Suffix'                    => array('foo/bar/baz.qux',  '/BAZ.QUX',  null,          true),
-            'Not found'                 => array('foo/bar/baz.qux',  'DOOM',      null,          false),
+            'Self'                                 => array('.',                 '',          null,          true),
+            'Prefix'                               => array('foo/bar/baz.qux',   'FOO/BAR',   null,          false),
+            'Middle'                               => array('foo/bar/baz.qux',   'BAR/BAZ',   null,          false),
+            'Suffix'                               => array('foo/bar/baz.qux',   '/BAZ.QUX',  null,          true),
+            'Not found'                            => array('foo/bar/baz.qux',   'DOOM',      null,          false),
 
-            'Empty case sensitive'      => array('.',                '',          true,          true),
-            'Prefix case sensitive'     => array('foo/bar/baz.qux',  'foo/bar',   true,          false),
-            'Middle case sensitive'     => array('foo/bar/baz.qux',  'bar/baz',   true,          false),
-            'Suffix case sensitive'     => array('foo/bar/baz.qux',  '/baz.qux',  true,          true),
-            'Not found case sensitive'  => array('foo/bar/baz.qux',  'FOO',       true,          false),
+            'Self case sensitive'                  => array('.',                 '',          true,          true),
+            'Prefix case sensitive'                => array('foo/bar/baz.qux',   'foo/bar',   true,          false),
+            'Middle case sensitive'                => array('foo/bar/baz.qux',   'bar/baz',   true,          false),
+            'Suffix case sensitive'                => array('foo/bar/baz.qux',   '/baz.qux',  true,          true),
+            'Not found case sensitive'             => array('foo/bar/baz.qux',   'FOO',       true,          false),
+
+            'Self with drive'                      => array('C:.',               '',          null,          true),
+            'Prefix with drive'                    => array('C:foo/bar/baz.qux', 'c:FOO/BAR', null,          false),
+            'Middle with drive'                    => array('C:foo/bar/baz.qux', 'BAR/BAZ',   null,          false),
+            'Suffix with drive'                    => array('C:foo/bar/baz.qux', '/BAZ.QUX',  null,          true),
+            'Not found with drive'                 => array('C:foo/bar/baz.qux', 'DOOM',      null,          false),
+
+            'Self case sensitive with drive'       => array('C:.',               '',          true,          true),
+            'Prefix case sensitive with drive'     => array('C:foo/bar/baz.qux', 'C:foo/bar', true,          false),
+            'Middle case sensitive with drive'     => array('C:foo/bar/baz.qux', 'bar/baz',   true,          false),
+            'Suffix case sensitive with drive'     => array('C:foo/bar/baz.qux', '/baz.qux',  true,          true),
+            'Not found case sensitive with drive'  => array('C:foo/bar/baz.qux', 'FOO',       true,          false),
+
+            'Self anchored'                        => array('/.',                '',          null,          true),
+            'Prefix anchored'                      => array('/foo/bar/baz.qux',  '/FOO/BAR',  null,          false),
+            'Middle anchored'                      => array('/foo/bar/baz.qux',  'BAR/BAZ',   null,          false),
+            'Suffix anchored'                      => array('/foo/bar/baz.qux',  '/BAZ.QUX',  null,          true),
+            'Not found anchored'                   => array('/foo/bar/baz.qux',  'DOOM',      null,          false),
+
+            'Self case sensitive anchored'         => array('/.',                '',          true,          true),
+            'Prefix case sensitive anchored'       => array('/foo/bar/baz.qux',  '/foo/bar',  true,          false),
+            'Middle case sensitive anchored'       => array('/foo/bar/baz.qux',  'bar/baz',   true,          false),
+            'Suffix case sensitive anchored'       => array('/foo/bar/baz.qux',  '/baz.qux',  true,          true),
+            'Not found case sensitive anchored'    => array('/foo/bar/baz.qux',  'FOO',       true,          false),
         );
     }
 
@@ -373,29 +579,73 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function matchesData()
     {
-        //                                         path                pattern        caseSensitive  flags          expectedResult
+        //                                                    path                  pattern        caseSensitive  flags          expectedResult
         return array(
-            'Prefix'                      => array('foo/bar/baz.qux',  'FOO/BAR*',    null,          null,          true),
-            'Middle'                      => array('foo/bar/baz.qux',  '*BAR/BAZ*',   null,          null,          true),
-            'Suffix'                      => array('foo/bar/baz.qux',  '*/BAZ.QUX',   null,          null,          true),
-            'Surrounding'                 => array('foo/bar/baz.qux',  'FOO*.QUX',    null,          null,          true),
-            'Single character'            => array('foo/bar/baz.qux',  '*B?R*',       null,          null,          true),
-            'Single character no match'   => array('foo/bar/baz.qux',  '*F?X*',       null,          null,          false),
-            'Set'                         => array('foo/bar/baz.qux',  '*BA[RZ]*',    null,          null,          true),
-            'Set no match'                => array('foo/bar/baz.qux',  '*BA[X]*',     null,          null,          false),
-            'Negated set'                 => array('foo/bar/baz.qux',  '*BA[!RX]*',   null,          null,          true),
-            'Negated set no match'        => array('foo/bar/baz.qux',  '*BA[!RZ]*',   null,          null,          false),
-            'Range'                       => array('foo/bar/baz.qux',  '*BA[A-R]*',   null,          null,          true),
-            'Range no match'              => array('foo/bar/baz.qux',  '*BA[S-Y]*',   null,          null,          false),
-            'Negated range'               => array('foo/bar/baz.qux',  '*BA[!S-Y]*',  null,          null,          true),
-            'Negated range no match'      => array('foo/bar/baz.qux',  '*BA[!R-Z]*',  null,          null,          false),
-            'No partial match'            => array('foo/bar/baz.qux',  'BAR',         null,          null,          false),
-            'Not found'                   => array('foo/bar/baz.qux',  'DOOM',        null,          null,          false),
+            'Prefix'                                 => array('foo/bar/baz.qux',    'FOO/BAR*',    null,          null,          true),
+            'Middle'                                 => array('foo/bar/baz.qux',    '*BAR/BAZ*',   null,          null,          true),
+            'Suffix'                                 => array('foo/bar/baz.qux',    '*/BAZ.QUX',   null,          null,          true),
+            'Surrounding'                            => array('foo/bar/baz.qux',    'FOO*.QUX',    null,          null,          true),
+            'Single character'                       => array('foo/bar/baz.qux',    '*B?R*',       null,          null,          true),
+            'Single character no match'              => array('foo/bar/baz.qux',    '*F?X*',       null,          null,          false),
+            'Set'                                    => array('foo/bar/baz.qux',    '*BA[RZ]*',    null,          null,          true),
+            'Set no match'                           => array('foo/bar/baz.qux',    '*BA[X]*',     null,          null,          false),
+            'Negated set'                            => array('foo/bar/baz.qux',    '*BA[!RX]*',   null,          null,          true),
+            'Negated set no match'                   => array('foo/bar/baz.qux',    '*BA[!RZ]*',   null,          null,          false),
+            'Range'                                  => array('foo/bar/baz.qux',    '*BA[A-R]*',   null,          null,          true),
+            'Range no match'                         => array('foo/bar/baz.qux',    '*BA[S-Y]*',   null,          null,          false),
+            'Negated range'                          => array('foo/bar/baz.qux',    '*BA[!S-Y]*',  null,          null,          true),
+            'Negated range no match'                 => array('foo/bar/baz.qux',    '*BA[!R-Z]*',  null,          null,          false),
+            'No partial match'                       => array('foo/bar/baz.qux',    'BAR',         null,          null,          false),
+            'Not found'                              => array('foo/bar/baz.qux',    'DOOM',        null,          null,          false),
 
-            'Case sensitive'              => array('foo/bar/baz.qux',  '*bar/baz*',   true,          null,          true),
-            'Case sensitive no match'     => array('foo/bar/baz.qux',  '*FOO*',       true,          null,          false),
-            'Special flags'               => array('foo/bar/baz.qux',  'FOO/BAR/*',   false,         FNM_PATHNAME,  true),
-            'Special flags no match'      => array('foo/bar/baz.qux',  '*FOO/BAR*',   false,         FNM_PATHNAME,  false),
+            'Case sensitive'                         => array('foo/bar/baz.qux',    '*bar/baz*',   true,          null,          true),
+            'Case sensitive no match'                => array('foo/bar/baz.qux',    '*FOO*',       true,          null,          false),
+            'Special flags'                          => array('foo/bar/baz.qux',    'FOO/BAR/*',   false,         FNM_PATHNAME,  true),
+            'Special flags no match'                 => array('foo/bar/baz.qux',    '*FOO/BAR*',   false,         FNM_PATHNAME,  false),
+
+            'Prefix with drive'                      => array('C:foo/bar/baz.qux',  'c:FOO/BAR*',  null,          null,          true),
+            'Middle with drive'                      => array('C:foo/bar/baz.qux',  '*BAR/BAZ*',   null,          null,          true),
+            'Suffix with drive'                      => array('C:foo/bar/baz.qux',  '*/BAZ.QUX',   null,          null,          true),
+            'Surrounding with drive'                 => array('C:foo/bar/baz.qux',  'c:FOO*.QUX',  null,          null,          true),
+            'Single character with drive'            => array('C:foo/bar/baz.qux',  '*B?R*',       null,          null,          true),
+            'Single character no match with drive'   => array('C:foo/bar/baz.qux',  '*F?X*',       null,          null,          false),
+            'Set with drive'                         => array('C:foo/bar/baz.qux',  '*BA[RZ]*',    null,          null,          true),
+            'Set no match with drive'                => array('C:foo/bar/baz.qux',  '*BA[X]*',     null,          null,          false),
+            'Negated set with drive'                 => array('C:foo/bar/baz.qux',  '*BA[!RX]*',   null,          null,          true),
+            'Negated set no match with drive'        => array('C:foo/bar/baz.qux',  '*BA[!RZ]*',   null,          null,          false),
+            'Range with drive'                       => array('C:foo/bar/baz.qux',  '*BA[A-R]*',   null,          null,          true),
+            'Range no match with drive'              => array('C:foo/bar/baz.qux',  '*BA[S-Y]*',   null,          null,          false),
+            'Negated range with drive'               => array('C:foo/bar/baz.qux',  '*BA[!S-Y]*',  null,          null,          true),
+            'Negated range no match with drive'      => array('C:foo/bar/baz.qux',  '*BA[!R-Z]*',  null,          null,          false),
+            'No partial match with drive'            => array('C:foo/bar/baz.qux',  'BAR',         null,          null,          false),
+            'Not found with drive'                   => array('C:foo/bar/baz.qux',  'DOOM',        null,          null,          false),
+
+            'Case sensitive with drive'              => array('C:foo/bar/baz.qux',  '*bar/baz*',   true,          null,          true),
+            'Case sensitive no match with drive'     => array('C:foo/bar/baz.qux',  '*FOO*',       true,          null,          false),
+            'Special flags with drive'               => array('C:foo/bar/baz.qux',  'c:FOO/BAR/*', false,         FNM_PATHNAME,  true),
+            'Special flags no match with drive'      => array('C:foo/bar/baz.qux',  '*FOO/BAR*',   false,         FNM_PATHNAME,  false),
+
+            'Prefix anchored'                        => array('/foo/bar/baz.qux',   '/FOO/BAR*',   null,          null,          true),
+            'Middle anchored'                        => array('/foo/bar/baz.qux',   '*BAR/BAZ*',   null,          null,          true),
+            'Suffix anchored'                        => array('/foo/bar/baz.qux',   '*/BAZ.QUX',   null,          null,          true),
+            'Surrounding anchored'                   => array('/foo/bar/baz.qux',   '/FOO*.QUX',   null,          null,          true),
+            'Single character anchored'              => array('/foo/bar/baz.qux',   '*B?R*',       null,          null,          true),
+            'Single character no match anchored'     => array('/foo/bar/baz.qux',   '*F?X*',       null,          null,          false),
+            'Set anchored'                           => array('/foo/bar/baz.qux',   '*BA[RZ]*',    null,          null,          true),
+            'Set no match anchored'                  => array('/foo/bar/baz.qux',   '*BA[X]*',     null,          null,          false),
+            'Negated set anchored'                   => array('/foo/bar/baz.qux',   '*BA[!RX]*',   null,          null,          true),
+            'Negated set no match anchored'          => array('/foo/bar/baz.qux',   '*BA[!RZ]*',   null,          null,          false),
+            'Range anchored'                         => array('/foo/bar/baz.qux',   '*BA[A-R]*',   null,          null,          true),
+            'Range no match anchored'                => array('/foo/bar/baz.qux',   '*BA[S-Y]*',   null,          null,          false),
+            'Negated range anchored'                 => array('/foo/bar/baz.qux',   '*BA[!S-Y]*',  null,          null,          true),
+            'Negated range no match anchored'        => array('/foo/bar/baz.qux',   '*BA[!R-Z]*',  null,          null,          false),
+            'No partial match anchored'              => array('/foo/bar/baz.qux',   'BAR',         null,          null,          false),
+            'Not found anchored'                     => array('/foo/bar/baz.qux',   'DOOM',        null,          null,          false),
+
+            'Case sensitive anchored'                => array('/foo/bar/baz.qux',   '*bar/baz*',   true,          null,          true),
+            'Case sensitive no match anchored'       => array('/foo/bar/baz.qux',   '*FOO*',       true,          null,          false),
+            'Special flags anchored'                 => array('/foo/bar/baz.qux',   '/FOO/BAR/*',  false,         FNM_PATHNAME,  true),
+            'Special flags no match anchored'        => array('/foo/bar/baz.qux',   '*FOO/BAR*',   false,         FNM_PATHNAME,  false),
         );
     }
 
@@ -412,13 +662,13 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function matchesRegexData()
     {
-        //                                   path                pattern              matches                                               flags                 offset  expectedResult
+        //                                   path                  pattern              matches                                                flags                 offset  expectedResult
         return array(
-            'Match'                 => array('foo/bar/baz.qux',  '{.*(FOO)/BAR.*}i',  array('foo/bar/baz.qux', 'foo'),                      null,                 null,   true),
-            'No match'              => array('foo/bar/baz.qux',  '{.*DOOM.*}i',       array(),                                              null,                 null,   false),
-            'Special flags'         => array('foo/bar/baz.qux',  '{.*FOO/(BAR).*}i',  array(array('foo/bar/baz.qux', 0), array('bar', 4)),  PREG_OFFSET_CAPTURE,  null,   true),
-            'Match with offset'     => array('foo/bar/baz.qux',  '{BAR}i',            array('bar'),                                         null,                 4,      true),
-            'No match with offset'  => array('foo/bar/baz.qux',  '{BAR}i',            array(),                                              null,                 5,      false),
+            'Match'                 => array('C:foo/bar/baz.qux',  '{.*(FOO)/BAR.*}i',  array('C:foo/bar/baz.qux', 'foo'),                     null,                 null,   true),
+            'No match'              => array('C:foo/bar/baz.qux',  '{.*DOOM.*}i',       array(),                                               null,                 null,   false),
+            'Special flags'         => array('C:foo/bar/baz.qux',  '{.*FOO/(BAR).*}i',  array(array('C:foo/bar/baz.qux', 0), array('bar', 6)), PREG_OFFSET_CAPTURE,  null,   true),
+            'Match with offset'     => array('C:foo/bar/baz.qux',  '{BAR}i',            array('bar'),                                          null,                 6,      true),
+            'No match with offset'  => array('C:foo/bar/baz.qux',  '{BAR}i',            array(),                                               null,                 7,      false),
         );
     }
 
@@ -436,20 +686,20 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function nameContainsData()
     {
-        //                                       path                needle      caseSensitive  expectedResult
+        //                                       path                  needle      caseSensitive  expectedResult
         return array(
-            'Empty'                     => array('.',                '',         null,          true),
-            'Prefix'                    => array('foo/bar.baz.qux',  'BAR.BAZ',  null,          true),
-            'Middle'                    => array('foo/bar.baz.qux',  'BAZ',      null,          true),
-            'Suffix'                    => array('foo/bar.baz.qux',  'BAZ.QUX',  null,          true),
-            'Not found'                 => array('foo/bar.baz.qux',  'DOOM',     null,          false),
-            'Match only in name'        => array('foo/bar.baz.qux',  'foo',      null,          false),
+            'Empty'                     => array('C:.',                '',         null,          true),
+            'Prefix'                    => array('C:foo/bar.baz.qux',  'BAR.BAZ',  null,          true),
+            'Middle'                    => array('C:foo/bar.baz.qux',  'BAZ',      null,          true),
+            'Suffix'                    => array('C:foo/bar.baz.qux',  'BAZ.QUX',  null,          true),
+            'Not found'                 => array('C:foo/bar.baz.qux',  'DOOM',     null,          false),
+            'Match only in name'        => array('C:foo/bar.baz.qux',  'foo',      null,          false),
 
-            'Empty case sensitive'      => array('.',                '',         true,          true),
-            'Prefix case sensitive'     => array('foo/bar.baz.qux',  'bar.baz',  true,          true),
-            'Middle case sensitive'     => array('foo/bar.baz.qux',  'baz',      true,          true),
-            'Suffix case sensitive'     => array('foo/bar.baz.qux',  'baz.qux',  true,          true),
-            'Not found case sensitive'  => array('foo/bar.baz.qux',  'BAR',      true,          false),
+            'Empty case sensitive'      => array('C:.',                '',         true,          true),
+            'Prefix case sensitive'     => array('C:foo/bar.baz.qux',  'bar.baz',  true,          true),
+            'Middle case sensitive'     => array('C:foo/bar.baz.qux',  'baz',      true,          true),
+            'Suffix case sensitive'     => array('C:foo/bar.baz.qux',  'baz.qux',  true,          true),
+            'Not found case sensitive'  => array('C:foo/bar.baz.qux',  'BAR',      true,          false),
         );
     }
 
@@ -466,19 +716,19 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function nameStartsWithData()
     {
-        //                                       path                needle      caseSensitive  expectedResult
+        //                                       path                  needle      caseSensitive  expectedResult
         return array(
-            'Empty'                     => array('.',                '',         null,          true),
-            'Prefix'                    => array('foo/bar.baz.qux',  'BAR.BAZ',  null,          true),
-            'Middle'                    => array('foo/bar.baz.qux',  'BAZ',      null,          false),
-            'Suffix'                    => array('foo/bar.baz.qux',  'BAZ.QUX',  null,          false),
-            'Not found'                 => array('foo/bar.baz.qux',  'DOOM',     null,          false),
+            'Empty'                     => array('C:.',                '',         null,          true),
+            'Prefix'                    => array('C:foo/bar.baz.qux',  'BAR.BAZ',  null,          true),
+            'Middle'                    => array('C:foo/bar.baz.qux',  'BAZ',      null,          false),
+            'Suffix'                    => array('C:foo/bar.baz.qux',  'BAZ.QUX',  null,          false),
+            'Not found'                 => array('C:foo/bar.baz.qux',  'DOOM',     null,          false),
 
-            'Empty case sensitive'      => array('.',                '',         true,          true),
-            'Prefix case sensitive'     => array('foo/bar.baz.qux',  'bar.baz',  true,          true),
-            'Middle case sensitive'     => array('foo/bar.baz.qux',  'baz',      true,          false),
-            'Suffix case sensitive'     => array('foo/bar.baz.qux',  'baz.qux',  true,          false),
-            'Not found case sensitive'  => array('foo/bar.baz.qux',  'BAR',      true,          false),
+            'Empty case sensitive'      => array('C:.',                '',         true,          true),
+            'Prefix case sensitive'     => array('C:foo/bar.baz.qux',  'bar.baz',  true,          true),
+            'Middle case sensitive'     => array('C:foo/bar.baz.qux',  'baz',      true,          false),
+            'Suffix case sensitive'     => array('C:foo/bar.baz.qux',  'baz.qux',  true,          false),
+            'Not found case sensitive'  => array('C:foo/bar.baz.qux',  'BAR',      true,          false),
         );
     }
 
@@ -495,29 +745,29 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function nameMatchesData()
     {
-        //                                         path                pattern        caseSensitive  flags        expectedResult
+        //                                         path                  pattern        caseSensitive  flags        expectedResult
         return array(
-            'Prefix'                      => array('foo/bar.baz.qux',  'BAR.BAZ*',    null,          null,        true),
-            'Middle'                      => array('foo/bar.baz.qux',  '*BAZ*',       null,          null,        true),
-            'Suffix'                      => array('foo/bar.baz.qux',  '*BAZ.QUX',    null,          null,        true),
-            'Surrounding'                 => array('foo/bar.baz.qux',  'BAR.*.QUX',   null,          null,        true),
-            'Single character'            => array('foo/bar.baz.qux',  '*B?R*',       null,          null,        true),
-            'Single character no match'   => array('foo/bar.baz.qux',  '*B?X*',       null,          null,        false),
-            'Set'                         => array('foo/bar.baz.qux',  '*BA[RZ]*',    null,          null,        true),
-            'Set no match'                => array('foo/bar.baz.qux',  '*BA[X]*',     null,          null,        false),
-            'Negated set'                 => array('foo/bar.baz.qux',  '*BA[!RX]*',   null,          null,        true),
-            'Negated set no match'        => array('foo/bar.baz.qux',  '*BA[!RZ]*',   null,          null,        false),
-            'Range'                       => array('foo/bar.baz.qux',  '*BA[A-R]*',   null,          null,        true),
-            'Range no match'              => array('foo/bar.baz.qux',  '*BA[S-Y]*',   null,          null,        false),
-            'Negated range'               => array('foo/bar.baz.qux',  '*BA[!S-Y]*',  null,          null,        true),
-            'Negated range no match'      => array('foo/bar.baz.qux',  '*BA[!R-Z]*',  null,          null,        false),
-            'No partial match'            => array('foo/bar.baz.qux',  'BAZ',         null,          null,        false),
-            'Not found'                   => array('foo/bar.baz.qux',  'DOOM',        null,          null,        false),
+            'Prefix'                      => array('C:foo/bar.baz.qux',  'BAR.BAZ*',    null,          null,        true),
+            'Middle'                      => array('C:foo/bar.baz.qux',  '*BAZ*',       null,          null,        true),
+            'Suffix'                      => array('C:foo/bar.baz.qux',  '*BAZ.QUX',    null,          null,        true),
+            'Surrounding'                 => array('C:foo/bar.baz.qux',  'BAR.*.QUX',   null,          null,        true),
+            'Single character'            => array('C:foo/bar.baz.qux',  '*B?R*',       null,          null,        true),
+            'Single character no match'   => array('C:foo/bar.baz.qux',  '*B?X*',       null,          null,        false),
+            'Set'                         => array('C:foo/bar.baz.qux',  '*BA[RZ]*',    null,          null,        true),
+            'Set no match'                => array('C:foo/bar.baz.qux',  '*BA[X]*',     null,          null,        false),
+            'Negated set'                 => array('C:foo/bar.baz.qux',  '*BA[!RX]*',   null,          null,        true),
+            'Negated set no match'        => array('C:foo/bar.baz.qux',  '*BA[!RZ]*',   null,          null,        false),
+            'Range'                       => array('C:foo/bar.baz.qux',  '*BA[A-R]*',   null,          null,        true),
+            'Range no match'              => array('C:foo/bar.baz.qux',  '*BA[S-Y]*',   null,          null,        false),
+            'Negated range'               => array('C:foo/bar.baz.qux',  '*BA[!S-Y]*',  null,          null,        true),
+            'Negated range no match'      => array('C:foo/bar.baz.qux',  '*BA[!R-Z]*',  null,          null,        false),
+            'No partial match'            => array('C:foo/bar.baz.qux',  'BAZ',         null,          null,        false),
+            'Not found'                   => array('C:foo/bar.baz.qux',  'DOOM',        null,          null,        false),
 
-            'Case sensitive'              => array('foo/bar.baz.qux',  '*baz*',       true,          null,        true),
-            'Case sensitive no match'     => array('foo/bar.baz.qux',  '*BAZ*',       true,          null,        false),
-            'Special flags'               => array('foo/.bar.baz',     '.bar*',       false,         FNM_PERIOD,  true),
-            'Special flags no match'      => array('foo/.bar.baz',     '*bar*',       false,         FNM_PERIOD,  false),
+            'Case sensitive'              => array('C:foo/bar.baz.qux',  '*baz*',       true,          null,        true),
+            'Case sensitive no match'     => array('C:foo/bar.baz.qux',  '*BAZ*',       true,          null,        false),
+            'Special flags'               => array('C:foo/.bar.baz',     '.bar*',       false,         FNM_PERIOD,  true),
+            'Special flags no match'      => array('C:foo/.bar.baz',     '*bar*',       false,         FNM_PERIOD,  false),
         );
     }
 
@@ -534,13 +784,13 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function nameMatchesRegexData()
     {
-        //                                   path                pattern               matches                                           flags                 offset  expectedResult
+        //                                   path                  pattern               matches                                           flags                 offset  expectedResult
         return array(
-            'Match'                 => array('foo/bar.baz.qux',  '{.*(BAR)\.BAZ.*}i',  array('bar.baz.qux', 'bar'),                      null,                 null,   true),
-            'No match'              => array('foo/bar.baz.qux',  '{.*DOOM.*}i',        array(),                                          null,                 null,   false),
-            'Special flags'         => array('foo/bar.baz.qux',  '{.*BAR\.(BAZ).*}i',  array(array('bar.baz.qux', 0), array('baz', 4)),  PREG_OFFSET_CAPTURE,  null,   true),
-            'Match with offset'     => array('foo/bar.baz.qux',  '{BAZ}i',             array('baz'),                                     null,                 4,      true),
-            'No match with offset'  => array('foo/bar.baz.qux',  '{BAZ}i',             array(),                                          null,                 5,      false),
+            'Match'                 => array('C:foo/bar.baz.qux',  '{.*(BAR)\.BAZ.*}i',  array('bar.baz.qux', 'bar'),                      null,                 null,   true),
+            'No match'              => array('C:foo/bar.baz.qux',  '{.*DOOM.*}i',        array(),                                          null,                 null,   false),
+            'Special flags'         => array('C:foo/bar.baz.qux',  '{.*BAR\.(BAZ).*}i',  array(array('bar.baz.qux', 0), array('baz', 4)),  PREG_OFFSET_CAPTURE,  null,   true),
+            'Match with offset'     => array('C:foo/bar.baz.qux',  '{BAZ}i',             array('baz'),                                     null,                 4,      true),
+            'No match with offset'  => array('C:foo/bar.baz.qux',  '{BAZ}i',             array(),                                          null,                 5,      false),
         );
     }
 
@@ -558,13 +808,25 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function parentData()
     {
-        //                             path        numLevels  parent
+        //                                        path          numLevels  parent
         return array(
-            'Self'            => array('.',        null,      '..'),
-            'Single atom'     => array('foo',      null,      '.'),
-            'Multiple atoms'  => array('foo/bar',  null,      'foo'),
-            'Up one level'    => array('foo',      1,         '.'),
-            'Up two levels'   => array('foo',      2,         '..'),
+            'Self'                       => array('.',          null,      './..'),
+            'Single atom'                => array('foo',        null,      'foo/..'),
+            'Multiple atoms'             => array('foo/bar',    null,      'foo/bar/..'),
+            'Up one level'               => array('foo',        1,         'foo/..'),
+            'Up two levels'              => array('foo',        2,         'foo/../..'),
+
+            'Self with drive'            => array('C:.',        null,      'C:./..'),
+            'Single atom with drive'     => array('C:foo',      null,      'C:foo/..'),
+            'Multiple atoms with drive'  => array('C:foo/bar',  null,      'C:foo/bar/..'),
+            'Up one level with drive'    => array('C:foo',      1,         'C:foo/..'),
+            'Up two levels with drive'   => array('C:foo',      2,         'C:foo/../..'),
+
+            'Self anchored'              => array('/.',         null,      '/./..'),
+            'Single atom anchored'       => array('/foo',       null,      '/foo/..'),
+            'Multiple atoms anchored'    => array('/foo/bar',   null,      '/foo/bar/..'),
+            'Up one level anchored'      => array('/foo',       1,         '/foo/..'),
+            'Up two levels anchored'     => array('/foo',       2,         '/foo/../..'),
         );
     }
 
@@ -581,13 +843,13 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function stripTrailingSlashData()
     {
-        //                               path          expectedResult
+        //                               path            expectedResult
         return array(
-            'Single atom'       => array('foo/',       'foo'),
-            'Multiple atoms'    => array('foo/bar/',   'foo/bar'),
-            'Whitespace atoms'  => array('foo/bar /',  'foo/bar '),
-            'No trailing slash' => array('foo',        'foo'),
-            'Self'              => array('.',          '.'),
+            'Single atom'       => array('C:foo/',       'C:foo'),
+            'Multiple atoms'    => array('C:foo/bar/',   'C:foo/bar'),
+            'Whitespace atoms'  => array('C:foo/bar /',  'C:foo/bar '),
+            'No trailing slash' => array('C:foo',        'C:foo'),
+            'Self'              => array('C:.',          'C:.'),
         );
     }
 
@@ -603,14 +865,14 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function extensionStrippingData()
     {
-        //                                   path            strippedExtension  strippedSuffix
+        //                                   path              strippedExtension  strippedSuffix
         return array(
-            'Self'                  => array('.',            '.',              '.'),
-            'No extensions'         => array('foo',          'foo',            'foo'),
-            'Empty extension'       => array('foo.',         'foo',            'foo'),
-            'Whitespace extension'  => array('foo . ',       'foo ',           'foo '),
-            'Single extension'      => array('foo.bar',      'foo',            'foo'),
-            'Multiple extensions'   => array('foo.bar.baz',  'foo.bar',        'foo'),
+            'Self'                  => array('C:.',            'C:.',              'C:.'),
+            'No extensions'         => array('C:foo',          'C:foo',            'C:foo'),
+            'Empty extension'       => array('C:foo.',         'C:foo',            'C:foo'),
+            'Whitespace extension'  => array('C:foo . ',       'C:foo ',           'C:foo '),
+            'Single extension'      => array('C:foo.bar',      'C:foo',            'C:foo'),
+            'Multiple extensions'   => array('C:foo.bar.baz',  'C:foo.bar',        'C:foo'),
         );
     }
 
@@ -627,13 +889,13 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function joinAtomsData()
     {
-        //                                              path         atoms                 expectedResult
+        //                                              path           atoms                 expectedResult
         return array(
-            'Single atom to self'              => array('.',         array('foo'),         './foo'),
-            'Multiple atoms to self'           => array('.',         array('foo', 'bar'),  './foo/bar'),
-            'Multiple atoms to multiple atoms' => array('foo/bar',   array('baz', 'qux'),  'foo/bar/baz/qux'),
-            'Whitespace atoms'                 => array('foo',       array(' '),           'foo/ '),
-            'Special atoms'                    => array('foo',       array('.', '..'),     'foo/./..'),
+            'Single atom to self'              => array('C:.',         array('foo'),         'C:./foo'),
+            'Multiple atoms to self'           => array('C:.',         array('foo', 'bar'),  'C:./foo/bar'),
+            'Multiple atoms to multiple atoms' => array('C:foo/bar',   array('baz', 'qux'),  'C:foo/bar/baz/qux'),
+            'Whitespace atoms'                 => array('C:foo',       array(' '),           'C:foo/ '),
+            'Special atoms'                    => array('C:foo',       array('.', '..'),     'C:foo/./..'),
         );
     }
 
@@ -650,7 +912,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function testJoinAtomsFailureAtomContainingSeparator()
     {
-        $path = $this->factory->create('foo');
+        $path = $this->factory->create('C:foo');
 
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
@@ -659,38 +921,9 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         $path->joinAtoms('bar', 'baz/qux');
     }
 
-    public function testJoinAtomsFailureAtomContainingBackslash()
-    {
-        $path = $this->factory->create('foo');
-
-        $this->setExpectedException(
-            'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'baz\\\\qux'. Path atoms must not contain separators."
-        );
-        $path->joinAtoms('bar', 'baz\\qux');
-    }
-
-    /**
-     * @dataProvider invalidPathAtomCharacterData
-     */
-    public function testJoinAtomsFailureAtomContainingInvalidCharacter($character)
-    {
-        $path = $this->factory->create('foo');
-
-        $this->setExpectedException(
-            'Eloquent\Pathogen\Exception\InvalidPathAtomCharacterException',
-            sprintf(
-                'Invalid path atom %s. Path atom contains invalid character %s.',
-                var_export(sprintf('foo%sbar', $character), true),
-                var_export($character, true)
-            )
-        );
-        $path->joinAtoms('bar', sprintf('foo%sbar', $character));
-    }
-
     public function testJoinAtomsFailureEmptyAtom()
     {
-        $path = $this->factory->create('foo');
+        $path = $this->factory->create('C:foo');
 
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\EmptyPathAtomException'
@@ -709,9 +942,17 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($expectedResultString, $result->string());
     }
 
+    public function testJoinAtomSequenWithNonArray()
+    {
+        $path = $this->factory->create('C:foo');
+        $result = $path->joinAtomSequence(new ArrayIterator(array('bar', 'baz')));
+
+        $this->assertSame('C:foo/bar/baz', $result->string());
+    }
+
     public function testJoinAtomSequenceFailureAtomContainingSeparator()
     {
-        $path = $this->factory->create('foo');
+        $path = $this->factory->create('C:foo');
 
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
@@ -720,38 +961,9 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         $path->joinAtomSequence(array('bar', 'baz/qux'));
     }
 
-    public function testJoinAtomSequenceFailureAtomContainingBackslash()
-    {
-        $path = $this->factory->create('foo');
-
-        $this->setExpectedException(
-            'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
-            "Invalid path atom 'baz\\\\qux'. Path atoms must not contain separators."
-        );
-        $path->joinAtomSequence(array('bar', 'baz\\qux'));
-    }
-
-    /**
-     * @dataProvider invalidPathAtomCharacterData
-     */
-    public function testJoinAtomSequenceFailureAtomContainingInvalidCharacter($character)
-    {
-        $path = $this->factory->create('foo');
-
-        $this->setExpectedException(
-            'Eloquent\Pathogen\Exception\InvalidPathAtomCharacterException',
-            sprintf(
-                'Invalid path atom %s. Path atom contains invalid character %s.',
-                var_export(sprintf('foo%sbar', $character), true),
-                var_export($character, true)
-            )
-        );
-        $path->joinAtomSequence(array('bar', sprintf('foo%sbar', $character)));
-    }
-
     public function testJoinAtomSequenceFailureEmptyAtom()
     {
-        $path = $this->factory->create('foo');
+        $path = $this->factory->create('C:foo');
 
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\EmptyPathAtomException'
@@ -761,14 +973,16 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function joinData()
     {
-        //                                              path         joinPath    expectedResult
+        //                                              path          joinPath    expectedResult
         return array(
-            'Relative atom to self'            => array('.',        './foo',     '././foo'),
-            'Single atom to self'              => array('.',        'foo',       './foo'),
-            'Multiple atoms to self'           => array('.',        './foo/bar', '././foo/bar'),
-            'Multiple atoms to multiple atoms' => array('foo/bar',  'baz/qux',   'foo/bar/baz/qux'),
-            'Whitespace atoms'                 => array('foo',      ' ',         'foo/ '),
-            'Special atoms'                    => array('foo',      './..',      'foo/./..'),
+            'Relative atom to self'            => array('C:.',        './foo',     'C:././foo'),
+            'Single atom to self'              => array('C:.',        'foo',       'C:./foo'),
+            'Multiple atoms to self'           => array('C:.',        './foo/bar', 'C:././foo/bar'),
+            'Multiple atoms to multiple atoms' => array('C:foo/bar',  'baz/qux',   'C:foo/bar/baz/qux'),
+            'Whitespace atoms'                 => array('C:foo',      ' ',         'C:foo/ '),
+            'Special atoms'                    => array('C:foo',      './..',      'C:foo/./..'),
+
+            'Anchored'                         => array('C:foo/bar',  '/baz/qux',  'C:/baz/qux'),
         );
     }
 
@@ -786,22 +1000,31 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function testJoinFailureAbsoluteJoinPath()
     {
-        $path = $this->factory->create('foo');
-        $joinPath = $this->factory->create('/bar');
+        $path = $this->factory->create('C:foo');
+        $joinPath = $this->factory->create('C:/bar');
 
         $this->setExpectedException('PHPUnit_Framework_Error');
         $path->join($joinPath);
     }
 
+    public function testJoinFailureDriveMismatch()
+    {
+        $path = $this->factory->create('C:foo');
+        $joinPath = $this->factory->create('X:bar');
+
+        $this->setExpectedException(__NAMESPACE__ . '\Exception\DriveMismatchException');
+        $path->join($joinPath);
+    }
+
     public function joinTrailingSlashData()
     {
-        //                                     path       expectedResult
+        //                                     path         expectedResult
         return array(
-            'Self atom'               => array('.',       './'),
-            'Single atom'             => array('foo',     'foo/'),
-            'Whitespace atom'         => array('foo ',    'foo /'),
-            'Multiple atoms'          => array('foo/bar', 'foo/bar/'),
-            'Existing trailing slash' => array('foo/',    'foo/'),
+            'Self atom'               => array('C:.',       'C:./'),
+            'Single atom'             => array('C:foo',     'C:foo/'),
+            'Whitespace atom'         => array('C:foo ',    'C:foo /'),
+            'Multiple atoms'          => array('C:foo/bar', 'C:foo/bar/'),
+            'Existing trailing slash' => array('C:foo/',    'C:foo/'),
         );
     }
 
@@ -817,15 +1040,15 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function joinExtensionsData()
     {
-        //                                                       path      extensions            expectedResult
+        //                                                       path        extensions            expectedResult
         return array(
-            'Add to self'                               => array('.',      array('foo'),         '.foo'),
-            'Empty extension'                           => array('foo',    array(''),            'foo.'),
-            'Whitespace extension'                      => array('foo',    array(' '),           'foo. '),
-            'Single extension'                          => array('foo',    array('bar'),         'foo.bar'),
-            'Multiple extensions'                       => array('foo',    array('bar', 'baz'),  'foo.bar.baz'),
-            'Empty extension with trailing slash'       => array('/foo/',  array(''),            '/foo.'),
-            'Multiple extensions with trailing slash'   => array('/foo/',  array('bar', 'baz'),  '/foo.bar.baz'),
+            'Add to self'                               => array('C:.',      array('foo'),         'C:.foo'),
+            'Empty extension'                           => array('C:foo',    array(''),            'C:foo.'),
+            'Whitespace extension'                      => array('C:foo',    array(' '),           'C:foo. '),
+            'Single extension'                          => array('C:foo',    array('bar'),         'C:foo.bar'),
+            'Multiple extensions'                       => array('C:foo',    array('bar', 'baz'),  'C:foo.bar.baz'),
+            'Empty extension with trailing slash'       => array('C:/foo/',  array(''),            'C:/foo.'),
+            'Multiple extensions with trailing slash'   => array('C:/foo/',  array('bar', 'baz'),  'C:/foo.bar.baz'),
         );
     }
 
@@ -842,7 +1065,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function testJoinExtensionsFailureAtomContainingSeparator()
     {
-        $path = $this->factory->create('foo');
+        $path = $this->factory->create('C:foo');
 
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
@@ -862,6 +1085,14 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($expectedResultString, $result->string());
     }
 
+    public function testJoinExtensionSequenceWithNonArray()
+    {
+        $path = $this->factory->create('C:foo');
+        $result = $path->joinExtensionSequence(new ArrayIterator(array('bar', 'baz')));
+
+        $this->assertSame('C:foo.bar.baz', $result->string());
+    }
+
     public function testJoinExtensionSequenceFailureAtomContainingSeparator()
     {
         $path = $this->factory->create('foo');
@@ -875,15 +1106,15 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function suffixNameData()
     {
-        //                                                 path         suffix       expectedResult
+        //                                                 path           suffix       expectedResult
         return array(
-            'Self'                                => array('.',         'foo',       'foo'),
-            'Empty suffix'                        => array('foo/bar',   '',          'foo/bar'),
-            'Empty suffix and trailing slash'     => array('foo/bar/',  '',          'foo/bar'),
-            'Whitespace suffix'                   => array('foo/bar',   ' ',         'foo/bar '),
-            'Normal suffix'                       => array('foo/bar',   '-baz',      'foo/bar-baz'),
-            'Suffix with dots'                    => array('foo/bar',   '.baz.qux',  'foo/bar.baz.qux'),
-            'Suffix with dots and trailing slash' => array('foo/bar',   '.baz.qux',  'foo/bar.baz.qux'),
+            'Self'                                => array('C:.',         'foo',       'C:foo'),
+            'Empty suffix'                        => array('C:foo/bar',   '',          'C:foo/bar'),
+            'Empty suffix and trailing slash'     => array('C:foo/bar/',  '',          'C:foo/bar'),
+            'Whitespace suffix'                   => array('C:foo/bar',   ' ',         'C:foo/bar '),
+            'Normal suffix'                       => array('C:foo/bar',   '-baz',      'C:foo/bar-baz'),
+            'Suffix with dots'                    => array('C:foo/bar',   '.baz.qux',  'C:foo/bar.baz.qux'),
+            'Suffix with dots and trailing slash' => array('C:foo/bar',   '.baz.qux',  'C:foo/bar.baz.qux'),
         );
     }
 
@@ -910,15 +1141,15 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function prefixNameData()
     {
-        //                                                    path         prefix       expectedResult
+        //                                                    path           prefix       expectedResult
         return array(
-            'Self'                                   => array('.',         'foo',       'foo'),
-            'Empty atom and trailing slash'          => array('./',        'foo',       'foo'),
-            'Empty prefix'                           => array('foo/bar',   '',          'foo/bar'),
-            'Whitespace prefix'                      => array('foo/bar',   ' ',         'foo/ bar'),
-            'Normal prefix'                          => array('foo/bar',   'baz-',      'foo/baz-bar'),
-            'Prefix with dots'                       => array('foo/bar',   'baz.qux.',  'foo/baz.qux.bar'),
-            'Prefix with dots with trailing slash'   => array('foo/bar/',  'baz.qux.',  'foo/baz.qux.bar'),
+            'Self'                                   => array('C:.',         'foo',       'C:foo'),
+            'Empty atom and trailing slash'          => array('C:./',        'foo',       'C:foo'),
+            'Empty prefix'                           => array('C:foo/bar',   '',          'C:foo/bar'),
+            'Whitespace prefix'                      => array('C:foo/bar',   ' ',         'C:foo/ bar'),
+            'Normal prefix'                          => array('C:foo/bar',   'baz-',      'C:foo/baz-bar'),
+            'Prefix with dots'                       => array('C:foo/bar',   'baz.qux.',  'C:foo/baz.qux.bar'),
+            'Prefix with dots with trailing slash'   => array('C:foo/bar/',  'baz.qux.',  'C:foo/baz.qux.bar'),
         );
     }
 
@@ -945,13 +1176,13 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function replaceData()
     {
-        //                                              path                offset  replacement              length  expectedResult
+        //                                              path                  offset  replacement              length  expectedResult
         return array(
-            'Replace single atom implicit'     => array('foo/bar/baz/qux',  2,      array('doom'),           null,   'foo/bar/doom'),
-            'Replace multiple atoms implicit'  => array('foo/bar/baz/qux',  1,      array('doom', 'splat'),  null,   'foo/doom/splat'),
-            'Replace single atom explicit'     => array('foo/bar/baz/qux',  1,      array('doom'),           2,      'foo/doom/qux'),
-            'Replace multiple atoms explicit'  => array('foo/bar/baz/qux',  1,      array('doom', 'splat'),  1,      'foo/doom/splat/baz/qux'),
-            'Replace atoms past end'           => array('foo/bar/baz/qux',  111,    array('doom'),           222,    'foo/bar/baz/qux/doom'),
+            'Replace single atom implicit'     => array('C:foo/bar/baz/qux',  2,      array('doom'),           null,   'C:foo/bar/doom'),
+            'Replace multiple atoms implicit'  => array('C:foo/bar/baz/qux',  1,      array('doom', 'splat'),  null,   'C:foo/doom/splat'),
+            'Replace single atom explicit'     => array('C:foo/bar/baz/qux',  1,      array('doom'),           2,      'C:foo/doom/qux'),
+            'Replace multiple atoms explicit'  => array('C:foo/bar/baz/qux',  1,      array('doom', 'splat'),  1,      'C:foo/doom/splat/baz/qux'),
+            'Replace atoms past end'           => array('C:foo/bar/baz/qux',  111,    array('doom'),           222,    'C:foo/bar/baz/qux/doom'),
         );
     }
 
@@ -970,15 +1201,15 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function testReplaceWithNonArray()
     {
-        $path = $this->factory->create('foo/bar/baz/qux');
+        $path = $this->factory->create('C:foo/bar/baz/qux');
         $result = $path->replace(1, new ArrayIterator(array('doom', 'splat')), 1);
 
-        $this->assertSame('foo/doom/splat/baz/qux', $result->string());
+        $this->assertSame('C:foo/doom/splat/baz/qux', $result->string());
     }
 
     public function testReplaceFailureAtomContainingSeparator()
     {
-        $path = $this->factory->create('foo');
+        $path = $this->factory->create('C:foo');
 
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
@@ -989,14 +1220,14 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function replaceNameData()
     {
-        //                                             path            name         expectedResult
+        //                                             path              name         expectedResult
         return array(
-            'Self'                            => array('.',            'foo',       'foo'),
-            'Empty name'                      => array('foo/bar',      '',          'foo'),
-            'Empty name with trailing slash'  => array('foo/bar/',     '',          'foo'),
-            'Whitespace name'                 => array('foo/bar',      ' ',         'foo/ '),
-            'Normal name'                     => array('foo.bar.baz',  'qux',       'qux'),
-            'Normal name with extensions'     => array('foo.bar.baz',  'qux.doom',  'qux.doom'),
+            'Self'                            => array('C:.',            'foo',       'C:foo'),
+            'Empty name'                      => array('C:foo/bar',      '',          'C:foo'),
+            'Empty name with trailing slash'  => array('C:foo/bar/',     '',          'C:foo'),
+            'Whitespace name'                 => array('C:foo/bar',      ' ',         'C:foo/ '),
+            'Normal name'                     => array('C:foo.bar.baz',  'qux',       'C:qux'),
+            'Normal name with extensions'     => array('C:foo.bar.baz',  'qux.doom',  'C:qux.doom'),
         );
     }
 
@@ -1015,7 +1246,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function testReplaceNameFailureAtomContainingSeparator()
     {
-        $path = $this->factory->create('foo');
+        $path = $this->factory->create('C:foo');
 
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
@@ -1026,14 +1257,14 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function replaceNameWithoutExtensionData()
     {
-        //                                             path            name         expectedResult
+        //                                             path              name         expectedResult
         return array(
-            'Self'                            => array('.',            'foo',       'foo.'),
-            'Empty name'                      => array('foo/bar',      '',          'foo'),
-            'Empty name with trailing slash'  => array('foo/bar/',     '',          'foo'),
-            'Whitespace name'                 => array('foo/bar',      ' ',         'foo/ '),
-            'Normal name'                     => array('foo.bar.baz',  'qux',       'qux.baz'),
-            'Normal name with extensions'     => array('foo.bar.baz',  'qux.doom',  'qux.doom.baz'),
+            'Self'                            => array('C:.',            'foo',       'C:foo.'),
+            'Empty name'                      => array('C:foo/bar',      '',          'C:foo'),
+            'Empty name with trailing slash'  => array('C:foo/bar/',     '',          'C:foo'),
+            'Whitespace name'                 => array('C:foo/bar',      ' ',         'C:foo/ '),
+            'Normal name'                     => array('C:foo.bar.baz',  'qux',       'C:qux.baz'),
+            'Normal name with extensions'     => array('C:foo.bar.baz',  'qux.doom',  'C:qux.doom.baz'),
         );
     }
 
@@ -1052,7 +1283,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function testReplaceNameWithoutExtensionFailureAtomContainingSeparator()
     {
-        $path = $this->factory->create('foo.bar.baz');
+        $path = $this->factory->create('C:foo.bar.baz');
 
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
@@ -1063,14 +1294,14 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function replaceNamePrefixData()
     {
-        //                                             path            name         expectedResult
+        //                                             path              name         expectedResult
         return array(
-            'Self'                            => array('.',            'foo',       'foo.'),
-            'Empty name'                      => array('foo/bar',      '',          'foo'),
-            'Empty name with trailing slash'  => array('foo/bar/',     '',          'foo'),
-            'Whitespace name'                 => array('foo/bar',      ' ',         'foo/ '),
-            'Normal name'                     => array('foo.bar.baz',  'qux',       'qux.bar.baz'),
-            'Normal name with extensions'     => array('foo.bar.baz',  'qux.doom',  'qux.doom.bar.baz'),
+            'Self'                            => array('C:.',            'foo',       'C:foo.'),
+            'Empty name'                      => array('C:foo/bar',      '',          'C:foo'),
+            'Empty name with trailing slash'  => array('C:foo/bar/',     '',          'C:foo'),
+            'Whitespace name'                 => array('C:foo/bar',      ' ',         'C:foo/ '),
+            'Normal name'                     => array('C:foo.bar.baz',  'qux',       'C:qux.bar.baz'),
+            'Normal name with extensions'     => array('C:foo.bar.baz',  'qux.doom',  'C:qux.doom.bar.baz'),
         );
     }
 
@@ -1089,7 +1320,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function testReplaceNamePrefixFailureAtomContainingSeparator()
     {
-        $path = $this->factory->create('foo.bar.baz');
+        $path = $this->factory->create('C:foo.bar.baz');
 
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
@@ -1100,14 +1331,14 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function replaceNameSuffixData()
     {
-        //                                             path            name         expectedResult
+        //                                             path              name         expectedResult
         return array(
-            'Self'                            => array('.',            'foo',       '.foo'),
-            'Empty name'                      => array('foo/bar',      '',          'foo/bar.'),
-            'Empty name with trailing slash'  => array('foo/bar/',     '',          'foo/bar.'),
-            'Whitespace name'                 => array('foo/bar',      ' ',         'foo/bar. '),
-            'Normal name'                     => array('foo.bar.baz',  'qux',       'foo.qux'),
-            'Normal name with extensions'     => array('foo.bar.baz',  'qux.doom',  'foo.qux.doom'),
+            'Self'                            => array('C:.',            'foo',       'C:.foo'),
+            'Empty name'                      => array('C:foo/bar',      '',          'C:foo/bar.'),
+            'Empty name with trailing slash'  => array('C:foo/bar/',     '',          'C:foo/bar.'),
+            'Whitespace name'                 => array('C:foo/bar',      ' ',         'C:foo/bar. '),
+            'Normal name'                     => array('C:foo.bar.baz',  'qux',       'C:foo.qux'),
+            'Normal name with extensions'     => array('C:foo.bar.baz',  'qux.doom',  'C:foo.qux.doom'),
         );
     }
 
@@ -1126,7 +1357,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function testReplaceNameSuffixFailureAtomContainingSeparator()
     {
-        $path = $this->factory->create('foo.bar.baz');
+        $path = $this->factory->create('C:foo.bar.baz');
 
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
@@ -1137,14 +1368,14 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function replaceExtensionData()
     {
-        //                                             path            name         expectedResult
+        //                                             path              name         expectedResult
         return array(
-            'Self'                            => array('.',            'foo',       '.foo'),
-            'Empty name'                      => array('foo/bar',      '',          'foo/bar.'),
-            'Empty name with trailing slash'  => array('foo/bar/',     '',          'foo/bar.'),
-            'Whitespace name'                 => array('foo/bar',      ' ',         'foo/bar. '),
-            'Normal name'                     => array('foo.bar.baz',  'qux',       'foo.bar.qux'),
-            'Normal name with extensions'     => array('foo.bar.baz',  'qux.doom',  'foo.bar.qux.doom'),
+            'Self'                            => array('C:.',            'foo',       'C:.foo'),
+            'Empty name'                      => array('C:foo/bar',      '',          'C:foo/bar.'),
+            'Empty name with trailing slash'  => array('C:foo/bar/',     '',          'C:foo/bar.'),
+            'Whitespace name'                 => array('C:foo/bar',      ' ',         'C:foo/bar. '),
+            'Normal name'                     => array('C:foo.bar.baz',  'qux',       'C:foo.bar.qux'),
+            'Normal name with extensions'     => array('C:foo.bar.baz',  'qux.doom',  'C:foo.bar.qux.doom'),
         );
     }
 
@@ -1163,7 +1394,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function testReplaceExtensionFailureAtomContainingSeparator()
     {
-        $path = $this->factory->create('foo.bar.baz');
+        $path = $this->factory->create('C:foo.bar.baz');
 
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
@@ -1174,13 +1405,13 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function replaceNameAtomsData()
     {
-        //                                              path                offset  replacement              length  expectedResult
+        //                                              path                  offset  replacement              length  expectedResult
         return array(
-            'Replace single atom implicit'     => array('foo.bar.baz.qux',  2,      array('doom'),           null,   'foo.bar.doom'),
-            'Replace multiple atoms implicit'  => array('foo.bar.baz.qux',  1,      array('doom', 'splat'),  null,   'foo.doom.splat'),
-            'Replace single atom explicit'     => array('foo.bar.baz.qux',  1,      array('doom'),           2,      'foo.doom.qux'),
-            'Replace multiple atoms explicit'  => array('foo.bar.baz.qux',  1,      array('doom', 'splat'),  1,      'foo.doom.splat.baz.qux'),
-            'Replace atoms past end'           => array('foo.bar.baz.qux',  111,    array('doom'),           222,    'foo.bar.baz.qux.doom'),
+            'Replace single atom implicit'     => array('C:foo.bar.baz.qux',  2,      array('doom'),           null,   'C:foo.bar.doom'),
+            'Replace multiple atoms implicit'  => array('C:foo.bar.baz.qux',  1,      array('doom', 'splat'),  null,   'C:foo.doom.splat'),
+            'Replace single atom explicit'     => array('C:foo.bar.baz.qux',  1,      array('doom'),           2,      'C:foo.doom.qux'),
+            'Replace multiple atoms explicit'  => array('C:foo.bar.baz.qux',  1,      array('doom', 'splat'),  1,      'C:foo.doom.splat.baz.qux'),
+            'Replace atoms past end'           => array('C:foo.bar.baz.qux',  111,    array('doom'),           222,    'C:foo.bar.baz.qux.doom'),
         );
     }
 
@@ -1199,19 +1430,19 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function testReplaceAtomsWithNonArray()
     {
-        $path = $this->factory->create('foo.bar.baz.qux');
+        $path = $this->factory->create('C:foo.bar.baz.qux');
         $result = $path->replaceNameAtoms(1, new ArrayIterator(array('doom', 'splat')), 1);
 
-        $this->assertSame('foo.doom.splat.baz.qux', $result->string());
+        $this->assertSame('C:foo.doom.splat.baz.qux', $result->string());
     }
 
     public function toAbsoluteData()
     {
         //                            path        expected
         return array(
-            'Single atom'    => array('foo',      '/foo'),
-            'Multiple atoms' => array('foo/bar',  '/foo/bar'),
-            'Trailing slash' => array('foo/bar/', '/foo/bar/'),
+            'Single atom'    => array('C:foo',      'C:/foo'),
+            'Multiple atoms' => array('C:foo/bar',  'C:/foo/bar'),
+            'Trailing slash' => array('C:foo/bar/', 'C:/foo/bar/'),
         );
     }
 
@@ -1223,6 +1454,22 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         $path = $this->factory->create($pathString);
 
         $this->assertSame($expected, $path->toAbsolute()->string());
+    }
+
+    public function testToAbsoluteFailureNoDrive()
+    {
+        $path = $this->factory->create('foo/bar');
+
+        $this->setExpectedException('Eloquent\Pathogen\Exception\InvalidPathStateException');
+        $path->toAbsolute();
+    }
+
+    public function testToAbsoluteFailureAnchored()
+    {
+        $path = $this->factory->create('/foo/bar');
+
+        $this->setExpectedException('Eloquent\Pathogen\Exception\InvalidPathStateException');
+        $path->toAbsolute();
     }
 
     public function testToRelative()
@@ -1244,12 +1491,23 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function isSelfData()
     {
-        //                                  path         isSelf
+        //                                             path           isSelf
         return array(
-            'Self'                 => array('.',         true),
-            'Self non-normalized'  => array('./foo/..',  true),
-            'Single atom'          => array('foo',       false),
-            'Multiple atoms'       => array('foo/bar',   false),
+            'Self'                            => array('.',           true),
+            'Self non-normalized'             => array('./foo/..',    true),
+            'Single atom'                     => array('foo',         false),
+            'Multiple atoms'                  => array('foo/bar',     false),
+
+            'Self with drive'                 => array('C:.',         false),
+            'Self non-normalized with drive'  => array('C:./foo/..',  false),
+            'Single atom with drive'          => array('C:foo',       false),
+            'Multiple atoms with drive'       => array('C:foo/bar',   false),
+
+            'Self anchored'                   => array('/.',          false),
+            'Self non-normalized anchored'    => array('/./foo/..',   false),
+            'Single atom anchored'            => array('/foo',        false),
+            'Multiple atoms anchored'         => array('/foo/bar',    false),
+
         );
     }
 
@@ -1265,22 +1523,22 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function resolveAgainstRelativePathData()
     {
-        //                                                                                        basePath      path         expectedResult
+        //                                                                                        basePath        path         expectedResult
         return array(
-            'Root against single atom'                                                   => array('/',          'foo',       '/foo'),
-            'Single atom against single atom'                                            => array('/foo',       'bar',       '/foo/bar'),
-            'Multiple atoms against single atom'                                         => array('/foo/bar',   'baz',       '/foo/bar/baz'),
-            'Multiple atoms with slash against single atoms'                             => array('/foo/bar/',  'baz',       '/foo/bar/baz'),
-            'Multiple atoms against multiple atoms'                                      => array('/foo/bar',   'baz/qux',   '/foo/bar/baz/qux'),
-            'Multiple atoms with slash against multiple atoms'                           => array('/foo/bar/',  'baz/qux',   '/foo/bar/baz/qux'),
-            'Multiple atoms with slash against multiple atoms with slash'                => array('/foo/bar/',  'baz/qux/',  '/foo/bar/baz/qux'),
-            'Root against parent atom'                                                   => array('/',          '..',        '/..'),
-            'Single atom against parent atom'                                            => array('/foo',       '..',        '/foo/..'),
-            'Single atom with slash against parent atom'                                 => array('/foo/',      '..',        '/foo/..'),
-            'Single atom with slash against parent atom with slash'                      => array('/foo/',      '../',       '/foo/..'),
-            'Multiple atoms against parent and single atom'                              => array('/foo/bar',   '../baz',    '/foo/bar/../baz'),
-            'Multiple atoms with slash against parent atom and single atom'              => array('/foo/bar/',  '../baz',    '/foo/bar/../baz'),
-            'Multiple atoms with slash against parent atom and single atom with slash'   => array('/foo/bar/',  '../baz/',   '/foo/bar/../baz'),
+            'Root against single atom'                                                   => array('C:/',          'foo',       'C:/foo'),
+            'Single atom against single atom'                                            => array('C:/foo',       'bar',       'C:/foo/bar'),
+            'Multiple atoms against single atom'                                         => array('C:/foo/bar',   'baz',       'C:/foo/bar/baz'),
+            'Multiple atoms with slash against single atoms'                             => array('C:/foo/bar/',  'baz',       'C:/foo/bar/baz'),
+            'Multiple atoms against multiple atoms'                                      => array('C:/foo/bar',   'baz/qux',   'C:/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms'                           => array('C:/foo/bar/',  'baz/qux',   'C:/foo/bar/baz/qux'),
+            'Multiple atoms with slash against multiple atoms with slash'                => array('C:/foo/bar/',  'baz/qux/',  'C:/foo/bar/baz/qux'),
+            'Root against parent atom'                                                   => array('C:/',          '..',        'C:/..'),
+            'Single atom against parent atom'                                            => array('C:/foo',       '..',        'C:/foo/..'),
+            'Single atom with slash against parent atom'                                 => array('C:/foo/',      '..',        'C:/foo/..'),
+            'Single atom with slash against parent atom with slash'                      => array('C:/foo/',      '../',       'C:/foo/..'),
+            'Multiple atoms against parent and single atom'                              => array('C:/foo/bar',   '../baz',    'C:/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom'              => array('C:/foo/bar/',  '../baz',    'C:/foo/bar/../baz'),
+            'Multiple atoms with slash against parent atom and single atom with slash'   => array('C:/foo/bar/',  '../baz/',   'C:/foo/bar/../baz'),
         );
     }
 
@@ -1300,23 +1558,60 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function createData()
     {
-        //                                                                 path                       drive  atoms                             hasTrailingSeparator
+        //                                                                          path                      atoms                            drive isAnchored hasTrailingSeparator
         return array(
-            'Empty'                                               => array('',                        null,  array('.'),                       false),
-            'Self'                                                => array('.',                       null,  array('.'),                       false),
-            'Relative'                                            => array('foo/bar',                 null,  array('foo', 'bar'),              false),
-            'Relative with trailing separator'                    => array('foo/bar/',                null,  array('foo', 'bar'),              true),
-            'Relative with empty atoms'                           => array('foo//bar',                null,  array('foo', 'bar'),              false),
-            'Relative with empty atoms at end'                    => array('foo/bar//',               null,  array('foo', 'bar'),              true),
-            'Relative with whitespace atoms'                      => array(' foo bar / baz qux ',     null,  array(' foo bar ', ' baz qux '),  false),
-            'Relative with trailing separator using backslashes'  => array('foo\\bar\\',              null,  array('foo', 'bar'),              true),
+            'Anchored relative root'                                       => array('/',                      array(),                         null, true,      false),
+            'Anchored relative'                                            => array('/foo/bar',               array('foo', 'bar'),             null, true,      false),
+            'Anchored relative with trailing separator'                    => array('/foo/bar/',              array('foo', 'bar'),             null, true,      true),
+            'Anchored relative with empty atoms'                           => array('/foo//bar',              array('foo', 'bar'),             null, true,      false),
+            'Anchored relative with empty atoms at start'                  => array('//foo',                  array('foo'),                    null, true,      false),
+            'Anchored relative with empty atoms at end'                    => array('/foo//',                 array('foo'),                    null, true,      true),
+            'Anchored relative with whitespace atoms'                      => array('/ foo bar / baz qux ',   array(' foo bar ', ' baz qux '), null, true,      false),
+
+            'Empty'                                                        => array('',                       array('.'),                      null, false,     false),
+            'Self'                                                         => array('.',                      array('.'),                      null, false,     false),
+            'Relative'                                                     => array('foo/bar',                array('foo', 'bar'),             null, false,     false),
+            'Relative with trailing separator'                             => array('foo/bar/',               array('foo', 'bar'),             null, false,     true),
+            'Relative with empty atoms'                                    => array('foo//bar',               array('foo', 'bar'),             null, false,     false),
+            'Relative with empty atoms at end'                             => array('foo/bar//',              array('foo', 'bar'),             null, false,     true),
+            'Relative with whitespace atoms'                               => array(' foo bar / baz qux ',    array(' foo bar ', ' baz qux '), null, false,     false),
+
+            'Self with drive'                                              => array('C:.',                    array('.'),                      'C',  false,     false),
+            'Relative with drive'                                          => array('C:foo/bar',              array('foo', 'bar'),             'C',  false,     false),
+            'Relative with trailing separator with drive'                  => array('C:foo/bar/',             array('foo', 'bar'),             'C',  false,     true),
+            'Relative with empty atoms with drive'                         => array('C:foo//bar',             array('foo', 'bar'),             'C',  false,     false),
+            'Relative with empty atoms at end with drive'                  => array('C:foo/bar//',            array('foo', 'bar'),             'C',  false,     true),
+            'Relative with whitespace atoms with drive'                    => array('C: foo bar / baz qux ',  array(' foo bar ', ' baz qux '), 'C',  false,     false),
+
+            'Anchored relative root with backslashes'                      => array('\\',                     array(),                         null, true,      false),
+            'Anchored relative with backslashes'                           => array('\foo\bar',               array('foo', 'bar'),             null, true,      false),
+            'Anchored relative with trailing separator with backslashes'   => array('\foo\bar\\',             array('foo', 'bar'),             null, true,      true),
+            'Anchored relative with empty atoms with backslashes'          => array('\foo\\\\bar',            array('foo', 'bar'),             null, true,      false),
+            'Anchored relative with empty atoms at start with backslashes' => array('\\\\foo',                array('foo'),                    null, true,      false),
+            'Anchored relative with empty atoms at end with backslashes'   => array('\foo\\\\',               array('foo'),                    null, true,      true),
+            'Anchored relative with whitespace atoms with backslashes'     => array('\ foo bar \ baz qux ',   array(' foo bar ', ' baz qux '), null, true,      false),
+
+            'Empty with backslashes'                                       => array('',                       array('.'),                      null, false,     false),
+            'Self with backslashes'                                        => array('.',                      array('.'),                      null, false,     false),
+            'Relative with backslashes'                                    => array('foo\bar',                array('foo', 'bar'),             null, false,     false),
+            'Relative with trailing separator with backslashes'            => array('foo\bar\\',              array('foo', 'bar'),             null, false,     true),
+            'Relative with empty atoms with backslashes'                   => array('foo\\\\bar',             array('foo', 'bar'),             null, false,     false),
+            'Relative with empty atoms at end with backslashes'            => array('foo\bar\\\\',            array('foo', 'bar'),             null, false,     true),
+            'Relative with whitespace atoms with backslashes'              => array(' foo bar \ baz qux ',    array(' foo bar ', ' baz qux '), null, false,     false),
+
+            'Self with drive with backslashes'                             => array('C:.',                    array('.'),                      'C',  false,     false),
+            'Relative with drive with backslashes'                         => array('C:foo\bar',              array('foo', 'bar'),             'C',  false,     false),
+            'Relative with trailing separator with drive with backslashes' => array('C:foo\bar\\',            array('foo', 'bar'),             'C',  false,     true),
+            'Relative with empty atoms with drive with backslashes'        => array('C:foo\\\\bar',           array('foo', 'bar'),             'C',  false,     false),
+            'Relative with empty atoms at end with drive with backslashes' => array('C:foo\bar\\\\',          array('foo', 'bar'),             'C',  false,     true),
+            'Relative with whitespace atoms with drive with backslashes'   => array('C: foo bar \ baz qux ',  array(' foo bar ', ' baz qux '), 'C',  false,     false),
         );
     }
 
     /**
      * @dataProvider createData
      */
-    public function testFromString($pathString, $drive, array $atoms, $hasTrailingSeparator)
+    public function testFromString($pathString, array $atoms, $drive, $isAnchored, $hasTrailingSeparator)
     {
         $path = RelativeWindowsPath::fromString($pathString);
 
@@ -1325,21 +1620,54 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
     }
 
-    public function testFromStringFailureAbsolute()
+    public function testFromAtoms()
     {
-        $this->setExpectedException('Eloquent\Pathogen\Exception\NonRelativePathException');
-        RelativeWindowsPath::fromString('C:\foo');
+        $path = RelativeWindowsPath::fromAtoms(array('foo', 'bar'), true);
+
+        $this->assertSame(array('foo', 'bar'), $path->atoms());
+        $this->assertTrue($path instanceof RelativeWindowsPath);
+        $this->assertTrue($path->hasTrailingSeparator());
+    }
+
+    public function testFromAtomsDefaults()
+    {
+        $path = RelativeWindowsPath::fromAtoms(array('foo', 'bar'));
+
+        $this->assertSame(array('foo', 'bar'), $path->atoms());
+        $this->assertTrue($path instanceof RelativeWindowsPath);
+        $this->assertFalse($path->hasTrailingSeparator());
     }
 
     /**
      * @dataProvider createData
      */
-    public function testCreateFromAtoms($pathString, $drive, array $atoms, $hasTrailingSeparator)
-    {
-        $path = RelativeWindowsPath::fromAtoms($atoms, $hasTrailingSeparator);
+    public function testFromDriveAndAtoms(
+        $pathString,
+        array $atoms,
+        $drive,
+        $isAnchored,
+        $hasTrailingSeparator
+    ) {
+        $path = RelativeWindowsPath::fromDriveAndAtoms(
+            $atoms,
+            $drive,
+            $isAnchored,
+            $hasTrailingSeparator
+        );
 
         $this->assertSame($atoms, $path->atoms());
         $this->assertTrue($path instanceof RelativeWindowsPath);
+        $this->assertSame($isAnchored, $path->isAnchored());
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
+    }
+
+    public function testFromDriveAndAtomsDefaults()
+    {
+        $path = RelativeWindowsPath::fromDriveAndAtoms(array('.'));
+
+        $this->assertSame(array('.'), $path->atoms());
+        $this->assertTrue($path instanceof RelativeWindowsPath);
+        $this->assertFalse($path->isAnchored());
+        $this->assertFalse($path->hasTrailingSeparator());
     }
 }

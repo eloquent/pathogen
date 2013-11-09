@@ -163,6 +163,16 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($path->matchesDrive(null));
     }
 
+    public function testMatchesDriveOrNull()
+    {
+        $path = $this->factory->create('C:/foo/bar');
+
+        $this->assertTrue($path->matchesDriveOrNull('C'));
+        $this->assertTrue($path->matchesDriveOrNull('c'));
+        $this->assertFalse($path->matchesDriveOrNull('X'));
+        $this->assertTrue($path->matchesDriveOrNull(null));
+    }
+
     public function testJoinDrive()
     {
         $path = $this->factory->create('C:/foo/bar');
@@ -605,11 +615,11 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
     {
         //                             path                   numLevels  parent
         return array(
-            'Root'            => array('C:/',                 null,      'C:/'),
-            'Single atom'     => array('C:/foo',              null,      'C:/'),
-            'Multiple atoms'  => array('C:/foo/bar',          null,      'C:/foo'),
-            'Up one level'    => array('C:/foo/bar/baz',      1,         'C:/foo/bar'),
-            'Up two levels'   => array('C:/foo/bar/baz',      2,         'C:/foo'),
+            'Root'            => array('C:/',                 null,      'C:/..'),
+            'Single atom'     => array('C:/foo',              null,      'C:/foo/..'),
+            'Multiple atoms'  => array('C:/foo/bar',          null,      'C:/foo/bar/..'),
+            'Up one level'    => array('C:/foo/bar/baz',      1,         'C:/foo/bar/baz/..'),
+            'Up two levels'   => array('C:/foo/bar/baz',      2,         'C:/foo/bar/baz/../..'),
         );
     }
 

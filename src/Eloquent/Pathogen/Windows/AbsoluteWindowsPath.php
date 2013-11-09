@@ -68,9 +68,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      */
     public function __construct($drive, $atoms, $hasTrailingSeparator = null)
     {
-        if (!preg_match('{^[a-zA-Z]$}', $drive)) {
-            throw new Exception\InvalidDriveSpecifierException($drive);
-        }
+        $this->validateDrive($drive);
 
         parent::__construct($atoms, $hasTrailingSeparator);
 
@@ -234,18 +232,6 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     }
 
     /**
-     * Get the parent of this path a specified number of levels up.
-     *
-     * @param integer|null $numLevels The number of levels up. Defaults to 1.
-     *
-     * @return PathInterface The parent of this path $numLevels up.
-     */
-    public function parent($numLevels = null)
-    {
-        return parent::parent($numLevels)->normalize();
-    }
-
-    /**
      * Joins the supplied path to this path.
      *
      * @param RelativePathInterface $path The path whose atoms should be joined to this path.
@@ -312,6 +298,20 @@ class AbsoluteWindowsPath extends AbsolutePath implements
             throw new PathAtomContainsSeparatorException($atom);
         } elseif (preg_match('/([\x00-\x1F<>:"|?*])/', $atom, $matches)) {
             throw new InvalidPathAtomCharacterException($atom, $matches[1]);
+        }
+    }
+
+    /**
+     * Validates the suppled drive specifier.
+     *
+     * @param string $drive The drive specifier to validate.
+     *
+     * @throws Exception\InvalidDriveSpecifierException If the drive specifier is invalid.
+     */
+    protected function validateDrive($drive)
+    {
+        if (!preg_match('{^[a-zA-Z]$}', $drive)) {
+            throw new Exception\InvalidDriveSpecifierException($drive);
         }
     }
 
