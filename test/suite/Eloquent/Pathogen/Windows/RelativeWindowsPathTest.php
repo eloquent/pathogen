@@ -12,6 +12,8 @@
 namespace Eloquent\Pathogen\Windows;
 
 use ArrayIterator;
+use Eloquent\Liberator\Liberator;
+use Eloquent\Pathogen\Factory\PathFactory;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -26,6 +28,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->factory = new Factory\WindowsPathFactory;
+        $this->regularPathFactory = new PathFactory;
     }
 
     public function pathData()
@@ -1669,5 +1672,25 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($path instanceof RelativeWindowsPath);
         $this->assertFalse($path->isAnchored());
         $this->assertFalse($path->hasTrailingSeparator());
+    }
+
+    // Implementation details ==================================================
+
+    public function testPathDriveSpecifierNonWindowsPath()
+    {
+        $path = $this->factory->create('C:foo/bar');
+        $regularPath = $this->regularPathFactory->create('/foo/bar');
+
+        $this->assertNull(Liberator::liberate($path)->pathDriveSpecifier($regularPath));
+    }
+
+    public function testCreatePathAbsolutePath()
+    {
+        $path = $this->factory->create('C:foo/bar');
+        $createdPath = Liberator::liberate($path)->createPath(array('baz', 'qux'), true, true);
+
+        $this->assertSame(array('baz', 'qux'), $createdPath->atoms());
+        $this->assertTrue($createdPath instanceof AbsoluteWindowsPath);
+        $this->assertTrue($createdPath->hasTrailingSeparator());
     }
 }
