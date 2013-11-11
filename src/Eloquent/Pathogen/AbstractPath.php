@@ -578,17 +578,14 @@ abstract class AbstractPath implements PathInterface
             $numLevels = 1;
         }
 
-        $atoms = array_merge(
-            $this->atoms(),
-            array_fill(0, $numLevels, static::PARENT_ATOM)
+        return $this->createPath(
+            array_merge(
+                $this->atoms(),
+                array_fill(0, $numLevels, static::PARENT_ATOM)
+            ),
+            $this instanceof AbsolutePathInterface,
+            false
         );
-
-        $parent = $this->createPath(
-            $atoms,
-            $this instanceof AbsolutePathInterface
-        );
-
-        return $parent;
     }
 
     /**
@@ -604,7 +601,8 @@ abstract class AbstractPath implements PathInterface
 
         return $this->createPath(
             $this->atoms(),
-            $this instanceof AbsolutePathInterface
+            $this instanceof AbsolutePathInterface,
+            false
         );
     }
 
@@ -658,7 +656,8 @@ abstract class AbstractPath implements PathInterface
 
         return $this->createPath(
             array_merge($this->atoms(), $atoms),
-            $this instanceof AbsolutePathInterface
+            $this instanceof AbsolutePathInterface,
+            false
         );
     }
 
@@ -793,7 +792,8 @@ abstract class AbstractPath implements PathInterface
 
         return $this->createPath(
             $atoms,
-            $this instanceof AbsolutePathInterface
+            $this instanceof AbsolutePathInterface,
+            false
         );
     }
 
@@ -821,7 +821,8 @@ abstract class AbstractPath implements PathInterface
 
         return $this->createPath(
             $atoms,
-            $this instanceof AbsolutePathInterface
+            $this instanceof AbsolutePathInterface,
+            false
         );
     }
 

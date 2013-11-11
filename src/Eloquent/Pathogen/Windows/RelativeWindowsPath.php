@@ -169,7 +169,7 @@ class RelativeWindowsPath extends RelativePath implements
                 null,
                 false,
                 $this->isAnchored(),
-                $this->hasTrailingSeparator()
+                false
             );
         }
 
@@ -178,7 +178,7 @@ class RelativeWindowsPath extends RelativePath implements
             $drive,
             $this->isAnchored(),
             false,
-            $this->hasTrailingSeparator()
+            false
         );
     }
 
@@ -281,7 +281,7 @@ class RelativeWindowsPath extends RelativePath implements
             $this->drive(),
             true,
             false,
-            $this->hasTrailingSeparator()
+            false
         );
     }
 

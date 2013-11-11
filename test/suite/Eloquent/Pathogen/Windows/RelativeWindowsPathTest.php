@@ -1445,7 +1445,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
         return array(
             'Single atom'    => array('C:foo',      'C:/foo'),
             'Multiple atoms' => array('C:foo/bar',  'C:/foo/bar'),
-            'Trailing slash' => array('C:foo/bar/', 'C:/foo/bar/'),
+            'Trailing slash' => array('C:foo/bar/', 'C:/foo/bar'),
         );
     }
 

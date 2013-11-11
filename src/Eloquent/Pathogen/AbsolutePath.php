@@ -107,7 +107,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         return $this->createPath(
             $this->atoms(),
             false,
-            $this->hasTrailingSeparator()
+            false
         );
     }
 
@@ -194,7 +194,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
             }
         }
 
-        return $this->createPath($diffAtoms, false);
+        return $this->createPath($diffAtoms, false, false);
     }
 
     /**

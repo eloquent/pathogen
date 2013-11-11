@@ -69,7 +69,7 @@ class RelativePath extends AbstractPath implements RelativePathInterface
         return $this->createPath(
             $this->atoms(),
             true,
-            $this->hasTrailingSeparator()
+            false
         );
     }
 

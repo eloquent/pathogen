@@ -1124,7 +1124,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         return array(
             'Single atom'    => array('foo',      '/foo'),
             'Multiple atoms' => array('foo/bar',  '/foo/bar'),
-            'Trailing slash' => array('foo/bar/', '/foo/bar/'),
+            'Trailing slash' => array('foo/bar/', '/foo/bar'),
         );
     }
 

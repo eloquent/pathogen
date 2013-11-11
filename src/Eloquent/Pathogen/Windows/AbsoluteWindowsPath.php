@@ -148,7 +148,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
                 null,
                 false,
                 true,
-                $this->hasTrailingSeparator()
+                false
             );
         }
 
@@ -157,7 +157,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
             $drive,
             true,
             false,
-            $this->hasTrailingSeparator()
+            false
         );
     }
 
@@ -273,7 +273,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
             $this->drive(),
             false,
             false,
-            $this->hasTrailingSeparator()
+            false
         );
     }
 
