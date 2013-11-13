@@ -416,8 +416,6 @@ echo get_class($consumer->pathFactory()); // outputs 'Eloquent\Pathogen\FileSyst
 - [PlatformFileSystemPathFactoryTrait]
 - [FileSystemPathFactoryTrait]
 - [PathFactoryTrait]
-- [PathResolverTrait]
-- [NormalizingPathResolverTrait]
 
 ## Usage examples
 
