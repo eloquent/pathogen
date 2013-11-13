@@ -54,7 +54,7 @@ class RelativeUnixPathTest extends PHPUnit_Framework_TestCase
         $this->assertSame($atoms, $path->atoms());
         $this->assertSame($hasTrailingSeparator, $path->hasTrailingSeparator());
         $this->assertSame($expectedPathString, $path->string());
-        $this->assertSame($expectedPathString, strval($path->string()));
+        $this->assertSame($expectedPathString, strval($path));
     }
 
     public function testConstructorDefaults()
@@ -516,11 +516,11 @@ class RelativeUnixPathTest extends PHPUnit_Framework_TestCase
     {
         //                             path        numLevels  parent
         return array(
-            'Self'            => array('.',        null,      '..'),
-            'Single atom'     => array('foo',      null,      '.'),
-            'Multiple atoms'  => array('foo/bar',  null,      'foo'),
-            'Up one level'    => array('foo',      1,         '.'),
-            'Up two levels'   => array('foo',      2,         '..'),
+            'Self'            => array('.',        null,      './..'),
+            'Single atom'     => array('foo',      null,      'foo/..'),
+            'Multiple atoms'  => array('foo/bar',  null,      'foo/bar/..'),
+            'Up one level'    => array('foo',      1,         'foo/..'),
+            'Up two levels'   => array('foo',      2,         'foo/../..'),
         );
     }
 
@@ -1125,7 +1125,7 @@ class RelativeUnixPathTest extends PHPUnit_Framework_TestCase
         return array(
             'Single atom'    => array('foo',      '/foo'),
             'Multiple atoms' => array('foo/bar',  '/foo/bar'),
-            'Trailing slash' => array('foo/bar/', '/foo/bar/'),
+            'Trailing slash' => array('foo/bar/', '/foo/bar'),
         );
     }
 

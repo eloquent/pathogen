@@ -20,4 +20,17 @@ interface RelativeWindowsPathInterface extends
     RelativeFileSystemPathInterface,
     WindowsPathInterface
 {
+    /**
+     * Returns true if this path is 'anchored' to the drive root.
+     *
+     * This is a special case to represent almost-absolute Windows paths where
+     * the drive is not present, but the path is still specified as starting
+     * from the root of the drive.
+     *
+     * For example, the Windows path `\path\to\foo` represents the path
+     * `C:\path\to\foo` when resolved against the `C:` drive.
+     *
+     * @return boolean True if this path is anchored.
+     */
+    public function isAnchored();
 }

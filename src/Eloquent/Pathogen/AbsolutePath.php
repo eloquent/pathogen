@@ -37,14 +37,12 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
     /**
      * Creates a new absolute path from a set of path atoms.
      *
-     * Unless otherwise specified, created paths will have no trailing
-     * separator.
-     *
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
      * @return AbsolutePathInterface                       The newly created absolute path.
      * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
+     * @throws Exception\InvalidPathStateException         If the supplied arguments would produce an invalid path.
      */
     public static function fromAtoms($atoms, $hasTrailingSeparator = null)
     {
@@ -87,7 +85,8 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      * If this path is relative, a new absolute path with equivalent atoms will
      * be returned. Otherwise, this path will be retured unaltered.
      *
-     * @return AbsolutePathInterface An absolute version of this path.
+     * @return AbsolutePathInterface               An absolute version of this path.
+     * @throws Exception\InvalidPathStateException If absolute conversion is not possible for this path.
      */
     public function toAbsolute()
     {
@@ -108,7 +107,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
         return $this->createPath(
             $this->atoms(),
             false,
-            $this->hasTrailingSeparator()
+            false
         );
     }
 
@@ -195,7 +194,7 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
             }
         }
 
-        return $this->createPath($diffAtoms, false);
+        return $this->createPath($diffAtoms, false, false);
     }
 
     /**

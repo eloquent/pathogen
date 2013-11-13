@@ -455,7 +455,8 @@ interface PathInterface
      * If this path is relative, a new absolute path with equivalent atoms will
      * be returned. Otherwise, this path will be retured unaltered.
      *
-     * @return AbsolutePathInterface An absolute version of this path.
+     * @return AbsolutePathInterface               An absolute version of this path.
+     * @throws Exception\InvalidPathStateException If absolute conversion is not possible for this path.
      */
     public function toAbsolute();
 

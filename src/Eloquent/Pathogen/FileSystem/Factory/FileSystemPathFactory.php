@@ -11,6 +11,8 @@
 
 namespace Eloquent\Pathogen\FileSystem\Factory;
 
+use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
+use Eloquent\Pathogen\Exception\InvalidPathStateException;
 use Eloquent\Pathogen\PathInterface;
 
 /**
@@ -42,7 +44,7 @@ class FileSystemPathFactory extends AbstractFileSystemPathFactory
      */
     public function create($path)
     {
-        if (preg_match('/^([a-zA-Z]):/', $path)) {
+        if (preg_match('{^([a-zA-Z]):}', $path)) {
             return $this->windowsFactory()->create($path);
         }
 
@@ -52,15 +54,13 @@ class FileSystemPathFactory extends AbstractFileSystemPathFactory
     /**
      * Creates a new path instance from a set of path atoms.
      *
-     * Unless otherwise specified, created paths will be absolute, and have no
-     * trailing separator.
-     *
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $isAbsolute           True if the path is absolute.
      * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
      * @return PathInterface                     The newly created path instance.
      * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
+     * @throws InvalidPathStateException         If the supplied arguments would produce an invalid path.
      */
     public function createFromAtoms(
         $atoms,
