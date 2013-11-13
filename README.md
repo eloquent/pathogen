@@ -353,7 +353,7 @@ $pathBar = FileSystemPath::fromString('C:/path/to/bar'); // creates a Windows pa
 ```
 
 The second approach is to create paths based upon the current platform the code
-is running under. That is, when running under Linux or Unix, create unix-style
+is running under. That is, when running under Linux or Unix, create Unix-style
 paths, and when running under Windows, create windows paths. This is handled by
 the [PlatformFileSystemPath]:
 
@@ -380,7 +380,7 @@ interface without creating a leaky abstraction.
 ### Windows path support
 
 *Pathogen* provides support for Windows paths. In addition to the methods
-available to unix-style paths, Windows paths contain an optional drive
+available to Unix-style paths, Windows paths contain an optional drive
 specifier. The drive specifier is available via the `drive()` method:
 
 ```php
