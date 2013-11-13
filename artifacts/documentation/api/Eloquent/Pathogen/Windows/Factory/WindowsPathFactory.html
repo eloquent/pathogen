@@ -68,30 +68,10 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method___construct">__construct</a>(string|null $defaultDrive = null)
-                    <p>Construct a new Windows path factory.</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    string|null
-                </td>
-                <td class="last">
-                    <a href="#method_defaultDrive">defaultDrive</a>()
-                    <p>Get the default drive specifier.</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
                     <abbr title="Eloquent\Pathogen\Windows\Factory\WindowsPathInterface">WindowsPathInterface</abbr>
                 </td>
                 <td class="last">
-                    <a href="#method_createFromDriveAndAtoms">createFromDriveAndAtoms</a>(<abbr title="Eloquent\Pathogen\Windows\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive, boolean|null $isAbsolute = null, boolean|null $hasTrailingSeparator = null)
+                    <a href="#method_createFromDriveAndAtoms">createFromDriveAndAtoms</a>(<abbr title="Eloquent\Pathogen\Windows\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive = null, boolean|null $isAbsolute = null, boolean|null $isAnchored = null, boolean|null $hasTrailingSeparator = null)
                     <p>Creates a new path instance from a set of path atoms and a drive specifier.</p>
                 </td>
                 <td></td>
@@ -127,7 +107,7 @@
     </div>
 
                 <h3 id="method_create">
-        <div class="location">at line 71</div>
+        <div class="location">at line 51</div>
         <code>            public            <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>create</strong>(string $path)</code>
     </h3>
@@ -162,14 +142,14 @@
     </div>
 
                 <h3 id="method_createFromAtoms">
-        <div class="location">at line 131</div>
+        <div class="location">at line 124</div>
         <code>            public            <a href="../../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
     <strong>createFromAtoms</strong>(<abbr title="Eloquent\Pathogen\Windows\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, boolean|null $isAbsolute = null, boolean|null $hasTrailingSeparator = null)</code>
     </h3>
     <div class="details">
         <p>Creates a new path instance from a set of path atoms.</p>
-        <p>Unless otherwise specified, created paths will be absolute, and have no
-trailing separator.</p>
+        <p>
+</p>
         <div class="tags">
                             <h4>Parameters</h4>
 
@@ -209,72 +189,25 @@ trailing separator.</p>
                 <td><abbr title="InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
                 <td>If any of the supplied atoms are invalid.</td>
             </tr>
-            </table>
-
-            
-                    </div>
-    </div>
-
-                <h3 id="method___construct">
-        <div class="location">at line 47</div>
-        <code>            public            
-    <strong>__construct</strong>(string|null $defaultDrive = null)</code>
-    </h3>
-    <div class="details">
-        <p>Construct a new Windows path factory.</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
                     <tr>
-                <td>string|null</td>
-                <td>$defaultDrive</td>
-                <td>The default drive specifier to use when none is specified, or null to leave the drive specifier empty.</td>
+                <td><abbr title="InvalidPathStateException">InvalidPathStateException</abbr></td>
+                <td>If the supplied arguments would produce an invalid path.</td>
             </tr>
             </table>
 
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_defaultDrive">
-        <div class="location">at line 57</div>
-        <code>            public            string|null
-    <strong>defaultDrive</strong>()</code>
-    </h3>
-    <div class="details">
-        <p>Get the default drive specifier.</p>
-        <p>
-</p>
-        <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td>string|null</td>
-            <td>The default drive specifier.</td>
-        </tr>
-    </table>
-
-            
             
                     </div>
     </div>
 
                 <h3 id="method_createFromDriveAndAtoms">
-        <div class="location">at line 161</div>
+        <div class="location">at line 154</div>
         <code>            public            <abbr title="Eloquent\Pathogen\Windows\Factory\WindowsPathInterface">WindowsPathInterface</abbr>
-    <strong>createFromDriveAndAtoms</strong>(<abbr title="Eloquent\Pathogen\Windows\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive, boolean|null $isAbsolute = null, boolean|null $hasTrailingSeparator = null)</code>
+    <strong>createFromDriveAndAtoms</strong>(<abbr title="Eloquent\Pathogen\Windows\Factory\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive = null, boolean|null $isAbsolute = null, boolean|null $isAnchored = null, boolean|null $hasTrailingSeparator = null)</code>
     </h3>
     <div class="details">
         <p>Creates a new path instance from a set of path atoms and a drive specifier.</p>
-        <p>Unless otherwise specified, created paths will be absolute, and have no
-trailing separator.</p>
+        <p>
+</p>
         <div class="tags">
                             <h4>Parameters</h4>
 
@@ -293,6 +226,11 @@ trailing separator.</p>
                 <td>boolean|null</td>
                 <td>$isAbsolute</td>
                 <td>True if the path is absolute.</td>
+            </tr>
+                    <tr>
+                <td>boolean|null</td>
+                <td>$isAnchored</td>
+                <td>True if the path is anchored to the drive root.</td>
             </tr>
                     <tr>
                 <td>boolean|null</td>
@@ -318,6 +256,10 @@ trailing separator.</p>
                     <tr>
                 <td><abbr title="InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
                 <td>If any of the supplied atoms are invalid.</td>
+            </tr>
+                    <tr>
+                <td><abbr title="InvalidPathStateException">InvalidPathStateException</abbr></td>
+                <td>If the supplied arguments would produce an invalid path.</td>
             </tr>
             </table>
 

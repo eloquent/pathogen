@@ -133,16 +133,6 @@
                 </td>
                 <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/RelativePath.html#method_resolveAgainst"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a></small></td>
             </tr>
-                    <tr>
-                <td class="type">
-                    <a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
-                </td>
-                <td class="last">
-                    <a href="#method_parent">parent</a>(integer|null $numLevels = null)
-                    <p>Get the parent of this path a specified number of levels up.</p>
-                </td>
-                <td></td>
-            </tr>
             </table>
 
 
@@ -193,14 +183,14 @@
     </div>
 
                 <h3 id="method_fromAtoms">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_fromAtoms"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 49</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_fromAtoms"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 47</div>
         <code>        static    public            <a href="../../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a>
     <strong>fromAtoms</strong>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, boolean|null $hasTrailingSeparator = null)</code>
     </h3>
     <div class="details">
         <p>Creates a new relative path from a set of path atoms.</p>
-        <p>Unless otherwise specified, created paths will have no trailing
-separator.</p>
+        <p>
+</p>
         <div class="tags">
                             <h4>Parameters</h4>
 
@@ -235,6 +225,10 @@ separator.</p>
                 <td><abbr title="Exception\InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
                 <td>If any of the supplied atoms are invalid.</td>
             </tr>
+                    <tr>
+                <td><abbr title="Exception\InvalidPathStateException">InvalidPathStateException</abbr></td>
+                <td>If the supplied arguments would produce an invalid path.</td>
+            </tr>
             </table>
 
             
@@ -242,7 +236,7 @@ separator.</p>
     </div>
 
                 <h3 id="method_toAbsolute">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_toAbsolute"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 68</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_toAbsolute"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 67</div>
         <code>            public            <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
     <strong>toAbsolute</strong>()</code>
     </h3>
@@ -262,12 +256,21 @@ be returned. Otherwise, this path will be retured unaltered.</p>
     </table>
 
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Exception\InvalidPathStateException">InvalidPathStateException</abbr></td>
+                <td>If absolute conversion is not possible for this path.</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>
 
                 <h3 id="method_toRelative">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_toRelative"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 86</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_toRelative"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 85</div>
         <code>            public            <a href="../../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a>
     <strong>toRelative</strong>()</code>
     </h3>
@@ -301,7 +304,7 @@ be returned. Otherwise, this path will be retured unaltered.</p>
     </div>
 
                 <h3 id="method_isSelf">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_isSelf"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 101</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_isSelf"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 100</div>
         <code>            public            boolean
     <strong>isSelf</strong>()</code>
     </h3>
@@ -326,7 +329,7 @@ be returned. Otherwise, this path will be retured unaltered.</p>
     </div>
 
                 <h3 id="method_resolveAgainst">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_resolveAgainst"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 115</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_resolveAgainst"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 114</div>
         <code>            public            <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
     <strong>resolveAgainst</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath)</code>
     </h3>
@@ -352,41 +355,6 @@ be returned. Otherwise, this path will be retured unaltered.</p>
         <tr>
             <td><a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
             <td>The resolved path.</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_parent">
-        <div class="location">at line 36</div>
-        <code>            public            <a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
-    <strong>parent</strong>(integer|null $numLevels = null)</code>
-    </h3>
-    <div class="details">
-        <p>Get the parent of this path a specified number of levels up.</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td>integer|null</td>
-                <td>$numLevels</td>
-                <td>The number of levels up. Defaults to 1.</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td><a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td>The parent of this path $numLevels up.</td>
         </tr>
     </table>
 

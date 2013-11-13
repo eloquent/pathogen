@@ -95,13 +95,13 @@
             </tr>
                     <tr>
                 <td class="type">
-                    <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+                    <abbr title="Eloquent\Pathogen\Windows\AbsolutePathInterface">AbsolutePathInterface</abbr>
                 </td>
                 <td class="last">
                     <a href="#method_toAbsolute">toAbsolute</a>()
                     <p>Get an absolute version of this path.</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/RelativePath.html#method_toAbsolute"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a></small></td>
+                <td></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -121,7 +121,7 @@
                     <a href="#method_isSelf">isSelf</a>()
                     <p>Determine whether this path is the self path.</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/RelativePath.html#method_isSelf"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a></small></td>
+                <td></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -135,11 +135,101 @@
             </tr>
                     <tr>
                 <td class="type">
+                    static&nbsp;<a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_fromDriveAndAtoms">fromDriveAndAtoms</a>(<abbr title="Eloquent\Pathogen\Windows\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive = null, boolean|null $isAnchored = null, boolean|null $hasTrailingSeparator = null)
+                    <p>Creates a new relative Windows path from a set of path atoms and a drive specifier.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>(<abbr title="Eloquent\Pathogen\Windows\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive = null, boolean|null $isAnchored = null, boolean|null $hasTrailingSeparator = null)
+                    <p>Construct a new relative Windows path instance.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string|null
+                </td>
+                <td class="last">
+                    <a href="#method_drive">drive</a>()
+                    <p>Get this path's drive specifier.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_hasDrive">hasDrive</a>()
+                    <p>Determine whether this path has a drive specifier.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_matchesDrive">matchesDrive</a>(string|null $drive)
+                    <p>Returns true if this path's drive specifier is equal to the supplied drive specifier.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_matchesDriveOrNull">matchesDriveOrNull</a>(string|null $drive)
+                    <p>Returns true if this path's drive specifier matches the supplied drive specifier, or if either drive specifier is null.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string|null
+                </td>
+                <td class="last">
+                    <a href="#method_joinDrive">joinDrive</a>($drive)
+                    <p>Joins the supplied drive specifier to this path.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_isAnchored">isAnchored</a>()
+                    <p>Returns true if this path is 'anchored' to the drive root.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_string">string</a>()
+                    <p>Generate a string representation of this path.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
                     <a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_parent">parent</a>(integer|null $numLevels = null)
-                    <p>Get the parent of this path a specified number of levels up.</p>
+                    <a href="#method_join">join</a>(<a href="../../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> $path)
+                    <p>Joins the supplied path to this path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -193,14 +283,14 @@
     </div>
 
                 <h3 id="method_fromAtoms">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_fromAtoms"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 49</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_fromAtoms"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 47</div>
         <code>        static    public            <a href="../../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a>
     <strong>fromAtoms</strong>(<abbr title="Eloquent\Pathogen\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, boolean|null $hasTrailingSeparator = null)</code>
     </h3>
     <div class="details">
         <p>Creates a new relative path from a set of path atoms.</p>
-        <p>Unless otherwise specified, created paths will have no trailing
-separator.</p>
+        <p>
+</p>
         <div class="tags">
                             <h4>Parameters</h4>
 
@@ -235,6 +325,10 @@ separator.</p>
                 <td><abbr title="Exception\InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
                 <td>If any of the supplied atoms are invalid.</td>
             </tr>
+                    <tr>
+                <td><abbr title="Exception\InvalidPathStateException">InvalidPathStateException</abbr></td>
+                <td>If the supplied arguments would produce an invalid path.</td>
+            </tr>
             </table>
 
             
@@ -242,8 +336,8 @@ separator.</p>
     </div>
 
                 <h3 id="method_toAbsolute">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_toAbsolute"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 68</div>
-        <code>            public            <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+        <div class="location">at line 270</div>
+        <code>            public            <abbr title="Eloquent\Pathogen\Windows\AbsolutePathInterface">AbsolutePathInterface</abbr>
     <strong>toAbsolute</strong>()</code>
     </h3>
     <div class="details">
@@ -256,18 +350,27 @@ be returned. Otherwise, this path will be retured unaltered.</p>
 
                     <table>
         <tr>
-            <td><a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
+            <td><abbr title="Eloquent\Pathogen\Windows\AbsolutePathInterface">AbsolutePathInterface</abbr></td>
             <td>An absolute version of this path.</td>
         </tr>
     </table>
 
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="InvalidPathStateException">InvalidPathStateException</abbr></td>
+                <td>If absolute conversion is not possible for this path.</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>
 
                 <h3 id="method_toRelative">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_toRelative"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 86</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_toRelative"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 85</div>
         <code>            public            <a href="../../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a>
     <strong>toRelative</strong>()</code>
     </h3>
@@ -301,7 +404,7 @@ be returned. Otherwise, this path will be retured unaltered.</p>
     </div>
 
                 <h3 id="method_isSelf">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_isSelf"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 101</div>
+        <div class="location">at line 214</div>
         <code>            public            boolean
     <strong>isSelf</strong>()</code>
     </h3>
@@ -326,7 +429,7 @@ be returned. Otherwise, this path will be retured unaltered.</p>
     </div>
 
                 <h3 id="method_resolveAgainst">
-        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_resolveAgainst"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 115</div>
+        <div class="location">in <a href="../../../Eloquent/Pathogen/RelativePath.html#method_resolveAgainst"><abbr title="Eloquent\Pathogen\RelativePath">RelativePath</abbr></a> at line 114</div>
         <code>            public            <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
     <strong>resolveAgainst</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath)</code>
     </h3>
@@ -360,13 +463,13 @@ be returned. Otherwise, this path will be retured unaltered.</p>
                     </div>
     </div>
 
-                <h3 id="method_parent">
-        <div class="location">at line 36</div>
-        <code>            public            <a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
-    <strong>parent</strong>(integer|null $numLevels = null)</code>
+                <h3 id="method_fromDriveAndAtoms">
+        <div class="location">at line 44</div>
+        <code>        static    public            <a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a>
+    <strong>fromDriveAndAtoms</strong>(<abbr title="Eloquent\Pathogen\Windows\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive = null, boolean|null $isAnchored = null, boolean|null $hasTrailingSeparator = null)</code>
     </h3>
     <div class="details">
-        <p>Get the parent of this path a specified number of levels up.</p>
+        <p>Creates a new relative Windows path from a set of path atoms and a drive specifier.</p>
         <p>
 </p>
         <div class="tags">
@@ -374,9 +477,330 @@ be returned. Otherwise, this path will be retured unaltered.</p>
 
                     <table>
                     <tr>
-                <td>integer|null</td>
-                <td>$numLevels</td>
-                <td>The number of levels up. Defaults to 1.</td>
+                <td><abbr title="Eloquent\Pathogen\Windows\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
+                <td>$atoms</td>
+                <td>The path atoms.</td>
+            </tr>
+                    <tr>
+                <td>string|null</td>
+                <td>$drive</td>
+                <td>The drive specifier.</td>
+            </tr>
+                    <tr>
+                <td>boolean|null</td>
+                <td>$isAnchored</td>
+                <td>True if the path is anchored to the drive root.</td>
+            </tr>
+                    <tr>
+                <td>boolean|null</td>
+                <td>$hasTrailingSeparator</td>
+                <td>True if the path has a trailing separator.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a></td>
+            <td>The newly created path instance.</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
+                <td>If any of the supplied atoms are invalid.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method___construct">
+        <div class="location">at line 70</div>
+        <code>            public            
+    <strong>__construct</strong>(<abbr title="Eloquent\Pathogen\Windows\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr> $atoms, string|null $drive = null, boolean|null $isAnchored = null, boolean|null $hasTrailingSeparator = null)</code>
+    </h3>
+    <div class="details">
+        <p>Construct a new relative Windows path instance.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Eloquent\Pathogen\Windows\mixed&lt;string&gt;">mixed&lt;string&gt;</abbr></td>
+                <td>$atoms</td>
+                <td>The path atoms.</td>
+            </tr>
+                    <tr>
+                <td>string|null</td>
+                <td>$drive</td>
+                <td>The drive specifier.</td>
+            </tr>
+                    <tr>
+                <td>boolean|null</td>
+                <td>$isAnchored</td>
+                <td>True if this path is anchored to the drive root.</td>
+            </tr>
+                    <tr>
+                <td>boolean|null</td>
+                <td>$hasTrailingSeparator</td>
+                <td>True if this path has a trailing separator.</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="EmptyPathException">EmptyPathException</abbr></td>
+                <td>If the path atoms are empty, and the path is not anchored.</td>
+            </tr>
+                    <tr>
+                <td><abbr title="InvalidPathAtomExceptionInterface">InvalidPathAtomExceptionInterface</abbr></td>
+                <td>If any of the supplied path atoms are invalid.</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_drive">
+        <div class="location">at line 107</div>
+        <code>            public            string|null
+    <strong>drive</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get this path's drive specifier.</p>
+        <p>Absolute Windows paths always have a drive specifier, and will never
+return null for this method.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string|null</td>
+            <td>The drive specifier, or null if this path does not have a drive specifier.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_hasDrive">
+        <div class="location">at line 120</div>
+        <code>            public            boolean
+    <strong>hasDrive</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Determine whether this path has a drive specifier.</p>
+        <p>Absolute Windows paths always have a drive specifier, and will always
+return true for this method.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True is this path has a drive specifier.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_matchesDrive">
+        <div class="location">at line 135</div>
+        <code>            public            boolean
+    <strong>matchesDrive</strong>(string|null $drive)</code>
+    </h3>
+    <div class="details">
+        <p>Returns true if this path's drive specifier is equal to the supplied drive specifier.</p>
+        <p>This method is not case sensitive.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string|null</td>
+                <td>$drive</td>
+                <td>The driver specifier to compare to.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if the drive specifiers are equal.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_matchesDriveOrNull">
+        <div class="location">at line 150</div>
+        <code>            public            boolean
+    <strong>matchesDriveOrNull</strong>(string|null $drive)</code>
+    </h3>
+    <div class="details">
+        <p>Returns true if this path's drive specifier matches the supplied drive specifier, or if either drive specifier is null.</p>
+        <p>This method is not case sensitive.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string|null</td>
+                <td>$drive</td>
+                <td>The driver specifier to compare to.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if the drive specifiers match, or either drive specifier is null.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_joinDrive">
+        <div class="location">at line 164</div>
+        <code>            public            string|null
+    <strong>joinDrive</strong>($drive)</code>
+    </h3>
+    <div class="details">
+        <p>Joins the supplied drive specifier to this path.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$drive</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string|null</td>
+            <td>$drive The drive specifier to use, or null to remove the drive specifier.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_isAnchored">
+        <div class="location">at line 199</div>
+        <code>            public            boolean
+    <strong>isAnchored</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns true if this path is 'anchored' to the drive root.</p>
+        <p>This is a special case to represent almost-absolute Windows paths where
+the drive is not present, but the path is still specified as starting
+from the root of the drive.</p>
+
+<p>For example, the Windows path <code>\path\to\foo</code> represents the path
+<code>C:\path\to\foo</code> when resolved against the <code>C:</code> drive.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if this path is anchored.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_string">
+        <div class="location">at line 226</div>
+        <code>            public            string
+    <strong>string</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Generate a string representation of this path.</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>A string representation of this path.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_join">
+        <div class="location">at line 243</div>
+        <code>            public            <a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a>
+    <strong>join</strong>(<a href="../../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a> $path)</code>
+    </h3>
+    <div class="details">
+        <p>Joins the supplied path to this path.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../../Eloquent/Pathogen/RelativePathInterface.html"><abbr title="Eloquent\Pathogen\RelativePathInterface">RelativePathInterface</abbr></a></td>
+                <td>$path</td>
+                <td>The path whose atoms should be joined to this path.</td>
             </tr>
             </table>
 
@@ -386,11 +810,20 @@ be returned. Otherwise, this path will be retured unaltered.</p>
                     <table>
         <tr>
             <td><a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
-            <td>The parent of this path $numLevels up.</td>
+            <td>A new path with the supplied path suffixed to this path.</td>
         </tr>
     </table>
 
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="Exception\DriveMismatchException">DriveMismatchException</abbr></td>
+                <td>If the supplied path has a drive that does not match this path's drive.</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>

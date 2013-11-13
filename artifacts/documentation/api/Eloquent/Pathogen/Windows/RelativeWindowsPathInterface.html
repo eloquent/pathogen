@@ -33,6 +33,258 @@
     
     
     
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    string|null
+                </td>
+                <td class="last">
+                    <a href="#method_drive">drive</a>()
+                    <p>Get this path's drive specifier.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html#method_drive"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_hasDrive">hasDrive</a>()
+                    <p>Determine whether this path has a drive specifier.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html#method_hasDrive"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_matchesDrive">matchesDrive</a>(string|null $drive)
+                    <p>Returns true if this path's drive specifier matches the supplied drive specifier.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html#method_matchesDrive"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_matchesDriveOrNull">matchesDriveOrNull</a>(string|null $drive)
+                    <p>Returns true if this path's drive specifier matches the supplied drive specifier, or if either drive specifier is null.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html#method_matchesDriveOrNull"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string|null
+                </td>
+                <td class="last">
+                    <a href="#method_joinDrive">joinDrive</a>($drive)
+                    <p>Joins the supplied drive specifier to this path.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html#method_joinDrive"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    boolean
+                </td>
+                <td class="last">
+                    <a href="#method_isAnchored">isAnchored</a>()
+                    <p>Returns true if this path is 'anchored' to the drive root.</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method_drive">
+        <div class="location">in <a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html#method_drive"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a> at line 29</div>
+        <code>            public            string|null
+    <strong>drive</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get this path's drive specifier.</p>
+        <p>Absolute Windows paths always have a drive specifier, and will never
+return null for this method.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string|null</td>
+            <td>The drive specifier, or null if this path does not have a drive specifier.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_hasDrive">
+        <div class="location">in <a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html#method_hasDrive"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a> at line 39</div>
+        <code>            public            boolean
+    <strong>hasDrive</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Determine whether this path has a drive specifier.</p>
+        <p>Absolute Windows paths always have a drive specifier, and will always
+return true for this method.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True is this path has a drive specifier.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_matchesDrive">
+        <div class="location">in <a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html#method_matchesDrive"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a> at line 51</div>
+        <code>            public            boolean
+    <strong>matchesDrive</strong>(string|null $drive)</code>
+    </h3>
+    <div class="details">
+        <p>Returns true if this path's drive specifier matches the supplied drive specifier.</p>
+        <p>This method is not case sensitive.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string|null</td>
+                <td>$drive</td>
+                <td>The driver specifier to compare to.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if the drive specifiers match.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_matchesDriveOrNull">
+        <div class="location">in <a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html#method_matchesDriveOrNull"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a> at line 63</div>
+        <code>            public            boolean
+    <strong>matchesDriveOrNull</strong>(string|null $drive)</code>
+    </h3>
+    <div class="details">
+        <p>Returns true if this path's drive specifier matches the supplied drive specifier, or if either drive specifier is null.</p>
+        <p>This method is not case sensitive.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string|null</td>
+                <td>$drive</td>
+                <td>The driver specifier to compare to.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if the drive specifiers match, or either drive specifier is null.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_joinDrive">
+        <div class="location">in <a href="../../../Eloquent/Pathogen/Windows/WindowsPathInterface.html#method_joinDrive"><abbr title="Eloquent\Pathogen\Windows\WindowsPathInterface">WindowsPathInterface</abbr></a> at line 72</div>
+        <code>            public            string|null
+    <strong>joinDrive</strong>($drive)</code>
+    </h3>
+    <div class="details">
+        <p>Joins the supplied drive specifier to this path.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$drive</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string|null</td>
+            <td>$drive The drive specifier to use, or null to remove the drive specifier.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_isAnchored">
+        <div class="location">at line 35</div>
+        <code>            public            boolean
+    <strong>isAnchored</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Returns true if this path is 'anchored' to the drive root.</p>
+        <p>This is a special case to represent almost-absolute Windows paths where
+the drive is not present, but the path is still specified as starting
+from the root of the drive.</p>
+
+<p>For example, the Windows path <code>\path\to\foo</code> represents the path
+<code>C:\path\to\foo</code> when resolved against the <code>C:</code> drive.</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>boolean</td>
+            <td>True if this path is anchored.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+    
             </div>
             <div id="footer">
         Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
