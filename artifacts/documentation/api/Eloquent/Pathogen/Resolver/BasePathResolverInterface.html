@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="robots" content="index, follow, all" />
-        <title>Eloquent\Pathogen\Resolver\BoundPathResolverInterface | Pathogen API</title>
+        <title>Eloquent\Pathogen\Resolver\BasePathResolverInterface | Pathogen API</title>
                     <link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
                             </head>
         <body id="class">
@@ -19,13 +19,13 @@
         <div id="title">Pathogen API</div>
 
             <div class="type">Interface</div>
-    <h1><a href="../../../Eloquent/Pathogen/Resolver.html">Eloquent\Pathogen\Resolver</a>\BoundPathResolverInterface</h1>
+    <h1><a href="../../../Eloquent/Pathogen/Resolver.html">Eloquent\Pathogen\Resolver</a>\BasePathResolverInterface</h1>
     </div>
         <div class="content">
-                <p>interface    <strong>BoundPathResolverInterface</strong></p>
+                <p>interface    <strong>BasePathResolverInterface</strong></p>
 
             <div class="description">
-            <p>The interface implemented by path resolvers with a fixed base path.</p>
+            <p>The interface implemented by path resolvers that resolve against a base path.</p>
             <p>
 </p>
         </div>
@@ -37,11 +37,11 @@
             <table>
                     <tr>
                 <td class="type">
-                    <abbr title="Eloquent\Pathogen\Resolver\AbsolutePathInterface">AbsolutePathInterface</abbr>
+                    <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_resolve">resolve</a>(<a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> $path)
-                    <p>Resolve a path against the base path.</p>
+                    <a href="#method_resolve">resolve</a>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath, <a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> $path)
+                    <p>Resolve a path against a given base path.</p>
                 </td>
                 <td></td>
             </tr>
@@ -51,18 +51,23 @@
         <h2>Details</h2>
 
                         <h3 id="method_resolve">
-        <div class="location">at line 28</div>
-        <code>            public            <abbr title="Eloquent\Pathogen\Resolver\AbsolutePathInterface">AbsolutePathInterface</abbr>
-    <strong>resolve</strong>(<a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> $path)</code>
+        <div class="location">at line 30</div>
+        <code>            public            <a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a>
+    <strong>resolve</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath, <a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a> $path)</code>
     </h3>
     <div class="details">
-        <p>Resolve a path against the base path.</p>
+        <p>Resolve a path against a given base path.</p>
         <p>
 </p>
         <div class="tags">
                             <h4>Parameters</h4>
 
                     <table>
+                    <tr>
+                <td><a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
+                <td>$basePath</td>
+                <td>The base path.</td>
+            </tr>
                     <tr>
                 <td><a href="../../../Eloquent/Pathogen/PathInterface.html"><abbr title="Eloquent\Pathogen\PathInterface">PathInterface</abbr></a></td>
                 <td>$path</td>
@@ -75,7 +80,7 @@
 
                     <table>
         <tr>
-            <td><abbr title="Eloquent\Pathogen\Resolver\AbsolutePathInterface">AbsolutePathInterface</abbr></td>
+            <td><a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a></td>
             <td>The resolved path.</td>
         </tr>
     </table>

@@ -240,14 +240,6 @@
             </tr>
                     <tr>
                 <td>
-                                        <a href="Eloquent/Pathogen/FileSystem/Resolver/WorkingDirectoryResolver.html" target="main"><abbr title="Eloquent\Pathogen\FileSystem\Resolver\WorkingDirectoryResolver">Eloquent\Pathogen\FileSystem\Resolver\WorkingDirectoryResolver</abbr></a>
-                                    </td>
-                <td>
-                    A bound path resolver for resolving file system paths against the current working directory.
-                </td>
-            </tr>
-                    <tr>
-                <td>
                                         <a href="Eloquent/Pathogen/Normalizer/PathNormalizer.html" target="main"><abbr title="Eloquent\Pathogen\Normalizer\PathNormalizer">Eloquent\Pathogen\Normalizer\PathNormalizer</abbr></a>
                                     </td>
                 <td>
@@ -296,6 +288,22 @@
             </tr>
                     <tr>
                 <td>
+                                        <a href="Eloquent/Pathogen/Resolver/BasePathResolver.html" target="main"><abbr title="Eloquent\Pathogen\Resolver\BasePathResolver">Eloquent\Pathogen\Resolver\BasePathResolver</abbr></a>
+                                    </td>
+                <td>
+                    A path resolver that resolves against base paths.
+                </td>
+            </tr>
+                    <tr>
+                <td>
+                    <em>                    <a href="Eloquent/Pathogen/Resolver/BasePathResolverInterface.html" target="main"><abbr title="Eloquent\Pathogen\Resolver\BasePathResolverInterface">Eloquent\Pathogen\Resolver\BasePathResolverInterface</abbr></a>
+                    </em>                </td>
+                <td>
+                    The interface implemented by path resolvers that resolve against a base path.
+                </td>
+            </tr>
+                    <tr>
+                <td>
                                         <a href="Eloquent/Pathogen/Resolver/BoundPathResolver.html" target="main"><abbr title="Eloquent\Pathogen\Resolver\BoundPathResolver">Eloquent\Pathogen\Resolver\BoundPathResolver</abbr></a>
                                     </td>
                 <td>
@@ -304,34 +312,10 @@
             </tr>
                     <tr>
                 <td>
-                    <em>                    <a href="Eloquent/Pathogen/Resolver/BoundPathResolverInterface.html" target="main"><abbr title="Eloquent\Pathogen\Resolver\BoundPathResolverInterface">Eloquent\Pathogen\Resolver\BoundPathResolverInterface</abbr></a>
-                    </em>                </td>
-                <td>
-                    The interface implemented by path resolvers with a fixed base path.
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="Eloquent/Pathogen/Resolver/NormalizingPathResolver.html" target="main"><abbr title="Eloquent\Pathogen\Resolver\NormalizingPathResolver">Eloquent\Pathogen\Resolver\NormalizingPathResolver</abbr></a>
-                                    </td>
-                <td>
-                    A path resolver that wraps another path resolver and automatically normalizes the result.
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="Eloquent/Pathogen/Resolver/PathResolver.html" target="main"><abbr title="Eloquent\Pathogen\Resolver\PathResolver">Eloquent\Pathogen\Resolver\PathResolver</abbr></a>
-                                    </td>
-                <td>
-                    A path resolver suitable for resolving generic, Unix-style paths.
-                </td>
-            </tr>
-                    <tr>
-                <td>
                     <em>                    <a href="Eloquent/Pathogen/Resolver/PathResolverInterface.html" target="main"><abbr title="Eloquent\Pathogen\Resolver\PathResolverInterface">Eloquent\Pathogen\Resolver\PathResolverInterface</abbr></a>
                     </em>                </td>
                 <td>
-                    The interface implemented by path resolvers.
+                    The interface implemented by path resolvers that do not require a base path.
                 </td>
             </tr>
                     <tr>
@@ -472,10 +456,10 @@
             </tr>
                     <tr>
                 <td>
-                                        <a href="Eloquent/Pathogen/Windows/Resolver/WindowsPathResolver.html" target="main"><abbr title="Eloquent\Pathogen\Windows\Resolver\WindowsPathResolver">Eloquent\Pathogen\Windows\Resolver\WindowsPathResolver</abbr></a>
+                                        <a href="Eloquent/Pathogen/Windows/Resolver/WindowsBasePathResolver.html" target="main"><abbr title="Eloquent\Pathogen\Windows\Resolver\WindowsBasePathResolver">Eloquent\Pathogen\Windows\Resolver\WindowsBasePathResolver</abbr></a>
                                     </td>
                 <td>
-                    A path resolver for Windows paths.
+                    A path resolver that resolves against Windows base paths.
                 </td>
             </tr>
                     <tr>

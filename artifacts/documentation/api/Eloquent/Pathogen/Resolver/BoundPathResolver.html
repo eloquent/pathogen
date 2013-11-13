@@ -23,7 +23,7 @@
     </div>
         <div class="content">
                 <p>class    <strong>BoundPathResolver</strong>        implements
-        <a href="../../../Eloquent/Pathogen/Resolver/BoundPathResolverInterface.html"><abbr title="Eloquent\Pathogen\Resolver\BoundPathResolverInterface">BoundPathResolverInterface</abbr></a></p>
+        <a href="../../../Eloquent/Pathogen/Resolver/PathResolverInterface.html"><abbr title="Eloquent\Pathogen\Resolver\PathResolverInterface">PathResolverInterface</abbr></a></p>
 
             <div class="description">
             <p>A path resolver that wraps another path resolver with a fixed base path.</p>
@@ -41,7 +41,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method___construct">__construct</a>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath, <a href="../../../Eloquent/Pathogen/Resolver/PathResolverInterface.html"><abbr title="Eloquent\Pathogen\Resolver\PathResolverInterface">PathResolverInterface</abbr></a> $resolver = null)
+                    <a href="#method___construct">__construct</a>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath, <a href="../../../Eloquent/Pathogen/Resolver/BasePathResolverInterface.html"><abbr title="Eloquent\Pathogen\Resolver\BasePathResolverInterface">BasePathResolverInterface</abbr></a> $resolver = null)
                     <p>Construct a new bound path resolver.</p>
                 </td>
                 <td></td>
@@ -62,7 +62,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_resolver">resolver</a>()
-                    <p>Get the resolver used internally by this resolver.</p>
+                    <p>Get the base path resolver used internally by this resolver.</p>
                 </td>
                 <td></td>
             </tr>
@@ -84,7 +84,7 @@
                         <h3 id="method___construct">
         <div class="location">at line 28</div>
         <code>            public            
-    <strong>__construct</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath, <a href="../../../Eloquent/Pathogen/Resolver/PathResolverInterface.html"><abbr title="Eloquent\Pathogen\Resolver\PathResolverInterface">PathResolverInterface</abbr></a> $resolver = null)</code>
+    <strong>__construct</strong>(<a href="../../../Eloquent/Pathogen/AbsolutePathInterface.html"><abbr title="Eloquent\Pathogen\AbsolutePathInterface">AbsolutePathInterface</abbr></a> $basePath, <a href="../../../Eloquent/Pathogen/Resolver/BasePathResolverInterface.html"><abbr title="Eloquent\Pathogen\Resolver\BasePathResolverInterface">BasePathResolverInterface</abbr></a> $resolver = null)</code>
     </h3>
     <div class="details">
         <p>Construct a new bound path resolver.</p>
@@ -100,9 +100,9 @@
                 <td>The base path.</td>
             </tr>
                     <tr>
-                <td><a href="../../../Eloquent/Pathogen/Resolver/PathResolverInterface.html"><abbr title="Eloquent\Pathogen\Resolver\PathResolverInterface">PathResolverInterface</abbr></a></td>
+                <td><a href="../../../Eloquent/Pathogen/Resolver/BasePathResolverInterface.html"><abbr title="Eloquent\Pathogen\Resolver\BasePathResolverInterface">BasePathResolverInterface</abbr></a></td>
                 <td>$resolver</td>
-                <td>The path resolver to use.</td>
+                <td>The base path resolver to use.</td>
             </tr>
             </table>
 
@@ -134,7 +134,7 @@
     <strong>resolver</strong>()</code>
     </h3>
     <div class="details">
-        <p>Get the resolver used internally by this resolver.</p>
+        <p>Get the base path resolver used internally by this resolver.</p>
         <p>
 </p>
         <div class="tags">
