@@ -379,17 +379,13 @@ interface without creating a leaky abstraction.
 
 ### Windows path support
 
-*Pathogen* provides support for most common usages of Windows paths. In addition
-to the methods available to unix-style absolute paths, Windows absolute paths
-contain an optional drive specifier. This example shows how to retrieve the
-drive specifier from a path instance:
+*Pathogen* provides support for Windows paths. In addition to the methods
+available to unix-style paths, Windows paths contain an optional drive
+specifier. The drive specifier is available via the `drive()` method:
 
 ```php
 $drive = $path->drive(); // returns a single-character string, or null
 ```
-
-It is worth noting that *Pathogen* does *not* support drive specifiers for
-relative Windows paths, only for absolute Windows paths.
 
 ### Dependency consumer traits
 
