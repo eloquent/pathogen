@@ -15,13 +15,13 @@ use Eloquent\Liberator\Liberator;
 use Eloquent\Pathogen\Factory\PathFactory;
 use PHPUnit_Framework_TestCase;
 
-class PathResolverTest extends PHPUnit_Framework_TestCase
+class BasePathResolverTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
         parent::setUp();
 
-        $this->resolver = new PathResolver;
+        $this->resolver = new BasePathResolver;
         $this->factory = new PathFactory;
     }
 
@@ -83,11 +83,11 @@ class PathResolverTest extends PHPUnit_Framework_TestCase
 
     public function testInstance()
     {
-        $class = Liberator::liberateClass(__NAMESPACE__ . '\PathResolver');
+        $class = Liberator::liberateClass(__NAMESPACE__ . '\BasePathResolver');
         $class->instance = null;
-        $actual = PathResolver::instance();
+        $actual = BasePathResolver::instance();
 
-        $this->assertInstanceOf(__NAMESPACE__ . '\PathResolver', $actual);
-        $this->assertSame($actual, PathResolver::instance());
+        $this->assertInstanceOf(__NAMESPACE__ . '\BasePathResolver', $actual);
+        $this->assertSame($actual, BasePathResolver::instance());
     }
 }

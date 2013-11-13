@@ -1055,13 +1055,13 @@ abstract class AbstractPath implements PathInterface
     }
 
     /**
-     * Get the most appropriate path resolver for this type of path.
+     * Get the most appropriate base path resolver for this type of path.
      *
-     * @return Resolver\PathResolverInterface The path resolver.
+     * @return Resolver\BasePathResolverInterface The base path resolver.
      */
     protected static function resolver()
     {
-        return Resolver\PathResolver::instance();
+        return Resolver\BasePathResolver::instance();
     }
 
     private $atoms;

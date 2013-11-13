@@ -17,20 +17,20 @@ use Eloquent\Pathogen\PathInterface;
 /**
  * A path resolver that wraps another path resolver with a fixed base path.
  */
-class BoundPathResolver implements BoundPathResolverInterface
+class BoundPathResolver implements PathResolverInterface
 {
     /**
      * Construct a new bound path resolver.
      *
-     * @param AbsolutePathInterface      $basePath The base path.
-     * @param PathResolverInterface|null $resolver The path resolver to use.
+     * @param AbsolutePathInterface          $basePath The base path.
+     * @param BasePathResolverInterface|null $resolver The base path resolver to use.
      */
     public function __construct(
         AbsolutePathInterface $basePath,
-        PathResolverInterface $resolver = null
+        BasePathResolverInterface $resolver = null
     ) {
         if (null === $resolver) {
-            $resolver = PathResolver::instance();
+            $resolver = BasePathResolver::instance();
         }
 
         $this->basePath = $basePath;
@@ -48,9 +48,9 @@ class BoundPathResolver implements BoundPathResolverInterface
     }
 
     /**
-     * Get the resolver used internally by this resolver.
+     * Get the base path resolver used internally by this resolver.
      *
-     * @returns PathResolverInterface The inner path resolver.
+     * @returns BasePathResolverInterface The base path resolver.
      */
     public function resolver()
     {

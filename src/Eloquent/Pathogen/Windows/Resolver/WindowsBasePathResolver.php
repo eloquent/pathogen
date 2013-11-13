@@ -13,18 +13,18 @@ namespace Eloquent\Pathogen\Windows\Resolver;
 
 use Eloquent\Pathogen\AbsolutePathInterface;
 use Eloquent\Pathogen\PathInterface;
-use Eloquent\Pathogen\Resolver\PathResolverInterface;
+use Eloquent\Pathogen\Resolver\BasePathResolverInterface;
 use Eloquent\Pathogen\Windows\RelativeWindowsPathInterface;
 
 /**
- * A path resolver for Windows paths.
+ * A path resolver that resolves against Windows base paths.
  */
-class WindowsPathResolver implements PathResolverInterface
+class WindowsBasePathResolver implements BasePathResolverInterface
 {
     /**
-     * Get a static instance of this path resolver.
+     * Get a static instance of this base path resolver.
      *
-     * @return PathResolverInterface The static path resolver.
+     * @return BasePathResolverInterface The static base path resolver.
      */
     public static function instance()
     {

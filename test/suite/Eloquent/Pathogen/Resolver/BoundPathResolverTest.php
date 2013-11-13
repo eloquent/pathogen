@@ -23,11 +23,8 @@ class BoundPathResolverTest extends PHPUnit_Framework_TestCase
         $this->factory = new PathFactory;
 
         $this->basePath = $this->factory->create('/foo/bar');
-        $this->innerResolver = new PathResolver;
-        $this->resolver = new BoundPathResolver(
-            $this->basePath,
-            $this->innerResolver
-        );
+        $this->innerResolver = new BasePathResolver;
+        $this->resolver = new BoundPathResolver($this->basePath, $this->innerResolver);
     }
 
     public function testConstructor()
@@ -40,10 +37,7 @@ class BoundPathResolverTest extends PHPUnit_Framework_TestCase
     {
         $this->resolver = new BoundPathResolver($this->basePath);
 
-        $this->assertInstanceOf(
-            __NAMESPACE__ . '\PathResolver',
-            $this->resolver->resolver()
-        );
+        $this->assertInstanceOf(__NAMESPACE__ . '\BasePathResolver', $this->resolver->resolver());
     }
 
     public function testResolve()

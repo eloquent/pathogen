@@ -15,14 +15,14 @@ use Eloquent\Pathogen\AbsolutePathInterface;
 use Eloquent\Pathogen\PathInterface;
 
 /**
- * A path resolver suitable for resolving generic, Unix-style paths.
+ * A path resolver that resolves against base paths.
  */
-class PathResolver implements PathResolverInterface
+class BasePathResolver implements BasePathResolverInterface
 {
     /**
-     * Get a static instance of this path resolver.
+     * Get a static instance of this base path resolver.
      *
-     * @return PathResolverInterface The static path resolver.
+     * @return BasePathResolverInterface The static base path resolver.
      */
     public static function instance()
     {

@@ -16,13 +16,13 @@ use Eloquent\Pathogen\Factory\PathFactory;
 use Eloquent\Pathogen\Windows\Factory\WindowsPathFactory;
 use PHPUnit_Framework_TestCase;
 
-class WindowsPathResolverTest extends PHPUnit_Framework_TestCase
+class WindowsBasePathResolverTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
         parent::setUp();
 
-        $this->resolver = new WindowsPathResolver;
+        $this->resolver = new WindowsBasePathResolver;
         $this->factory = new WindowsPathFactory;
         $this->regularFactory = new PathFactory;
     }
@@ -135,11 +135,11 @@ class WindowsPathResolverTest extends PHPUnit_Framework_TestCase
 
     public function testInstance()
     {
-        $class = Liberator::liberateClass(__NAMESPACE__ . '\WindowsPathResolver');
+        $class = Liberator::liberateClass(__NAMESPACE__ . '\WindowsBasePathResolver');
         $class->instance = null;
-        $actual = WindowsPathResolver::instance();
+        $actual = WindowsBasePathResolver::instance();
 
-        $this->assertInstanceOf(__NAMESPACE__ . '\WindowsPathResolver', $actual);
-        $this->assertSame($actual, WindowsPathResolver::instance());
+        $this->assertInstanceOf(__NAMESPACE__ . '\WindowsBasePathResolver', $actual);
+        $this->assertSame($actual, WindowsBasePathResolver::instance());
     }
 }

@@ -21,7 +21,7 @@ use Eloquent\Pathogen\FileSystem\AbsoluteFileSystemPathInterface;
 use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\RelativePathInterface;
-use Eloquent\Pathogen\Resolver\PathResolverInterface;
+use Eloquent\Pathogen\Resolver\BasePathResolverInterface;
 use Eloquent\Pathogen\Windows\RelativeWindowsPathInterface;
 
 /**
@@ -450,13 +450,13 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     }
 
     /**
-     * Get the most appropriate path resolver for this type of path.
+     * Get the most appropriate base path resolver for this type of path.
      *
-     * @return PathResolverInterface The path resolver.
+     * @return BasePathResolverInterface The base path resolver.
      */
     protected static function resolver()
     {
-        return Resolver\WindowsPathResolver::instance();
+        return Resolver\WindowsBasePathResolver::instance();
     }
 
     private $drive;
