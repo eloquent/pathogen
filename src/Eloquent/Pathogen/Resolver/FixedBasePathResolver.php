@@ -17,10 +17,10 @@ use Eloquent\Pathogen\PathInterface;
 /**
  * A path resolver that wraps another path resolver with a fixed base path.
  */
-class BoundPathResolver implements PathResolverInterface
+class FixedBasePathResolver implements PathResolverInterface
 {
     /**
-     * Construct a new bound path resolver.
+     * Construct a new fixed base path resolver.
      *
      * @param AbsolutePathInterface          $basePath The base path.
      * @param BasePathResolverInterface|null $resolver The base path resolver to use.

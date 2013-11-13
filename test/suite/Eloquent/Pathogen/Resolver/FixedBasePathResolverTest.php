@@ -14,7 +14,7 @@ namespace Eloquent\Pathogen\Resolver;
 use Eloquent\Pathogen\Factory\PathFactory;
 use PHPUnit_Framework_TestCase;
 
-class BoundPathResolverTest extends PHPUnit_Framework_TestCase
+class FixedBasePathResolverTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
@@ -24,7 +24,7 @@ class BoundPathResolverTest extends PHPUnit_Framework_TestCase
 
         $this->basePath = $this->factory->create('/foo/bar');
         $this->innerResolver = new BasePathResolver;
-        $this->resolver = new BoundPathResolver($this->basePath, $this->innerResolver);
+        $this->resolver = new FixedBasePathResolver($this->basePath, $this->innerResolver);
     }
 
     public function testConstructor()
@@ -35,7 +35,7 @@ class BoundPathResolverTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorDefaults()
     {
-        $this->resolver = new BoundPathResolver($this->basePath);
+        $this->resolver = new FixedBasePathResolver($this->basePath);
 
         $this->assertInstanceOf(__NAMESPACE__ . '\BasePathResolver', $this->resolver->resolver());
     }
