@@ -2,7 +2,7 @@
 
 *General-purpose path library for PHP.*
 
-[![The most recent stable version is 0.5.0][version-image]][Semantic versioning]
+[![The most recent stable version is 0.6.0][version-image]][Semantic versioning]
 [![Current build status image][build-image]][Current build status]
 [![Current coverage status image][coverage-image]][Current coverage status]
 
@@ -516,4 +516,4 @@ echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
 [Current coverage status]: https://coveralls.io/r/eloquent/pathogen
 [eloquent/pathogen]: https://packagist.org/packages/eloquent/pathogen
 [Semantic versioning]: http://semver.org/
-[version-image]: http://img.shields.io/:semver-0.5.0-yellow.svg "This project uses semantic versioning"
+[version-image]: http://img.shields.io/:semver-0.6.0-yellow.svg "This project uses semantic versioning"
