@@ -2,14 +2,14 @@
 
 *General-purpose path library for PHP.*
 
-[![Build status]][Latest build]
-[![Test coverage]][Test coverage report]
-[![Uses semantic versioning]][SemVer]
+[![The most recent stable version is 0.5.0][version-image]][Semantic versioning]
+[![Current build status image][build-image]][Current build status]
+[![Current coverage status image][coverage-image]][Current coverage status]
 
 ## Installation and documentation
 
-* Available as [Composer] package [eloquent/pathogen].
-* [API documentation] available.
+- Available as [Composer] package [eloquent/pathogen].
+- [API documentation] available.
 
 ## What is Pathogen?
 
@@ -509,11 +509,11 @@ echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
 [traits]: http://php.net/traits
 
 [API documentation]: http://lqnt.co/pathogen/artifacts/documentation/api/
-[Build status]: https://api.travis-ci.org/eloquent/pathogen.png?branch=master
 [Composer]: http://getcomposer.org/
+[build-image]: http://img.shields.io/travis/eloquent/pathogen/develop.svg "Current build status for the develop branch"
+[Current build status]: https://travis-ci.org/eloquent/pathogen
+[coverage-image]: http://img.shields.io/coveralls/eloquent/pathogen/develop.svg "Current test coverage for the develop branch"
+[Current coverage status]: https://coveralls.io/r/eloquent/pathogen
 [eloquent/pathogen]: https://packagist.org/packages/eloquent/pathogen
-[Latest build]: https://travis-ci.org/eloquent/pathogen
-[SemVer]: http://semver.org/
-[Test coverage report]: https://coveralls.io/r/eloquent/pathogen
-[Test coverage]: https://coveralls.io/repos/eloquent/pathogen/badge.png?branch=master
-[Uses semantic versioning]: http://b.repl.ca/v1/semver-yes-brightgreen.png
+[Semantic versioning]: http://semver.org/
+[version-image]: http://img.shields.io/:semver-0.5.0-yellow.svg "This project uses semantic versioning"

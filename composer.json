@@ -23,11 +23,11 @@
     },
     "require-dev": {
         "icecave/archer": "~1",
-        "eloquent/liberator": "~1"
+        "eloquent/liberator": "~2"
     },
     "autoload": {
-        "psr-0": {
-            "Eloquent\\Pathogen": "src"
+        "psr-4": {
+            "Eloquent\\Pathogen\\": "src"
         }
     }
 }
