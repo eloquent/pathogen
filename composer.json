@@ -22,7 +22,7 @@
         "icecave/isolator": "~2"
     },
     "require-dev": {
-        "icecave/archer": "~1",
+        "icecave/archer": "dev-develop@dev",
         "eloquent/liberator": "~2"
     },
     "autoload": {

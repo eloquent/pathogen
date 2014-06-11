@@ -31,11 +31,11 @@ class WindowsPathNormalizer extends PathNormalizer
      */
     public static function instance()
     {
-        if (null === static::$instance) {
-            static::$instance = new static;
+        if (null === self::$instance) {
+            self::$instance = new self;
         }
 
-        return static::$instance;
+        return self::$instance;
     }
 
     /**
