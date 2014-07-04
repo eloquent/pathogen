@@ -978,33 +978,15 @@ abstract class AbstractPath implements PathInterface
      */
     protected function normalizeAtoms($atoms)
     {
-        $normalizedAtoms = array();
         foreach ($atoms as $atom) {
-            $this->validateAtom($atom);
-            $normalizedAtoms[] = $atom;
+            if ('' === $atom) {
+                throw new Exception\EmptyPathAtomException;
+            } elseif (false !== strpos($atom, static::ATOM_SEPARATOR)) {
+                throw new Exception\PathAtomContainsSeparatorException($atom);
+            }
         }
 
-        return $normalizedAtoms;
-    }
-
-    /**
-     * Validates a single path atom.
-     *
-     * This method is called internally by the constructor upon instantiation.
-     * It can be overridden in child classes to change how path atoms are
-     * validated.
-     *
-     * @param string $atom The atom to validate.
-     *
-     * @throws Exception\InvalidPathAtomExceptionInterface If an invalid path atom is encountered.
-     */
-    protected function validateAtom($atom)
-    {
-        if ('' === $atom) {
-            throw new Exception\EmptyPathAtomException;
-        } elseif (false !== strpos($atom, static::ATOM_SEPARATOR)) {
-            throw new Exception\PathAtomContainsSeparatorException($atom);
-        }
+        return $atoms;
     }
 
     /**

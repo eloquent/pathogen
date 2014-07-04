@@ -13,6 +13,7 @@ namespace Eloquent\Pathogen\Windows;
 
 use Eloquent\Pathogen\AbsolutePath;
 use Eloquent\Pathogen\AbsolutePathInterface;
+use Eloquent\Pathogen\Exception\EmptyPathAtomException;
 use Eloquent\Pathogen\Exception\EmptyPathException;
 use Eloquent\Pathogen\Exception\InvalidPathAtomCharacterException;
 use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
@@ -22,6 +23,8 @@ use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\RelativePathInterface;
 use Eloquent\Pathogen\Resolver\BasePathResolverInterface;
+use Eloquent\Pathogen\Windows\Exception\DriveMismatchException;
+use Eloquent\Pathogen\Windows\Exception\InvalidDriveSpecifierException;
 
 /**
  * Represents an absolute Windows path.
@@ -62,8 +65,8 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
      *
-     * @throws Exception\InvalidDriveSpecifierException If the drive specifier is invalid.
-     * @throws InvalidPathAtomExceptionInterface        If any of the supplied path atoms are invalid.
+     * @throws InvalidDriveSpecifierException    If the drive specifier is invalid.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
      */
     public function __construct($drive, $atoms, $hasTrailingSeparator = null)
     {
@@ -235,14 +238,14 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      *
      * @param RelativePathInterface $path The path whose atoms should be joined to this path.
      *
-     * @return PathInterface                    A new path with the supplied path suffixed to this path.
-     * @throws Exception\DriveMismatchException If the supplied path has a drive that does not match this path's drive.
+     * @return PathInterface          A new path with the supplied path suffixed to this path.
+     * @throws DriveMismatchException If the supplied path has a drive that does not match this path's drive.
      */
     public function join(RelativePathInterface $path)
     {
         if ($path instanceof RelativeWindowsPathInterface) {
             if (!$this->matchesDriveOrNull($this->pathDriveSpecifier($path))) {
-                throw new Exception\DriveMismatchException(
+                throw new DriveMismatchException(
                     $this->drive(),
                     $path->drive()
                 );
@@ -279,25 +282,34 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     // Implementation details ==================================================
 
     /**
-     * Validates a single path atom.
+     * Normalizes and validates a sequence of path atoms.
      *
      * This method is called internally by the constructor upon instantiation.
      * It can be overridden in child classes to change how path atoms are
-     * validated.
+     * normalized and/or validated.
      *
-     * @param string $atom The atom to validate.
+     * @param mixed<string> $atoms The path atoms to normalize.
      *
-     * @throws InvalidPathAtomExceptionInterface If an invalid path atom is encountered.
+     * @return array<string>                      The normalized path atoms.
+     * @throws EmptyPathAtomException             If any path atom is empty.
+     * @throws PathAtomContainsSeparatorException If any path atom contains a separator.
      */
-    protected function validateAtom($atom)
+    protected function normalizeAtoms($atoms)
     {
-        parent::validateAtom($atom);
-
-        if (false !== strpos($atom, '\\')) {
-            throw new PathAtomContainsSeparatorException($atom);
-        } elseif (preg_match('/([\x00-\x1F<>:"|?*])/', $atom, $matches)) {
-            throw new InvalidPathAtomCharacterException($atom, $matches[1]);
+        foreach ($atoms as $atom) {
+            if ('' === $atom) {
+                throw new EmptyPathAtomException;
+            } elseif (
+                false !== strpos($atom, static::ATOM_SEPARATOR) ||
+                false !== strpos($atom, '\\')
+            ) {
+                throw new PathAtomContainsSeparatorException($atom);
+            } elseif (preg_match('/([\x00-\x1F<>:"|?*])/', $atom, $matches)) {
+                throw new InvalidPathAtomCharacterException($atom, $matches[1]);
+            }
         }
+
+        return $atoms;
     }
 
     /**
@@ -305,12 +317,12 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      *
      * @param string $drive The drive specifier to validate.
      *
-     * @throws Exception\InvalidDriveSpecifierException If the drive specifier is invalid.
+     * @throws InvalidDriveSpecifierException If the drive specifier is invalid.
      */
     protected function validateDriveSpecifier($drive)
     {
         if (!preg_match('{^[a-zA-Z]$}', $drive)) {
-            throw new Exception\InvalidDriveSpecifierException($drive);
+            throw new InvalidDriveSpecifierException($drive);
         }
     }
 

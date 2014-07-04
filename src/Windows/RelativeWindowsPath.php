@@ -18,9 +18,15 @@ use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
 use Eloquent\Pathogen\Exception\InvalidPathStateException;
 use Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException;
 use Eloquent\Pathogen\FileSystem\RelativeFileSystemPathInterface;
+use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
 use Eloquent\Pathogen\PathInterface;
 use Eloquent\Pathogen\RelativePath;
 use Eloquent\Pathogen\RelativePathInterface;
+use Eloquent\Pathogen\Windows\Exception\DriveMismatchException;
+use Eloquent\Pathogen\Windows\Exception\InvalidDriveSpecifierException;
+use Eloquent\Pathogen\Windows\Factory\WindowsPathFactory;
+use Eloquent\Pathogen\Windows\Factory\WindowsPathFactoryInterface;
+use Eloquent\Pathogen\Windows\Normalizer\WindowsPathNormalizer;
 
 /**
  * Represents a relative Windows path.
@@ -237,14 +243,14 @@ class RelativeWindowsPath extends RelativePath implements
      *
      * @param RelativePathInterface $path The path whose atoms should be joined to this path.
      *
-     * @return PathInterface                    A new path with the supplied path suffixed to this path.
-     * @throws Exception\DriveMismatchException If the supplied path has a drive that does not match this path's drive.
+     * @return PathInterface          A new path with the supplied path suffixed to this path.
+     * @throws DriveMismatchException If the supplied path has a drive that does not match this path's drive.
      */
     public function join(RelativePathInterface $path)
     {
         if ($path instanceof RelativeWindowsPathInterface) {
             if (!$this->matchesDriveOrNull($this->pathDriveSpecifier($path))) {
-                throw new Exception\DriveMismatchException(
+                throw new DriveMismatchException(
                     $this->drive(),
                     $path->drive()
                 );
@@ -302,35 +308,20 @@ class RelativeWindowsPath extends RelativePath implements
      */
     protected function normalizeAtoms($atoms)
     {
-        $normalizedAtoms = array();
         foreach ($atoms as $atom) {
-            $this->validateAtom($atom);
-            $normalizedAtoms[] = $atom;
+            if ('' === $atom) {
+                throw new EmptyPathAtomException;
+            } elseif (
+                false !== strpos($atom, static::ATOM_SEPARATOR) ||
+                false !== strpos($atom, '\\')
+            ) {
+                throw new PathAtomContainsSeparatorException($atom);
+            } elseif (preg_match('/([\x00-\x1F<>:"|?*])/', $atom, $matches)) {
+                throw new InvalidPathAtomCharacterException($atom, $matches[1]);
+            }
         }
 
-        return $normalizedAtoms;
-    }
-
-    /**
-     * Validates a single path atom.
-     *
-     * This method is called internally by the constructor upon instantiation.
-     * It can be overridden in child classes to change how path atoms are
-     * validated.
-     *
-     * @param string $atom The atom to validate.
-     *
-     * @throws InvalidPathAtomExceptionInterface If an invalid path atom is encountered.
-     */
-    protected function validateAtom($atom)
-    {
-        parent::validateAtom($atom);
-
-        if (false !== strpos($atom, '\\')) {
-            throw new PathAtomContainsSeparatorException($atom);
-        } elseif (preg_match('/([\x00-\x1F<>:"|?*])/', $atom, $matches)) {
-            throw new InvalidPathAtomCharacterException($atom, $matches[1]);
-        }
+        return $atoms;
     }
 
     /**
@@ -338,12 +329,12 @@ class RelativeWindowsPath extends RelativePath implements
      *
      * @param string $drive The drive specifier to validate.
      *
-     * @throws Exception\InvalidDriveSpecifierException If the drive specifier is invalid.
+     * @throws InvalidDriveSpecifierException If the drive specifier is invalid.
      */
     protected function validateDriveSpecifier($drive)
     {
         if (!preg_match('{^[a-zA-Z]$}', $drive)) {
-            throw new Exception\InvalidDriveSpecifierException($drive);
+            throw new InvalidDriveSpecifierException($drive);
         }
     }
 
@@ -464,11 +455,11 @@ class RelativeWindowsPath extends RelativePath implements
     /**
      * Get the most appropriate path factory for this type of path.
      *
-     * @return Factory\WindowsPathFactoryInterface The path factory.
+     * @return WindowsPathFactoryInterface The path factory.
      */
     protected static function factory()
     {
-        return Factory\WindowsPathFactory::instance();
+        return WindowsPathFactory::instance();
     }
 
     /**
@@ -478,7 +469,7 @@ class RelativeWindowsPath extends RelativePath implements
      */
     protected static function normalizer()
     {
-        return Normalizer\WindowsPathNormalizer::instance();
+        return WindowsPathNormalizer::instance();
     }
 
     private $drive;
