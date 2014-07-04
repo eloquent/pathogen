@@ -11,6 +11,17 @@
 
 namespace Eloquent\Pathogen;
 
+use Eloquent\Pathogen\Exception\EmptyPathAtomException;
+use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
+use Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException;
+use Eloquent\Pathogen\Exception\UndefinedAtomException;
+use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\Factory\PathFactoryInterface;
+use Eloquent\Pathogen\Normalizer\PathNormalizer;
+use Eloquent\Pathogen\Normalizer\PathNormalizerInterface;
+use Eloquent\Pathogen\Resolver\BasePathResolver;
+use Eloquent\Pathogen\Resolver\BasePathResolverInterface;
+
 /**
  * Abstract base class for implementing PathInterface.
  */
@@ -44,7 +55,7 @@ abstract class AbstractPath implements PathInterface
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
      *
-     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
      */
     public static function construct($atoms, $hasTrailingSeparator = null)
     {
@@ -59,7 +70,7 @@ abstract class AbstractPath implements PathInterface
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
      *
-     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
      */
     public static function constructUnsafe($atoms, $hasTrailingSeparator = null)
     {
@@ -85,14 +96,14 @@ abstract class AbstractPath implements PathInterface
      *
      * @param integer $index The index to search for.
      *
-     * @return string                           The path atom.
-     * @throws Exception\UndefinedAtomException If the index does not exist in this path's atoms.
+     * @return string                 The path atom.
+     * @throws UndefinedAtomException If the index does not exist in this path's atoms.
      */
     public function atomAt($index)
     {
         $atom = $this->atomAtDefault($index);
         if (null === $atom) {
-            throw new Exception\UndefinedAtomException($index);
+            throw new UndefinedAtomException($index);
         }
 
         return $atom;
@@ -215,14 +226,14 @@ abstract class AbstractPath implements PathInterface
      *
      * @param integer $index The index to search for.
      *
-     * @return string                           The path name atom.
-     * @throws Exception\UndefinedAtomException If the index does not exist in this path's name atoms.
+     * @return string                 The path name atom.
+     * @throws UndefinedAtomException If the index does not exist in this path's name atoms.
      */
     public function nameAtomAt($index)
     {
         $atom = $this->nameAtomAtDefault($index);
         if (null === $atom) {
-            throw new Exception\UndefinedAtomException($index);
+            throw new UndefinedAtomException($index);
         }
 
         return $atom;
@@ -643,8 +654,8 @@ abstract class AbstractPath implements PathInterface
      * @param string     $atom            A path atom to append.
      * @param string,... $additionalAtoms Additional path atoms to append.
      *
-     * @return PathInterface                               A new path with the supplied atom(s) suffixed to this path.
-     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms are invalid.
+     * @return PathInterface                     A new path with the supplied atom(s) suffixed to this path.
+     * @throws InvalidPathAtomExceptionInterface If any joined atoms are invalid.
      */
     public function joinAtoms($atom)
     {
@@ -656,8 +667,8 @@ abstract class AbstractPath implements PathInterface
      *
      * @param mixed<string> $atoms The path atoms to append.
      *
-     * @return PathInterface                               A new path with the supplied sequence of atoms suffixed to this path.
-     * @throws Exception\InvalidPathAtomExceptionInterface If any joined atoms are invalid.
+     * @return PathInterface                     A new path with the supplied sequence of atoms suffixed to this path.
+     * @throws InvalidPathAtomExceptionInterface If any joined atoms are invalid.
      */
     public function joinAtomSequence($atoms)
     {
@@ -666,7 +677,7 @@ abstract class AbstractPath implements PathInterface
         }
 
         return $this->createPath(
-            array_merge($this->atoms(), $atoms),
+            array_merge($this->atoms(), static::normalizeAtoms($atoms)),
             $this instanceof AbsolutePathInterface,
             false
         );
@@ -708,8 +719,8 @@ abstract class AbstractPath implements PathInterface
      * @param string     $extension            An extension to append.
      * @param string,... $additionalExtensions Additional extensions to append.
      *
-     * @return PathInterface                               A new path instance with the supplied extensions suffixed to this path.
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
+     * @return PathInterface                     A new path instance with the supplied extensions suffixed to this path.
+     * @throws InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
      */
     public function joinExtensions($extension)
     {
@@ -721,8 +732,8 @@ abstract class AbstractPath implements PathInterface
      *
      * @param mixed<string> $extensions The extensions to append.
      *
-     * @return PathInterface                               A new path instance with the supplied extensions suffixed to this path.
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
+     * @return PathInterface                     A new path instance with the supplied extensions suffixed to this path.
+     * @throws InvalidPathAtomExceptionInterface If the suffixed extensions cause the atom to be invalid.
      */
     public function joinExtensionSequence($extensions)
     {
@@ -748,8 +759,8 @@ abstract class AbstractPath implements PathInterface
      *
      * @param string $suffix The string to suffix to the path name.
      *
-     * @return PathInterface                               A new path instance with the supplied string suffixed to the last path atom.
-     * @throws Exception\InvalidPathAtomExceptionInterface If the suffix causes the atom to be invalid.
+     * @return PathInterface                     A new path instance with the supplied string suffixed to the last path atom.
+     * @throws InvalidPathAtomExceptionInterface If the suffix causes the atom to be invalid.
      */
     public function suffixName($suffix)
     {
@@ -766,8 +777,8 @@ abstract class AbstractPath implements PathInterface
      *
      * @param string $prefix The string to prefix to the path name.
      *
-     * @return PathInterface                               A new path instance with the supplied string prefixed to the last path atom.
-     * @throws Exception\InvalidPathAtomExceptionInterface If the prefix causes the atom to be invalid.
+     * @return PathInterface                     A new path instance with the supplied string prefixed to the last path atom.
+     * @throws InvalidPathAtomExceptionInterface If the prefix causes the atom to be invalid.
      */
     public function prefixName($prefix)
     {
@@ -795,6 +806,8 @@ abstract class AbstractPath implements PathInterface
         if (!is_array($replacement)) {
             $replacement = iterator_to_array($replacement);
         }
+        $replacement = static::normalizeAtoms($replacement);
+
         if (null === $length) {
             $length = count($atoms);
         }
@@ -817,16 +830,22 @@ abstract class AbstractPath implements PathInterface
      */
     public function replaceName($name)
     {
+        $nameIsEmpty = '' === $name;
+
+        if (!$nameIsEmpty) {
+            static::validateAtom($name);
+        }
+
         $atoms = $this->atoms();
         $numAtoms = count($atoms);
 
         if ($numAtoms > 0) {
-            if ('' === $name) {
+            if ($nameIsEmpty) {
                 array_pop($atoms);
             } else {
                 $atoms[$numAtoms - 1] = $name;
             }
-        } elseif ('' !== $name) {
+        } elseif (!$nameIsEmpty) {
             $atoms[] = $name;
         }
 
@@ -984,21 +1003,38 @@ abstract class AbstractPath implements PathInterface
      *
      * @param mixed<string> $atoms The path atoms to normalize.
      *
-     * @return array<string>                                The normalized path atoms.
-     * @throws Exception\EmptyPathAtomException             If any path atom is empty.
-     * @throws Exception\PathAtomContainsSeparatorException If any path atom contains a separator.
+     * @return array<string>                      The normalized path atoms.
+     * @throws EmptyPathAtomException             If any path atom is empty.
+     * @throws PathAtomContainsSeparatorException If any path atom contains a separator.
      */
     protected static function normalizeAtoms($atoms)
     {
         foreach ($atoms as $atom) {
             if ('' === $atom) {
-                throw new Exception\EmptyPathAtomException;
+                throw new EmptyPathAtomException;
             } elseif (false !== strpos($atom, static::ATOM_SEPARATOR)) {
-                throw new Exception\PathAtomContainsSeparatorException($atom);
+                throw new PathAtomContainsSeparatorException($atom);
             }
         }
 
         return $atoms;
+    }
+
+    /**
+     * Validates a single path atom.
+     *
+     * @param string $atom The path atom to validate.
+     *
+     * @throws EmptyPathAtomException             If any path atom is empty.
+     * @throws PathAtomContainsSeparatorException If any path atom contains a separator.
+     */
+    protected static function validateAtom($atom)
+    {
+        if ('' === $atom) {
+            throw new EmptyPathAtomException;
+        } elseif (false !== strpos($atom, static::ATOM_SEPARATOR)) {
+            throw new PathAtomContainsSeparatorException($atom);
+        }
     }
 
     /**
@@ -1009,7 +1045,7 @@ abstract class AbstractPath implements PathInterface
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
      *
-     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
      */
     protected function __construct($atoms, $hasTrailingSeparator = null)
     {
@@ -1042,41 +1078,41 @@ abstract class AbstractPath implements PathInterface
         $isAbsolute,
         $hasTrailingSeparator = null
     ) {
-        return static::factory()->createFromAtoms(
-            $atoms,
-            $isAbsolute,
-            $hasTrailingSeparator
-        );
+        if ($isAbsolute) {
+            return AbsolutePath::constructUnsafe($atoms, $hasTrailingSeparator);
+        }
+
+        return RelativePath::constructUnsafe($atoms, $hasTrailingSeparator);
     }
 
     /**
      * Get the most appropriate path factory for this type of path.
      *
-     * @return Factory\PathFactoryInterface The path factory.
+     * @return PathFactoryInterface The path factory.
      */
     protected static function factory()
     {
-        return Factory\PathFactory::instance();
+        return PathFactory::instance();
     }
 
     /**
      * Get the most appropriate path normalizer for this type of path.
      *
-     * @return Normalizer\PathNormalizerInterface The path normalizer.
+     * @return PathNormalizerInterface The path normalizer.
      */
     protected static function normalizer()
     {
-        return Normalizer\PathNormalizer::instance();
+        return PathNormalizer::instance();
     }
 
     /**
      * Get the most appropriate base path resolver for this type of path.
      *
-     * @return Resolver\BasePathResolverInterface The base path resolver.
+     * @return BasePathResolverInterface The base path resolver.
      */
     protected static function resolver()
     {
-        return Resolver\BasePathResolver::instance();
+        return BasePathResolver::instance();
     }
 
     private $atoms;

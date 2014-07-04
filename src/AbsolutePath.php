@@ -11,6 +11,11 @@
 
 namespace Eloquent\Pathogen;
 
+use Eloquent\Pathogen\Exception\EmptyPathException;
+use Eloquent\Pathogen\Exception\InvalidPathAtomExceptionInterface;
+use Eloquent\Pathogen\Exception\InvalidPathStateException;
+use Eloquent\Pathogen\Exception\NonAbsolutePathException;
+
 /**
  * Represents an absolute path.
  */
@@ -21,14 +26,14 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      *
      * @param string $path The string representation of the absolute path.
      *
-     * @return AbsolutePathInterface              The newly created absolute path.
-     * @throws Exception\NonAbsolutePathException If the supplied string represents a non-absolute path.
+     * @return AbsolutePathInterface    The newly created absolute path.
+     * @throws NonAbsolutePathException If the supplied string represents a non-absolute path.
      */
     public static function fromString($path)
     {
         $pathObject = static::factory()->create($path);
         if (!$pathObject instanceof AbsolutePathInterface) {
-            throw new Exception\NonAbsolutePathException($pathObject);
+            throw new NonAbsolutePathException($pathObject);
         }
 
         return $pathObject;
@@ -40,9 +45,9 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $hasTrailingSeparator True if the path has a trailing separator.
      *
-     * @return AbsolutePathInterface                       The newly created absolute path.
-     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
-     * @throws Exception\InvalidPathStateException         If the supplied arguments would produce an invalid path.
+     * @return AbsolutePathInterface             The newly created absolute path.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied atoms are invalid.
+     * @throws InvalidPathStateException         If the supplied arguments would produce an invalid path.
      */
     public static function fromAtoms($atoms, $hasTrailingSeparator = null)
     {
@@ -85,8 +90,8 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      * If this path is relative, a new absolute path with equivalent atoms will
      * be returned. Otherwise, this path will be retured unaltered.
      *
-     * @return AbsolutePathInterface               An absolute version of this path.
-     * @throws Exception\InvalidPathStateException If absolute conversion is not possible for this path.
+     * @return AbsolutePathInterface     An absolute version of this path.
+     * @throws InvalidPathStateException If absolute conversion is not possible for this path.
      */
     public function toAbsolute()
     {
@@ -99,11 +104,16 @@ class AbsolutePath extends AbstractPath implements AbsolutePathInterface
      * If this path is absolute, a new relative path with equivalent atoms will
      * be returned. Otherwise, this path will be retured unaltered.
      *
-     * @return RelativePathInterface        A relative version of this path.
-     * @throws Exception\EmptyPathException If this path has no atoms.
+     * @return RelativePathInterface A relative version of this path.
+     * @throws EmptyPathException    If this path has no atoms.
      */
     public function toRelative()
     {
+        $atoms = $this->atoms();
+        if (count($atoms) < 1) {
+            throw new EmptyPathException;
+        }
+
         return $this->createPath(
             $this->atoms(),
             false,

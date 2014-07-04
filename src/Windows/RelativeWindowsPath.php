@@ -453,19 +453,16 @@ class RelativeWindowsPath extends RelativePath implements
         $hasTrailingSeparator = null
     ) {
         if ($isAbsolute) {
-            return $this->createPathFromDriveAndAtoms(
-                $atoms,
+            return AbsoluteWindowsPath::constructWindowsPathUnsafe(
                 $this->drive(),
-                true,
-                false,
+                $atoms,
                 $hasTrailingSeparator
             );
         }
 
-        return $this->createPathFromDriveAndAtoms(
+        return RelativeWindowsPath::constructWindowsPathUnsafe(
             $atoms,
             $this->drive(),
-            false,
             $this->isAnchored(),
             $hasTrailingSeparator
         );
@@ -491,10 +488,17 @@ class RelativeWindowsPath extends RelativePath implements
         $isAnchored = null,
         $hasTrailingSeparator = null
     ) {
-        return static::factory()->createFromDriveAndAtoms(
+        if ($isAbsolute) {
+            return AbsoluteWindowsPath::constructWindowsPathUnsafe(
+                $drive,
+                $atoms,
+                $hasTrailingSeparator
+            );
+        }
+
+        return RelativeWindowsPath::constructWindowsPathUnsafe(
             $atoms,
             $drive,
-            $isAbsolute,
             $isAnchored,
             $hasTrailingSeparator
         );
