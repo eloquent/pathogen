@@ -58,7 +58,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorDefaults()
     {
-        $this->path = new RelativePath(array('.'));
+        $this->path = RelativePath::construct(array('.'));
 
         $this->assertFalse($this->path->hasTrailingSeparator());
     }
@@ -69,7 +69,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
             "Invalid path atom 'foo/bar'. Path atoms must not contain separators."
         );
-        new RelativePath(array('foo/bar'));
+        RelativePath::construct(array('foo/bar'));
     }
 
     public function testConstructorFailureEmptyAtom()
@@ -77,7 +77,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\EmptyPathAtomException'
         );
-        new RelativePath(array(''));
+        RelativePath::construct(array(''));
     }
 
     public function testConstructorFailureEmptyPath()
@@ -85,7 +85,7 @@ class RelativePathTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\EmptyPathException'
         );
-        new RelativePath(array());
+        RelativePath::construct(array());
     }
 
     public function testAtomAt()

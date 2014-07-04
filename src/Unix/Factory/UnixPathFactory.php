@@ -58,10 +58,10 @@ class UnixPathFactory extends PathFactory
         }
 
         if ($isAbsolute) {
-            return new AbsoluteUnixPath($atoms, $hasTrailingSeparator);
+            return AbsoluteUnixPath::construct($atoms, $hasTrailingSeparator);
         }
 
-        return new RelativeUnixPath($atoms, $hasTrailingSeparator);
+        return RelativeUnixPath::construct($atoms, $hasTrailingSeparator);
     }
 
     private static $instance;

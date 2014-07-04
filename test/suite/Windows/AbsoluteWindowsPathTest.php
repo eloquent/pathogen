@@ -61,7 +61,7 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorDefaults()
     {
-        $this->path = new AbsoluteWindowsPath('C', array());
+        $this->path = AbsoluteWindowsPath::constructWindowsPath('C', array());
 
         $this->assertFalse($this->path->hasTrailingSeparator());
     }
@@ -72,7 +72,7 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
             "Invalid path atom 'foo/bar'. Path atoms must not contain separators."
         );
-        new AbsoluteWindowsPath('C', array('foo/bar'));
+        AbsoluteWindowsPath::constructWindowsPath('C', array('foo/bar'));
     }
 
     public function testConstructorFailureAtomContainingBackslash()
@@ -81,7 +81,7 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
             "Invalid path atom 'foo\\\\bar'. Path atoms must not contain separators."
         );
-        new AbsoluteWindowsPath('C', array('foo\bar'));
+        AbsoluteWindowsPath::constructWindowsPath('C', array('foo\bar'));
     }
 
     public function invalidPathAtomCharacterData()
@@ -116,7 +116,7 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
                 var_export($character, true)
             )
         );
-        new AbsoluteWindowsPath('C', array(sprintf('foo%sbar', $character)));
+        AbsoluteWindowsPath::constructWindowsPath('C', array(sprintf('foo%sbar', $character)));
     }
 
     public function testConstructorFailureEmptyAtom()
@@ -124,7 +124,7 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\EmptyPathAtomException'
         );
-        new AbsoluteWindowsPath('C', array(''));
+        AbsoluteWindowsPath::constructWindowsPath('C', array(''));
     }
 
     public function testConstructorFailureInvalidDriveSpecifierCharacter()
@@ -132,7 +132,7 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\InvalidDriveSpecifierException'
         );
-        new AbsoluteWindowsPath('$', array());
+        AbsoluteWindowsPath::constructWindowsPath('$', array());
     }
 
     public function testConstructorFailureInvalidDriveSpecifierEmpty()
@@ -140,7 +140,7 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\InvalidDriveSpecifierException'
         );
-        new AbsoluteWindowsPath('', array());
+        AbsoluteWindowsPath::constructWindowsPath('', array());
     }
 
     public function testConstructorFailureInvalidDriveSpecifierLength()
@@ -148,7 +148,7 @@ class AbsoluteWindowsPathTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(
             __NAMESPACE__ . '\Exception\InvalidDriveSpecifierException'
         );
-        new AbsoluteWindowsPath('CC', array());
+        AbsoluteWindowsPath::constructWindowsPath('CC', array());
     }
 
     // Implementation of WindowsPathInterface ==================================

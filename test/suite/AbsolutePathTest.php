@@ -58,7 +58,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorDefaults()
     {
-        $this->path = new AbsolutePath(array());
+        $this->path = AbsolutePath::construct(array());
 
         $this->assertFalse($this->path->hasTrailingSeparator());
     }
@@ -69,7 +69,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
             "Invalid path atom 'foo/bar'. Path atoms must not contain separators."
         );
-        new AbsolutePath(array('foo/bar'));
+        AbsolutePath::construct(array('foo/bar'));
     }
 
     public function testConstructorFailureEmptyAtom()
@@ -77,7 +77,7 @@ class AbsolutePathTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Eloquent\Pathogen\Exception\EmptyPathAtomException'
         );
-        new AbsolutePath(array(''));
+        AbsolutePath::construct(array(''));
     }
 
     public function testAtomAt()

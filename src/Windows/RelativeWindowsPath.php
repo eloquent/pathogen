@@ -63,7 +63,9 @@ class RelativeWindowsPath extends RelativePath implements
     }
 
     /**
-     * Construct a new relative Windows path instance.
+     * Construct a new relative Windows path instance (internal use only).
+     *
+     * @internal This method is not intended for public use.
      *
      * @param mixed<string> $atoms                The path atoms.
      * @param string|null   $drive                The drive specifier.
@@ -73,31 +75,48 @@ class RelativeWindowsPath extends RelativePath implements
      * @throws EmptyPathException                If the path atoms are empty, and the path is not anchored.
      * @throws InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
      */
-    public function __construct(
+    public static function constructWindowsPath(
         $atoms,
         $drive = null,
         $isAnchored = null,
         $hasTrailingSeparator = null
     ) {
-        if (null === $isAnchored) {
-            $isAnchored = false;
-        }
-        if (null === $hasTrailingSeparator) {
-            $hasTrailingSeparator = false;
-        }
-
         if (!$isAnchored && count($atoms) < 1) {
             throw new EmptyPathException;
         }
-
         if (null !== $drive) {
-            $this->validateDriveSpecifier($drive);
+            static::validateDriveSpecifier($drive);
         }
 
-        parent::__construct($atoms, $hasTrailingSeparator);
+        return new static(
+            static::normalizeAtoms($atoms),
+            $drive,
+            $isAnchored,
+            $hasTrailingSeparator
+        );
+    }
 
-        $this->drive = $drive;
-        $this->isAnchored = $isAnchored;
+    /**
+     * Construct a new relative Windows path instance without validation
+     * (internal use only).
+     *
+     * @internal This method is not intended for public use.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param string|null   $drive                The drive specifier.
+     * @param boolean|null  $isAnchored           True if this path is anchored to the drive root.
+     * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
+     *
+     * @throws EmptyPathException                If the path atoms are empty, and the path is not anchored.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
+     */
+    public static function constructWindowsPathUnsafe(
+        $atoms,
+        $drive = null,
+        $isAnchored = null,
+        $hasTrailingSeparator = null
+    ) {
+        return new static($atoms, $drive, $isAnchored, $hasTrailingSeparator);
     }
 
     // Implementation of WindowsPathInterface ==================================
@@ -306,7 +325,7 @@ class RelativeWindowsPath extends RelativePath implements
      * @throws EmptyPathAtomException             If any path atom is empty.
      * @throws PathAtomContainsSeparatorException If any path atom contains a separator.
      */
-    protected function normalizeAtoms($atoms)
+    protected static function normalizeAtoms($atoms)
     {
         foreach ($atoms as $atom) {
             if ('' === $atom) {
@@ -331,11 +350,40 @@ class RelativeWindowsPath extends RelativePath implements
      *
      * @throws InvalidDriveSpecifierException If the drive specifier is invalid.
      */
-    protected function validateDriveSpecifier($drive)
+    protected static function validateDriveSpecifier($drive)
     {
         if (!preg_match('{^[a-zA-Z]$}', $drive)) {
             throw new InvalidDriveSpecifierException($drive);
         }
+    }
+
+    /**
+     * Construct a new relative Windows path instance (internal use only).
+     *
+     * @internal This method is not intended for public use.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param string|null   $drive                The drive specifier.
+     * @param boolean|null  $isAnchored           True if this path is anchored to the drive root.
+     * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
+     *
+     * @throws EmptyPathException                If the path atoms are empty, and the path is not anchored.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
+     */
+    protected function __construct(
+        $atoms,
+        $drive = null,
+        $isAnchored = null,
+        $hasTrailingSeparator = null
+    ) {
+        if (null === $isAnchored) {
+            $isAnchored = false;
+        }
+
+        parent::__construct($atoms, $hasTrailingSeparator);
+
+        $this->drive = $drive;
+        $this->isAnchored = $isAnchored;
     }
 
     /**

@@ -69,7 +69,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorDefaults()
     {
-        $this->path = new RelativeWindowsPath(array('.'));
+        $this->path = RelativeWindowsPath::constructWindowsPath(array('.'));
 
         $this->assertFalse($this->path->hasTrailingSeparator());
     }
@@ -80,7 +80,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
             "Invalid path atom 'foo/bar'. Path atoms must not contain separators."
         );
-        new RelativeWindowsPath(array('foo/bar'));
+        RelativeWindowsPath::constructWindowsPath(array('foo/bar'));
     }
 
     public function testConstructorFailureAtomContainingBackslash()
@@ -89,7 +89,7 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
             'Eloquent\Pathogen\Exception\PathAtomContainsSeparatorException',
             "Invalid path atom 'foo\\\\bar'. Path atoms must not contain separators."
         );
-        new RelativeWindowsPath(array('foo\bar'));
+        RelativeWindowsPath::constructWindowsPath(array('foo\bar'));
     }
 
     public function invalidPathAtomCharacterData()
@@ -124,47 +124,37 @@ class RelativeWindowsPathTest extends PHPUnit_Framework_TestCase
                 var_export($character, true)
             )
         );
-        new RelativeWindowsPath(array(sprintf('foo%sbar', $character)));
+        RelativeWindowsPath::constructWindowsPath(array(sprintf('foo%sbar', $character)));
     }
 
     public function testConstructorFailureEmptyAtom()
     {
-        $this->setExpectedException(
-            'Eloquent\Pathogen\Exception\EmptyPathAtomException'
-        );
-        new RelativeWindowsPath(array(''));
+        $this->setExpectedException('Eloquent\Pathogen\Exception\EmptyPathAtomException');
+        RelativeWindowsPath::constructWindowsPath(array(''));
     }
 
     public function testConstructorFailureEmptyPath()
     {
-        $this->setExpectedException(
-            'Eloquent\Pathogen\Exception\EmptyPathException'
-        );
-        new RelativeWindowsPath(array());
+        $this->setExpectedException('Eloquent\Pathogen\Exception\EmptyPathException');
+        RelativeWindowsPath::constructWindowsPath(array());
     }
 
     public function testConstructorFailureInvalidDriveSpecifierCharacter()
     {
-        $this->setExpectedException(
-            __NAMESPACE__ . '\Exception\InvalidDriveSpecifierException'
-        );
-        new RelativeWindowsPath(array('foo'), '$');
+        $this->setExpectedException('\Eloquent\Pathogen\Windows\Exception\InvalidDriveSpecifierException');
+        RelativeWindowsPath::constructWindowsPath(array('foo'), '$');
     }
 
     public function testConstructorFailureInvalidDriveSpecifierEmpty()
     {
-        $this->setExpectedException(
-            __NAMESPACE__ . '\Exception\InvalidDriveSpecifierException'
-        );
-        new RelativeWindowsPath(array('foo'), '');
+        $this->setExpectedException('\Eloquent\Pathogen\Windows\Exception\InvalidDriveSpecifierException');
+        RelativeWindowsPath::constructWindowsPath(array('foo'), '');
     }
 
     public function testConstructorFailureInvalidDriveSpecifierLength()
     {
-        $this->setExpectedException(
-            __NAMESPACE__ . '\Exception\InvalidDriveSpecifierException'
-        );
-        new RelativeWindowsPath(array('foo'), 'CC');
+        $this->setExpectedException('\Eloquent\Pathogen\Windows\Exception\InvalidDriveSpecifierException');
+        RelativeWindowsPath::constructWindowsPath(array('foo'), 'CC');
     }
 
     // Implementation of WindowsPathInterface ==================================

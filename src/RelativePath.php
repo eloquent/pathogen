@@ -131,7 +131,7 @@ class RelativePath extends AbstractPath implements RelativePathInterface
      * @throws Exception\EmptyPathAtomException             If any path atom is empty.
      * @throws Exception\PathAtomContainsSeparatorException If any path atom contains a separator.
      */
-    protected function normalizeAtoms($atoms)
+    protected static function normalizeAtoms($atoms)
     {
         $atoms = parent::normalizeAtoms($atoms);
         if (count($atoms) < 1) {

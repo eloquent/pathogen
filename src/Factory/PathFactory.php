@@ -105,10 +105,10 @@ class PathFactory implements PathFactoryInterface
         }
 
         if ($isAbsolute) {
-            return new AbsolutePath($atoms, $hasTrailingSeparator);
+            return AbsolutePath::construct($atoms, $hasTrailingSeparator);
         }
 
-        return new RelativePath($atoms, $hasTrailingSeparator);
+        return RelativePath::construct($atoms, $hasTrailingSeparator);
     }
 
     private static $instance;

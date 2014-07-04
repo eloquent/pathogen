@@ -23,7 +23,7 @@ class NonRelativePathExceptionTest extends PHPUnit_Framework_TestCase
 {
     public function testException()
     {
-        $path = new RelativePath(array('foo', 'bar'));
+        $path = RelativePath::construct(array('foo', 'bar'));
         $previous = new Exception;
         $exception = new NonRelativePathException($path, $previous);
 

@@ -59,7 +59,9 @@ class AbsoluteWindowsPath extends AbsolutePath implements
     }
 
     /**
-     * Construct a new path instance.
+     * Construct a new absolute Windows path instance (internal use only).
+     *
+     * @internal This method is not intended for public use.
      *
      * @param string        $drive                The drive specifier, or null if the path has no drive specifier.
      * @param mixed<string> $atoms                The path atoms.
@@ -68,13 +70,39 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      * @throws InvalidDriveSpecifierException    If the drive specifier is invalid.
      * @throws InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
      */
-    public function __construct($drive, $atoms, $hasTrailingSeparator = null)
-    {
-        $this->validateDriveSpecifier($drive);
+    public static function constructWindowsPath(
+        $drive,
+        $atoms,
+        $hasTrailingSeparator = null
+    ) {
+        static::validateDriveSpecifier($drive);
 
-        parent::__construct($atoms, $hasTrailingSeparator);
+        return new static(
+            $drive,
+            static::normalizeAtoms($atoms),
+            $hasTrailingSeparator
+        );
+    }
 
-        $this->drive = $drive;
+    /**
+     * Construct a new absolute Windows path instance without validation
+     * (internal use only).
+     *
+     * @internal This method is not intended for public use.
+     *
+     * @param string        $drive                The drive specifier, or null if the path has no drive specifier.
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
+     *
+     * @throws InvalidDriveSpecifierException    If the drive specifier is invalid.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
+     */
+    public static function constructWindowsPathUnsafe(
+        $drive,
+        $atoms,
+        $hasTrailingSeparator = null
+    ) {
+        return new static($drive, $atoms, $hasTrailingSeparator);
     }
 
     // Implementation of WindowsPathInterface ==================================
@@ -294,7 +322,7 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      * @throws EmptyPathAtomException             If any path atom is empty.
      * @throws PathAtomContainsSeparatorException If any path atom contains a separator.
      */
-    protected function normalizeAtoms($atoms)
+    protected static function normalizeAtoms($atoms)
     {
         foreach ($atoms as $atom) {
             if ('' === $atom) {
@@ -319,11 +347,30 @@ class AbsoluteWindowsPath extends AbsolutePath implements
      *
      * @throws InvalidDriveSpecifierException If the drive specifier is invalid.
      */
-    protected function validateDriveSpecifier($drive)
+    protected static function validateDriveSpecifier($drive)
     {
         if (!preg_match('{^[a-zA-Z]$}', $drive)) {
             throw new InvalidDriveSpecifierException($drive);
         }
+    }
+
+    /**
+     * Construct a new absolute Windows path instance (internal use only).
+     *
+     * @internal This method is not intended for public use.
+     *
+     * @param string        $drive                The drive specifier, or null if the path has no drive specifier.
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
+     *
+     * @throws InvalidDriveSpecifierException    If the drive specifier is invalid.
+     * @throws InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
+     */
+    protected function __construct($drive, $atoms, $hasTrailingSeparator = null)
+    {
+        parent::__construct($atoms, $hasTrailingSeparator);
+
+        $this->drive = $drive;
     }
 
     /**

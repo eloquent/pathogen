@@ -37,21 +37,33 @@ abstract class AbstractPath implements PathInterface
     const SELF_ATOM = '.';
 
     /**
-     * Construct a new path instance.
+     * Construct a new path instance (internal use only).
+     *
+     * @internal This method is not intended for public use.
      *
      * @param mixed<string> $atoms                The path atoms.
      * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
      *
      * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
      */
-    public function __construct($atoms, $hasTrailingSeparator = null)
+    public static function construct($atoms, $hasTrailingSeparator = null)
     {
-        if (null === $hasTrailingSeparator) {
-            $hasTrailingSeparator = false;
-        }
+        return new static(static::normalizeAtoms($atoms), $hasTrailingSeparator);
+    }
 
-        $this->atoms = $this->normalizeAtoms($atoms);
-        $this->hasTrailingSeparator = $hasTrailingSeparator === true;
+    /**
+     * Construct a new path instance without validation (internal use only).
+     *
+     * @internal This method is not intended for public use.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
+     *
+     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
+     */
+    public static function constructUnsafe($atoms, $hasTrailingSeparator = null)
+    {
+        return new static($atoms, $hasTrailingSeparator);
     }
 
     // Implementation of PathInterface =========================================
@@ -976,7 +988,7 @@ abstract class AbstractPath implements PathInterface
      * @throws Exception\EmptyPathAtomException             If any path atom is empty.
      * @throws Exception\PathAtomContainsSeparatorException If any path atom contains a separator.
      */
-    protected function normalizeAtoms($atoms)
+    protected static function normalizeAtoms($atoms)
     {
         foreach ($atoms as $atom) {
             if ('' === $atom) {
@@ -987,6 +999,28 @@ abstract class AbstractPath implements PathInterface
         }
 
         return $atoms;
+    }
+
+    /**
+     * Construct a new path instance (internal use only).
+     *
+     * @internal This method is not intended for public use.
+     *
+     * @param mixed<string> $atoms                The path atoms.
+     * @param boolean|null  $hasTrailingSeparator True if this path has a trailing separator.
+     *
+     * @throws Exception\InvalidPathAtomExceptionInterface If any of the supplied path atoms are invalid.
+     */
+    protected function __construct($atoms, $hasTrailingSeparator = null)
+    {
+        if (null === $hasTrailingSeparator) {
+            $hasTrailingSeparator = false;
+        } else {
+            $hasTrailingSeparator = $hasTrailingSeparator === true;
+        }
+
+        $this->atoms = $atoms;
+        $this->hasTrailingSeparator = $hasTrailingSeparator;
     }
 
     /**

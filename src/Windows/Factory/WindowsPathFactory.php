@@ -172,14 +172,14 @@ class WindowsPathFactory extends PathFactory implements
         }
 
         if ($isAbsolute) {
-            return new AbsoluteWindowsPath(
+            return AbsoluteWindowsPath::constructWindowsPath(
                 $drive,
                 $atoms,
                 $hasTrailingSeparator
             );
         }
 
-        return new RelativeWindowsPath(
+        return RelativeWindowsPath::constructWindowsPath(
             $atoms,
             $drive,
             $isAnchored,
