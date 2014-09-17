@@ -51,12 +51,5 @@ abstract class AbstractInvalidPathAtomException extends Exception
         return $this->atom;
     }
 
-    /**
-     * Get the reason message.
-     *
-     * @return string The reason message.
-     */
-    abstract public function reason();
-
     private $atom;
 }
