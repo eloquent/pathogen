@@ -59,7 +59,10 @@ abstract class AbstractPath implements PathInterface
      */
     public static function construct($atoms, $hasTrailingSeparator = null)
     {
-        return new static(static::normalizeAtoms($atoms), $hasTrailingSeparator);
+        return new static(
+            static::normalizeAtoms($atoms),
+            $hasTrailingSeparator
+        );
     }
 
     /**
@@ -832,8 +835,8 @@ abstract class AbstractPath implements PathInterface
     {
         $nameIsEmpty = '' === $name;
 
-        if (!$nameIsEmpty) {
-            static::validateAtom($name);
+        if (!$nameIsEmpty && false !== strpos($name, static::ATOM_SEPARATOR)) {
+            throw new PathAtomContainsSeparatorException($name);
         }
 
         $atoms = $this->atoms();
@@ -1018,23 +1021,6 @@ abstract class AbstractPath implements PathInterface
         }
 
         return $atoms;
-    }
-
-    /**
-     * Validates a single path atom.
-     *
-     * @param string $atom The path atom to validate.
-     *
-     * @throws EmptyPathAtomException             If any path atom is empty.
-     * @throws PathAtomContainsSeparatorException If any path atom contains a separator.
-     */
-    protected static function validateAtom($atom)
-    {
-        if ('' === $atom) {
-            throw new EmptyPathAtomException;
-        } elseif (false !== strpos($atom, static::ATOM_SEPARATOR)) {
-            throw new PathAtomContainsSeparatorException($atom);
-        }
     }
 
     /**
