@@ -52,12 +52,5 @@ abstract class AbstractInvalidPathException extends Exception
         return $this->path;
     }
 
-    /**
-     * Get the reason message.
-     *
-     * @return string The reason message.
-     */
-    abstract public function reason();
-
     private $path;
 }
