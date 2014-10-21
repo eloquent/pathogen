@@ -26,7 +26,7 @@ branching structure please see the [git-flow cheatsheet].
 
 <!-- References -->
 
-[Fork the repository](https://help.github.com/articles/fork-a-repo)
-[git-flow cheatsheet](http://danielkummer.github.com/git-flow-cheatsheet/)
-[PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
-[Squash](http://git-scm.com/book/en/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages)
+[Fork the repository]: https://help.github.com/articles/fork-a-repo
+[git-flow cheatsheet]: http://danielkummer.github.com/git-flow-cheatsheet/
+[PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md 
+[Squash]: http://git-scm.com/book/en/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages
