@@ -70,12 +70,7 @@ class PathFactory implements PathFactoryInterface
             }
         }
 
-        foreach ($atoms as $index => $atom) {
-            if ('' === $atom) {
-                array_splice($atoms, $index, 1);
-                --$numAtoms;
-            }
-        }
+        $atoms = array_filter($atoms, 'strlen');
 
         return $this->createFromAtoms(
             $atoms,
