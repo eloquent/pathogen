@@ -2,14 +2,25 @@
 
 *General-purpose path library for PHP.*
 
-[![The most recent stable version is 0.6.0][version-image]][Semantic versioning]
+[![The most recent stable version is 0.6.1][version-image]][Semantic versioning]
 [![Current build status image][build-image]][Current build status]
 [![Current coverage status image][coverage-image]][Current coverage status]
+
+[build-image]: http://img.shields.io/travis/eloquent/pathogen/develop.svg "Current build status for the develop branch"
+[Current build status]: https://travis-ci.org/eloquent/pathogen
+[coverage-image]: http://img.shields.io/coveralls/eloquent/pathogen/develop.svg "Current test coverage for the develop branch"
+[Current coverage status]: https://coveralls.io/r/eloquent/pathogen
+[Semantic versioning]: http://semver.org/
+[version-image]: http://img.shields.io/:semver-0.6.1-yellow.svg "This project uses semantic versioning"
 
 ## Installation and documentation
 
 - Available as [Composer] package [eloquent/pathogen].
 - [API documentation] available.
+
+[API documentation]: http://lqnt.co/pathogen/artifacts/documentation/api/
+[Composer]: http://getcomposer.org/
+[eloquent/pathogen]: https://packagist.org/packages/eloquent/pathogen
 
 ## What is Pathogen?
 
@@ -167,6 +178,10 @@ function relativeOnly(RelativePathInterface $path)
 }
 ```
 
+[AbsolutePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/AbsolutePathInterface.html
+[PathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/PathInterface.html
+[RelativePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/RelativePathInterface.html
+
 ### Special paths
 
 The 'root' path is considered the top-most absolute path, and is represented as
@@ -237,6 +252,8 @@ $factory = new FileSystemPathFactory;
 $pathFoo = $factory->create('/path/to/foo');
 $pathBar = $factory->create('C:/path/to/bar');
 ```
+
+[PathFactoryInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/Factory/PathFactoryInterface.html
 
 ### Path resolution
 
@@ -369,6 +386,10 @@ with static methods. The actual path class used will depend on the input. If it
 is necessary to type hint for a file system path, [FileSystemPathInterface] or
 one of its more specialized child interfaces should be used instead.
 
+[FileSystemPath]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/FileSystemPath.html
+[FileSystemPathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/FileSystemPathInterface.html
+[PlatformFileSystemPath]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/PlatformFileSystemPath.html
+
 ### Immutability of paths
 
 Paths in *Pathogen* are *immutable*, meaning that once they are created, they
@@ -411,11 +432,13 @@ $consumer = new ExampleConsumer;
 echo get_class($consumer->pathFactory()); // outputs 'Eloquent\Pathogen\FileSystem\Factory\FileSystemPathFactory'
 ```
 
+[traits]: http://php.net/traits
+
 #### Available dependency consumer traits
 
-- [PlatformFileSystemPathFactoryTrait]
-- [FileSystemPathFactoryTrait]
-- [PathFactoryTrait]
+- [PlatformFileSystemPathFactoryTrait](src/Eloquent/Pathogen/FileSystem/Factory/Consumer/PlatformFileSystemPathFactoryTrait.php)
+- [FileSystemPathFactoryTrait](src/Eloquent/Pathogen/FileSystem/Factory/Consumer/FileSystemPathFactoryTrait.php)
+- [PathFactoryTrait](src/Eloquent/Pathogen/Factory/Consumer/PathFactoryTrait.php)
 
 ## Usage examples
 
@@ -491,29 +514,3 @@ $pathWithReplacement = $path->replace(1, array('for', 'baz'), 2);
 
 echo $pathWithReplacement->string(); // outputs '/path/for/baz/bar'
 ```
-
-<!-- References -->
-
-[AbsolutePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/AbsolutePathInterface.html
-[FileSystemPath]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/FileSystemPath.html
-[FileSystemPathFactoryTrait]: src/Eloquent/Pathogen/FileSystem/Factory/Consumer/FileSystemPathFactoryTrait.php
-[FileSystemPathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/FileSystemPathInterface.html
-[NormalizingPathResolverTrait]: src/Eloquent/Pathogen/Resolver/Consumer/NormalizingPathResolverTrait.php
-[PathFactoryInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/Factory/PathFactoryInterface.html
-[PathFactoryTrait]: src/Eloquent/Pathogen/Factory/Consumer/PathFactoryTrait.php
-[PathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/PathInterface.html
-[PathResolverTrait]: src/Eloquent/Pathogen/Resolver/Consumer/PathResolverTrait.php
-[PlatformFileSystemPath]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/FileSystem/PlatformFileSystemPath.html
-[PlatformFileSystemPathFactoryTrait]: src/Eloquent/Pathogen/FileSystem/Factory/Consumer/PlatformFileSystemPathFactoryTrait.php
-[RelativePathInterface]: http://lqnt.co/pathogen/artifacts/documentation/api/Eloquent/Pathogen/RelativePathInterface.html
-[traits]: http://php.net/traits
-
-[API documentation]: http://lqnt.co/pathogen/artifacts/documentation/api/
-[Composer]: http://getcomposer.org/
-[build-image]: http://img.shields.io/travis/eloquent/pathogen/develop.svg "Current build status for the develop branch"
-[Current build status]: https://travis-ci.org/eloquent/pathogen
-[coverage-image]: http://img.shields.io/coveralls/eloquent/pathogen/develop.svg "Current test coverage for the develop branch"
-[Current coverage status]: https://coveralls.io/r/eloquent/pathogen
-[eloquent/pathogen]: https://packagist.org/packages/eloquent/pathogen
-[Semantic versioning]: http://semver.org/
-[version-image]: http://img.shields.io/:semver-0.6.0-yellow.svg "This project uses semantic versioning"
