@@ -1,5 +1,13 @@
 # Pathogen changelog
 
+## 0.6.1 (2014-10-22)
+
+- **[FIXED]** Path factories handle excessive separators like '/A///B///C'
+  ([#38] - thanks [@rixbeck]).
+
+[#38]: https://github.com/eloquent/pathogen/issues/38
+[@rixbeck]: https://github.com/rixbeck
+
 ## 0.6.0 (2014-02-19)
 
 - **[BC BREAK]** Path resolvers refactored:
