@@ -32,11 +32,11 @@ class WindowsPathFactory extends PathFactory implements
      */
     public static function instance()
     {
-        if (null === static::$instance) {
-            static::$instance = new static;
+        if (null === self::$instance) {
+            self::$instance = new self;
         }
 
-        return static::$instance;
+        return self::$instance;
     }
 
     // Implementation of PathFactoryInterface ==================================
@@ -91,18 +91,11 @@ class WindowsPathFactory extends PathFactory implements
             if ('' === $atoms[$numAtoms - 1]) {
                 $hasTrailingSeparator = true;
                 array_pop($atoms);
-                --$numAtoms;
-            }
-        }
-
-        foreach ($atoms as $index => $atom) {
-            if ('' === $atom) {
-                array_splice($atoms, $index, 1);
             }
         }
 
         return $this->createFromDriveAndAtoms(
-            $atoms,
+            array_filter($atoms, 'strlen'),
             $drive,
             $isAbsolute,
             $isAnchored,
