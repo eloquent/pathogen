@@ -91,18 +91,11 @@ class WindowsPathFactory extends PathFactory implements
             if ('' === $atoms[$numAtoms - 1]) {
                 $hasTrailingSeparator = true;
                 array_pop($atoms);
-                --$numAtoms;
-            }
-        }
-
-        foreach ($atoms as $index => $atom) {
-            if ('' === $atom) {
-                array_splice($atoms, $index, 1);
             }
         }
 
         return $this->createFromDriveAndAtoms(
-            $atoms,
+            array_filter($atoms, 'strlen'),
             $drive,
             $isAbsolute,
             $isAnchored,

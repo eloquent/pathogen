@@ -66,14 +66,11 @@ class PathFactory implements PathFactoryInterface
             if ('' === $atoms[$numAtoms - 1]) {
                 $hasTrailingSeparator = !$isAbsolute || $numAtoms > 1;
                 array_pop($atoms);
-                --$numAtoms;
             }
         }
 
-        $atoms = array_filter($atoms, 'strlen');
-
         return $this->createFromAtoms(
-            $atoms,
+            array_filter($atoms, 'strlen'),
             $isAbsolute,
             $hasTrailingSeparator
         );

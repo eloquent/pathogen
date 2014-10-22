@@ -36,6 +36,7 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
             'Absolute with empty atoms'                                    => array('C:/foo//bar',            array('foo', 'bar'),             'C',  true,      false,     false),
             'Absolute with empty atoms at start'                           => array('C://foo',                array('foo'),                    'C',  true,      false,     false),
             'Absolute with empty atoms at end'                             => array('C:/foo//',               array('foo'),                    'C',  true,      false,     true),
+            'Absolute with excessive separators'                           => array('C:/A///B///C',           array('A', 'B', 'C'),            'C',  true,      false,     false),
             'Absolute with whitespace atoms'                               => array('C:/ foo bar / baz qux ', array(' foo bar ', ' baz qux '), 'C',  true,      false,     false),
 
             'Anchored relative root'                                       => array('/',                      array(),                         null, false,     true,      false),
@@ -44,6 +45,7 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
             'Anchored relative with empty atoms'                           => array('/foo//bar',              array('foo', 'bar'),             null, false,     true,      false),
             'Anchored relative with empty atoms at start'                  => array('//foo',                  array('foo'),                    null, false,     true,      false),
             'Anchored relative with empty atoms at end'                    => array('/foo//',                 array('foo'),                    null, false,     true,      true),
+            'Anchored relative with excessive separators'                  => array('/A///B///C',             array('A', 'B', 'C'),            null, false,     true,      false),
             'Anchored relative with whitespace atoms'                      => array('/ foo bar / baz qux ',   array(' foo bar ', ' baz qux '), null, false,     true,      false),
 
             'Empty'                                                        => array('',                       array('.'),                      null, false,     false,     false),
@@ -52,6 +54,7 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
             'Relative with trailing separator'                             => array('foo/bar/',               array('foo', 'bar'),             null, false,     false,     true),
             'Relative with empty atoms'                                    => array('foo//bar',               array('foo', 'bar'),             null, false,     false,     false),
             'Relative with empty atoms at end'                             => array('foo/bar//',              array('foo', 'bar'),             null, false,     false,     true),
+            'Relative with excessive separators'                           => array('A///B///C',              array('A', 'B', 'C'),            null, false,     false,     false),
             'Relative with whitespace atoms'                               => array(' foo bar / baz qux ',    array(' foo bar ', ' baz qux '), null, false,     false,     false),
 
             'Self with drive'                                              => array('C:.',                    array('.'),                      'C',  false,     false,     false),
@@ -68,6 +71,7 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
             'Absolute with empty atoms with backslashes'                   => array('C:\foo\\\\bar',          array('foo', 'bar'),             'C',  true,      false,     false),
             'Absolute with empty atoms at start with backslashes'          => array('C:\\\\foo',              array('foo'),                    'C',  true,      false,     false),
             'Absolute with empty atoms at end with backslashes'            => array('C:\foo\\\\',             array('foo'),                    'C',  true,      false,     true),
+            'Absolute with excessive separators with backslashes'          => array('C:\\A\\\\\\B\\\\\\C',    array('A', 'B', 'C'),            'C',  true,      false,     false),
             'Absolute with whitespace atoms with backslashes'              => array('C:\ foo bar \ baz qux ', array(' foo bar ', ' baz qux '), 'C',  true,      false,     false),
 
             'Anchored relative root with backslashes'                      => array('\\',                     array(),                         null, false,     true,      false),
@@ -76,6 +80,7 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
             'Anchored relative with empty atoms with backslashes'          => array('\foo\\\\bar',            array('foo', 'bar'),             null, false,     true,      false),
             'Anchored relative with empty atoms at start with backslashes' => array('\\\\foo',                array('foo'),                    null, false,     true,      false),
             'Anchored relative with empty atoms at end with backslashes'   => array('\foo\\\\',               array('foo'),                    null, false,     true,      true),
+            'Anchored relative with excessive separators with backslashes' => array('\\A\\\\\\B\\\\\\C',      array('A', 'B', 'C'),            null, false,     true,      false),
             'Anchored relative with whitespace atoms with backslashes'     => array('\ foo bar \ baz qux ',   array(' foo bar ', ' baz qux '), null, false,     true,      false),
 
             'Empty with backslashes'                                       => array('',                       array('.'),                      null, false,     false,     false),
@@ -84,6 +89,7 @@ class WindowsPathFactoryTest extends PHPUnit_Framework_TestCase
             'Relative with trailing separator with backslashes'            => array('foo\bar\\',              array('foo', 'bar'),             null, false,     false,     true),
             'Relative with empty atoms with backslashes'                   => array('foo\\\\bar',             array('foo', 'bar'),             null, false,     false,     false),
             'Relative with empty atoms at end with backslashes'            => array('foo\bar\\\\',            array('foo', 'bar'),             null, false,     false,     true),
+            'Relative with excessive separators'                           => array('A\\\\\\B\\\\\\C',        array('A', 'B', 'C'),            null, false,     false,     false),
             'Relative with whitespace atoms with backslashes'              => array(' foo bar \ baz qux ',    array(' foo bar ', ' baz qux '), null, false,     false,     false),
 
             'Self with drive with backslashes'                             => array('C:.',                    array('.'),                      'C',  false,     false,     false),

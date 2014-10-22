@@ -35,6 +35,7 @@ class UnixPathFactoryTest extends PHPUnit_Framework_TestCase
             'Absolute with empty atoms'           => array('/foo//bar',             array('foo', 'bar'),              true,       false),
             'Absolute with empty atoms at start'  => array('//foo',                 array('foo'),                     true,       false),
             'Absolute with empty atoms at end'    => array('/foo//',                array('foo'),                     true,       true),
+            'Absolute with excessive separators'  => array('/A///B///C',            array('A', 'B', 'C'),             true,       false),
             'Absolute with whitespace atoms'      => array('/ foo bar / baz qux ',  array(' foo bar ', ' baz qux '),  true,       false),
 
             'Empty'                               => array('',                      array('.'),                       false,      false),
@@ -43,6 +44,7 @@ class UnixPathFactoryTest extends PHPUnit_Framework_TestCase
             'Relative with trailing separator'    => array('foo/bar/',              array('foo', 'bar'),              false,      true),
             'Relative with empty atoms'           => array('foo//bar',              array('foo', 'bar'),              false,      false),
             'Relative with empty atoms at end'    => array('foo/bar//',             array('foo', 'bar'),              false,      true),
+            'Excessive separators'                => array('A///B///C',             array('A', 'B', 'C'),             false,      false),
             'Relative with whitespace atoms'      => array(' foo bar / baz qux ',   array(' foo bar ', ' baz qux '),  false,      false),
         );
     }
