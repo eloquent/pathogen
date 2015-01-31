@@ -21,20 +21,17 @@ final class UndefinedAtomException extends Exception
     /**
      * Construct a new undefined atom exception.
      *
-     * @param integer        $index    The requested atom index.
-     * @param Exception|null $previous The cause, if available.
+     * @param integer        $index The requested atom index.
+     * @param Exception|null $cause The cause, if available.
      */
-    public function __construct($index, Exception $previous = null)
+    public function __construct($index, Exception $cause = null)
     {
         $this->index = $index;
 
         parent::__construct(
-            sprintf(
-                'No atom defined for index %s.',
-                var_export($index, true)
-            ),
+            sprintf('No atom defined for index %s.', var_export($index, true)),
             0,
-            $previous
+            $cause
         );
     }
 

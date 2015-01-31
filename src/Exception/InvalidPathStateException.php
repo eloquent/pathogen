@@ -21,17 +21,17 @@ final class InvalidPathStateException extends Exception
     /**
      * Construct a new invalid path state exception.
      *
-     * @param string         $reason   The reason message.
-     * @param Exception|null $previous The cause, if available.
+     * @param string         $reason The reason message.
+     * @param Exception|null $cause  The cause, if available.
      */
-    public function __construct($reason, Exception $previous = null)
+    public function __construct($reason, Exception $cause = null)
     {
         $this->reason = $reason;
 
         parent::__construct(
             sprintf('Invalid path state. %s', $reason),
             0,
-            $previous
+            $cause
         );
     }
 

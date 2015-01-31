@@ -79,6 +79,26 @@ abstract class AbstractFileSystemPathFactory implements
     }
 
     /**
+     * Create a path representing the home directory of the current user.
+     *
+     * @return AbsoluteFileSystemPathInterface A new path instance representing the current user's home directory path.
+     */
+    public function createHomeDirectoryPath()
+    {
+        $isolator = $this->isolator();
+        if ($isolator->function_exists('posix_geteuid')) {
+
+        } elseif ($isolator->getenv('HOME')) {
+
+        } elseif ($isolator->getenv('HOMEDRIVE')) {
+
+        }
+
+        return $this->factoryByPlatform()
+            ->create($this->isolator()->getcwd());
+    }
+
+    /**
      * Create a path representing the system temporary directory.
      *
      * @return AbsoluteFileSystemPathInterface A new path instance representing the system default temporary directory path.

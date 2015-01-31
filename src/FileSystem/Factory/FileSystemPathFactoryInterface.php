@@ -27,6 +27,13 @@ interface FileSystemPathFactoryInterface extends PathFactoryInterface
     public function createWorkingDirectoryPath();
 
     /**
+     * Create a path representing the home directory of the current user.
+     *
+     * @return AbsoluteFileSystemPathInterface A new path instance representing the current user's home directory path.
+     */
+    public function createHomeDirectoryPath();
+
+    /**
      * Create a path representing the system temporary directory.
      *
      * @return AbsoluteFileSystemPathInterface A new path instance representing the system default temporary directory path.

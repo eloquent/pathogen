@@ -23,13 +23,13 @@ final class InvalidPathAtomCharacterException extends AbstractInvalidPathAtomExc
      *
      * @param string         $atom      The invalid path atom.
      * @param string         $character The invalid character.
-     * @param Exception|null $previous  The cause, if available.
+     * @param Exception|null $cause     The cause, if available.
      */
-    public function __construct($atom, $character, Exception $previous = null)
+    public function __construct($atom, $character, Exception $cause = null)
     {
         $this->character = $character;
 
-        parent::__construct($atom, $previous);
+        parent::__construct($atom, $cause);
     }
 
     /**

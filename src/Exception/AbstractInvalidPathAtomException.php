@@ -23,10 +23,10 @@ abstract class AbstractInvalidPathAtomException extends Exception
     /**
      * Construct a new invalid path atom exception.
      *
-     * @param string         $atom     The invalid path atom.
-     * @param Exception|null $previous The cause, if available.
+     * @param string         $atom  The invalid path atom.
+     * @param Exception|null $cause The cause, if available.
      */
-    public function __construct($atom, Exception $previous = null)
+    public function __construct($atom, Exception $cause = null)
     {
         $this->atom = $atom;
 
@@ -37,7 +37,7 @@ abstract class AbstractInvalidPathAtomException extends Exception
                 $this->reason()
             ),
             0,
-            $previous
+            $cause
         );
     }
 

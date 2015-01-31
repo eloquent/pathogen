@@ -14,19 +14,19 @@ namespace Eloquent\Pathogen\Exception;
 use Exception;
 
 /**
- * No path atoms were supplied when constructing a new relative path.
+ * The requested path could not be determined.
  */
-final class EmptyPathException extends Exception
+final class UnknownPathException extends Exception
 {
     /**
-     * Construct a new empty path exception.
+     * Construct a new unknown path exception.
      *
      * @param Exception|null $cause The cause, if available.
      */
     public function __construct(Exception $cause = null)
     {
         parent::__construct(
-            'Relative paths must have at least one atom.',
+            'The requested path could not be determined.',
             0,
             $cause
         );

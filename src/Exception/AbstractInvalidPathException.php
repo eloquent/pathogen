@@ -24,10 +24,10 @@ abstract class AbstractInvalidPathException extends Exception
     /**
      * Construct a new invalid path exception.
      *
-     * @param PathInterface  $path     The invalid path.
-     * @param Exception|null $previous The cause, if available.
+     * @param PathInterface  $path  The invalid path.
+     * @param Exception|null $cause The cause, if available.
      */
-    public function __construct(PathInterface $path, Exception $previous = null)
+    public function __construct(PathInterface $path, Exception $cause = null)
     {
         $this->path = $path;
 
@@ -38,7 +38,7 @@ abstract class AbstractInvalidPathException extends Exception
                 $this->reason()
             ),
             0,
-            $previous
+            $cause
         );
     }
 
